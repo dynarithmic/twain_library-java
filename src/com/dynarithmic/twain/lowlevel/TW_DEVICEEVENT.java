@@ -1,0 +1,184 @@
+package com.dynarithmic.twain.lowlevel;
+
+public class TW_DEVICEEVENT extends TwainLowLevel
+{
+    private TW_UINT32  Event = new TW_UINT32();
+    private TW_STR255  DeviceName = new TW_STR255();
+    private TW_UINT32  BatteryMinutes = new TW_UINT32();
+    private TW_INT16   BatteryPercentage = new TW_INT16();
+    private TW_INT32   PowerSupply = new TW_INT32();
+    private TW_FIX32   XResolution = new TW_FIX32();
+    private TW_FIX32   YResolution = new TW_FIX32();
+    private TW_UINT32  FlashUsed2 = new TW_UINT32();
+    private TW_UINT32  AutomaticCapture = new TW_UINT32();
+    private TW_UINT32  TimeBeforeFirstCapture = new TW_UINT32();
+    private TW_UINT32  TimeBetweenCaptures = new TW_UINT32();
+
+    public TW_DEVICEEVENT() {}
+
+    public TW_UINT32 getEvent()
+    {
+        return Event;
+    }
+    public TW_STR255 getDeviceName()
+    {
+        return DeviceName;
+    }
+    public TW_UINT32 getBatteryMinutes()
+    {
+        return BatteryMinutes;
+    }
+    public TW_INT16 getBatteryPercentage()
+    {
+        return BatteryPercentage;
+    }
+    public TW_INT32 getPowerSupply()
+    {
+        return PowerSupply;
+    }
+    public TW_FIX32 getXResolution()
+    {
+        return XResolution;
+    }
+    public TW_FIX32 getYResolution()
+    {
+        return YResolution;
+    }
+    public TW_UINT32 getFlashUsed2()
+    {
+        return FlashUsed2;
+    }
+    public TW_UINT32 getAutomaticCapture()
+    {
+        return AutomaticCapture;
+    }
+    public TW_UINT32 getTimeBeforeFirstCapture()
+    {
+        return TimeBeforeFirstCapture;
+    }
+    public TW_UINT32 getTimeBetweenCaptures()
+    {
+        return TimeBetweenCaptures;
+    }
+    public TW_DEVICEEVENT setEvent(TW_UINT32 event)
+    {
+        Event = event;
+        return this;
+    }
+    public TW_DEVICEEVENT setDeviceName(TW_STR255 deviceName)
+    {
+        DeviceName = deviceName;
+        return this;
+    }
+    public TW_DEVICEEVENT setBatteryMinutes(TW_UINT32 batteryMinutes)
+    {
+        BatteryMinutes = batteryMinutes;
+        return this;
+    }
+    public TW_DEVICEEVENT setBatteryPercentage(TW_INT16 batteryPercentage)
+    {
+        BatteryPercentage = batteryPercentage;
+        return this;
+    }
+    public TW_DEVICEEVENT setPowerSupply(TW_INT32 powerSupply)
+    {
+        PowerSupply = powerSupply;
+        return this;
+    }
+    public TW_DEVICEEVENT setXResolution(TW_FIX32 xResolution)
+    {
+        XResolution = xResolution;
+        return this;
+    }
+    public TW_DEVICEEVENT setYResolution(TW_FIX32 yResolution)
+    {
+        YResolution = yResolution;
+        return this;
+    }
+    public TW_DEVICEEVENT setFlashUsed2(TW_UINT32 flashUsed2)
+    {
+        FlashUsed2 = flashUsed2;
+        return this;
+    }
+    public TW_DEVICEEVENT setAutomaticCapture(TW_UINT32 automaticCapture)
+    {
+        AutomaticCapture = automaticCapture;
+        return this;
+    }
+    public TW_DEVICEEVENT setTimeBeforeFirstCapture(TW_UINT32 timeBeforeFirstCapture)
+    {
+        TimeBeforeFirstCapture = timeBeforeFirstCapture;
+        return this;
+    }
+    public TW_DEVICEEVENT setTimeBetweenCaptures(TW_UINT32 timeBetweenCaptures)
+    {
+        TimeBetweenCaptures = timeBetweenCaptures;
+        return this;
+    }
+
+    public TW_DEVICEEVENT setEvent(long event)
+    {
+        Event.setValue(event);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setDeviceName(String deviceName)
+    {
+        DeviceName.setValue(deviceName);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setBatteryMinutes(long batteryMinutes)
+    {
+        BatteryMinutes.setValue(batteryMinutes);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setBatteryPercentage(short batteryPercentage)
+    {
+        BatteryPercentage.setValue(batteryPercentage);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setPowerSupply(int powerSupply)
+    {
+        PowerSupply.setValue(powerSupply);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setXResolution(double xResolution)
+    {
+        XResolution.setValue(xResolution);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setYResolution(double yResolution)
+    {
+        YResolution.setValue(yResolution);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setFlashUsed2(long flashUsed2)
+    {
+        FlashUsed2.setValue(flashUsed2);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setAutomaticCapture(long automaticCapture)
+    {
+        AutomaticCapture.setValue(automaticCapture);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setTimeBeforeFirstCapture(long timeBeforeFirstCapture)
+    {
+        TimeBeforeFirstCapture.setValue(timeBeforeFirstCapture);
+        return this;
+    }
+
+    public TW_DEVICEEVENT setTimeBetweenCaptures(long timeBetweenCaptures)
+    {
+        TimeBetweenCaptures.setValue(timeBetweenCaptures);
+        return this;
+    }
+}

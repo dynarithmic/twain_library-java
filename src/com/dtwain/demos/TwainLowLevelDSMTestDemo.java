@@ -1,0 +1,83 @@
+package com.dtwain.demos;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+import org.javatuples.Triplet;
+
+import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.TwainAppInfo;
+import com.dynarithmic.twain.highlevel.TwainCharacteristics;
+import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.lowlevel.TW_IDENTITY;
+import com.dynarithmic.twain.lowlevel.TwainLowLevel;
+import com.dynarithmic.twain.lowlevel.TwainTriplet;
+
+public class TwainLowLevelDSMTestDemo
+{
+    private Map<Triplet<Long, Integer, Integer>, TwainLowLevel> sMap = null;
+    void TestMarshal() throws Exception
+    {
+        // Get the map of the triplet information
+        sMap = TwainTriplet.getTripletMap();
+
+        // create a new twain session
+        TwainSession twSession = new TwainSession();
+
+        // Set the JNI to use and the DSM to use (LEGACY)
+        TwainCharacteristics tc = twSession.getTwainCharacteristics();
+
+        // Get the app info object and set the product name to our application name
+        TwainAppInfo appInfo = tc.getAppInfo();
+        appInfo.setProductName("DSM Tester").
+                setManufacturer("Dynarithmic Software").
+                setProductFamily("Java/JNI Layer");
+
+        // Now start the session
+        twSession.start();
+
+        // Print out the TW_IDENTITY for the session that has been started.
+        System.out.println("The path of the Twain DSM in use is: " + twSession.getDSMPath());
+        TW_IDENTITY appID = twSession.getSessionId();
+        System.out.println("The Twain APP Session: " + appID.asString());
+        System.out.println();
+
+        // Print out all triplet and object required for call to DTWAIN_CallDSMProc for the "Object" (last) parameter
+        // The object type information comes from the JNI layer.
+        sMap.forEach((k, v) ->
+        {
+            try
+            {
+                String dgName = TwainTriplet.getDGName(k.getValue0().intValue());
+                String datName = TwainTriplet.getDATName(k.getValue1().intValue());
+                String msgName = TwainTriplet.getMSGName(k.getValue2().intValue());
+                Object testObject = TwainTriplet.createObjectFromTriplet(k.getValue0().longValue(), k.getValue1().intValue(), k.getValue2().intValue());
+                Object obj = twSession.getAPIHandle().DTWAIN_CreateObjectFromTriplet(k.getValue0().longValue(), k.getValue1().intValue(), k.getValue2().intValue());
+                System.out.println("Twain Triplet:" + k + "  [" + dgName +", " + datName + ", " + msgName + "]  " + "requires creation of this object type: " + obj.getClass().getName());
+                if ( obj.getClass() != testObject.getClass())
+                {
+                    System.out.println("The object that was created in Java: " + testObject.getClass().getName() +
+                            " does not match the required object " + obj.getClass().getName());
+                }
+            }
+            catch (DTwainJavaAPIException | ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException exc)
+            {
+                System.out.println(exc.getMessage());
+            }
+        });
+        twSession.stop();
+    }
+
+    public static void main(String[] args)
+    {
+        TwainLowLevelDSMTestDemo theTest = new TwainLowLevelDSMTestDemo();
+        try
+        {
+            theTest.TestMarshal();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+}
