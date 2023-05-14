@@ -3069,6 +3069,11 @@ void JavaDTwainVersionInfo::setShortName(LPCTSTR str)
     callVoidMethod(getFunctionName(SetShortName), CreateJStringFromCString(m_pJavaEnv, str));
 }
 
+void JavaDTwainVersionInfo::setVersionCopyright(LPCTSTR str)
+{
+    callVoidMethod(getFunctionName(SetVersionCopyright), CreateJStringFromCString(m_pJavaEnv, str));
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 JavaTwainAcquireArea::JavaTwainAcquireArea(JNIEnv* env) : 
     JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainAcquireArea", 

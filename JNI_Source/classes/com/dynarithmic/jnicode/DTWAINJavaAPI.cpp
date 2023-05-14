@@ -5,6 +5,7 @@
 #include <numeric>
 #include <sstream>
 #include <string>
+#include <iostream>
 #include <tchar.h>
 #include <vector>
 #include <windows.h>
@@ -1978,6 +1979,11 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVe
         std::vector<TCHAR> vChars2(sLength, 0);
         DTWAIN_GetShortVersionString(vChars2.data(), sLength);
 
+        // call DTWAIN function to get the short string version
+        sLength = DTWAIN_GetVersionCopyright(nullptr, 0);
+        std::vector<TCHAR> vChars3(sLength, 0);
+        DTWAIN_GetVersionCopyright(vChars3.data(), sLength);
+
         // Call Java function to declare and init a new versionInfo object
         vInfo.setMajorVersion(majorV);
         vInfo.setMinorVersion(minorV);
@@ -1986,6 +1992,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVe
         vInfo.setExePath(exePathChars.data());
         vInfo.setLongName(vChars.data());
         vInfo.setShortName(vChars2.data());
+        vInfo.setVersionCopyright(vChars3.data());
     }
     return vInfo.getObject();
     DTWAIN_CATCH(env)
@@ -5775,5 +5782,78 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetFi
     DTWAIN_CATCH(env)
 }
 
+/*
+*Class:     com_dynarithmic_twain_DTwainJavaAPI
+* Method : DTWAIN_GetVersionCopyright
+* Signature : ()Ljava / lang / String;
+*/
+JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVersionCopyright
+(JNIEnv* env, jobject)
+{
+    DTWAIN_TRY
+    LONG retLength = DTWAIN_GetVersionCopyright(nullptr, 0);
+    if (retLength > 0)
+    {
+        std::vector<TCHAR> arg(retLength + 1);
+        DTWAIN_GetVersionCopyright(arg.data(), arg.size());
+        return CreateJStringFromCString(env, arg.data());
+    }
+    TCHAR szNothing[] = { 0 };
+    return CreateJStringFromCString(env, szNothing);
+    DTWAIN_CATCH(env)
+}
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetSessionDetails
+ * Signature: (I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSessionDetails
+(JNIEnv* env, jobject, jint indentValue)
+{
+    DTWAIN_TRY
+    LONG retLength = DTWAIN_GetSessionDetails(nullptr, 0, indentValue, TRUE);
+    if (retLength > 0)
+    {
+        std::vector<TCHAR> arg(retLength + 1);
+        DTWAIN_GetSessionDetails(arg.data(), arg.size(), indentValue, FALSE);
+        return CreateJStringFromCString(env, arg.data());
+    }
+    TCHAR szNothing[] = { 0 };
+    return CreateJStringFromCString(env, szNothing);
+    DTWAIN_CATCH(env)
+}
 
 
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetSourceDetails
+ * Signature: (Ljava/lang/String;I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSourceDetails
+(JNIEnv* env, jobject, jstring sourceNames, jint indentValue)
+{
+    DTWAIN_TRY
+    GetStringCharsHandler str(env, sourceNames);
+    int nSources = 0;
+    #ifdef UNICODE
+        std::wstring sourceString = str.GetStringCharsNative();
+        std::wistringstream strm(sourceString);
+        std::wstring oneSource;
+        while (std::getline(strm, oneSource, L'|'))
+            ++nSources;
+    #else
+        std::string sourceString = str.GetStringCharsNative();
+        std::istringstream strm(sourceString);
+        std::string oneSource;
+        while (std::getline(strm, oneSource, '|'))
+            ++nSources;
+    #endif
+    std::vector<TCHAR> vChars(100000 * nSources + 1, 0);
+    LONG retLength = DTWAIN_GetSourceDetails(reinterpret_cast<LPCTSTR>(str.GetStringChars()), vChars.data(), vChars.size(), indentValue);
+    if (retLength > 0)
+        return CreateJStringFromCString(env, vChars.data());
+    TCHAR szNothing[] = { 0 };
+    return CreateJStringFromCString(env, szNothing);
+    DTWAIN_CATCH(env)
+}

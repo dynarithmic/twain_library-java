@@ -35,7 +35,7 @@ public class SetJNIVersionDemo
             TwainSession twainSession = new TwainSession();
 
             // Verify these are the DLLs being used
-            System.out.println("The DTWAIN DLL in use: " + twainSession.getDTwainVersionInfo().getExecutionPath());
+            System.out.println("The DTWAIN DLL in use: " + twainSession.getDTwainPath());
             System.out.println("The JNI Version: " + DTwainGlobalOptions.getJNIVersionAsString());
 
             // Close down the TWAIN Session

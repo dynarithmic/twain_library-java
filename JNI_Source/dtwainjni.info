@@ -139,7 +139,7 @@ SetYOff                                 setyOffsetInImage                  (I)V
 SetBytesWritten                         setBytesWritten                    (I)V
 SetBytesPerRow                          setBytesPerRow                     (I)V
 
-DTwainVersionInfo                       com/dynarithmic/twain/DTwainVersionInfo                     9
+DTwainVersionInfo                       com/dynarithmic/twain/DTwainVersionInfo                     10
 DefaultConstructor                      <>                                 ()V
 Constructor                             <>                                 (IIIILjava/lang/String;)V
 SetMajorVersion                         setMajorVersion                    (I)V
@@ -147,6 +147,7 @@ SetMinorVersion                         setMinorVersion                    (I)V
 SetExePath                              setExecutionPath                   (Ljava/lang/String;)V
 SetLongName                             setLongVersionName                 (Ljava/lang/String;)V
 SetShortName                            setShortVersionName                (Ljava/lang/String;)V
+SetVersionCopyright                     setVersionCopyright                (Ljava/lang/String;)V   
 SetPatchVersion                         setPatchVersion                    (I)V
 SetVersionType                          setVersionType                     (I)V
 

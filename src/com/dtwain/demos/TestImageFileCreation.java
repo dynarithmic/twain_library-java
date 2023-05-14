@@ -1,8 +1,6 @@
 package com.dtwain.demos;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.SupportedFileTypeInfo;
@@ -11,24 +9,10 @@ import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.FileTransferOptions;
-import com.dynarithmic.twain.highlevel.acquirecharacteristics.GeneralOptions;
-import com.dynarithmic.twain.DTwainConstants.FileType;
-import com.dynarithmic.twain.DTwainConstants.PixelType;
 class TestImageFileCreation
 {
     TwainSession twSession = null;
     @SuppressWarnings("serial")
-    private static Set<FileType> sBlackWhite = new HashSet<FileType>() {
-        {
-            add(FileType.TIFFG3);
-            add(FileType.TIFFG4);
-            add(FileType.TIFFG3MULTI);
-            add(FileType.TIFFG4MULTI);
-            add(FileType.TEXT);
-            add(FileType.TEXTMULTI);
-        }
-    };
-
     private void TestMultiOrSingleFile(String outDir, boolean bTestSingle) throws Exception
     {
 
@@ -59,9 +43,6 @@ class TestImageFileCreation
             //  Set the base file options for all file types
             FileTransferOptions fc = ac.getFileTransferOptions().enableAutoCreateDirectory(true);
 
-            // Set the general options for all file types
-            GeneralOptions gOpts = ac.getGeneralOptions().setMaxPageCount(bTestSingle?1:2);
-
             // turn off the user interface
             ac.getUserInterfaceOptions().showUI(false);
 
@@ -80,17 +61,7 @@ class TestImageFileCreation
                 String fileName = filePrefix + fileInfo.getName() + "." + extToUse;
 
                 // Set the name and type
-                FileType ft = fileInfo.getType();
                 fc.setName(fileName).setType(fileInfo.getType());
-
-                // Make sure pixel type is black/white for the corresponding
-                // file type (TIFF G3, TIFF g4, etc.)
-                PixelType pt = PixelType.DEFAULT;
-                if (sBlackWhite.contains(ft) )
-                    pt = PixelType.BW;
-
-                // Set the pixel type
-                gOpts.setPixelType(pt);
 
                 // Start the acquisition
                 twainSource.acquire();

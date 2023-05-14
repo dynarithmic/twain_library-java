@@ -4,7 +4,6 @@ import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.TwainCallback;
-import com.dynarithmic.twain.highlevel.TwainImageInfo;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -17,8 +16,11 @@ public class MultiPageTIFFCompressionDemo
     {
         TwainSession twainSession = null;
         TwainSource twainSource = null;
-
-        public TIFFCallback() {}
+        int page;
+        public TIFFCallback() 
+        {
+            page = 1;
+        }
 
         public TIFFCallback(TwainSession ts, TwainSource tSource)
         {
@@ -30,22 +32,15 @@ public class MultiPageTIFFCompressionDemo
         @Override
         public int onTransferReady(long sourceHandle)
         {
-            // If it's 1BPP, then let's use a Fax compression
-            // for this page, otherwise, use LZW compression
+            // If the page is an odd number, use LZW compression, 
+            // else use Group 4 FAX compression
             try
             {
-                // Assume the image is color, so use LZW compression
-                FileType fileType = FileType.TIFFLZWMULTI;
-
-                // This returns a TwainImageInfo object
-                TwainImageInfo iInfo = twainSource.getAcquiredImageInfo();
-
-                // The call to getImageInfo() returns the underlying
-                // low-level TWAIN class that contains the information on the
-                // image that is about to be acquired from the device
-                if ( iInfo.getImageInfo().getBitsPerPixel().getValue() == 1) // 1 bit-per-pixel == B/W
-                    fileType = FileType.TIFFG4MULTI;
-                twainSource.setTiffCompressType(fileType);
+                if ( page % 2 == 1 )
+                    twainSource.setTiffCompressType(FileType.TIFFLZW);
+                else
+                    twainSource.setTiffCompressType(FileType.TIFFG4);
+                ++page;
             }
             catch (DTwainJavaAPIException e)
             {

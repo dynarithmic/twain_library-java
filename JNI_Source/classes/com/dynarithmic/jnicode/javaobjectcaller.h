@@ -1269,6 +1269,7 @@ class JavaDTwainVersionInfo : public JavaObjectCaller
     static constexpr const char*  SetShortName = "SetShortName";
     static constexpr const char*  SetPatchVersion = "SetPatchVersion";
     static constexpr const char*  SetVersionType = "SetVersionType";
+    static constexpr const char*  SetVersionCopyright = "SetVersionCopyright";
 
 public:
     JavaDTwainVersionInfo(JNIEnv* env);
@@ -1280,6 +1281,7 @@ public:
     void setExePath(LPCTSTR str);
     void setLongName(LPCTSTR str);
     void setShortName(LPCTSTR str);
+    void setVersionCopyright(LPCTSTR str);
     void setVersionType(int32_t versionType);
     void setPatchVersion(int32_t patchVersion);
 };
