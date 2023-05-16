@@ -17,7 +17,7 @@ import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface.G
 public class BarcodeDemo
 {
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -116,7 +116,7 @@ public class BarcodeDemo
         BarcodeDemo s = new BarcodeDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

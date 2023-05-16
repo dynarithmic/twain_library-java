@@ -11,6 +11,7 @@ public class DTwainVersionInfo
     private String executionPath;
     private String longVersionName;
     private String shortVersionName;
+    private String versionCopyright;
 
     public String toString() { return longVersionName; }
 
@@ -73,6 +74,16 @@ public class DTwainVersionInfo
 
     private void setVersionType(int versionType) {
         this.versionType = versionType;
+    }
+
+    private void setVersionCopyright(String sCopyright)
+    {
+        this.versionCopyright = sCopyright;
+    }
+    
+    public String getVersionCopyright()
+    {
+        return this.versionCopyright;
     }
 
     public boolean is32Bit()

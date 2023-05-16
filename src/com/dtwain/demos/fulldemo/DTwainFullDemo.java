@@ -84,16 +84,17 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         enableSourceItems(false);
         // create a TWAIN session
         // Get the characteristics for the TWAIN session
+        DTwainGlobalOptions.setJNIVersion(5); //jniToUse - 1);
+
         mainTwainSession = new TwainSession();
-        TwainCharacteristics tc = mainTwainSession.getTwainCharacteristics();
         iCallback = new DTwainDemoCallback(this);
         iCallback.activate();
 
         // Set the TWAIN DSM to use when starting up the TWAIN system
-        tc.setDSMToUse(DSMType.LEGACY);
+        mainTwainSession.setDSM(DSMType.LEGACY);
 
         // Set the application info
-        TwainAppInfo appInfo = tc.getAppInfo();
+        TwainAppInfo appInfo = mainTwainSession.getAppInfo();
         appInfo.setManufacturer("My Java Manufacturer");
         appInfo.setProductName("My Java Product Name");
         appInfo.setVersionInfo("My Java Version Info");
@@ -1068,7 +1069,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         {
             acInfo = this.m_SourceWrapper.acquire();
         }
-        catch (DTwainJavaAPIException | InterruptedException e)
+        catch (DTwainJavaAPIException e)
         {
             e.printStackTrace();
         }

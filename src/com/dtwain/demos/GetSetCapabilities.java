@@ -18,7 +18,7 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.ICAP_SUPPORTEDSIZES;
 public class GetSetCapabilities
 {
 
-    public void run() throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException, FileNotFoundException, IOException, InterruptedException
+    public void run() throws DTwainJavaAPIException
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();

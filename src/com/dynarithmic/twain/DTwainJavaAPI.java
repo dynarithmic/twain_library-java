@@ -84,7 +84,7 @@ public class DTwainJavaAPI
             throw new DTwainInitException("Invalid DLL Constant \"" + dllName + "\" used");
     }
 
-    private void InitialLoadLibrary() throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    private void InitialLoadLibrary() throws DTwainJavaAPIException 
     {
         // Load the JNI DLL
         System.loadLibrary(s_DLLMap.get(m_DLLName).s_DTwainJNIName);
@@ -99,7 +99,7 @@ public class DTwainJavaAPI
        return m_LibraryHandle != 0;
     }
 
-    public boolean DTWAIN_JavaSysInitialize() throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    public boolean DTWAIN_JavaSysInitialize() throws DTwainJavaAPIException 
     {
         if ( m_LibraryHandle != 0 )
             return true;
@@ -107,7 +107,7 @@ public class DTwainJavaAPI
         return EndLoadLibrary();
     }
 
-    public boolean DTWAIN_JavaSysInitialize(TwainStartupOptions startOpts) throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    public boolean DTWAIN_JavaSysInitialize(TwainStartupOptions startOpts) throws DTwainJavaAPIException
     {
         if ( m_LibraryHandle != 0 )
             return true;
@@ -577,6 +577,9 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetFileTypeName(int fileType);
     public native String DTWAIN_GetFileTypeExtension(int fileType);
     public native ExtendedImageInfo DTWAIN_GetExtendedImageInfo(long Source);
+    public native String DTWAIN_GetVersionCopyright();
+    public native String DTWAIN_GetSessionDetails(int indentSize);
+    public native String DTWAIN_GetSourceDetails(String sourceNames, int indentSize);
     static
     {
         s_DLLMap = new TreeMap<>();

@@ -10,7 +10,7 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 public class BufferedAcquisitionDemo
 {
     // Simple acquire to a file
-    public void BufferedAcquire() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -94,7 +94,7 @@ public class BufferedAcquisitionDemo
         BufferedAcquisitionDemo s = new BufferedAcquisitionDemo();
         try
         {
-            s.BufferedAcquire();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

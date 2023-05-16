@@ -10,7 +10,7 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.MSG;
 
 public class GetResolutionValuesDemo
 {
-    public void runDemo()
+    public void run()
     {
         TwainSource twainSource = null;
         try
@@ -95,6 +95,6 @@ public class GetResolutionValuesDemo
     public static void main(String[] args)
     {
         GetResolutionValuesDemo gValues = new GetResolutionValuesDemo();
-        gValues.runDemo();
+        gValues.run();
     }
 }

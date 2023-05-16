@@ -69,7 +69,7 @@ public class MultiPageTIFFCompressionDemo
     // where each page can have a different compression type.
     // For example, if the page will be 1 bpp, a TIFFG3 or TIFFG4 may
     // be preferred, and for color/grayscale, a TIFF-LZW
-    public void Test() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -119,7 +119,7 @@ public class MultiPageTIFFCompressionDemo
         MultiPageTIFFCompressionDemo s = new MultiPageTIFFCompressionDemo();
         try
         {
-            s.Test();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -15,7 +15,7 @@ public class AutomaticFileNamingDemo
     // Acquire to single page TIFF files, where the name of each file will be of
     // the form testTIFFzzz.TIF, where zzz will be 001, 002, 003, 004, etc., for each image
     // acquired.
-    public void Test() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -69,7 +69,7 @@ public class AutomaticFileNamingDemo
         AutomaticFileNamingDemo demo = new AutomaticFileNamingDemo();
         try
         {
-            demo.Test();
+            demo.run();
         }
         catch (Exception e) {
             e.printStackTrace();

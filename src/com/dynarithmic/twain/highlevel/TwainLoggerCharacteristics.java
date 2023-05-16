@@ -2,6 +2,7 @@ package com.dynarithmic.twain.highlevel;
 
 import java.io.UnsupportedEncodingException;
 import com.dynarithmic.twain.DTwainConstants.LoggingOptions;
+import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 
 public class TwainLoggerCharacteristics
 {
@@ -33,9 +34,16 @@ public class TwainLoggerCharacteristics
     private int [] verbose_settings = new int [7];
     private int customLoggingOptions = 0;
 
-    public TwainLoggerCharacteristics() throws UnsupportedEncodingException
+    public TwainLoggerCharacteristics() throws DTwainJavaAPIException 
     {
-        this.twainLogger = new TwainLogger();
+        try 
+        {
+            this.twainLogger = new TwainLogger();
+        } 
+        catch (UnsupportedEncodingException e) 
+        {
+            throw new DTwainJavaAPIException(e.getMessage());
+        }
         verbose_settings[0] = 0;
         verbose_settings[1] = LoggingOptions.SHOW_CALLSTACK.value() | LoggingOptions.DECODE_BITMAP.value();
         verbose_settings[2] = verbose_settings[1] |

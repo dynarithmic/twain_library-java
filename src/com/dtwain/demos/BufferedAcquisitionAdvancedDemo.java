@@ -87,7 +87,7 @@ public class BufferedAcquisitionAdvancedDemo
     }
 
     // Simple acquire to a file
-    public void BufferedAcquire() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -139,7 +139,7 @@ public class BufferedAcquisitionAdvancedDemo
         BufferedAcquisitionAdvancedDemo s = new BufferedAcquisitionAdvancedDemo();
         try
         {
-            s.BufferedAcquire();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

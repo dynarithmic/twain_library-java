@@ -12,8 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
+import com.dynarithmic.twain.DTwainConstants.DSMType;
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.DTwainConstants.JNIVersion;
+import com.dynarithmic.twain.DTwainConstants.SessionStartupMode;
 import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.DTwainJavaAPI;
@@ -40,14 +42,14 @@ public class TwainSession
 
     private static final TwainConstantMapper<JNIVersion> s_map = new TwainConstantMapper<>(JNIVersion.class);
 
-    public TwainSession() throws IllegalArgumentException, IllegalAccessException, FileNotFoundException, DTwainJavaAPIException, IOException
+    public TwainSession() throws DTwainJavaAPIException 
     {
         postInitSession();
         if ( twainCharacteristics.isAutoStartSession() )
             start();
     }
 
-    public TwainSession(TwainCharacteristics tc) throws FileNotFoundException, IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException, IOException
+    public TwainSession(TwainCharacteristics tc) throws DTwainJavaAPIException
     {
         twainCharacteristics = tc;
         postInitSession();
@@ -56,17 +58,24 @@ public class TwainSession
             start();
     }
 
-    private void postInitSession() throws UnsupportedEncodingException
+    public TwainSession(SessionStartupMode sMode) throws DTwainJavaAPIException
+    {
+        this.twainCharacteristics.setAutoStartSession(sMode != SessionStartupMode.NONE);
+        postInitSession();
+        secondaryInit();
+    }
+
+    private void postInitSession() throws DTwainJavaAPIException
     {
        secondaryInit();
     }
 
-    private void secondaryInit() throws UnsupportedEncodingException
+    private void secondaryInit() throws DTwainJavaAPIException
     {
         twainLogger = new TwainLoggerCharacteristics();
     }
 
-    public static int getJNIVersionAsInt(String sVersion) throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException
+    public static int getJNIVersionAsInt(String sVersion) throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException //throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException
     {
         if ( sVersion == null || sVersion.isEmpty() )
             return s_map.toInt("jni_32u");
@@ -94,7 +103,7 @@ public class TwainSession
         return this.enableLogging;
     }
 
-    public void start() throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    public void start() throws DTwainJavaAPIException 
     {
         if (started)
             return;
@@ -107,7 +116,6 @@ public class TwainSession
             if ( dtwainAPI != null )
                 twainSessionId = dtwainAPI.DTWAIN_GetTwainAppID();
             this.dtwainVersionInfo = dtwainAPI.DTWAIN_GetVersionInfo();
-            dsmPath = dtwainAPI.DTWAIN_GetActiveDSMPath();
             startLogging();
             long [] allSources = dtwainAPI.DTWAIN_EnumSources();
             for (int i = 0; i < allSources.length; ++i)
@@ -115,6 +123,7 @@ public class TwainSession
                 TwainSourceInfo info = dtwainAPI.DTWAIN_GetSourceInfo(allSources[i]);
                 twainSourceCache.add(info);
             }
+            dsmPath = dtwainAPI.DTWAIN_GetActiveDSMPath();
             dtwainAPI.DTWAIN_EnableMsgNotify(1);
 
             singlePageTypes.clear();
@@ -161,14 +170,23 @@ public class TwainSession
         return started;
     }
 
-    public void stop() throws DTwainJavaAPIException, InterruptedException
+    public void stop() throws DTwainJavaAPIException
     {
         if (started)
         {
             if (dtwainAPI != null)
             {
-                while ( dtwainAPI.DTWAIN_IsAcquiring())
-                    TimeUnit.MILLISECONDS.sleep(1);
+                try
+                {
+                    while ( dtwainAPI.DTWAIN_IsAcquiring())
+                    {
+                        TimeUnit.MILLISECONDS.sleep(1);
+                    }
+                }
+                catch (InterruptedException e)
+                {
+                    throw new DTwainJavaAPIException(e.getMessage());
+                }
                 dtwainAPI.DTWAIN_SysDestroy();
                 this.twainLogger.getInternalLogger().setInterface(null);
                 started = false;
@@ -203,7 +221,7 @@ public class TwainSession
         return returnedSource;
     }
 
-    public TwainSource selectSource() throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    public TwainSource selectSource() throws DTwainJavaAPIException 
     {
         if ( !isStarted() )
             start();
@@ -215,7 +233,7 @@ public class TwainSession
         return null;
     }
 
-    public TwainSource selectSource(TwainSourceDialog sourceSelectorOptions) throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    public TwainSource selectSource(TwainSourceDialog sourceSelectorOptions) throws DTwainJavaAPIException 
     {
         if ( !isStarted() )
             start();
@@ -227,7 +245,7 @@ public class TwainSession
         return new TwainSource();
     }
 
-    public TwainSource selectSource(String sourceName) throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    public TwainSource selectSource(String sourceName) throws DTwainJavaAPIException
     {
         if ( !isStarted() )
             start();
@@ -240,7 +258,7 @@ public class TwainSession
         return new TwainSource();
     }
 
-    public TwainSource selectDefaultSource() throws DTwainJavaAPIException, FileNotFoundException, IOException, IllegalArgumentException, IllegalAccessException
+    public TwainSource selectDefaultSource() throws DTwainJavaAPIException 
     {
         if ( !isStarted() )
             start();
@@ -313,11 +331,26 @@ public class TwainSession
         }
     }
 
-    public DTwainVersionInfo getDTwainVersionInfo()
+    public String getShortVersionName()
     {
-        return this.dtwainVersionInfo;
+        return this.dtwainVersionInfo.getShortVersionName();
     }
 
+    public String getLongVersionName()
+    {
+        return this.dtwainVersionInfo.getLongVersionName();
+    }
+
+    public String getDTwainPath()
+    {
+        return this.dtwainVersionInfo.getExecutionPath();
+    }
+
+    public String getVersionCopyright()
+    {
+        return this.dtwainVersionInfo.getVersionCopyright();
+    }
+    
     public static TwainSource getTwainSourceFromHandle(long sourceHandle)
     {
         if (handleToSourceMap.containsKey(sourceHandle))
@@ -413,5 +446,32 @@ public class TwainSession
         else
             this.twainCharacteristics.setTemporaryDirectory(sDir);
         return this;
+    }
+    
+    public String getSessionDetails(int indentValue)
+    {
+        if ( dtwainAPI != null)
+        {
+            return dtwainAPI.DTWAIN_GetSessionDetails(indentValue);
+        }
+        return "";
+    }
+    
+    public String getSourceDetails(String sources, int indentValue)
+    {
+        if ( dtwainAPI != null)
+            return dtwainAPI.DTWAIN_GetSourceDetails(sources, indentValue);
+        return "";
+    }
+    
+    public TwainSession setDSM(DSMType dsm)
+    {
+        this.twainCharacteristics.setDSM(dsm);
+        return this;
+    }
+    
+    public TwainAppInfo getAppInfo()
+    {
+        return this.twainCharacteristics.getAppInfo();
     }
 }

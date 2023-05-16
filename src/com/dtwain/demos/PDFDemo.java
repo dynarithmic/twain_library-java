@@ -13,7 +13,7 @@ public class PDFDemo
     static public String outDir = "c:\\dtwain_javatest\\";
 
     // Acquire to a PDF file, with encryption settings turned on
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -64,7 +64,7 @@ public class PDFDemo
         PDFDemo demo = new PDFDemo();
         try
         {
-            demo.VerySimpleTest();
+            demo.run();
         }
         catch (Exception e) {
             e.printStackTrace();

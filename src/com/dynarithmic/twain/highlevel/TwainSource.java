@@ -330,7 +330,7 @@ public class TwainSource
         }
     }
 
-    private boolean waitForFeeder(PaperHandlingInfo paperInfo) throws DTwainJavaAPIException, InterruptedException
+    private boolean waitForFeeder(PaperHandlingInfo paperInfo) throws DTwainJavaAPIException
     {
         boolean isFeederSupported = paperInfo.isFeederSupported();
         if ( !isFeederSupported )
@@ -357,19 +357,26 @@ public class TwainSource
             return true;
         StopWatch stopwatch = new StopWatch();
         stopwatch.start();
-        while (!capabilityInterface.getFeederLoaded(getOp).get(0))
+        try
         {
-            if ( timeoutval != PaperHandlingOptions.waitInfinite)
+            while (!capabilityInterface.getFeederLoaded(getOp).get(0))
             {
-                if (stopwatch.getTime() / 1000 > timeoutval)
-                    return false;
+                if ( timeoutval != PaperHandlingOptions.waitInfinite)
+                {
+                    if (stopwatch.getTime() / 1000 > timeoutval)
+                        return false;
+                }
+                TimeUnit.MILLISECONDS.sleep(1);
             }
-            TimeUnit.MILLISECONDS.sleep(1);
+        }
+        catch(InterruptedException e)
+        {
+            throw new DTwainJavaAPIException(e.getMessage());
         }
         return true;
     }
 
-    public AcquireReturnInfo acquire() throws DTwainJavaAPIException, InterruptedException
+    public AcquireReturnInfo acquire() throws DTwainJavaAPIException 
     {
         isValid();
         boolean bFstatus = true;

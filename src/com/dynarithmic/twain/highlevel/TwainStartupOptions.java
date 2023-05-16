@@ -10,7 +10,7 @@ public class TwainStartupOptions
     private String sDSMUserDir;
     private String sTemporaryDir;
     private boolean bAutoStartSession;
-    private DSMType iDSMToUse;
+    private DSMType iDSM;
     private String sResourceLanguage = "english";
     private TwainAppInfo appInfo = new TwainAppInfo();
     public static final String DEFAULT_SEARCH = "CWSOU";
@@ -22,7 +22,7 @@ public class TwainStartupOptions
         sDSMUserDir = "";
         sTemporaryDir = "";
         bAutoStartSession = true;
-        iDSMToUse = DTwainConstants.DSMType.LEGACY;
+        iDSM = DTwainConstants.DSMType.LEGACY;
     }
 
     public TwainStartupOptions setAutoStartSession(boolean bStart)
@@ -89,12 +89,12 @@ public class TwainStartupOptions
 
     public DSMType getDSMToUse()
     {
-        return iDSMToUse;
+        return iDSM;
     }
 
-    public TwainStartupOptions setDSMToUse(DSMType dsm)
+    public TwainStartupOptions setDSM(DSMType dsm)
     {
-        iDSMToUse = dsm;
+        iDSM = dsm;
         return this;
     }
 

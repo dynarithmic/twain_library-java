@@ -47,7 +47,7 @@ public class DiscardBlankPagesDemo
     }
 
     // Simple acquire to a file
-    public void BlankPageTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -99,7 +99,7 @@ public class DiscardBlankPagesDemo
         DiscardBlankPagesDemo demo = new DiscardBlankPagesDemo();
         try
         {
-            demo.BlankPageTest();
+            demo.run();
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -13,7 +13,7 @@ public class DuplexScannerDemo
     static public String outDir = "c:\\dtwain_javatest\\";
 
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -71,7 +71,7 @@ public class DuplexScannerDemo
         DuplexScannerDemo s = new DuplexScannerDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();
