@@ -10,26 +10,18 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 public class SimpleFileAcquireBMPWithErrorsDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
 
     // This callback reports any errors if the image file could not be created
     public class FileCreationCallback extends TwainCallback
     {
-        TwainSession twainSession = null;
-        TwainSource twainSource = null;
-
-        public FileCreationCallback(TwainSession session, TwainSource source)
-        {
-            twainSession = session;
-            twainSource = source;
-        }
-
         @Override
-        public int onFileSaveError(long sourceHandle)
+        public int onFileSaveError(TwainSource sourceHandle)
         {
             try
             {
-                String sMsg = " Transfer failed.  Error: " + twainSession.getErrorString(twainSession.getLastError());
+                TwainSession session = getTwainSession();
+                String sMsg = " Transfer failed.  Error: " + session.getErrorString(session.getLastError());
                 System.out.println(sMsg);
             }
             catch (DTwainJavaAPIException e)
@@ -40,16 +32,16 @@ public class SimpleFileAcquireBMPWithErrorsDemo
         }
 
         @Override
-        public int onFileSaveOk(long sourceHandle)
+        public int onFileSaveOk(TwainSource sourceHandle)
         {
-            String sMsg = " Transfer successful: " + twainSource.getAcquireCharacteristics().getFileTransferOptions().getName();
+            String sMsg = " Transfer successful: " + sourceHandle.getAcquireCharacteristics().getFileTransferOptions().getName();
             System.out.println(sMsg);
             return 1;
         }
     }
 
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -58,9 +50,7 @@ public class SimpleFileAcquireBMPWithErrorsDemo
         TwainSource ts = twainSession.selectSource();
 
         // TwainCallback that monitors image file creation errors
-        FileCreationCallback iCallback = new FileCreationCallback(twainSession, ts);
-        iCallback.activate(); // must activate the callback to start the monitoring
-
+        twainSession.registerCallback(ts, new FileCreationCallback());
         if ( ts.isOpened() )
         {
             // Set the file acquire options. By default, the file will be in BMP format
@@ -98,7 +88,7 @@ public class SimpleFileAcquireBMPWithErrorsDemo
         SimpleFileAcquireBMPWithErrorsDemo s = new SimpleFileAcquireBMPWithErrorsDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

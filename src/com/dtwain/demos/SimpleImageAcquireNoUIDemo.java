@@ -11,7 +11,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteris
 public class SimpleImageAcquireNoUIDemo
 {
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -98,7 +98,7 @@ public class SimpleImageAcquireNoUIDemo
         SimpleImageAcquireNoUIDemo s = new SimpleImageAcquireNoUIDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

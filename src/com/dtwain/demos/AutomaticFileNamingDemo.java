@@ -10,7 +10,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.FileTransferOption
 public class AutomaticFileNamingDemo
 {
     // Change this to the output directory that fits your environment.
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
 
     // Acquire to single page TIFF files, where the name of each file will be of
     // the form testTIFFzzz.TIF, where zzz will be 001, 002, 003, 004, etc., for each image

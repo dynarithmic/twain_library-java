@@ -88,6 +88,7 @@ public class TwainSource
         return this.sourceHandle;
     }
 
+  
     public TwainCallback getMessageCallback()
     {
         return this.messageCallback;
@@ -117,7 +118,7 @@ public class TwainSource
         return this;
     }
 
-    private void isValid() throws DTwainJavaAPIException
+    private void isValidSource() throws DTwainJavaAPIException
     {
         if ( twainSession == null )
             throw new DTwainJavaAPIException("No Twain Session associated with this Twain Source");
@@ -125,6 +126,12 @@ public class TwainSource
             throw new DTwainJavaAPIException("Invalid Twain Source");
     }
 
+    // Non throwing test
+    public boolean isValid()
+    {
+        return twainSession != null && sourceHandle != 0;
+    }
+    
     public void reloadInfo() throws DTwainJavaAPIException
     {
         if ( twainSession != null && sourceHandle != 0 )
@@ -150,14 +157,14 @@ public class TwainSource
 
     public byte [] getCustomDSData() throws DTwainJavaAPIException
     {
-        isValid();
+        isValidSource();
         this.customDSData = twainSession.getAPIHandle().DTWAIN_GetCustomDSData(sourceHandle);
         return this.customDSData;
     }
 
     public TwainSource setCustomDSData(byte [] data) throws DTwainJavaAPIException
     {
-        isValid();
+        isValidSource();
         this.customDSData = Arrays.copyOf(data, data.length);
         twainSession.getAPIHandle().DTWAIN_SetCustomDSData(sourceHandle, this.customDSData);
         return this;
@@ -378,7 +385,7 @@ public class TwainSource
 
     public AcquireReturnInfo acquire() throws DTwainJavaAPIException 
     {
-        isValid();
+        isValidSource();
         boolean bFstatus = true;
         DTwainJavaAPI handle = twainSession.getAPIHandle();
         prepareAcquisitions();

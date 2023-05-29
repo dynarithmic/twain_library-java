@@ -10,7 +10,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.PDFOptions;
 public class PDFDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
 
     // Acquire to a PDF file, with encryption settings turned on
     public void run() throws Exception

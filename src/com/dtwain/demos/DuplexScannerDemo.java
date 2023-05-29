@@ -10,7 +10,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteris
 public class DuplexScannerDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
 
     // Simple acquire to a file
     public void run() throws Exception

@@ -28,7 +28,7 @@ public class BasicTwainInfoDemo
             System.out.println("   Product Name: " + oneInfo.getProductName());
 
         // Get a JSON describing the session and all available TWAIN sources
-        String details = twainSession.getSessionDetails(2);
+        String details = twainSession.getSessionDetails(2, true);
         System.out.println();
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("Here are the details of the TWAIN session:");
@@ -41,7 +41,7 @@ public class BasicTwainInfoDemo
         if ( ts.isOpened() )
         {
             String sourceName = ts.getInfo().getProductName();
-            String sourceDetails = twainSession.getSourceDetails(sourceName,  2);
+            String sourceDetails = twainSession.getSourceDetails(sourceName,  2, true);
             System.out.println("Here are the details of the selected TWAIN Source: \"" + sourceName);
             System.out.println(sourceDetails);
         }

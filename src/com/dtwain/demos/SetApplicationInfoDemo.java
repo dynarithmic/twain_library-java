@@ -7,7 +7,7 @@ import com.dynarithmic.twain.highlevel.TwainSession;
 public class SetApplicationInfoDemo
 {
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Create the TWAIN characteristics that allows a TwainSession to
         // be created, but not started.
@@ -35,7 +35,7 @@ public class SetApplicationInfoDemo
         SetApplicationInfoDemo s = new SetApplicationInfoDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

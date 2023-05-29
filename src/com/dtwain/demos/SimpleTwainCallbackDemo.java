@@ -1,7 +1,6 @@
 package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.TwainCallback;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -14,61 +13,48 @@ public class SimpleTwainCallbackDemo
     public class DemoTwainCallback extends TwainCallback
     {
         TwainSession twainSession = null;
-        public DemoTwainCallback(TwainSession ts)
+        private void printInfo(TwainSource sourceHandle, String message)
         {
-            twainSession = ts;
+            System.out.println(message + sourceHandle.getInfo().getProductName());
         }
-
-        private void printInfo(long sourceHandle, String message)
-        {
-            TwainSource ts;
-            try
-            {
-                ts = new TwainSource(twainSession, sourceHandle);
-                System.out.println(message + ts.getInfo().getProductName());
-            }
-            catch (DTwainJavaAPIException e)
-            {
-                e.printStackTrace();
-            }
-        }
+        
         @Override
-        public int onTransferDone(long sourceHandle)
+        public int onTransferDone(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Transfer done ");
             return 1;
         }
 
         @Override
-        public int onTransferReady(long sourceHandle)
+        public int onTransferReady(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Transfer ready ");
             return 1;
         }
 
         @Override
-        public int onTransferCancelled(long sourceHandle)
+        public int onTransferCancelled(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Transfer cancelled ");
             return 1;
         }
 
         @Override
-        public int onUIOpened(long sourceHandle)
+        public int onUIOpened(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " UI is opened ");
             return 1;
         }
 
         @Override
-        public int onUIClosing(long sourceHandle)
+        public int onUIClosing(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " UI is closing ");
             return 1;
         }
 
         @Override
-        public int onUIClosed(long sourceHandle)
+        public int onUIClosed(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " UI is closed ");
             return 1;
@@ -76,19 +62,18 @@ public class SimpleTwainCallbackDemo
     }
 
     // Simple acquire to a file
-    public void testCallback() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
-
-        // TwainCallback
-        DemoTwainCallback iCallback = new DemoTwainCallback(twainSession);
-        iCallback.activate();
 
         // Select a TWAIN Source using the Select Source dialog
         TwainSource ts = twainSession.selectSource();
         if ( ts.isOpened() )
         {
+            // Register callback
+            twainSession.registerCallback(ts,  new DemoTwainCallback());
+            
             // Set the file acquire options. By default, the file will be in BMP format
             ts.getAcquireCharacteristics().
                getFileTransferOptions().
@@ -125,7 +110,7 @@ public class SimpleTwainCallbackDemo
         SimpleTwainCallbackDemo s = new SimpleTwainCallbackDemo();
         try
         {
-            s.testCallback();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

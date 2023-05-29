@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import com.dynarithmic.twain.DTwainConstants.NotificationCode;
+import com.dynarithmic.twain.DTwainConstants.SessionStartupMode;
+import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 
 public class TwainCallback
 {
     private boolean activated;
     private boolean logUnhandledEvents;
+    private TwainSource twainSource = null;
+    private TwainSession twainSession = null;
     private static final ArrayList<TwainCallback> allCallbacks = new ArrayList<>();
     private OutputStream outputStream = System.out;
     private static final TreeMap<NotificationCode, String> s_mapData = new TreeMap<>();
@@ -58,10 +62,19 @@ public class TwainCallback
         s_mapData.put(NotificationCode.BLANKPAGEDISCARDED2, "onBlankPageDiscardedEvent2()");
     }
 
-    public TwainCallback()
+    public TwainCallback() 
     {
         activated = false;
         logUnhandledEvents = false;
+        try 
+        {
+            this.twainSession = new TwainSession(SessionStartupMode.NONE);
+        } 
+        catch (DTwainJavaAPIException e) 
+        {
+            // We really don't care if an exception is thrown here, since 
+            // the startup mode is always NONE
+        }
     }
 
     public void logUnhandledEvents(boolean bLog)
@@ -69,6 +82,26 @@ public class TwainCallback
         logUnhandledEvents = bLog;
     }
 
+    public TwainSource getTwainSource()
+    {
+        return this.twainSource;
+    }
+    
+    public TwainSession getTwainSession()
+    {
+        return this.twainSession;
+    }
+
+    public void setTwainSource(TwainSource twainSource)
+    {
+        this.twainSource = twainSource;
+    }
+    
+    public void setTwainSession(TwainSession twainSession)
+    {
+        this.twainSession = twainSession;
+    }
+    
     public boolean isLogUnhandledEventsOn()
     {
         return logUnhandledEvents;
@@ -113,7 +146,7 @@ public class TwainCallback
         return this.outputStream;
     }
 
-    public static int onTwainEvent(int event, long sourceHandle)
+    public static int onTwainEvent(int event, long sourceHandleEx, boolean isSourceHandle)
     {
         // userdata is the handle to the AcquireEngine
         // use map to find the AcquireEngine
@@ -126,6 +159,11 @@ public class TwainCallback
             TwainCallback theCallback = allCallbacks.get(i);
             if (theCallback.activated)
             {
+                TwainSource sourceHandle = theCallback.getTwainSource();
+                if (sourceHandle.getSourceHandle() == 0 && isSourceHandle)
+                {
+                    sourceHandle.setSourceHandle(sourceHandleEx);
+                }
                 try
                 {
                     nc = NotificationCode.from(event);
@@ -445,7 +483,7 @@ public class TwainCallback
     }
 
 
-    private int defaultImpl(long sourceHandle)
+    private int defaultImpl(TwainSource sourceHandle)
     {
         if (logUnhandledEvents)
         {
@@ -462,7 +500,7 @@ public class TwainCallback
         return 1;
     }
 
-    private int defaultImpl(int event, long sourceHandle)
+    private int defaultImpl(int event, TwainSource sourceHandle)
     {
         if (logUnhandledEvents)
         {
@@ -479,392 +517,392 @@ public class TwainCallback
         return 1;
     }
 
-    public int onAcquireStarted(long sourceHandle)
+    public int onAcquireStarted(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onAcquireDone(long sourceHandle)
+    public int onAcquireDone(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onUIOpened(long sourceHandle)
+    public int onUIOpened(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onUIClosing(long sourceHandle)
+    public int onUIClosing(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onUIClosed(long sourceHandle)
+    public int onUIClosed(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTransferReady(long sourceHandle)
+    public int onTransferReady(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTransferDone(long sourceHandle)
+    public int onTransferDone(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTransferCancelled(long sourceHandle)
+    public int onTransferCancelled(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onInvalidImageFormat(long sourceHandle)
+    public int onInvalidImageFormat(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onAcquireFailed(long sourceHandle)
+    public int onAcquireFailed(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onAcquireCancelled(long sourceHandle)
+    public int onAcquireCancelled(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onProcessedDib(long sourceHandle)
+    public int onProcessedDib(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFileSaveCancelled(long sourceHandle)
+    public int onFileSaveCancelled(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFileSaveOk(long sourceHandle)
+    public int onFileSaveOk(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFileSaveError(long sourceHandle)
+    public int onFileSaveError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFilePageSaveOk(long sourceHandle)
+    public int onFilePageSaveOk(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFilePageSaveError(long sourceHandle)
+    public int onFilePageSaveError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onAcquireTerminated(long sourceHandle)
+    public int onAcquireTerminated(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onPageContinue(long sourceHandle)
+    public int onPageContinue(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onQueryPageDiscard(long sourceHandle)
+    public int onQueryPageDiscard(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFilePageSaving(long sourceHandle)
+    public int onFilePageSaving(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onPageCancelled(long sourceHandle)
+    public int onPageCancelled(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onPageFailed(long sourceHandle)
+    public int onPageFailed(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onPageDiscarded(long sourceHandle)
+    public int onPageDiscarded(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTransferStripReady(long sourceHandle)
+    public int onTransferStripReady(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTransferStripDone(long sourceHandle)
+    public int onTransferStripDone(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTransferStripFailed(long sourceHandle)
+    public int onTransferStripFailed(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onImageInfoError(long sourceHandle)
+    public int onImageInfoError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onClipTransferDone(long sourceHandle)
+    public int onClipTransferDone(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onProcessedDibFinal(long sourceHandle)
+    public int onProcessedDibFinal(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onEOJDetected(long sourceHandle)
+    public int onEOJDetected(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onEOJDetectedEndTransfer(long sourceHandle)
+    public int onEOJDetectedEndTransfer(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTwainPageCancelled(long sourceHandle)
+    public int onTwainPageCancelled(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTwainPageFailed(long sourceHandle)
+    public int onTwainPageFailed(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onDeviceEvent(long sourceHandle)
+    public int onDeviceEvent(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onCropImageFailedEvent(long sourceHandle)
+    public int onCropImageFailedEvent(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onBlankPageDetectedOriginalImage(long sourceHandle)
+    public int onBlankPageDetectedOriginalImage(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onBlankPageDetectedAdjustedImage(long sourceHandle)
+    public int onBlankPageDetectedAdjustedImage(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onBlankPageDetectedEvent3(long sourceHandle)
+    public int onBlankPageDetectedEvent3(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onBlankPageDiscardedEvent1(long sourceHandle)
+    public int onBlankPageDiscardedEvent1(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onBlankPageDiscardedEvent2(long sourceHandle)
+    public int onBlankPageDiscardedEvent2(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onOCRTextRetrieved(long sourceHandle)
+    public int onOCRTextRetrieved(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onQueryOCRText(long sourceHandle)
+    public int onQueryOCRText(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onPDFOCRReady(long sourceHandle)
+    public int onPDFOCRReady(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onPDFOCRDone(long sourceHandle)
+    public int onPDFOCRDone(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onPDFOCRError(long sourceHandle)
+    public int onPDFOCRError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onSetCallBackInit(long sourceHandle)
+    public int onSetCallBackInit(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onSetCallBack64Init(long sourceHandle)
+    public int onSetCallBack64Init(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFileNameChangint(long sourceHandle)
+    public int onFileNameChangint(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFileNameChanged(long sourceHandle)
+    public int onFileNameChanged(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onProcessedAudioFinal(long sourceHandle)
+    public int onProcessedAudioFinal(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onProcessAudioFinalAccepted(long sourceHandle)
+    public int onProcessAudioFinalAccepted(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onProcessedAudioFile(long sourceHandle)
+    public int onProcessedAudioFile(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onAppUpdatedDIB(long sourceHandle)
+    public int onAppUpdatedDIB(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onEndOfJobDetected(long sourceHandle)
+    public int onEndOfJobDetected(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onEOJBeginFileSave(long sourceHandle)
+    public int onEOJBeginFileSave(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onEOJEndFileSave(long sourceHandle)
+    public int onEOJEndFileSave(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFeederLoaded(long sourceHandle)
+    public int onFeederLoaded(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onGeneralError(long sourceHandle)
+    public int onGeneralError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupAcquireDone(long sourceHandle)
+    public int onManDupAcquireDone(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupFileError(long sourceHandle)
+    public int onManDupFileError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupFileSaveError(long sourceHandle)
+    public int onManDupFileSaveError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupFlipPages(long sourceHandle)
+    public int onManDupFlipPages(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupMemoryError(long sourceHandle)
+    public int onManDupMemoryError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupMergeError(long sourceHandle)
+    public int onManDupMergeError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupPageCountError(long sourceHandle)
+    public int onManDupPageCountError(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupSide1Done(long sourceHandle)
+    public int onManDupSide1Done(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupSide1Start(long sourceHandle)
+    public int onManDupSide1Start(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupSide2Done(long sourceHandle)
+    public int onManDupSide2Done(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onManDupSide2Start(long sourceHandle)
+    public int onManDupSide2Start(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onProcessDIBAccepted(long sourceHandle)
+    public int onProcessDIBAccepted(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onProcessDIBFinalAccepted(long sourceHandle)
+    public int onProcessDIBFinalAccepted(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onUIOpenFailure(long sourceHandle)
+    public int onUIOpenFailure(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onUIOpening(long sourceHandle)
+    public int onUIOpening(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTwainTripletBegin(long sourceHandle)
+    public int onTwainTripletBegin(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onTwainTripletEnd(long sourceHandle)
+    public int onTwainTripletEnd(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int onFeederNotLoaded(long sourceHandle)
+    public int onFeederNotLoaded(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
 
-    public int catchUnknown(int event, long sourceHandle)
+    public int catchUnknown(int event, TwainSource sourceHandle)
     {
         return defaultImpl(event, sourceHandle);
     }

@@ -241,6 +241,14 @@ extern "C" {
 
     /*
     * Class:     com_dynarithmic_twain_DTwainJavaAPI
+    * Method:    DTWAIN_EnableTripletsNotify
+    * Signature: (I)I
+    */
+    JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableTripletsNotify
+    (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
     * Method:    DTWAIN_OpenSourcesOnSelect
     * Signature: (I)I
     */
@@ -2634,18 +2642,18 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVe
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_GetSessionDetails
- * Signature: (I)Ljava/lang/String;
+ * Signature: (IZ)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSessionDetails
-  (JNIEnv *, jobject, jint);
+  (JNIEnv *, jobject, jint, jboolean);
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_GetSourceDetails
- * Signature: (Ljava/lang/String;I)Ljava/lang/String;
+ * Signature: (Ljava/lang/String;IZ)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSourceDetails
-  (JNIEnv *, jobject, jstring, jint);
+  (JNIEnv *, jobject, jstring, jint, jboolean);
 
 #ifdef __cplusplus
 }

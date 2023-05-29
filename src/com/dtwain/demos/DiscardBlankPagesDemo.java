@@ -13,23 +13,14 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.BlankPageHandlingO
 public class DiscardBlankPagesDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
 
     // This callback and members functions are invoked whenever a blank page is detected
     // from the scanner.
     public class BlankPageCallback extends TwainCallback
     {
-        TwainSession twainSession = null;
-        TwainSource twainSource = null;
-
-        public BlankPageCallback(TwainSession session, TwainSource source)
-        {
-            twainSession = session;
-            twainSource = source;
-        }
-
         @Override
-        public int onBlankPageDetectedOriginalImage(long sourceHandle)
+        public int onBlankPageDetectedOriginalImage(TwainSource sourceHandle)
         {
             System.out.println("Detected blank page from device");
 
@@ -37,7 +28,7 @@ public class DiscardBlankPagesDemo
             return BlankPageHandlingOptions.DISCARDPAGE;
         }
 
-        public int onBlankPageDetectedAdjustedImage(long sourceHandle)
+        public int onBlankPageDetectedAdjustedImage(TwainSource sourceHandle)
         {
             System.out.println("Detected blank page after adjusting image");
 
@@ -58,8 +49,7 @@ public class DiscardBlankPagesDemo
         if ( ts.isOpened() )
         {
             // Activate the call back
-            BlankPageCallback iCallback = new BlankPageCallback(twainSession, ts);
-            iCallback.activate();
+            twainSession.registerCallback(ts, new BlankPageCallback());
 
             // Set the file acquire options. By default, the file will be in TIFF-LZW format
             AcquireCharacteristics ac = ts.getAcquireCharacteristics();

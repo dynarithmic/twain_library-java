@@ -3,6 +3,7 @@ import com.dynarithmic.twain.*;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.BufferedTransferInfo;
 import com.dynarithmic.twain.highlevel.TwainImageData;
+import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainCallback;
 
 import java.io.ByteArrayOutputStream;
@@ -55,7 +56,7 @@ public class DTwainDemoCallback extends TwainCallback
     }
 
     @Override
-    public int onTransferStripDone(long sourceHandle)
+    public int onTransferStripDone(TwainSource sourceHandle)
     {
         if ( m_CompressionOn )
         {
@@ -65,7 +66,7 @@ public class DTwainDemoCallback extends TwainCallback
                 DTwainJavaAPI handle = this.m_mainFrame.getTwainInterface();
                 if ( handle != null )
                 {
-                    handle.DTWAIN_GetBufferedStripData(sourceHandle, m_stripInfo.getStripInfo());
+                    handle.DTWAIN_GetBufferedStripData(sourceHandle.getSourceHandle(), m_stripInfo.getStripInfo());
                     appendBytesToCompressedStream(m_stripInfo.getStripInfo().getBufferedStripData());
                 }
             }
@@ -77,7 +78,7 @@ public class DTwainDemoCallback extends TwainCallback
     }
 
     @Override
-    public int onTransferDone(long sourceHandle)
+    public int onTransferDone(TwainSource sourceHandle)
     {
         DTwainJavaAPI handle = this.m_mainFrame.getTwainInterface();
         if ( m_CompressionOn )
@@ -87,7 +88,7 @@ public class DTwainDemoCallback extends TwainCallback
             {
                 if ( handle != null )
                 {
-                    handle.DTWAIN_GetBufferedStripData(sourceHandle, m_stripInfo.getStripInfo());
+                    handle.DTWAIN_GetBufferedStripData(sourceHandle.getSourceHandle(), m_stripInfo.getStripInfo());
                     appendBytesToCompressedStream(m_stripInfo.getStripInfo().getBufferedStripData());
 
                     // save data to file
@@ -117,7 +118,7 @@ public class DTwainDemoCallback extends TwainCallback
        aid the user into making decision.
     */
    @Override
-   public int onQueryPageDiscard(long sourceHandle)
+   public int onQueryPageDiscard(TwainSource sourceHandle)
    {
        // if showing the preview image is off, then just keep the image by
        // returning 1
@@ -128,14 +129,15 @@ public class DTwainDemoCallback extends TwainCallback
        try
        {
            // get the image data that was acquired
-          TwainImageData imgData = handle.DTWAIN_GetCurrentAcquiredImage(sourceHandle);
+          TwainImageData imgData = handle.DTWAIN_GetCurrentAcquiredImage(sourceHandle.getSourceHandle());
 
           // display the image data in the dialog
           DTwainImageDisplayDialog dlg =  new DTwainImageDisplayDialog(imgData, DTwainConstants.FileType.BMP);
           dlg.setVisible(true);
-
-          // if we pressed "Keep", then we must return 1 back to DTWAIN
-          if ( dlg.isOkPressed() )
+          boolean isOk = dlg.isOkPressed();
+          dlg.setVisible(false);
+          dlg.dispose();
+          if ( isOk )
               return 1;
 
           // throw the image away, so return 0 back to DTWAIN

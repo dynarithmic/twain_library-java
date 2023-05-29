@@ -562,7 +562,7 @@ public class CapabilityInterface
         }
 
         @SuppressWarnings("unchecked")
-		int retValue = apiHandle.DTWAIN_SetCapValues(twainSource.getSourceHandle(),cap,setOpToUse, (List<Object>) valuesToUse);
+        int retValue = apiHandle.DTWAIN_SetCapValues(twainSource.getSourceHandle(),cap,setOpToUse, (List<Object>) valuesToUse);
         int lastError = DTwainConstants.ErrorCode.ERROR_NONE.value();
         if (retValue == 0)
             lastError = apiHandle.DTWAIN_GetLastError();

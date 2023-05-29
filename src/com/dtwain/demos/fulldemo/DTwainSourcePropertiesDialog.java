@@ -1,7 +1,5 @@
 package com.dtwain.demos.fulldemo;
-import com.dynarithmic.twain.*;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.highlevel.TwainCapabilityHandler;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSourceInfo;
 import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;

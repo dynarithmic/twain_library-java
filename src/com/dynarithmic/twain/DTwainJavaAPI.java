@@ -1,7 +1,5 @@
 package com.dynarithmic.twain;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -245,6 +243,7 @@ public class DTwainJavaAPI
     public native int DTWAIN_SetCountry(int v) throws DTwainJavaAPIException;
     public native int DTWAIN_SetLanguage(int v) throws DTwainJavaAPIException;
     public native int DTWAIN_EnableMsgNotify(int v) throws DTwainJavaAPIException;
+    public native int DTWAIN_EnableTripletsNotify(int v) throws DTwainJavaAPIException;
     public native int DTWAIN_OpenSourcesOnSelect(int v) throws DTwainJavaAPIException;
     public native int DTWAIN_SetQueryCapSupport(int v) throws DTwainJavaAPIException;
     public native int DTWAIN_SetTwainTimeout(int v) throws DTwainJavaAPIException;
@@ -578,8 +577,8 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetFileTypeExtension(int fileType);
     public native ExtendedImageInfo DTWAIN_GetExtendedImageInfo(long Source);
     public native String DTWAIN_GetVersionCopyright();
-    public native String DTWAIN_GetSessionDetails(int indentSize);
-    public native String DTWAIN_GetSourceDetails(String sourceNames, int indentSize);
+    public native String DTWAIN_GetSessionDetails(int indentSize, boolean refresh);
+    public native String DTWAIN_GetSourceDetails(String sourceNames, int indentSize, boolean refresh);
     static
     {
         s_DLLMap = new TreeMap<>();

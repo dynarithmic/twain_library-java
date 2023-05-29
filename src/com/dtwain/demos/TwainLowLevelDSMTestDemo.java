@@ -16,7 +16,7 @@ import com.dynarithmic.twain.lowlevel.TwainTriplet;
 public class TwainLowLevelDSMTestDemo
 {
     private Map<Triplet<Long, Integer, Integer>, TwainLowLevel> sMap = null;
-    void TestMarshal() throws Exception
+    void run() throws Exception
     {
         // Get the map of the triplet information
         sMap = TwainTriplet.getTripletMap();
@@ -73,7 +73,7 @@ public class TwainLowLevelDSMTestDemo
         TwainLowLevelDSMTestDemo theTest = new TwainLowLevelDSMTestDemo();
         try
         {
-            theTest.TestMarshal();
+            theTest.run();
         }
         catch (Exception e)
         {

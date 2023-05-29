@@ -87,8 +87,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         DTwainGlobalOptions.setJNIVersion(5); //jniToUse - 1);
 
         mainTwainSession = new TwainSession();
-        iCallback = new DTwainDemoCallback(this);
-        iCallback.activate();
+        mainTwainSession.registerCallback(m_SourceWrapper, new DTwainDemoCallback(this));
 
         // Set the TWAIN DSM to use when starting up the TWAIN system
         mainTwainSession.setDSM(DSMType.LEGACY);
@@ -992,7 +991,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         {
             try
             {
-                m_SourceWrapper = mainTwainSession.selectSource(new TwainSourceDialog().enableEnhancedDialog(true).center(true).sortNames(true));
+                m_SourceWrapper = mainTwainSession.selectSource(new TwainSourceDialog().enableEnhancedDialog(true).center(true).sortNames(true).topmostWindow(true));
                 setupNewSource(m_SourceWrapper.getSourceHandle());
             }
             catch (Exception e)
@@ -1082,6 +1081,8 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         {
             DTwainImageDisplayDialog imgDlg = new DTwainImageDisplayDialog(iHandler.getAcquisitionArray(), DTwainConstants.FileType.BMP);
             imgDlg.setVisible(true);
+            imgDlg.setVisible(false);
+            imgDlg.dispose();
         }
     }
 

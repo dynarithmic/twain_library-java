@@ -11,7 +11,7 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 public class MultiPageTIFFCompressionDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
     public class TIFFCallback extends TwainCallback
     {
         TwainSession twainSession = null;
@@ -22,22 +22,16 @@ public class MultiPageTIFFCompressionDemo
             page = 1;
         }
 
-        public TIFFCallback(TwainSession ts, TwainSource tSource)
-        {
-            twainSession = ts;
-            twainSource = tSource;
-        }
-
         // Called when device is ready to acquire the image (but hasn't yet done so)
         @Override
-        public int onTransferReady(long sourceHandle)
+        public int onTransferReady(TwainSource sourceHandle)
         {
             // If the page is an odd number, use LZW compression, 
             // else use Group 4 FAX compression
             try
             {
                 if ( page % 2 == 1 )
-                    twainSource.setTiffCompressType(FileType.TIFFLZW);
+                    sourceHandle.setTiffCompressType(FileType.TIFFLZW);
                 else
                     twainSource.setTiffCompressType(FileType.TIFFG4);
                 ++page;
@@ -47,18 +41,6 @@ public class MultiPageTIFFCompressionDemo
                 System.out.println(e);
             }
             return 1;
-        }
-
-        public TIFFCallback setTwainSession(TwainSession twainSession)
-        {
-            this.twainSession = twainSession;
-            return this;
-        }
-
-        public TIFFCallback setTwainSource(TwainSource twainSource)
-        {
-            this.twainSource = twainSource;
-            return this;
         }
     }
 
@@ -73,7 +55,6 @@ public class MultiPageTIFFCompressionDemo
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
-        TIFFCallback iCallback = new TIFFCallback();
 
         // TwainCallback
 
@@ -81,9 +62,8 @@ public class MultiPageTIFFCompressionDemo
         TwainSource ts = twainSession.selectSource();
         if ( ts.isOpened() )
         {
-            iCallback.setTwainSession(twainSession).setTwainSource(ts);
-            iCallback.activate();
-
+            twainSession.registerCallback(ts, new TIFFCallback());
+            
             // Set the file acquire options. By default, the file will be in TIFF-LZW format
             ts.getAcquireCharacteristics().
                getFileTransferOptions().

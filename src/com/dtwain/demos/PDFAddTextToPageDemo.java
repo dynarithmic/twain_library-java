@@ -15,7 +15,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.PDFOptions;
 public class PDFAddTextToPageDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
 
     public class PDFCallback extends TwainCallback
     {
@@ -35,14 +35,8 @@ public class PDFAddTextToPageDemo
                         setRGBColor(new RGBColor(255,0,0)).setPageDisplayOptions(TextPageDisplayOptions.CURRENTPAGE);
         }
 
-        public void setSessionAndSource(TwainSession tSession, TwainSource tSource)
-        {
-            twainSession = tSession;
-            twainSource = tSource;
-        }
-
         @Override
-        public int onFilePageSaving(long sourceHandle)
+        public int onFilePageSaving(TwainSource sourceHandle)
         {
             // The lower left portion of the page will have "Page x",
             // where "x" is the page number.
@@ -61,8 +55,6 @@ public class PDFAddTextToPageDemo
         }
     }
 
-    PDFCallback iCallback = new PDFCallback();
-
     // Acquire to a PDF file, with encryption settings turned on
     public void run() throws Exception
     {
@@ -74,8 +66,7 @@ public class PDFAddTextToPageDemo
         if ( ts.isOpened() )
         {
             // TwainCallback
-            iCallback.setSessionAndSource(twainSession, ts);
-            iCallback.activate();
+            twainSession.registerCallback(ts, new PDFCallback());
 
             // Set the file acquire options to a multipage PDF.
             ts.getAcquireCharacteristics().

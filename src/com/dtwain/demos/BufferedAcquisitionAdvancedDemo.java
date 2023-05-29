@@ -16,17 +16,9 @@ public class BufferedAcquisitionAdvancedDemo
 {
     public class BufferedDemoCallback extends TwainCallback
     {
-        TwainSession twainSession = null;
-        TwainSource twainSource = null;
         int currentStrip = 0;
         long totalImageSize = 0;
         final ByteArrayOutputStream m_compressedStream = new ByteArrayOutputStream();
-
-        public BufferedDemoCallback(TwainSession ts, TwainSource tSource)
-        {
-            twainSession = ts;
-            twainSource = tSource;
-        }
 
         public void appendBytesToCompressedStream(byte [] b)
         {
@@ -40,7 +32,7 @@ public class BufferedAcquisitionAdvancedDemo
         }
 
         @Override
-        public int onTransferReady(long sourceHandle)
+        public int onTransferReady(TwainSource sourceHandle)
         {
             System.out.println("Ready to transfer...");
             totalImageSize = 0;
@@ -49,19 +41,19 @@ public class BufferedAcquisitionAdvancedDemo
         }
 
         @Override
-        public int onTransferStripReady(long sourceHandle)
+        public int onTransferStripReady(TwainSource sourceHandle)
         {
             System.out.println("Ready to transfer strip...");
             return 1;
         }
 
         @Override
-        public int onTransferStripDone(long sourceHandle)
+        public int onTransferStripDone(TwainSource sourceHandle)
         {
             BufferedStripInfo stripInfo = null;
             try
             {
-                stripInfo = twainSource.getBufferedStripInfo();
+                stripInfo = sourceHandle.getBufferedStripInfo();
             }
             catch (DTwainJavaAPIException e)
             {
@@ -79,7 +71,7 @@ public class BufferedAcquisitionAdvancedDemo
         }
 
         @Override
-        public int onTransferDone(long sourceHandle)
+        public int onTransferDone(TwainSource sourceHandle)
         {
             System.out.println("Transfer done.  Total bytes: " + totalImageSize);
             return 1;
@@ -97,8 +89,7 @@ public class BufferedAcquisitionAdvancedDemo
         if ( ts.isOpened() )
         {
             // Twain Callback
-            BufferedDemoCallback iCallback = new BufferedDemoCallback(twainSession, ts);
-            iCallback.activate();
+            twainSession.registerCallback(ts, new BufferedDemoCallback());
 
             // Set the acquire options. We want to acquire using Buffered mode.
             ts.getAcquireCharacteristics().getGeneralOptions().setAcquireType(AcquireType.BUFFERED);

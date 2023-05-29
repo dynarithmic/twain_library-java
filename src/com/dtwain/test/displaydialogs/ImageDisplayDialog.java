@@ -222,6 +222,7 @@ public class ImageDisplayDialog extends JDialog {
                 if (theDialog.isExitOnClose())
                     System.exit(0);
                 theDialog.setVisible(false);
+                theDialog.dispose();
             }
         });
         okButton.setText("Ok");
@@ -235,6 +236,7 @@ public class ImageDisplayDialog extends JDialog {
                 if (theDialog.isExitOnClose())
                     System.exit(0);
                 theDialog.setVisible(false);
+                theDialog.dispose();
             }
         });
         cancelButton.setText("Cancel");

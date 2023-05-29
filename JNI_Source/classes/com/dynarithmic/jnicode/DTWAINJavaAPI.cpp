@@ -174,7 +174,9 @@ LRESULT CALLBACK JavaCallback::DTWAINCallback(WPARAM w, LPARAM l, JavaCallback::
     JavaCallback::JCallbackInfo& pCallInfo = iter->second;
     JavaCallbackWrapper wrapper(pCallback);
     JNIEnv* pEnv = pCallback->getJNIEnv();
-    int retval = pEnv->CallStaticIntMethod(pCallInfo.m_jCallbackClass, pCallInfo.m_jCallbackMethodID, w, static_cast<jlong>(l));
+    LRESULT retval = 1;
+    retval = pEnv->CallStaticIntMethod(pCallInfo.m_jCallbackClass, pCallInfo.m_jCallbackMethodID, w, static_cast<jlong>(l),
+                                       DTWAIN_IsSourceValid(reinterpret_cast<DTWAIN_SOURCE>(l))?TRUE:FALSE);
     return static_cast<callback_type>(retval);
 }
 
@@ -675,6 +677,19 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableMs
 {
     DTWAIN_TRY
     return DTWAIN_EnableMsgNotify(a1);
+    DTWAIN_CATCH(env)
+}
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+* Method:    DTWAIN_EnableTripletNotify
+* Signature: (I)I
+*/
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableTripletsNotify
+(JNIEnv* env, jobject, jint a1)
+{
+    DTWAIN_TRY
+    return DTWAIN_EnableTripletsNotify(a1);
     DTWAIN_CATCH(env)
 }
 
@@ -5806,13 +5821,13 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVe
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_GetSessionDetails
- * Signature: (I)Ljava/lang/String;
+ * Signature: (IZ)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSessionDetails
-(JNIEnv* env, jobject, jint indentValue)
+(JNIEnv* env, jobject, jint indentValue, jboolean bRefresh)
 {
     DTWAIN_TRY
-    LONG retLength = DTWAIN_GetSessionDetails(nullptr, 0, indentValue, TRUE);
+    LONG retLength = DTWAIN_GetSessionDetails(nullptr, 0, indentValue, bRefresh);
     if (retLength > 0)
     {
         std::vector<TCHAR> arg(retLength + 1);
@@ -5828,10 +5843,10 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSe
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_GetSourceDetails
- * Signature: (Ljava/lang/String;I)Ljava/lang/String;
+ * Signature: (Ljava/lang/String;IZ)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSourceDetails
-(JNIEnv* env, jobject, jstring sourceNames, jint indentValue)
+(JNIEnv* env, jobject, jstring sourceNames, jint indentValue, jboolean bRefresh)
 {
     DTWAIN_TRY
     GetStringCharsHandler str(env, sourceNames);
@@ -5850,7 +5865,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSo
             ++nSources;
     #endif
     std::vector<TCHAR> vChars(100000 * nSources + 1, 0);
-    LONG retLength = DTWAIN_GetSourceDetails(reinterpret_cast<LPCTSTR>(str.GetStringChars()), vChars.data(), vChars.size(), indentValue);
+    LONG retLength = DTWAIN_GetSourceDetails(reinterpret_cast<LPCTSTR>(str.GetStringChars()), vChars.data(), vChars.size(), indentValue, bRefresh);
     if (retLength > 0)
         return CreateJStringFromCString(env, vChars.data());
     TCHAR szNothing[] = { 0 };

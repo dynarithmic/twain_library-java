@@ -9,9 +9,9 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 public class SimpleFileAcquireMultiPageDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -64,7 +64,7 @@ public class SimpleFileAcquireMultiPageDemo
         SimpleFileAcquireMultiPageDemo s = new SimpleFileAcquireMultiPageDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

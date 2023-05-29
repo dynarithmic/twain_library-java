@@ -12,7 +12,6 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.FileTransferOption
 class TestImageFileCreation
 {
     TwainSession twSession = null;
-    @SuppressWarnings("serial")
     private void TestMultiOrSingleFile(String outDir, boolean bTestSingle) throws Exception
     {
 
@@ -72,7 +71,7 @@ class TestImageFileCreation
         }
     }
 
-    public void runDemo(String[] args) throws Exception
+    public void run(String[] args) throws Exception
     {
         if ( args.length < 2)
         {
@@ -115,7 +114,7 @@ class TestImageFileCreation
     public static void main(String[] args) throws DTwainJavaAPIException, Exception
     {
         TestImageFileCreation imageProg = new TestImageFileCreation();
-        imageProg.runDemo(args);
+        imageProg.run(args);
 
         // must be called, since TWAIN dialog is a Swing component
         // and AWT thread was started

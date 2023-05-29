@@ -1,5 +1,6 @@
 package com.dtwain.demos;
 
+import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.highlevel.ImageHandler;
@@ -10,8 +11,11 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 public class SimpleImageNativeAcquireDemo
 {
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
+        // Set the JNI version
+        DTwainGlobalOptions.setJNIVersion(5); //jniToUse - 1);
+
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 
@@ -91,7 +95,7 @@ public class SimpleImageNativeAcquireDemo
         SimpleImageNativeAcquireDemo s = new SimpleImageNativeAcquireDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

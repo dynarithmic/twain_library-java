@@ -12,54 +12,45 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.PaperHandlingOptio
 public class ManualDuplexScanningDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
+    static public String outDir = "";
 
     public class DemoTwainCallback extends TwainCallback
     {
-        TwainSession twainSession = null;
-        TwainSource twainSource = null;
-
-        public DemoTwainCallback(TwainSession session, TwainSource source)
+        private void printInfo(TwainSource sourceHandle, String message)
         {
-            twainSession = session;
-            twainSource = source;
-        }
-
-        private void printInfo(long sourceHandle, String message)
-        {
-            System.out.println(message + twainSource.getInfo().getProductName());
+            System.out.println(message + sourceHandle.getInfo().getProductName());
         }
 
         @Override
-        public int onUIOpened(long sourceHandle)
+        public int onUIOpened(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Please place front side to be scanned (if not already placed in scanner)");
             return 1;
         }
 
         @Override
-        public int onManDupSide1Start(long sourceHandle)
+        public int onManDupSide1Start(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Scanning front side of the page(s)");
             return 1;
         }
 
         @Override
-        public int onManDupSide1Done(long sourceHandle)
+        public int onManDupSide1Done(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Scanned front of the page(s)");
             return 1;
         }
 
         @Override
-        public int onManDupSide2Start(long sourceHandle)
+        public int onManDupSide2Start(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Ready to scan back of the page(s)");
             return 1;
         }
 
         @Override
-        public int onManDupSide2Done(long sourceHandle)
+        public int onManDupSide2Done(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Scanned back of the page(s)");
             return 1;
@@ -88,8 +79,7 @@ public class ManualDuplexScanningDemo
                setName(outDir + "testMultiPageLZW.tif");
 
             // Activate the call back
-            DemoTwainCallback iCallback = new DemoTwainCallback(twainSession, ts);
-            iCallback.activate();
+            twainSession.registerCallback(ts,  new DemoTwainCallback());
 
             // Start the acquisition
             AcquireReturnInfo retInfo = ts.acquire();

@@ -15,7 +15,7 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.ICAP_PIXELTYPE;
 public class GetSetColorTypeDemo
 {
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -87,7 +87,7 @@ public class GetSetColorTypeDemo
         GetSetColorTypeDemo s = new GetSetColorTypeDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

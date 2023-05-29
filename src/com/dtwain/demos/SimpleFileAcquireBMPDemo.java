@@ -8,10 +8,10 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 public class SimpleFileAcquireBMPDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outputDirectory = "c:\\dtwain_javatest\\";
+    static public String outputDirectory = "";
 
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -62,7 +62,7 @@ public class SimpleFileAcquireBMPDemo
 
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

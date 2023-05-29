@@ -1,8 +1,5 @@
 package com.dynarithmic.twain.highlevel;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
+import java.util.UUID;
 
 import com.dynarithmic.twain.DTwainConstants.DSMType;
 import com.dynarithmic.twain.DTwainConstants.FileType;
@@ -25,6 +23,13 @@ import com.dynarithmic.twain.lowlevel.TwainConstantMapper;
 
 public class TwainSession
 {
+    private class TwainCallbackInfo
+    {
+        public TwainSource twainSource;
+        public TwainCallback twainCallback;
+        public UUID callbackId;
+    }
+    
     private String dsmPath = "";
     private DTwainJavaAPI dtwainAPI = null;
     private boolean started = false;
@@ -33,13 +38,15 @@ public class TwainSession
     private TwainLoggerCharacteristics twainLogger = null;
     private DTwainVersionInfo dtwainVersionInfo = new DTwainVersionInfo();
     private boolean enableLogging = false;
+    private boolean enableTripletNotification = false;
     private TW_IDENTITY twainSessionId = new TW_IDENTITY();
     private static ConcurrentMap<Long, TwainSource> handleToSourceMap = new ConcurrentHashMap<>();
     private List<Integer> singlePageTypes = new ArrayList<>();
     private List<Integer> multiPageTypes = new ArrayList<>();
     private Map<Integer, SupportedFileTypeInfo> singlepageFileTypeInfoMap = new HashMap<>();
     private Map<Integer, SupportedFileTypeInfo> multipageFileTypeInfoMap = new HashMap<>();
-
+    private Map<TwainSource, TwainCallbackInfo> callbackMap = new HashMap<>();
+    
     private static final TwainConstantMapper<JNIVersion> s_map = new TwainConstantMapper<>(JNIVersion.class);
 
     public TwainSession() throws DTwainJavaAPIException 
@@ -96,6 +103,43 @@ public class TwainSession
     {
         this.enableLogging = enableLogging;
         return this;
+    }
+    
+    private void enableTripletsInAPI(boolean enableTriplet) throws DTwainJavaAPIException
+    {
+        if ( this.dtwainAPI != null)
+            this.dtwainAPI.DTWAIN_EnableTripletsNotify(enableTriplet?1:0);
+    }
+    
+    public TwainSession enableTripletNotifications(boolean enableTriplet) throws DTwainJavaAPIException
+    {
+        this.enableTripletNotification = enableTriplet;
+        enableTripletsInAPI(enableTriplet);
+        return this;
+    }
+    
+    public boolean isEnableTripletNotifications()
+    {
+        return this.enableTripletNotification;
+    }
+    
+    public TwainCallback registerCallback(TwainSource source, TwainCallback callback)
+    {
+        if ( !this.callbackMap.containsKey(source))
+        {
+            UUID newId = UUID.randomUUID();
+            callback.setTwainSource(source);
+            callback.setTwainSession(this);
+            TwainCallbackInfo newInfo = new TwainCallbackInfo();
+            newInfo.callbackId = newId;
+            newInfo.twainSource = source;
+            newInfo.twainCallback = callback;
+            callback.activate();
+            this.callbackMap.put(source, newInfo);
+        }
+        else
+            this.callbackMap.get(source).twainCallback = callback;
+        return callback;
     }
 
     public boolean isLoggingEnabled()
@@ -448,19 +492,19 @@ public class TwainSession
         return this;
     }
     
-    public String getSessionDetails(int indentValue)
+    public String getSessionDetails(int indentValue, boolean bRefresh)
     {
         if ( dtwainAPI != null)
         {
-            return dtwainAPI.DTWAIN_GetSessionDetails(indentValue);
+            return dtwainAPI.DTWAIN_GetSessionDetails(indentValue, bRefresh);
         }
         return "";
     }
     
-    public String getSourceDetails(String sources, int indentValue)
+    public String getSourceDetails(String sources, int indentValue, boolean bRefresh)
     {
         if ( dtwainAPI != null)
-            return dtwainAPI.DTWAIN_GetSourceDetails(sources, indentValue);
+            return dtwainAPI.DTWAIN_GetSourceDetails(sources, indentValue, bRefresh);
         return "";
     }
     

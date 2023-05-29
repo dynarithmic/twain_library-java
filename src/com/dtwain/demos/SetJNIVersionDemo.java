@@ -8,7 +8,7 @@ import com.dynarithmic.twain.highlevel.TwainSession;
 public class SetJNIVersionDemo
 {
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         System.out.println("Please choose the JNI to use for your application:\n");
         System.out.println("  1. 32-bit ANSI");
@@ -48,7 +48,7 @@ public class SetJNIVersionDemo
         SetJNIVersionDemo s = new SetJNIVersionDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -12,7 +12,7 @@ public class SimpleFileAcquireTIFFLZWDemo
     // Change this to the output directory that fits your environment
     static public String outDir = "c:\\dtwain_javatest\\";
     // Simple acquire to a file
-    public void VerySimpleTest() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -57,7 +57,7 @@ public class SimpleFileAcquireTIFFLZWDemo
         SimpleFileAcquireTIFFLZWDemo s = new SimpleFileAcquireTIFFLZWDemo();
         try
         {
-            s.VerySimpleTest();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

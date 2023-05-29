@@ -12,7 +12,7 @@ public class SinglePageDeviceToMultiPageDemo
 {
     // Change this to the output directory that fits your environment
     static public String outDir = "c:\\dtwain_javatest\\";
-    public void Test() throws Exception
+    public void run() throws Exception
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -64,7 +64,7 @@ public class SinglePageDeviceToMultiPageDemo
         SinglePageDeviceToMultiPageDemo s = new SinglePageDeviceToMultiPageDemo();
         try
         {
-            s.Test();
+            s.run();
         }
         catch (Exception e) {
             e.printStackTrace();

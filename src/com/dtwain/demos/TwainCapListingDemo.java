@@ -10,7 +10,7 @@ public class TwainCapListingDemo
 {
     private TwainSource twainSource = null;
 
-    private void listCaps() throws IllegalArgumentException
+    private void listCaps()
     {
        System.out.println("Source selected: " + twainSource.getInfo().getProductName());
 
@@ -23,7 +23,7 @@ public class TwainCapListingDemo
            System.out.println(CapabilityInterface.getNameFromCap(cap) + " (" + cap + ")");
     }
 
-    public void runDemo() throws DTwainJavaAPIException, Exception
+    public void run() throws DTwainJavaAPIException
     {
         TwainSession twSession = new TwainSession();
         // Select a TWAIN device and crDTwainJavaAPISourcenSource helper object using the returned
@@ -37,10 +37,10 @@ public class TwainCapListingDemo
         twSession.stop();
     }
 
-    public static void main(String[] args) throws DTwainJavaAPIException, Exception
+    public static void main(String[] args) throws DTwainJavaAPIException
     {
         TwainCapListingDemo simpleProg = new TwainCapListingDemo();
-        simpleProg.runDemo();
+        simpleProg.run();
 
         // must be called, since TWAIN dialog is a Swing component
         // and AWT thread was started
