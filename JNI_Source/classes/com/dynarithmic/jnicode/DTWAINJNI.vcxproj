@@ -527,7 +527,6 @@ copy  $(TargetDir)$(TargetName).dll $(SolutionDir)jni_dlls</Command>
     <ClCompile Include="JavaAdapter.cpp" />
     <ClCompile Include="JavaArrayTraits.cpp" />
     <ClCompile Include="javaobjectcaller.cpp" />
-    <ClCompile Include="TestLoad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DSMCaller.h" />

@@ -1,3 +1,23 @@
+/*
+    This file is part of the Dynarithmic TWAIN Library (DTWAIN).
+    Copyright (c) 2002-2023 Dynarithmic Software.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+    DYNARITHMIC SOFTWARE. DYNARITHMIC SOFTWARE DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+    OF THIRD PARTY RIGHTS.
+ */
 #include "javaobjectcaller.h"
 #include "DTWAINJNIGlobals.h"
 
@@ -636,8 +656,8 @@ TW_IDENTITY JavaDTwainLowLevel_TW_IDENTITY::getValue()
 ///////////////////////////////////////////////////////////
 JavaDTwainLowLevel_TW_DEVICEEVENT::JavaDTwainLowLevel_TW_DEVICEEVENT(JNIEnv* env) :
     JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_DEVICEEVENT",
-{GetEvent,GetBatteryMinutes, GetFlashUsed2, GetAutoCapture, GetXRes, GetYRes, GetTimeBefore, 
-     GetTimeBetween, GetDeviceName, GetBatteryPct, GetPowerSupply, SetEvent, SetBatteryMinutes, SetFlashUsed2, 
+{GetEvent,GetBatteryMinutes, GetFlashUsed2, GetAutoCapture, GetXRes, GetYRes, GetTimeBefore,
+     GetTimeBetween, GetDeviceName, GetBatteryPct, GetPowerSupply, SetEvent, SetBatteryMinutes, SetFlashUsed2,
     SetAutoCapture, SetTimeBefore, SetTimeBetween, SetXRes, SetYRes, SetDeviceName, SetBatteryPct, SetPowerSupply}
 ), proxy_32(env), proxy_16(env), proxy_i32(env), strproxy(env), proxy_fix32(env)
 {
@@ -1002,7 +1022,7 @@ JavaDTwainLowLevel_TW_FILESYSTEM::JavaDTwainLowLevel_TW_FILESYSTEM(JNIEnv* env) 
     JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_FILESYSTEM",
     {
     GetInputName, GetOutputName, GetContext, GetRecursive, GetFileType, GetSize, GetCreateTime, GetModifiedTime, GetFreeSpace,
-    GetImageSize, GetNumFiles, GetNumSnippets, GetDeviceMask, GetReserved, SetInputName, SetOutputName, SetContext, 
+    GetImageSize, GetNumFiles, GetNumSnippets, GetDeviceMask, GetReserved, SetInputName, SetOutputName, SetContext,
     SetRecursive, SetFileType, SetSize, SetCreateTime, SetModifiedTime, SetFreeSpace, SetImageSize, SetNumFiles, SetNumSnippets,
     SetDeviceMask, SetReserved
     }), proxy_u32(env), proxy_i32(env), strproxy_255(env), strproxy_32(env), proxy_i8(env), proxy_memref(env)
@@ -1095,7 +1115,7 @@ std::vector<TW_INT8> JavaDTwainLowLevel_TW_FILESYSTEM::getReserved()
     int8Array.setObject(objArray);
     const auto aObjects = int8Array.JavaToNative();
     for (const auto& iObj : aObjects)
-    { 
+    {
         proxy_i8.setObject(iObj);
         aRet.push_back(proxy_i8.getValue());
     }
@@ -2095,7 +2115,7 @@ jobject JavaDTwainLowLevel_TW_AUDIOINFO::NativeToJava(const TW_AUDIOINFO& twaudi
 
 //////////////////////////////////////////////////////////////////
 JavaDTwainLowLevel_TW_TRANSFORMSTAGE::JavaDTwainLowLevel_TW_TRANSFORMSTAGE(JNIEnv* env):
-    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_TRANSFORMSTAGE", 
+    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_TRANSFORMSTAGE",
         { GetDecodeValue, GetMixValue, SetDecodeValue, SetMixValue }),proxy_fix32(env), proxy_decode(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -2231,7 +2251,7 @@ void JavaDTwainLowLevel_TW_CIEPOINT::setValue(const TW_CIEPOINT& val)
 }
 
 JavaDTwainLowLevel_TW_STATUSUTF8::JavaDTwainLowLevel_TW_STATUSUTF8(JNIEnv* env):
-    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_STATUSUTF8", 
+    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_STATUSUTF8",
     {GetStatus, GetSize, GetUTF8String, SetStatus, SetSize, SetUTF8String}),
          proxy_status(env), proxy_u32(env), proxy_handle(env)
 {
@@ -2768,7 +2788,7 @@ jobject JavaDTwainLowLevel_TW_UINT16::NativeToJava(value_type val)
 }
 //////////////////////////////////////////////////////
 JavaDTwainLowLevel_TW_INT8::JavaDTwainLowLevel_TW_INT8(JNIEnv* env) :
-    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_INT8", 
+    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_INT8",
     {GetValue, SetValue})
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -2930,7 +2950,7 @@ bool JavaBufferedStripInfo::isAppAllocatesBuffer()
 
 void JavaBufferedStripInfo::setBufferedStripData(LPBYTE pBytes, LONG size)
 {
-    callVoidMethod(getFunctionName(SetBufferedStripData), 
+    callVoidMethod(getFunctionName(SetBufferedStripData),
                     CreateJArrayFromCArray<JavaByteArrayTraits<char> >(m_pJavaEnv, reinterpret_cast<char*>(pBytes), size));
 }
 
@@ -3075,8 +3095,8 @@ void JavaDTwainVersionInfo::setVersionCopyright(LPCTSTR str)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-JavaTwainAcquireArea::JavaTwainAcquireArea(JNIEnv* env) : 
-    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainAcquireArea", 
+JavaTwainAcquireArea::JavaTwainAcquireArea(JNIEnv* env) :
+    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainAcquireArea",
                     { Left, Top, Right, Bottom, GetUnitMeasure })
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -3187,7 +3207,7 @@ void JavaTwainAcquisitionData::addImageData(jobject ImageObject)
 }
 ///////////////////////////////////////////////////////////////
 JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
-    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "ExtendedImageInfo", 
+    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "ExtendedImageInfo",
      {SetBarcodeInfo,SetShadedAreaDetectionInfo, SetSpeckleRemovalInfo, SetHorizontalLineDetectionInfo, SetVerticalLineDetectionInfo,
       SetPatchcodeDetectionInfo, SetSkewDetectionInfo, SetEndorsedTextInfo, SetFormsRecognitionInfo, SetPageSourceInfo,
       SetImageSegmentationInfo, SetMicrInfo,
@@ -3476,7 +3496,7 @@ void JavaExtendedImageInfo_SpeckleRemovalInfo::NativeToJava(const ExtendedImageI
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_LineDetectionInfo::JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env, std::string orientation) :
-    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_"+orientation+"LineDetectionInfo", 
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_"+orientation+"LineDetectionInfo",
     {SetCount, SetXCoordinate, SetYCoordinate, SetLength, SetThickness }), proxy_uint32(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -4017,7 +4037,7 @@ void JavaDTwainLowLevel_TW_MEMORY::setValue(TW_MEMORY twmemory)
 
 //===========================================================================================================
 JavaDTwainLowLevel_TW_IMAGEMEMXFER::JavaDTwainLowLevel_TW_IMAGEMEMXFER(JNIEnv* env):
-    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_IMAGEMEMXFER", 
+    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_IMAGEMEMXFER",
 {
     GetCompression, GetBytesPerRow, GetColumns, GetRows, GetXOffset, GetYOffset, GetBytesWritten, GetMemory,
     SetCompression, SetBytesPerRow, SetColumns, SetRows, SetXOffset, SetYOffset, SetBytesWritten, SetMemory
@@ -4321,7 +4341,7 @@ void JavaDTwainLowLevel_TW_JPEGCOMPRESSION::setValue(const TW_JPEGCOMPRESSION & 
 }
 
 JavaDTwainLowLevel_TW_PALETTE8::JavaDTwainLowLevel_TW_PALETTE8(JNIEnv* env)
-    : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_PALETTE8", 
+    : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_PALETTE8",
     {GetNumColors,GetPaletteType,GetColorValue,SetNumColors,SetPaletteType,SetColorValue}),
         proxy_u16(env), proxy_element8(env)
 
@@ -4516,7 +4536,7 @@ void JavaDTwainLowLevel_TW_TWAINDIRECT::setValue(const TW_TWAINDIRECT & twtwaind
     NativeToJava(twtwaindirect);
 }
 ///////////////////////////////////////////////////
-JavaDTwainLowLevel_TW_BOOL::JavaDTwainLowLevel_TW_BOOL(JNIEnv* env) : 
+JavaDTwainLowLevel_TW_BOOL::JavaDTwainLowLevel_TW_BOOL(JNIEnv* env) :
     JavaObjectCaller(env,  JavaFunctionNameMapInstance::getFunctionMap(), "TW_BOOL",
     {GetValue, SetValue})
 {
@@ -4540,7 +4560,7 @@ JavaDTwainLowLevel_TW_BOOL::value_type JavaDTwainLowLevel_TW_BOOL::getValue()
 
 void JavaDTwainLowLevel_TW_BOOL::setValue(JavaDTwainLowLevel_TW_BOOL::value_type val)
 {
-    callObjectMethod(getFunctionName(SetValue), static_cast<jboolean>(val)); 
+    callObjectMethod(getFunctionName(SetValue), static_cast<jboolean>(val));
 }
 
 jobject JavaDTwainLowLevel_TW_BOOL::NativeToJava(JavaDTwainLowLevel_TW_BOOL::value_type iInfo)
@@ -4554,7 +4574,7 @@ JavaDTwainLowLevel_TW_BOOL::value_type JavaDTwainLowLevel_TW_BOOL::JavaToNative(
 }
 //=================================================================
 JavaDTwainLowLevel_TW_USERINTERFACE::JavaDTwainLowLevel_TW_USERINTERFACE(JNIEnv * env)
-    : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_USERINTERFACE", 
+    : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_USERINTERFACE",
 {GetShowUI, GetModalUI, GetParent, SetShowUI, SetModalUI, SetParent }), proxy_bool(env), proxy_handle(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -4630,7 +4650,7 @@ void JavaDTwainLowLevel_TW_USERINTERFACE::setValue(const TW_USERINTERFACE & twus
 }
 ///////////////////////////////////////////////////////////////
 JavaDTwainLowLevel_TW_RESPONSETYPE::JavaDTwainLowLevel_TW_RESPONSETYPE(JNIEnv* env)
-    : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_RESPONSETYPE", 
+    : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TW_RESPONSETYPE",
 {GetNumItems, GetResponseValue, SetNumItems, SetResponseValue}), proxy_element8(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -4763,7 +4783,7 @@ void JavaDTwainLowLevel_TwainLowLevel::setValue(const TwainLowLevel& twlowlevel)
 }
 ///////////////////////////////////////////////////
 JavaDTwainLowLevel_TwainTriplet::JavaDTwainLowLevel_TwainTriplet(JNIEnv* env)
-        : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainTriplet", 
+        : JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainTriplet",
         { GetOriginID,GetDestinationID,GetDG,GetDAT,GetMSG,GetData}), proxy_twlowlevel(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -4867,7 +4887,7 @@ double JavaDouble::JavaToNative()
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 JavaBoolean::JavaBoolean(JNIEnv *env) :
-   JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "JavaBoolean", 
+   JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "JavaBoolean",
     {BooleanValue})
 {
     RegisterMemberFunctions(*this, getObjectName());
