@@ -71,7 +71,7 @@ In the src directory, you will find the following packages:
 5. **com.dynarithmic.twain.highlevel** -- The high level functional interface to the DTWAIN library.  
 6. **com.dynarithmic.twain.highlevel.capbilityinterface** -- The high level functional interface to the capabilities of a TWAIN device.  
 6. **com.dynarithmic.twain.highlevel.acquireoptions** -- The high level functional interface to the setup of a device before acquiring images.
-7. **com.dynarithmic.twain.lowlevel** -- The low level functional interface to the DTWAIN library.  Most of the classes here mimic tshe classes found in the TWAIN                                                specification, such as TW_USERINTERFACE, TW_DEVICEEVENT, TW_UINT32, TW_STR255, etc.  Useful if you know what you're doing and                                          want to call the low-level TWAIN Data Source Managers directly using DTWAIN_CallDSMProc
+7. **com.dynarithmic.twain.lowlevel** -- The low level functional interface to the DTWAIN library.  Most of the classes here mimic the classes found in the TWAIN                                                specification, such as TW_USERINTERFACE, TW_DEVICEEVENT, TW_UINT32, TW_STR255, etc.  Useful if you know what you're doing and                                          want to call the low-level TWAIN Data Source Managers directly using DTWAIN_CallDSMProc
 
 ----
 ### Getting started with the demo programs
@@ -87,7 +87,7 @@ However the code present in the demos and in the library itself is almost full-f
 ----
 ### Rebuilding the JNI layer
 
-The JNI layer (i.e. the **dtwainjnixx.dll** files) is built using **Microsoft Visual Studio 2019**.  The minimum Visual Studio platform used is **Visual Studio 2015**, which is the same as the DTWAIN dynamic link libraries.  The Visual Studio solution file is called **DTWAINJNI_Solution.sln**, and is located <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_Source/classes/com/dynarithmic/jnicode" target="_blank">here</a>.
+The JNI layer (i.e. the **dtwainjnixx.dll** files) is built using **Microsoft Visual Studio 2019**.  The minimum Visual Studio platform used is **Visual Studio 2019**.  The Visual Studio solution file is called **DTWAINJNI_Solution.sln**, and is located <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_Source/classes/com/dynarithmic/jnicode" target="_blank">here</a>.
 
 If you are daring to do a build of the JNI layer yourself, make sure your C++ compiler setup is able to access the various header files provided by JNI, such as **jni.h**.  
 
