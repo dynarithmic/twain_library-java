@@ -10,6 +10,127 @@ From the DTWAIN library, you will need one or more of the dynamic link libraries
 5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.0.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
 1. The <a href="https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source" target="_blank">dtwainjni.info</a> file must be accessible by the DLL's mentioned in the previous step.  The **dtwainjni.info** file basically is a bridge between the Java function and class signatures and the C++ translation of those function and class signatures to C++.  Without this file, usage of any of the Java functions that communicate to the JNI layer will throw a Java exception.  The **dtwainjni.info** file must be placed in the same directory as the JNI DLL that will be loaded at runtime.
 ----
+## Very simple Java application using DTWAIN
+
+Here is an example of the simplest Java application you can create to scan a one page image to a Windows BMP file:
+
+```java
+import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.highlevel.TwainSource;
+
+public class TinyApplication
+{
+    public static void main(String[] args)
+    {
+        try
+        {
+            // Open a session
+            TwainSession session = new TwainSession();
+
+            // Select a TWAIN data source
+            TwainSource source = session.selectSource();
+            
+            // If a source was selected, it will automatically be opened, ready to be used
+            if ( source.isOpened() )
+            {
+                // acquire to a BMP file to the current working directory, with name "test.bmp"
+                source.acquire();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+```
+The above example, will save to a file called "test.bmp".  The file will reside in the current working directory, usually the one where you `class` files are located.
+
+The following program sets the name of the file instead of the default `test.bmp`:
+
+```java
+import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.highlevel.TwainSource;
+
+public class TinyApplication2
+{
+    String outputDir = "c:\\test\\out.bmp"; // <-- Change this to something more appropriate for your system
+    
+    public static void main(String[] args)
+    {
+        try
+        {
+            // Open a session
+            TwainSession session = new TwainSession();
+
+            // Session will start
+            TwainSource source = session.selectSource();
+            if ( source.isOpened() )
+            {
+               // Set the file acquire options. By default, the file will be in BMP format
+               source.getAcquireCharacteristics().
+                        getFileTransferOptions().
+                          setName(outputDir);
+                        
+                // acquire to a BMP file
+                source.acquire();
+            }
+        }            
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
+The following program is similar to the previous program, with the only difference being the check for whether the acquisition started successfully or not.
+
+```java
+import com.dynarithmic.twain.DTwainConstants.ErrorCode;
+import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.highlevel.TwainSource;
+import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
+
+public class TinyApplication3
+{
+    String outputDir = "c:\\test\\out.bmp"; // <-- Change this to something more appropriate for your system
+    public static void main(String[] args)
+    {
+        try
+        {
+            // Open a session
+            TwainSession session = new TwainSession();
+
+            // Session will start
+            TwainSource source = session.selectSource();
+            if ( source.isOpened() )
+            {
+               // Set the file acquire options. By default, the file will be in BMP format
+               source.getAcquireCharacteristics().
+                        getFileTransferOptions().
+                           setName(outputDir);
+                        
+               // acquire to a BMP file
+               AcquireReturnInfo retInfo = source.acquire();
+                
+               if ( retInfo.getReturnCode() == ErrorCode.ERROR_NONE )
+                  System.out.println("Acquisition process started and ended successfully");
+               else
+                  System.out.println("Acquisition process failed with error: " + retInfo.getReturnCode());
+            }
+        }            
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+There are other examples of error checking, whether a session is successfully opened, processing messages and errors while the scanning is occurring, selecting the image file type or acquire raw bitmap data, etc. in the  **com.dtwain.demos** package.
+
 
 ## Setting the JNI version to use
 
