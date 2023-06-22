@@ -79,7 +79,7 @@ GetValue                                getValue                           ()I
 SetValue                                setValue                           (I)Lcom/dynarithmic/twain/lowlevel/TW_UINT8;
 
 TwainMessageListener                    com/dynarithmic/twain/highlevel/TwainCallback        1
-TwainEvent                              onTwainEvent                       (IJ)I
+TwainEvent                              onTwainEvent                       (IJZ)I
 
 TwainLogger                             com/dynarithmic/twain/highlevel/TwainLogger                 1
 TwainLogger                             logEvent                           (Ljava/lang/String;)V
