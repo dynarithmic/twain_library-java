@@ -190,7 +190,7 @@ In the src directory, you will find the following packages:
 3. **com.dynarithmic.twain** -- The main code that communicates with the JNI layer.  This includes the native methods, which are declared in **DTwainJavaAPI.java**
 4. **com.dynarithmic.twain.exceptions** -- The DTWAIN Java exception classes.
 5. **com.dynarithmic.twain.highlevel** -- The high level functional interface to the DTWAIN library.  
-6. **com.dynarithmic.twain.highlevel.capbilityinterface** -- The high level functional interface to the capabilities of a TWAIN device.  
+6. **com.dynarithmic.twain.highlevel.capabilityinterface** -- The high level functional interface to the capabilities of a TWAIN device.  
 6. **com.dynarithmic.twain.highlevel.acquireoptions** -- The high level functional interface to the setup of a device before acquiring images.
 7. **com.dynarithmic.twain.lowlevel** -- The low level functional interface to the DTWAIN library.  Most of the classes here mimic the classes found in the TWAIN                                                specification, such as TW_USERINTERFACE, TW_DEVICEEVENT, TW_UINT32, TW_STR255, etc.  Useful if you know what you're doing and                                          want to call the low-level TWAIN Data Source Managers directly using DTWAIN_CallDSMProc
 
