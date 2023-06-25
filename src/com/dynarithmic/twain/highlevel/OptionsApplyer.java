@@ -43,7 +43,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.LanguageOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.MICROptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.PagesOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.PaperHandlingOptions;
-import com.dynarithmic.twain.highlevel.acquirecharacteristics.PatchcodeOptions;
+import com.dynarithmic.twain.highlevel.acquirecharacteristics.PatchcodeDetectionOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.PowerMonitorOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.ResolutionOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.UserInterfaceOptions;
@@ -340,7 +340,7 @@ public class OptionsApplyer
         }
     }
 
-    public static void apply(TwainSource source, PatchcodeOptions po) throws DTwainJavaAPIException
+    public static void apply(TwainSource source, PatchcodeDetectionOptions po) throws DTwainJavaAPIException
     {
         CapabilityInterface ci = source.getCapabilityInterface();
         CapabilityInterface.SetCapOperation op = ci.set();
@@ -350,7 +350,7 @@ public class OptionsApplyer
         if ( detectionEnabled )
         {
             int maxRetries = po.getMaxRetries();
-            if ( maxRetries != PatchcodeOptions.defaultMaxRetries)
+            if ( maxRetries != PatchcodeDetectionOptions.defaultMaxRetries)
             {
                 singleList.set(0, maxRetries);
                 ci.setPatchcodeMaxRetries(singleList, op);
@@ -358,7 +358,7 @@ public class OptionsApplyer
             else
                 ci.setPatchcodeMaxRetries(null, op);
             int searchPriorities = po.getMaxSearchPriorities();
-            if ( searchPriorities != PatchcodeOptions.defaultMaxSearchPriorities)
+            if ( searchPriorities != PatchcodeDetectionOptions.defaultMaxSearchPriorities)
             {
                 singleList.set(0, searchPriorities);
                 ci.setPatchcodeMaxSearchPriorities(singleList, op);
@@ -367,7 +367,7 @@ public class OptionsApplyer
                 ci.setPatchcodeMaxSearchPriorities(null, op);
 
             ICAP_PATCHCODESEARCHMODE searchMode = po.getSearchMode();
-            if ( searchMode != PatchcodeOptions.defaultSearchMode)
+            if ( searchMode != PatchcodeDetectionOptions.defaultSearchMode)
             {
                 singleList.set(0,  searchMode.ordinal());
                 ci.setPatchcodeSearchMode(singleList, op);
@@ -377,7 +377,7 @@ public class OptionsApplyer
 
             ci.setPatchcodeSearchPriorities(po.getSearchPrioritiesAsInt(), op);
             int timeout = po.getTimeout();
-            if (timeout != PatchcodeOptions.defaultTimeout )
+            if (timeout != PatchcodeDetectionOptions.defaultTimeout )
             {
                 singleList.set(0,  timeout);
                 ci.setPatchcodeTimeout(singleList, op);
@@ -474,7 +474,7 @@ public class OptionsApplyer
         else
             ci.setThreshold(null, op);
 
-        String halftone = io.getHalfTone();
+        String halftone = io.getHalftone();
         if ( halftone.compareTo(ImageTypeOptions.defaultHalftone) != 0)
             ci.setHalftones(Arrays.asList(halftone), op);
         else

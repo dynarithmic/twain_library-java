@@ -232,7 +232,7 @@ public class TwainSource
         OptionsApplyer.apply(this, this.acquireCharacteristics.getPowerMonitorOptions());
         OptionsApplyer.apply(this, this.acquireCharacteristics.getDoublefeedDetectionOptions());
         OptionsApplyer.apply(this, this.acquireCharacteristics.getAutoAdjustOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getBarCodeDetectionOptions());
+        OptionsApplyer.apply(this, this.acquireCharacteristics.getBarcodeDetectionOptions());
         OptionsApplyer.apply(this, this.acquireCharacteristics.getPatchcodeDetectionOptions());
         OptionsApplyer.apply(this, this.acquireCharacteristics.getAutoCaptureOptions());
         OptionsApplyer.apply(this, this.acquireCharacteristics.getImageTypeOptions());
@@ -288,7 +288,7 @@ public class TwainSource
         }
 
         // Set the polarity
-        handle.DTWAIN_SetAcquireImageNegative(sourceHandle, ac.getImageTypeOptions().isNegateImage());
+        handle.DTWAIN_SetAcquireImageNegative(sourceHandle, ac.getImageTypeOptions().isNegateImageEnabled());
 
         // Set the blank page handler
         BlankPageHandlingOptions blank_handler = ac.getBlankPageHandlingOptions();
@@ -299,7 +299,7 @@ public class TwainSource
 
         // Set the multisave option
         MultipageSaveOptions multisave_info = ac.getFileTransferOptions().getMultipageSaveOptions();
-        handle.DTWAIN_SetMultipageScanMode(sourceHandle, multisave_info.getMultiPageSaveMode().ordinal());
+        handle.DTWAIN_SetMultipageScanMode(sourceHandle, multisave_info.getSaveMode().ordinal());
 
         // general options
         GeneralOptions gopts = ac.getGeneralOptions();

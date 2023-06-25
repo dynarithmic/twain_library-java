@@ -33,53 +33,53 @@ public class FileTransferOptions
 {
     public class FileTransferFlags
     {
-        boolean useName = true;
-        boolean useSaveDialog = false;
-        boolean useDeviceMode = false;
-        boolean useCreateDirectory = true;
+        boolean bUseName = true;
+        boolean bUseSaveDialog = false;
+        boolean bUseDeviceMode = false;
+        boolean bUseCreateDirectory = true;
 
         public FileTransferFlags useName(boolean uName)
         {
-            this.useName = uName;
+            this.bUseName = uName;
             return this;
         }
 
         public FileTransferFlags useSaveDialog(boolean uSaveDialog)
         {
-            this.useSaveDialog = uSaveDialog;
+            this.bUseSaveDialog = uSaveDialog;
             return this;
         }
 
         public FileTransferFlags useDeviceTransfer(boolean uMode)
         {
-            this.useDeviceMode = uMode;
+            this.bUseDeviceMode = uMode;
             return this;
         }
 
         public FileTransferFlags autoCreateDirectory(boolean autoCreateDir)
         {
-            this.useCreateDirectory = autoCreateDir;
+            this.bUseCreateDirectory = autoCreateDir;
             return this;
         }
 
         public boolean isDeviceTransfer()
         {
-            return this.useDeviceMode;
+            return this.bUseDeviceMode;
         }
 
         public boolean isUseName()
         {
-            return useName;
+            return bUseName;
         }
 
         public boolean isUseSaveDialog()
         {
-            return this.useSaveDialog;
+            return this.bUseSaveDialog;
         }
 
         public boolean isAutoCreateDirectory()
         {
-            return this.useCreateDirectory;
+            return this.bUseCreateDirectory;
         }
     }
 
@@ -140,7 +140,7 @@ public class FileTransferOptions
             return this;
         }
 
-        public MultipageSaveMode getMultiPageSaveMode()
+        public MultipageSaveMode getSaveMode()
         {
             return multiPageSaveMode;
         }

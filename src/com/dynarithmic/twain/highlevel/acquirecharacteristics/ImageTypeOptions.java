@@ -68,7 +68,7 @@ public class ImageTypeOptions
         return bitOrder;
     }
 
-    public String getHalfTone()
+    public String getHalftone()
     {
         return halfTone;
     }
@@ -83,7 +83,7 @@ public class ImageTypeOptions
         return threshold;
     }
 
-    public boolean isNegateImage()
+    public boolean isNegateImageEnabled()
     {
         return negateImage;
     }
@@ -112,7 +112,7 @@ public class ImageTypeOptions
         return this;
     }
 
-    public ImageTypeOptions setHalfTone(String halfTone)
+    public ImageTypeOptions setHalftone(String halfTone)
     {
         this.halfTone = halfTone;
         return this;
@@ -130,7 +130,7 @@ public class ImageTypeOptions
         return this;
     }
 
-    public ImageTypeOptions setNegateImage(boolean negateImage)
+    public ImageTypeOptions enableNegateImage(boolean negateImage)
     {
         this.negateImage = negateImage;
         return this;
