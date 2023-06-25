@@ -88,7 +88,6 @@ public class GetSetColorTypeDemo
         }
         else
         {
-            // See why no acquisition was done
             ErrorCode err = ts.getLastError();
 
             // The user didn't make a selection

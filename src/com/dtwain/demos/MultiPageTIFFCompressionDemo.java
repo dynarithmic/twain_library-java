@@ -35,8 +35,6 @@ public class MultiPageTIFFCompressionDemo
     static public String outDir = "";
     public class TIFFCallback extends TwainCallback
     {
-        TwainSession twainSession = null;
-        TwainSource twainSource = null;
         int page;
         public TIFFCallback() 
         {
@@ -54,7 +52,7 @@ public class MultiPageTIFFCompressionDemo
                 if ( page % 2 == 1 )
                     sourceHandle.setTiffCompressType(FileType.TIFFLZW);
                 else
-                    twainSource.setTiffCompressType(FileType.TIFFG4);
+                    sourceHandle.setTiffCompressType(FileType.TIFFG4);
                 ++page;
             }
             catch (DTwainJavaAPIException e)

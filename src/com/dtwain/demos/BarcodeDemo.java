@@ -61,7 +61,7 @@ public class BarcodeDemo
             List<Integer> bcOptionsList = ci.getBarcodeSearchMode(getAll);
             for (int i = 0; i < bcOptionsList.size(); ++i)
                 System.out.println(bcOptionsList.get(i));
-            BarcodeDetectionOptions bcOptions = ts.getAcquireCharacteristics().getBarCodeDetectionOptions();
+            BarcodeDetectionOptions bcOptions = ts.getAcquireCharacteristics().getBarcodeDetectionOptions();
             bcOptions.enable(true);
 
             // Set the acquire options. We want to acquire using Native mode.

@@ -28,7 +28,6 @@ import com.dynarithmic.twain.highlevel.TwainSource;
 
 public class ChooseTWAINVersion2DSMDemo 
 {
-    // Simple acquire to a file
     public void run() throws Exception
     {
         DSMType dsmToTest [] = { DSMType.LEGACY, DSMType.VERSION2 };

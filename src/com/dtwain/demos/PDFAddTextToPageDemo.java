@@ -36,12 +36,10 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.PDFOptions;
 public class PDFAddTextToPageDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "";
+    static public String outDir = "c:\\dtwain_test\\";
 
     public class PDFCallback extends TwainCallback
     {
-        TwainSession twainSession = null;
-        TwainSource twainSource = null;
         PDFTextElement textElement = new PDFTextElement();
         int pageCount = 1;
 
@@ -65,7 +63,7 @@ public class PDFAddTextToPageDemo
             // Write the PDF info
             try
             {
-                twainSource.writePDFTextElement(textElement);
+                sourceHandle.writePDFTextElement(textElement);
             }
             catch (DTwainJavaAPIException e)
             {

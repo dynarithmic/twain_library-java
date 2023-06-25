@@ -70,7 +70,7 @@ public class GetSetCapabilities
                 int current = 0;
                 for (Integer i : allPaperSizes)
                 {
-                    if ( i != allPaperSizes.get(current).intValue())
+                    if ( i != ((Integer) allPaperSizes2.get(current)).intValue())
                     {
                         allTheSame = false;
                         break;

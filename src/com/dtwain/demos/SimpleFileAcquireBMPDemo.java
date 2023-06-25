@@ -29,7 +29,7 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 public class SimpleFileAcquireBMPDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outputDirectory = "";
+    String outputDirectory = "";
 
     // Simple acquire to a file
     public void run() throws Exception

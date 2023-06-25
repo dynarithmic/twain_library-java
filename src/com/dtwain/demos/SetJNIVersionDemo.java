@@ -25,6 +25,7 @@ import java.util.Scanner;
 
 import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.highlevel.TwainSource;
 
 public class SetJNIVersionDemo
 {
@@ -58,7 +59,10 @@ public class SetJNIVersionDemo
             // Verify these are the DLLs being used
             System.out.println("The DTWAIN DLL in use: " + twainSession.getDTwainPath());
             System.out.println("The JNI Version: " + DTwainGlobalOptions.getJNIVersionAsString());
-
+            
+            TwainSource source = twainSession.selectSource();
+            if ( source.isOpened())
+                System.out.println("The name of the source is " + source.getInfo().getProductName());
             // Close down the TWAIN Session
             twainSession.stop();
         }
