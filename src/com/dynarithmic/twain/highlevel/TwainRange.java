@@ -171,36 +171,62 @@ public class TwainRange<T>
     public T getStep() { return allValues.get(STEPPOS); }
     public T getCurrent() { return allValues.get(CURRENTPOS); }
     public T getDefault() { return allValues.get(DEFAULTPOS); }
+    public boolean isEmpty() { return allValues.isEmpty(); }
 
-    public double getValue(int where)
+    private double getDoubleValue(int where)
     {
         if ( allValues.isEmpty())
             return Double.MIN_VALUE;
+        if ( where >= getExpandCount())
+            throw new ArrayIndexOutOfBoundsException();
         if ( allValues.get(0) instanceof Double )
         {
             double a0Value = (Double)(allValues.get(MINPOS));
             double a2Value = (Double)(allValues.get(STEPPOS));
             return a0Value + where * a2Value;
         }
-        int a0Value = (Integer)(allValues.get(MINPOS));
-        int a2Value = (Integer)(allValues.get(STEPPOS));
-        return (int)(a0Value + where * a2Value);
+        else
+            throw new IllegalArgumentException();
     }
 
-/*      public double getExpandedValue(int nPos) throws DTwainRuntimeException
+    private int getIntValue(int where)
+    {
+        if ( allValues.isEmpty())
+            return Integer.MIN_VALUE;
+        if ( where >= getExpandCount())
+            throw new ArrayIndexOutOfBoundsException();
+        if ( allValues.get(0) instanceof Integer )
         {
-            if ( nPos < 0 )
-                throw new DTwainRuntimeException(DTwainConstants.ErrorCode.ERROR_INVALID_PARAM);
-            return minVal + ( step * nPos );
+            int a0Value = (Integer)(allValues.get(MINPOS));
+            int a2Value = (Integer)(allValues.get(STEPPOS));
+            return (int)(a0Value + where * a2Value);
         }
-
-        public double getPosition(double value) throws DTwainRuntimeException
-        {
-            if ( step == 0 )
-                throw new DTwainRuntimeException(DTwainConstants.ErrorCode.ERROR_INVALID_RANGE);
-            return (value - minVal) / step;
-        }
-
+        else
+            throw new IllegalArgumentException();
     }
-*/
+    
+    @SuppressWarnings("unchecked")
+    public T getValue(int where)
+    {
+        if ( allValues.get(0) instanceof Double )
+            return (T)(Double)getDoubleValue(where);
+        return (T)(Integer)getIntValue(where);
+    }
+    
+    public List<T> expand()
+    {
+        int expCount = getExpandCount();
+        List<T> retList = new ArrayList<T>();
+        if ( allValues.get(0) instanceof Double )
+        {
+            for (int i = 0; i < expCount; ++i)
+                retList.add((T)(Double)getDoubleValue(i));
+        }
+        else
+        {
+            for (int i = 0; i < expCount; ++i)
+                retList.add((T)(Integer)getIntValue(i));
+        }
+        return retList;
+    }
 }
