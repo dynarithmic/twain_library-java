@@ -529,35 +529,17 @@ public class CapabilityInterface
                 if ( this.getCapDataType(cap) == TWTY.TWTY_FIX32)
                 {
                     Double [] dList = ret.toArray(new Double[ret.size()]);
-                    TwainRange<Double> dRange;
-                    try
-                    {
-                        dRange = new TwainRange<>(Arrays.asList(dList));
-                    }
-                    catch (TwainRangeException e)
-                    {
-                        return ret;
-                    }
-                    int numValues = dRange.getExpandCount();
-                    for (int i = 0; i < numValues; ++i)
-                        ret2.add(dRange.getValue(i));
+                    List<Double> vals = new TwainRange<Double>(Arrays.asList(dList)).expand();
+                    for (int i = 0; i < vals.size(); ++i)
+                        ret2.add(vals.get(i));
                     return ret2;
                 }
                 else
                 {
                     Integer [] iList = ret.toArray(new Integer[ret.size()]);
-                    TwainRange<Integer> iRange;
-                    try
-                    {
-                        iRange = new TwainRange<>(Arrays.asList(iList));
-                    }
-                    catch (TwainRangeException e)
-                    {
-                        return ret;
-                    }
-                    int numValues = iRange.getExpandCount();
-                    for (int i = 0; i < numValues; ++i)
-                        ret2.add(iRange.getValue(i));
+                    List<Integer> vals = new TwainRange<Integer>(Arrays.asList(iList)).expand();
+                    for (int i = 0; i < vals.size(); ++i)
+                        ret2.add(vals.get(i));
                     return ret2;
                 }
             }
