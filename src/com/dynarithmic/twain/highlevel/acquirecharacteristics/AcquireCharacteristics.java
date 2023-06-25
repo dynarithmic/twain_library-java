@@ -65,7 +65,7 @@ public class AcquireCharacteristics
     private MICROptions MICRSupport             = new MICROptions();
     private PagesOptions pagesSupport           = new PagesOptions();
     private PaperHandlingOptions paperHandling  = new PaperHandlingOptions();
-    private PatchcodeOptions patchcodeDetection = new PatchcodeOptions();
+    private PatchcodeDetectionOptions patchcodeDetection = new PatchcodeDetectionOptions();
     private PDFOptions pdfOptions               = new PDFOptions();
     private PowerMonitorOptions powerMonitor    = new PowerMonitorOptions();
     private ResolutionOptions resolutionSupport = new ResolutionOptions();
@@ -106,7 +106,7 @@ public class AcquireCharacteristics
     /**
      * @return The BarCodeDetectionOptions (see "Bar Code Detection Search Parameters", Chapter 10-3 of the TWAIN 2.4 specification)
      */
-    public BarcodeDetectionOptions getBarCodeDetectionOptions()
+    public BarcodeDetectionOptions getBarcodeDetectionOptions()
     {
         return barCodeDetection;
     }
@@ -250,7 +250,7 @@ public class AcquireCharacteristics
     /**
      * @return The PatchodeDetectionOptions (see "Patch Code Detection", Chapter 10-3 of the TWAIN 2.4 specification)
      */
-    public PatchcodeOptions getPatchcodeDetectionOptions()
+    public PatchcodeDetectionOptions getPatchcodeDetectionOptions()
     {
         return patchcodeDetection;
     }

@@ -25,7 +25,7 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.*;
 
 import java.util.ArrayList;
 import java.util.List;
-public class PatchcodeOptions
+public class PatchcodeDetectionOptions
 {
     private boolean enabled = false;
     private int maxRetries = defaultMaxRetries;
@@ -39,36 +39,36 @@ public class PatchcodeOptions
     public static final int defaultMaxRetries = 0;
     public static final int defaultMaxSearchPriorities = 0;
 
-    public PatchcodeOptions enable(boolean bSet)
+    public PatchcodeDetectionOptions enable(boolean bSet)
     {
         this.enabled = bSet; return this;
     }
 
-    public PatchcodeOptions setMaxRetries(int num)
+    public PatchcodeDetectionOptions setMaxRetries(int num)
     {
         this.maxRetries = num;
         return this;
     }
 
-    public PatchcodeOptions setMaxSearchPriorities(int num)
+    public PatchcodeDetectionOptions setMaxSearchPriorities(int num)
     {
         this.maxSearchPriorities = num;
         return this;
     }
 
-    public PatchcodeOptions setSearchMode(ICAP_PATCHCODESEARCHMODE sm)
+    public PatchcodeDetectionOptions setSearchMode(ICAP_PATCHCODESEARCHMODE sm)
     {
         this.searchMode = sm;
         return this;
     }
 
-    public PatchcodeOptions setTimeout(int num)
+    public PatchcodeDetectionOptions setTimeout(int num)
     {
         this.timeOutValue = num;
         return this;
     }
 
-    public PatchcodeOptions setSearchPriorities(List<ICAP_SUPPORTEDPATCHCODETYPES> searches)
+    public PatchcodeDetectionOptions setSearchPriorities(List<ICAP_SUPPORTEDPATCHCODETYPES> searches)
     {
         this.listSearchPriorities = searches;
         return this;
