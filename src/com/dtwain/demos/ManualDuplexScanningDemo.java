@@ -91,7 +91,7 @@ public class ManualDuplexScanningDemo
             // We don't care if the device has a duplexer, we can still scan duplex
             // enable manual duplex mode
             AcquireCharacteristics ac = ts.getAcquireCharacteristics();
-            ac.getPaperHandlingOptions().setManualDuplexMpde(ManualDuplexMode.FACEUPBOTTOMFEED);
+            ac.getPaperHandlingOptions().setManualDuplexMode(ManualDuplexMode.FACEUPBOTTOMFEED);
 
             // Set the file acquire options. The file will be multipage TIFF-LZW format.
             // All pages acquired in a single acquisition will be saved to a multipage TIFF file.

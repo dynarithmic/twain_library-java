@@ -203,7 +203,7 @@ public class PaperHandlingOptions
         return manualDuplexMpde;
     }
 
-    public PaperHandlingOptions  setManualDuplexMpde(ManualDuplexMode manualDuplexMpde)
+    public PaperHandlingOptions  setManualDuplexMode(ManualDuplexMode manualDuplexMpde)
     {
         this.manualDuplexMpde = manualDuplexMpde;
         return this;
