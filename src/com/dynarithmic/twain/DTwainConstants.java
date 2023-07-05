@@ -1248,7 +1248,8 @@ public class DTwainConstants
         ONUICLODE(1),
         ONSOURCECLOSE(2),
         ONENDACQUIRE(3),
-        ONMANUALSAVE(4);
+        ONMANUALSAVE(4),
+        ONINCOMPLETESAVE(128);
 
         private final int enumValue;
 

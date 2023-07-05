@@ -41,8 +41,12 @@ public class SimpleLoggingDemo
 
         // Set up logging
         TwainLoggerCharacteristics logging = twainSession.getLoggerCharacteristics();
-        logging.setVerbosity(LoggerVerbosity.MINIMAL).
-                setDestination(LoggingDestination.TOCONSOLE).enable(true);
+        logging.setVerbosity(LoggerVerbosity.MAXIMUM).
+                setDestination(LoggingDestination.TOFILE).
+                setFileName("abc123").
+                enable(true);
+
+        twainSession.startLogging();
 
         // Select a TWAIN Source using the Select Source dialog
         TwainSource ts = twainSession.selectSource();
