@@ -3431,7 +3431,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
             JavaArrayListHandler<ArrayDoubleList> aHandler(env);
             auto vect = aHandler.JavaToNative(values);
             DTWAIN_ArrayResize(aTmp, vect.size());
-            auto buffer = static_cast<LONG*>(DTWAIN_ArrayGetBuffer(aTmp, 0));
+            auto buffer = static_cast<double*>(DTWAIN_ArrayGetBuffer(aTmp, 0));
             std::copy(vect.begin(), vect.end(), buffer);
             return DTWAIN_SetCapValues(DTWAIN_SOURCE(source), cap, setType, aTmp);
         }
