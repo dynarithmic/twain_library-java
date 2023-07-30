@@ -68,8 +68,7 @@ public class BufferedAcquisitionAdvancedDemo
             return 1;
         }
 
-        @Override
-        public int onTransferStripDone(TwainSource sourceHandle)
+        private void addStrip(TwainSource sourceHandle)
         {
             BufferedStripInfo stripInfo = null;
             try
@@ -88,12 +87,19 @@ public class BufferedAcquisitionAdvancedDemo
                 totalImageSize += stripInfo.getBytesWritten();
                 appendBytesToCompressedStream(stripInfo.getBufferedStripData());
             }
+        }
+        
+        @Override
+        public int onTransferStripDone(TwainSource sourceHandle)
+        {
+            addStrip(sourceHandle);
             return 1;
         }
 
         @Override
         public int onTransferDone(TwainSource sourceHandle)
         {
+            addStrip(sourceHandle);
             System.out.println("Transfer done.  Total bytes: " + totalImageSize);
             return 1;
         }

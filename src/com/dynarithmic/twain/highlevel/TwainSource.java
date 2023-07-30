@@ -51,6 +51,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.PaperHandlingOptio
 import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
 import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface.*;
 import com.dynarithmic.twain.lowlevel.TwainConstants.CAP_JOBCONTROL;
+import com.dynarithmic.twain.lowlevel.TW_IDENTITY;
 import org.apache.commons.lang3.time.StopWatch;
 
 public class TwainSource
@@ -88,6 +89,7 @@ public class TwainSource
     public static int AcquireCanceled = 2;
     private TwainCallback messageCallback = new TwainCallback();
     private byte [] customDSData = new byte[0];
+    private TW_IDENTITY m_SourceID = new TW_IDENTITY();
 
     public TwainSource()
     {}
@@ -692,5 +694,12 @@ public class TwainSource
             return iInfo;
         }
         return new TwainImageInfo();
+    }
+    
+    public TW_IDENTITY getSourceID() throws DTwainJavaAPIException
+    {
+        if ( sourceHandle != 0 && twainSession != null && isOpened)
+            return twainSession.getAPIHandle().DTWAIN_GetSourceID(sourceHandle);
+        throw new DTwainJavaAPIException("Invalid source or TWAIN session handle");
     }
 }
