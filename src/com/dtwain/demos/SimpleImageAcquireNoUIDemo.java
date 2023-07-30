@@ -21,9 +21,7 @@
  */
 package com.dtwain.demos;
 
-import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.highlevel.ImageHandler;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -31,6 +29,9 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteris
 
 public class SimpleImageAcquireNoUIDemo
 {
+    // Change this to the output directory that fits your environment
+    String outputDirectory = "";
+
     // Simple acquire to a file
     public void run() throws Exception
     {
@@ -41,61 +42,28 @@ public class SimpleImageAcquireNoUIDemo
         TwainSource ts = twainSession.selectSource();
         if ( ts.isOpened() )
         {
-            // Get the acquire characteristics for the upcoming acquisition
             AcquireCharacteristics ac = ts.getAcquireCharacteristics();
 
-            // Set the acquisition type to Native
-            ac.getGeneralOptions().setAcquireType(AcquireType.NATIVE);
+            // Set the file acquire options. By default, the file will be in BMP format
+            ac.getFileTransferOptions().
+               setName(outputDirectory + "test_" + getClass().getName() + ".bmp");
 
-            // turn off the TWAIN device's user interface
+            // Turn off the user interface
             ac.getUserInterfaceOptions().showUI(false);
 
             // Start the acquisition
             AcquireReturnInfo retInfo = ts.acquire();
+
+            // Note that the return code only indicates whether the acquisition processing
+            // was started successfully.
+            //
+            // If there is an error in the actual creation of the
+            // image file, please see the SimpleFileAcquireBMPWithErrorsDemo.java to see how
+            // to handle the internal errors during the acquisition.
             if ( retInfo.getReturnCode() == ErrorCode.ERROR_NONE )
-            {
-                System.out.println("Acquisition Successful");
-
-                // Now get the image data from the acquisition.  The ImageHandler class
-                // does this.
-                ImageHandler iHandler = retInfo.getImageHandler();
-
-                // Get the number of times user hit the "scan pages" indicator on the TWAIN device's
-                // user interface. Note that this is the typical way most TWAIN devices with an
-                // interface work.
-                long count = iHandler.getNumAcquisitions();
-                System.out.println("You probably hit the scan button " + count + " times.");
-                if ( count == 0 )
-                    twainSession.stop(); // Just stop the session and return
-
-                // Now for each time a scan was done, get the number of pages.
-                // Note that devices with a document feeder allows you to scan multiple pages
-                // a multiple number of times before closing the user interface.
-                for (int i = 0; i < count; ++i)
-                {
-                    // Get the number of images from scan attempt i
-                    long numImages = iHandler.getNumImages(i);
-                    System.out.println("For scan number " + (i+1) + ", you scanned " + numImages + " pages");
-
-                    // Now get the image data.
-                    // This for loop only shows how to get the image data.
-                    // After the loop, we will send iHandler's information to a
-                    // dialog that displays the image.
-                    for (int j = 0; j < numImages; ++j)
-                    {
-                        // imageData is the actual raw bytes of the image.
-                        // For TWAIN devices, by default this will always be
-                        // a Windows BMP.  For now, we won't do anything inside
-                        // the loop.
-                        byte [] imageData = iHandler.getImageData(i, j);
-                        // Now you can take the imageData and give it to your favorite
-                        // Image handling code...
-                        System.out.println("The image obtained contains " + imageData.length + " bytes of data");
-                    }
-                }
-            }
+                System.out.println("Acquisition process started and ended successfully");
             else
-                System.out.println("Acquisition Failed with error: " + retInfo.getReturnCode());
+                System.out.println("Acquisition process failed with error: " + retInfo.getReturnCode());
         }
         else
         {
@@ -117,6 +85,7 @@ public class SimpleImageAcquireNoUIDemo
     public static void main(String [] args)
     {
         SimpleImageAcquireNoUIDemo s = new SimpleImageAcquireNoUIDemo();
+
         try
         {
             s.run();

@@ -36,7 +36,7 @@ public class TinyApplication
             // Session will start
             TwainSource source = session.selectSource();
             if ( source.isOpened() )
-                // acquire to a BMP file to the current working directory, with name "test.bmp"
+                // acquire to a BMP file to the current working directory, with name "temp.bmp"
                 // To set the name, see the SimpleFileAcquireBMPDemo.java demo
                 source.acquire();
         }
