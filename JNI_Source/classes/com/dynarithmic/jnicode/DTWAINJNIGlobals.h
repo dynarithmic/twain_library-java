@@ -29,6 +29,7 @@
 #include "dtwain.h"
 #include "DTWAINGlobalFn.h"
 #include "DSMCaller.h"
+#include "DTWAINJNI_Version.h"
 
 #define DECLARE_DTWAIN_SMART_POINTER_MAP(Name) FnGlobal##Name##Ptr g_##Name##Map;
 
