@@ -129,7 +129,47 @@ public class TinyApplication3
 }
 ```
 
-There are other examples of error checking, whether a session is successfully opened, processing messages and errors while the scanning is occurring, selecting the image file type or acquire raw bitmap data, etc. in the  **com.dtwain.demos** package.
+The following program sets the file type to a TIFF file, compressed using LZW compression:
+
+```java
+import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.highlevel.TwainSource;
+import com.dynarithmic.twain.DTwainConstants.FileType;
+
+public class TinyApplication3
+{
+    String outputDir = "c:\\test\\out.tif"; // <-- Change this to something more appropriate for your system
+    
+    public static void main(String[] args)
+    {
+        try
+        {
+            // Open a session
+            TwainSession session = new TwainSession();
+
+            // Session will start
+            TwainSource source = session.selectSource();
+            if ( source.isOpened() )
+            {
+               // Set the file acquire options.  The file will be in TIFF-LZW format
+               source.getAcquireCharacteristics().
+                        getFileTransferOptions().
+                          setType(FileType.TIFFLZW).
+                          setName(outputDir);
+                        
+                // acquire to a TIFF-LZW file
+                source.acquire();
+            }
+        }            
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+There are other examples of error checking, whether a session is successfully opened, processing messages and errors while the scanning is occurring, scanning to a single multipage file, selecting the image file type or acquire raw bitmap data, etc. in the  **com.dtwain.demos** package.
 
 
 ## Setting the JNI version to use
