@@ -1,5 +1,5 @@
 # Dynarithmic TWAIN Library Java interface
-This repositiory contains an alpha version of the new Java Native Interface (JNI) bridge to the Dynarithmic TWAIN Library.  This Java/JNI bridge will eventually replace the old version that is currently available in the main <a href="https://github.com/dynarithmic/twain_library/tree/master/language_bindings_and_examples/Java" target="_blank">twain_library repository.</a>
+This repositiory contains the new version of the Java Native Interface (JNI) bridge to the Dynarithmic TWAIN Library.  This Java/JNI bridge will eventually replace the old version that is currently available in the main <a href="https://github.com/dynarithmic/twain_library/tree/master/language_bindings_and_examples/Java" target="_blank">twain_library repository.</a>
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
