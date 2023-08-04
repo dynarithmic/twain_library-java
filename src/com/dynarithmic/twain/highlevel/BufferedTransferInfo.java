@@ -85,6 +85,7 @@ public class BufferedTransferInfo
 
     public BufferedTransferInfo(TwainSource theSource) throws DTwainJavaAPIException, DTwainRuntimeException
     {
+        this();
         attach(theSource);
     }
 

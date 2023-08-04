@@ -1287,7 +1287,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
     }//GEN-LAST:event_AcquireFileEMFActionPerformed
 
     private void AcquireFileICOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcquireFileICOActionPerformed
-                AcquireFileHelper(DTwainConstants.FileType.ICO);
+                AcquireFileHelper(DTwainConstants.FileType.ICO_RESIZED);
     }//GEN-LAST:event_AcquireFileICOActionPerformed
 
     private void AcquireFileICOLARGEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcquireFileICOLARGEActionPerformed
@@ -1295,7 +1295,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
     }//GEN-LAST:event_AcquireFileICOLARGEActionPerformed
 
     private void AcquireFileWBMPActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_AcquireFileWBMPActionPerformed
-                AcquireFileHelper(DTwainConstants.FileType.WBMP, DTwainConstants.PixelType.BW);
+                AcquireFileHelper(DTwainConstants.FileType.WBMP_RESIZED, DTwainConstants.PixelType.BW);
     }//GEN-LAST:event_AcquireFileWBMPActionPerformed
 
     private void AcquireFilePSLevel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcquireFilePSLevel1ActionPerformed

@@ -438,545 +438,84 @@ public:
         return {};
     }
 
-    template <typename T1>
-    jobject constructObject(size_t constructorNumber, T1 t)
+    template <typename ...Params>
+    jobject constructObject(size_t constructorNumber, Params&& ...params)
     {
         const std::string key = getConstructorKey(constructorNumber);
         if ( !key.empty())
-            return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, t);
+            return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, std::forward<Params>(params)...);
         return {};
     }
 
-    template <typename T1, typename T2>
-    jobject constructObject(size_t constructorNumber, T1 t, T2 t2)
-    {
-        const std::string key = getConstructorKey(constructorNumber);
-        if (!key.empty())
-            return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, t, t2);
-        return{};
-    }
-
-    template <typename T1, typename T2, typename T3>
-    jobject constructObject(size_t constructorNumber, T1 t, T2 t2, T3 t3)
-    {
-        const std::string key = getConstructorKey(constructorNumber);
-        if (!key.empty())
-            return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, t, t2, t3);
-        return{};
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    jobject constructObject(size_t constructorNumber, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const std::string key = getConstructorKey(constructorNumber);
-        if (!key.empty())
-            return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, t, t2, t3, t4);
-        return{};
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    jobject constructObject(size_t constructorNumber, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const std::string key = getConstructorKey(constructorNumber);
-        if (!key.empty())
-            return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, t, t2, t3, t4, t5);
-        return{};
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    jobject constructObject(size_t constructorNumber, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const std::string key = getConstructorKey(constructorNumber);
-        if (!key.empty())
-            return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, t, t2, t3, t4, t5, t6);
-        return{};
-    }
-
-    void callVoidMethod(const std::string& methodName)
+    template <typename ...Params>
+    void callVoidMethod(const std::string& methodName, Params&&... params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID);
+            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
     }
 
-    template <typename T1>
-    void callVoidMethod(const std::string& methodName, T1 t)
+    template <typename ...Params>
+    jobject callObjectMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID, t);
-    }
-
-    template <typename T1, typename T2>
-    void callVoidMethod(const std::string& methodName, T1 t, T2 t2)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID, t, t2);
-    }
-
-    template <typename T1, typename T2, typename T3>
-    void callVoidMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    void callVoidMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    void callVoidMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    void callVoidMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            m_pJavaEnv->CallVoidMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
-    }
-
-    jobject callObjectMethod(const std::string& methodName)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID);
+            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return nullptr;
     }
 
-    template <typename T1>
-    jobject callObjectMethod(const std::string& methodName, T1 t)
+
+    template <typename ...Params>
+    int callIntMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, t);
-        return nullptr;
+            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
+        return 0;
     }
 
-    template <typename T1, typename T2>
-    jobject callObjectMethod(const std::string& methodName, T1 t, T2 t2)
+    template <typename ...Params>
+    int64_t callLongMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, t, t2);
-        return nullptr;
+            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
+        return 0;
     }
 
-    template <typename T1, typename T2, typename T3>
-    jobject callObjectMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
+    template <typename ...Params>
+    double callDoubleMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-        return nullptr;
+            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
+        return 0;
     }
 
-    template <typename T1, typename T2, typename T3, typename T4>
-    jobject callObjectMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
+    template <typename ...Params>
+    char callByteMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-        return nullptr;
+            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
+        return 0;
     }
 
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    jobject callObjectMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
+    template <typename ...Params>
+    short callShortMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-        return nullptr;
+            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
+        return 0;
     }
 
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    jobject callObjectMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
+    template <typename ...Params>
+    int callBooleanMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
         if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
-        return nullptr;
-    }
-
-    int callIntMethod(const std::string& methodName)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID);
-        return 0;
-    }
-
-    template <typename T1>
-    int callIntMethod(const std::string& methodName, T1 t)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID, t);
-        return 0;
-    }
-
-    template <typename T1, typename T2>
-    int callIntMethod(const std::string& methodName, T1 t, T2 t2)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID, t, t2);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3>
-    int callIntMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    int callIntMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    int callIntMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    int callIntMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallIntMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
-        return 0;
-    }
-
-    int64_t callLongMethod(const std::string& methodName)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID);
-        return 0;
-    }
-
-    template <typename T1>
-    int64_t callLongMethod(const std::string& methodName, T1 t)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, t);
-        return 0;
-    }
-
-    template <typename T1, typename T2>
-    int64_t callLongMethod(const std::string& methodName, T1 t, T2 t2)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, t, t2);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3>
-    int64_t callLongMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    int64_t callLongMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    int64_t callLongMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    int64_t callLongMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
-        return 0;
-    }
-
-    double callDoubleMethod(const std::string& methodName)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID);
-        return 0;
-    }
-
-    template <typename T1>
-    double callDoubleMethod(const std::string& methodName, T1 t)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, t);
-        return 0;
-    }
-
-    template <typename T1, typename T2>
-    double callDoubleMethod(const std::string& methodName, T1 t, T2 t2)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, t, t2);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3>
-    double callDoubleMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    double callDoubleMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-        return 0;
-    }
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    double callDoubleMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    double callDoubleMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
-            return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
-        return 0;
-    }
-
-    char callByteMethod(const std::string& methodName)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID);
-        return 0;
-    }
-
-    template <typename T1>
-    char callByteMethod(const std::string& methodName, T1 t)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, t);
-        return 0;
-    }
-
-    template <typename T1, typename T2>
-    char callByteMethod(const std::string& methodName, T1 t, T2 t2)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, t, t2);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3>
-    char callByteMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    char callByteMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    char callByteMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    char callByteMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
-        return 0;
-    }
-
-    short callShortMethod(const std::string& methodName)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID);
-        return 0;
-    }
-
-    template <typename T1>
-    short callShortMethod(const std::string& methodName, T1 t)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, t);
-        return 0;
-    }
-
-    template <typename T1, typename T2>
-    short callShortMethod(const std::string& methodName, T1 t, T2 t2)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, t, t2);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3>
-    short callShortMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    short callShortMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    short callShortMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    short callShortMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
-        return 0;
-    }
-
-    int callBooleanMethod(const std::string& methodName)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID);
-        return 0;
-    }
-
-    template <typename T1>
-    int callBooleanMethod(const std::string& methodName, T1 t)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, t);
-        return 0;
-    }
-
-    template <typename T1, typename T2>
-    int callBooleanMethod(const std::string& methodName, T1 t, T2 t2)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, t, t2);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3>
-    int callBooleanMethod(const std::string& methodName, T1 t, T2 t2, T3 t3)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, t, t2, t3);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    int callBooleanMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    int callBooleanMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5);
-        return 0;
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    int callBooleanMethod(const std::string& methodName, T1 t, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
-    {
-        const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if (!defs.m_jMethodName.empty())
-            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, t, t2, t3, t4, t5, t6);
+            return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return 0;
     }
 };
