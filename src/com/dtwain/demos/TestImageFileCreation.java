@@ -24,6 +24,7 @@ package com.dtwain.demos;
 import java.util.List;
 
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.SupportedFileTypeInfo;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.TwainSession;
@@ -39,7 +40,7 @@ class TestImageFileCreation
         String outDirT = outDir;
 
         // select a source
-        TwainSource twainSource = twSession.selectSource();
+        TwainSource twainSource = EnhancedSourceSelector.selectSource(twSession);
         if ( twainSource.isOpened())
         {
             List<Integer> allTypes = null;

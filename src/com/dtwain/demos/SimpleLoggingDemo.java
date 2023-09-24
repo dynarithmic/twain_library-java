@@ -20,11 +20,12 @@
 
  */
 package com.dtwain.demos;
-
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.highlevel.TwainLoggerCharacteristics;
-import com.dynarithmic.twain.highlevel.TwainLoggerCharacteristics.LoggerVerbosity;
-import com.dynarithmic.twain.highlevel.TwainLoggerCharacteristics.LoggingDestination;
+import com.dynarithmic.twain.DTwainConstants.SessionStartupMode;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
+import com.dynarithmic.twain.highlevel.TwainConsoleLogger;
+import com.dynarithmic.twain.highlevel.TwainFileLogger;
+import com.dynarithmic.twain.highlevel.TwainLogger;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -36,20 +37,23 @@ public class SimpleLoggingDemo
     // Simple acquire to a file
     public void run() throws Exception
     {
-        // Start a TWAIN session
-        TwainSession twainSession = new TwainSession();
+        // Create a TWAIN Session without starting it.  We want to log 
+        // what happens when TWAIN starts up
+        TwainSession twainSession = new TwainSession(SessionStartupMode.NONE);
+        twainSession.enableLogging(true);
 
-        // Set up logging
-        TwainLoggerCharacteristics logging = twainSession.getLoggerCharacteristics();
-        logging.setVerbosity(LoggerVerbosity.MAXIMUM).
-                setDestination(LoggingDestination.TOFILE).
-                setFileName("abc123").
-                enable(true);
+        // Set up logging to a file and to the console
+        TwainLogger logging = TwainSession.getLogger();
+        logging.setVerbosity(TwainLogger.LoggerVerbosity.MAXIMUM).
+                addLogger(new TwainFileLogger("newlog.log")).  // Log to a file names newlog.log
+                addLogger(new TwainConsoleLogger());          // Log to the system console
 
-        twainSession.startLogging();
+        // Now start the session, which will also start the logger
+        twainSession.start();
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
+        twainSession.stopLogging();
         if ( ts.isOpened() )
         {
             // Set the file acquire options. By default, the file will be in BMP format
@@ -78,6 +82,7 @@ public class SimpleLoggingDemo
         }
 
         // Close down the TWAIN Session
+        twainSession.startLogging();
         twainSession.stop();
     }
 

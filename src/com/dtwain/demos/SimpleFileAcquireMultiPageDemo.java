@@ -23,6 +23,7 @@ package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.FileType;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -38,7 +39,8 @@ public class SimpleFileAcquireMultiPageDemo
         TwainSession twainSession = new TwainSession();
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
+
         if ( ts.isOpened() )
         {
             // Set the file acquire options. The file will be multipage TIFF-LZW format.

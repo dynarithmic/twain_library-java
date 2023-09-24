@@ -22,6 +22,7 @@
 package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -37,8 +38,8 @@ public class SimpleFileAcquireBMPDemo
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 
-        // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        // Select a TWAIN Source using the enhanced Select Source dialog 
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
             // Set the file acquire options. By default, the file will be in BMP format

@@ -23,6 +23,7 @@ package com.dtwain.demos;
 import java.util.List;
 
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
@@ -49,7 +50,8 @@ public class TwainCapListingDemo
         TwainSession twSession = new TwainSession();
         // Select a TWAIN device and crDTwainJavaAPISourcenSource helper object using the returned
         // TWAIN Source (which is a long type), and the interface we initialized above.
-        twainSource = twSession.selectSource();
+        twainSource = EnhancedSourceSelector.selectSource(twSession);
+
         if ( twainSource.isOpened())
         {
             // list the caps

@@ -23,6 +23,7 @@ package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainCallback;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -68,7 +69,7 @@ public class SimpleFileAcquireBMPWithErrorsDemo
         TwainSession twainSession = new TwainSession();
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
 
         // TwainCallback that monitors image file creation errors
         twainSession.registerCallback(ts, new FileCreationCallback());

@@ -24,6 +24,7 @@ package com.dtwain.demos;
 import java.nio.charset.StandardCharsets;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 
@@ -37,7 +38,7 @@ public class ShowCustomDSDataDemo
         twainSession.start();
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
             byte [] customDSData = ts.getCustomDSData();
