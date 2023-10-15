@@ -38,6 +38,8 @@
 #define UNICODEJNI_SUFFIX ""
 #endif
 
+#define DTWAINJNI_INFOFILE "dtwainjni.info"
+
 #if defined (WIN64) || (_WIN64)
 #define DTWAINJNI_DLLNAME      "dtwainjni64" UNICODE_SUFFIX DTWAIN_DEVELOP_SUFFIX ".dll"
 #define DTWAINJNI_FILEDESCRIPTION  "dtwainjni64" UNICODE_SUFFIX DTWAIN_DEVELOP_SUFFIX
