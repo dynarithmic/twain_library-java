@@ -20,65 +20,86 @@
 
  */
 package com.dynarithmic.twain.highlevel;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import com.dynarithmic.twain.DTwainConstants;
 import com.dynarithmic.twain.DTwainJavaAPI;
 import com.dynarithmic.twain.DTwainConstants.LoggingOptions;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+
 public class TwainLogger
 {
     private boolean activated;
     private boolean logTwainMsg;
     private int  m_logFlags = LoggingOptions.USE_CALLBACK.value();
-    private String m_logFile = "";
     private DTwainJavaAPI m_interface = null;
-    private PrintStream m_utf8Stream = null;
-    private OutputStream outputStream = System.out;
+    private int [] verbose_settings = new int [7];
+    private LoggerVerbosity logVerbosity = LoggerVerbosity.MEDIUM;
 
-    private static final ArrayList<TwainLogger> allLoggers = new ArrayList<>();
+    private ArrayList<TwainLoggerProc> allLoggers = new ArrayList<>();
 
-    public TwainLogger(OutputStream strm) throws UnsupportedEncodingException
+    public enum LoggerVerbosity
     {
-        this();
-        this.outputStream = strm;
+        NONE,     // No logging
+        MINIMAL,  // Call stack, parameter values passed and return values
+        MODERATE, // MINIMAL + decode message sent to and from TWAIN DSM/Source
+        MEDIUM,   // MODERATE + decode message sent to and from TWAIN DSM/Source + TW_MEMREF
+        HIGH,     // MEDIUM + decode message sent to and from TWAIN DSM/Source + TW_MEMREF + TW_EVENT
+        MAXIMUM,  // HIGH + low-level TWAIN activity
+        CUSTOM    // Custom setting
     }
-
-    public TwainLogger(DTwainJavaAPI iFace, OutputStream strm) throws UnsupportedEncodingException
+    
+    public TwainLogger()
     {
-        this(iFace);
-        this.outputStream = strm;
-    }
-
-    public TwainLogger() throws UnsupportedEncodingException
-    {
-        m_utf8Stream = new PrintStream(outputStream, true, "UTF-8");
-        allLoggers.add(this);
         activated = false;
         logTwainMsg = false;
+        verbose_settings[0] = 0;
+        verbose_settings[1] = LoggingOptions.SHOW_CALLSTACK.value() | LoggingOptions.DECODE_BITMAP.value();
+        verbose_settings[2] = verbose_settings[1] |
+                              LoggingOptions.DECODE_DEST.value() |
+                              LoggingOptions.DECODE_SOURCE.value();
+        verbose_settings[3] = verbose_settings[2] | LoggingOptions.DECODE_TWMEMREF.value();
+        verbose_settings[4] = verbose_settings[3] | LoggingOptions.DECODE_TWEVENT.value() ;
+        verbose_settings[5] = LoggingOptions.LOGALL.value();
+        verbose_settings[6] = LoggerVerbosity.CUSTOM.ordinal();
     }
 
-    public TwainLogger(DTwainJavaAPI iFace) throws UnsupportedEncodingException
+    public int getVerbosityFlags()
     {
-        m_utf8Stream = new PrintStream(outputStream, true, "UTF-8");
-        allLoggers.add(this);
-        activated = false;
-        logTwainMsg = false;
-        m_interface = iFace;
+        return verbose_settings[logVerbosity.ordinal()];
     }
-
-    public TwainLogger setOutputStream(OutputStream outputStream)
+    
+    public TwainLogger setVerbosity(LoggerVerbosity verbosity)
     {
-        this.outputStream = outputStream;
+        this.logVerbosity = verbosity;
         return this;
     }
-
-    public OutputStream getOutputStream()
+    public boolean isActivated()
     {
-        return this.outputStream;
+        return activated;
+    }
+    
+    public TwainLogger activate(boolean activated)
+    {
+        this.activated = activated;
+        return this;
+    }
+    
+    public TwainLogger addLogger(TwainLoggerProc proc)
+    {
+        allLoggers.add(proc);
+        return this;
+    }
+    
+    public TwainLogger clearLoggers()
+    {
+        allLoggers.clear();
+        return this;
+    }
+    
+    public TwainLogger removeLogger(TwainLoggerProc proc)
+    {
+        allLoggers.remove(proc);
+        return this;
     }
 
     public TwainLogger setInterface(DTwainJavaAPI iFace)
@@ -86,9 +107,6 @@ public class TwainLogger
         m_interface = iFace;
         return this;
     }
-
-    public int getLogFlags() { return m_logFlags; }
-    public TwainLogger setLogFlags(int flags) { m_logFlags = flags; return this; }
 
     private void startLoggerHelper() throws DTwainJavaAPIException
     {
@@ -110,22 +128,11 @@ public class TwainLogger
     {
         if ( m_interface != null )
         {
-            if ( m_logFile != null && !m_logFile.isEmpty())
-                m_logFlags = m_logFlags | LoggingOptions.USE_CALLBACK.value() | LoggingOptions.USE_FILE.value();
-            else
-                m_logFlags = m_logFlags | LoggingOptions.USE_CALLBACK.value();
-            try
-            {
-                if ( !logTwainMsg )
-                    m_logFlags &= ~(DTwainConstants.LoggingOptions.SHOW_ISTWAINMSG.value());
-                m_interface.DTWAIN_SetTwainLog(m_logFlags, m_logFile);
-                m_interface.DTWAIN_EnableMsgNotify(1);
-                return true;
-            }
-            catch (DTwainJavaAPIException e)
-            {
-                throw e;
-            }
+            int verbosity = verbose_settings[logVerbosity.ordinal()] + LoggingOptions.USE_CALLBACK.value();
+            int total_verbosity = (int)verbosity;
+            m_interface.DTWAIN_SetTwainLog(total_verbosity, "");
+            m_interface.DTWAIN_EnableMsgNotify(1);
+            return true;
         }
         return false;
     }
@@ -140,15 +147,10 @@ public class TwainLogger
     {
         startLoggerHelper();
     }
-
     public void stopLogger()
     {
         activated = false;
     }
-
-
-    public  TwainLogger setLogFileName(String logFile)
-    {  m_logFile = logFile; return this; }
 
     public TwainLogger setLogTwainMsg(boolean bSet)
     {
@@ -156,31 +158,22 @@ public class TwainLogger
         return this;
     }
 
-    public boolean getLogTwainMsg()
+    public boolean hasProcs()
     {
-        return logTwainMsg;
+        return allLoggers.size() > 0;
     }
 
-    public void activate()
-    { activated = true; }
-
-    public void deactivate()
-    { activated = false; }
-
-    public boolean isActivated()
-    { return activated;  }
-
-    public static void logEvent(String logMsg)
+    public void logMessage(String msg)
     {
-        int nLoggers = allLoggers.size();
-        for ( int i = 0; i < nLoggers; ++i )
+        for (TwainLoggerProc proc : allLoggers)
         {
-            TwainLogger theLogger = allLoggers.get(i);
-            if (theLogger.activated)
-                theLogger.onLogEvent(logMsg);
+            try
+            {
+                proc.Log(msg);
+            }
+            catch (Exception e) 
+            {
+            }
         }
     }
-
-    public void onLogEvent(String logMsg)
-    {  m_utf8Stream.println(logMsg); }
 }

@@ -23,7 +23,7 @@ package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.FileType;
-import com.dynarithmic.twain.highlevel.TwainLoggerCharacteristics.LoggerVerbosity;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -37,10 +37,9 @@ public class SimpleFileAcquireTIFFLZWDemo
     {
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
-        twainSession.getLoggerCharacteristics().enable(true).setVerbosity(LoggerVerbosity.HIGH);
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
             // Set the file acquire options. By default, the file will be in TIFF-LZW format

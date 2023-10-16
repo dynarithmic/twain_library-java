@@ -259,6 +259,8 @@ void InitializeFunctionCallerInfo(std::ifstream& txtRes)
     {
         if (stringjniutils::isAllBlank(line))
             continue;
+        if (line.front() == ';') // This is a comment
+            continue;
         // Get the header info
         std::istringstream strm(line);
         strm >> headerInfo[0] >> headerInfo[1] >> numFuncs;
@@ -287,6 +289,7 @@ std::string GetDirectory(const std::string& path)
     size_t found = path.find_last_of("/\\");
     return(path.substr(0, found));
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 /*
@@ -311,18 +314,19 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
         HINSTANCE hInst = GetModuleHandleA(DTWAINJNI_DLLNAME);
         char szName[1024];
         ::GetModuleFileNameA(hInst, szName, 1023);
-        strToUse = GetDirectory(szName) + "\\dtwainjni.info";
+        strToUse = GetDirectory(szName) + "\\" + std::string(DTWAINJNI_INFOFILE);
     }
     else
     {
         if (strToUse.back() != '\\' && strToUse.back() != '/')
             strToUse += "\\";
-        strToUse += "dtwainjni.info";
+        strToUse += DTWAINJNI_INFOFILE;
     }
     std::ifstream txtRes(strToUse);
     if ( !txtRes )
     {
-        JavaExceptionThrower::ThrowFileNotFoundError(env, "dtwainjni.info does not exist or could not be opened");
+        std::string sMsg = std::string(DTWAINJNI_INFOFILE) + " does not exist or could not be opened";
+        JavaExceptionThrower::ThrowFileNotFoundError(env, sMsg.c_str());
         return 0;
     }
 
@@ -355,7 +359,6 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1FreeLibr
     return 1;
     DTWAIN_CATCH(env)
 }
-
 
 JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsTwainAvailable
   (JNIEnv *env, jobject)

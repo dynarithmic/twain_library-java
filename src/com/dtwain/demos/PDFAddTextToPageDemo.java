@@ -25,6 +25,7 @@ import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.DTwainConstants.TextPageDisplayOptions;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.PDFTextElement;
 import com.dynarithmic.twain.highlevel.RGBColor;
 import com.dynarithmic.twain.highlevel.TwainCallback;
@@ -81,7 +82,7 @@ public class PDFAddTextToPageDemo
         TwainSession twainSession = new TwainSession();
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
             // TwainCallback

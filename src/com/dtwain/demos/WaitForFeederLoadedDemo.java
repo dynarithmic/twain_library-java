@@ -23,6 +23,7 @@ package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
@@ -38,7 +39,7 @@ public class WaitForFeederLoadedDemo {
         try 
         {
             TwainSession session = new TwainSession();
-            TwainSource source = session.selectSource();
+            TwainSource source = EnhancedSourceSelector.selectSource(session);
             if ( source.isOpened())
             {
                 CapabilityInterface ci = source.getCapabilityInterface();

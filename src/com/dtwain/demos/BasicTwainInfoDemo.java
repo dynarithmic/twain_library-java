@@ -22,6 +22,8 @@
 package com.dtwain.demos;
 
 import java.util.List;
+
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSourceInfo;
@@ -58,7 +60,7 @@ public class BasicTwainInfoDemo
         System.out.println("-----------------------------------------------------------------------");
         
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
             String sourceName = ts.getInfo().getProductName();

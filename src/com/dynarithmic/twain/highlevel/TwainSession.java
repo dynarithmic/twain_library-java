@@ -56,7 +56,7 @@ public class TwainSession
     private boolean started = false;
     private TwainCharacteristics twainCharacteristics = new TwainCharacteristics();
     private List<TwainSourceInfo> twainSourceCache = new ArrayList<>();
-    private TwainLoggerCharacteristics twainLogger = null;
+    private static TwainLogger s_TwainLogger = new TwainLogger();
     private DTwainVersionInfo dtwainVersionInfo = new DTwainVersionInfo();
     private boolean enableLogging = false;
     private boolean enableTripletNotification = false;
@@ -100,7 +100,6 @@ public class TwainSession
 
     private void secondaryInit() throws DTwainJavaAPIException
     {
-        twainLogger = new TwainLoggerCharacteristics();
     }
 
     public static int getJNIVersionAsInt(String sVersion) throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException //throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException
@@ -115,9 +114,9 @@ public class TwainSession
         return s_map.toString(version);
     }
 
-    public TwainLoggerCharacteristics getLoggerCharacteristics()
+    public static TwainLogger getLogger()
     {
-        return this.twainLogger;
+        return s_TwainLogger;
     }
 
     public TwainSession enableLogging(boolean enableLogging)
@@ -176,11 +175,11 @@ public class TwainSession
         {
             twainSourceCache.clear();
             dtwainAPI = new DTwainJavaAPI(DTwainGlobalOptions.getJNIVersion());
-            this.twainLogger.getInternalLogger().setInterface(dtwainAPI);
             dtwainAPI.DTWAIN_JavaSysInitialize(twainCharacteristics);
             if ( dtwainAPI != null )
                 twainSessionId = dtwainAPI.DTWAIN_GetTwainAppID();
             this.dtwainVersionInfo = dtwainAPI.DTWAIN_GetVersionInfo();
+            if ( isLoggingEnabled() )
             startLogging();
             long [] allSources = dtwainAPI.DTWAIN_EnumSources();
             for (int i = 0; i < allSources.length; ++i)
@@ -253,7 +252,7 @@ public class TwainSession
                     throw new DTwainJavaAPIException(e.getMessage());
                 }
                 dtwainAPI.DTWAIN_SysDestroy();
-                this.twainLogger.getInternalLogger().setInterface(null);
+                s_TwainLogger.setInterface(null);
                 started = false;
                 dtwainAPI = null;
             }
@@ -371,26 +370,24 @@ public class TwainSession
 
     private void setupLogging() throws DTwainJavaAPIException
     {
-        int destination = this.twainLogger.getDestination();
-        int verbosity = this.twainLogger.getVerbosityFlags();
-        this.twainLogger.getInternalLogger().setLogFlags(destination | verbosity).
-                            setLogFileName(twainLogger.getFileName());
+        s_TwainLogger.setInterface(dtwainAPI);
     }
 
     public void startLogging() throws DTwainJavaAPIException
     {
-        if ( this.twainLogger.isEnabled())
+        if (!s_TwainLogger.isActivated())
         {
+            s_TwainLogger.activate(true);
             setupLogging();
-            this.twainLogger.getInternalLogger().startLogger();
+            s_TwainLogger.startLogger();
         }
     }
 
     public void stopLogging() throws DTwainJavaAPIException
     {
-        if ( this.twainLogger.isEnabled())
+        if ( s_TwainLogger.isActivated())
         {
-            this.twainLogger.getInternalLogger().stopLogger();
+            s_TwainLogger.stopLogger();
             if ( this.started )
                 dtwainAPI.DTWAIN_SetTwainLog(0, "");
         }
@@ -539,4 +536,11 @@ public class TwainSession
     {
         return this.twainCharacteristics.getAppInfo();
     }
+    
+    private static void logEvent(String logMsg)
+    {
+        if ( s_TwainLogger.hasProcs() )
+            s_TwainLogger.logMessage(logMsg);
+    }
+    
 }

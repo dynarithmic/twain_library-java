@@ -24,6 +24,7 @@ package com.dtwain.demos;
 import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.ImageHandler;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -41,7 +42,8 @@ public class SimpleImageNativeAcquireDemo
         TwainSession twainSession = new TwainSession();
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
+
         if ( ts.isOpened() )
         {
             // Set the acquire options. We want to acquire using Native mode.

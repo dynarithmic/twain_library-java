@@ -32,11 +32,7 @@ import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.BufferedTransferInfo;
 import com.dynarithmic.twain.highlevel.ImageHandler;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
-import com.dynarithmic.twain.highlevel.TwainCharacteristics;
 import com.dynarithmic.twain.highlevel.TwainLogger;
-import com.dynarithmic.twain.highlevel.TwainLoggerCharacteristics;
-import com.dynarithmic.twain.highlevel.TwainLoggerCharacteristics.LoggerVerbosity;
-import com.dynarithmic.twain.highlevel.TwainLoggerCharacteristics.LoggingDestination;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -1313,11 +1309,9 @@ public class DTwainFullDemo extends javax.swing.JFrame {
     {
         try
         {
-            TwainLoggerCharacteristics logging = this.mainTwainSession.getLoggerCharacteristics();
-            logging.setVerbosity(LoggerVerbosity.MINIMAL).
-                    setDestination(LoggingDestination.TOCONSOLE).enable(true);
+            TwainLogger logging = this.mainTwainSession.getLogger();
+            logging.setVerbosity(TwainLogger.LoggerVerbosity.MINIMAL);
 
-            TwainLogger theLogger = this.mainTwainSession.getLoggerCharacteristics().getInternalLogger();
             if (LogCalls.getState())
                 mainTwainSession.startLogging();
             else
