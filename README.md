@@ -44,7 +44,7 @@ public class TinyApplication
     }
 }
 ```
-The above example, will save to a file called "test.bmp".  The file will reside in the current working directory, usually the one where you `class` files are located.
+The above example, will save to a file called "test.bmp".  The file will reside in the current working directory, usually the one where your `class` files are located.
 
 The following program sets the name of the file instead of the default `test.bmp`:
 
