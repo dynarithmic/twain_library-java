@@ -2824,7 +2824,7 @@ class JavaExtendedImageInfo_ParentClass : public JavaObjectCaller
 struct ExtendedImageInfo_BarcodeInfoNative
 {
     TW_UINT32 confidence  = 0;
-    TW_UINT32 rotation;
+    TW_UINT32 rotation = 0;
     TW_UINT32 length = 0;
     TW_UINT32 xCoordinate = 0;
     TW_UINT32 yCoordinate = 0;

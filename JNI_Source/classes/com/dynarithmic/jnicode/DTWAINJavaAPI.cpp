@@ -194,8 +194,7 @@ LRESULT CALLBACK JavaCallback::DTWAINCallback(WPARAM w, LPARAM l, JavaCallback::
     JavaCallback::JCallbackInfo& pCallInfo = iter->second;
     JavaCallbackWrapper wrapper(pCallback);
     JNIEnv* pEnv = pCallback->getJNIEnv();
-    LRESULT retval = 1;
-    retval = pEnv->CallStaticIntMethod(pCallInfo.m_jCallbackClass, pCallInfo.m_jCallbackMethodID, w, static_cast<jlong>(l),
+    LRESULT retval = pEnv->CallStaticIntMethod(pCallInfo.m_jCallbackClass, pCallInfo.m_jCallbackMethodID, w, static_cast<jlong>(l),
                                        DTWAIN_IsSourceValid(reinterpret_cast<DTWAIN_SOURCE>(l))?TRUE:FALSE);
     return static_cast<callback_type>(retval);
 }
@@ -5047,7 +5046,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetBuffe
     HANDLE hnd = {};
     if ( appHandlesStrips )
     {
-        HANDLE hnd = GlobalAlloc(GHND, nSize);
+        hnd = GlobalAlloc(GHND, nSize);
         jBufInfo.setBufferHandle(hnd);
         DTWAIN_SetAcquireStripBuffer(reinterpret_cast<DTWAIN_SOURCE>(src), hnd);
     }

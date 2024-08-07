@@ -438,7 +438,7 @@ DTWAINJNIGlobals::DTWAINJNIGlobals() : g_DTWAINModule(nullptr),
     {\
         TwainStruct m_TwainStruct; \
         JNITripletTranslatorBase_##TwainStruct() : m_TwainStruct{} { SetTwainClassName(#TwainStruct); }\
-        void *TranslateRaw(JNIEnv* pEnv, jobject jobj)\
+        void *TranslateRaw(JNIEnv* pEnv, jobject jobj, std::string) override\
         {\
             return TranslateRawImpl<JavaDTwainLowLevel_##TwainStruct, ##TwainStruct>(pEnv, jobj);\
         }\
@@ -806,16 +806,7 @@ DTWAINJNIGlobals::DTWAINJNIGlobals() : g_DTWAINModule(nullptr),
             for (auto& fn : fnList)
             {
                 if (fn.second.funcName == "<>")
-                {
-                    if (fn.first == "DefaultConstructor")
-                    {
-                        pObject->registerMethod("", fn.second.funcSig);
-                    }
-                    else
-                    {
-                        pObject->registerMethod("", fn.second.funcSig);
-                    }
-                }
+                    pObject->registerMethod("", fn.second.funcSig);
                 else
                     pObject->registerMethod(fn.second.funcName, fn.second.funcSig);
             }
