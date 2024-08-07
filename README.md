@@ -44,7 +44,7 @@ public class TinyApplication
     }
 }
 ```
-The above example, will save to a file called "test.bmp".  The file will reside in the current working directory, usually the one where you `class` files are located.
+The above example, will save to a file called "test.bmp".  The file will reside in the current working directory, usually the one where your `class` files are located.
 
 The following program sets the name of the file instead of the default `test.bmp`:
 
@@ -219,7 +219,7 @@ public static void main(String [] args)
 ```
 Note that the **setJNIVersion** will default to using the 32-bit Unicode JNI DLL's if the integer value or the string passed to **setJNIVersion** is unknown or invalid.  
 
-Given this, the application is free to use whatever means it deems appropriate if it requires the JNI version to be set at run time.  For example, and application may want to use a resource file or property file to retrieve the JNI version, or in another scenario, the Java application may want to take a command-line argument, denoting the JNI version to use, and use it in the call to **DTwainGlobalOptions**.
+Given this, the application is free to use whatever means it deems appropriate if it requires the JNI version to be set at run time.  For example, an application may want to use a resource file or property file to retrieve the JNI version, or in another scenario, the Java application may want to take a command-line argument, denoting the JNI version to use, and use it in the call to **DTwainGlobalOptions**.
 
 
 ----
