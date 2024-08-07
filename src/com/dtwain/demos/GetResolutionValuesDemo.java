@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ public class GetResolutionValuesDemo
 
                     // X-resolution supported, let's see what the available values are for this device
                     boolean validRange = TwainRangeUtils.isValidRange(xres);
-
+                    
                     // Write out whether the values are range descriptors, or all the actual values.
                     System.out.println( "The X resolution values are as follows:" + (validRange?" (as range)":""));
 
