@@ -294,6 +294,8 @@ public class DTwainConstants
         PBM(10000),
         PPM(10000),
         WBMP_RESIZED(11000),
+        TGA_RLE(11001),
+        BMP_RLE(11002),
         BMP_SOURCE_MODE(2),
         TIFF_SOURCE_MODE(0),
         PICT_SOURCE_MODE(1),

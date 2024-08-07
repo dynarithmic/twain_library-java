@@ -223,6 +223,8 @@ public class FileTransferOptions
             alldevicesupport_set.add(DTwainConstants.FileType.POSTSCRIPT3MULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.PDFMULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.TEXTMULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BMP_RLE);
+            alldevicesupport_set.add(DTwainConstants.FileType.TGA_RLE);
 
             sourcedevicesupport_set.add(DTwainConstants.FileType.BMP_SOURCE_MODE);
             sourcedevicesupport_set.add(DTwainConstants.FileType.TIFF_SOURCE_MODE);

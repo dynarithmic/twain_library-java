@@ -180,7 +180,7 @@ public class TwainSession
                 twainSessionId = dtwainAPI.DTWAIN_GetTwainAppID();
             this.dtwainVersionInfo = dtwainAPI.DTWAIN_GetVersionInfo();
             if ( isLoggingEnabled() )
-            startLogging();
+                startLogging();
             long [] allSources = dtwainAPI.DTWAIN_EnumSources();
             for (int i = 0; i < allSources.length; ++i)
             {
