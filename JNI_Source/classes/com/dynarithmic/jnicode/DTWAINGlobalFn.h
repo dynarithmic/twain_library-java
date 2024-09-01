@@ -21,7 +21,19 @@
 #ifndef DTWAINGLOBALFN_H
 #define DTWAINGLOBALFN_H
 
+
+#ifdef USING_DTWAIN_LOADLIBRARY
+    #ifndef API_INSTANCE
+        #define API_INSTANCE DYNDTWAIN_API
+    #endif
+    #include "dtwainx2.h"
+#else
+    #ifndef API_INSTANCE
+        #define API_INSTANCE
+    #endif
 #include "dtwain.h"
+#endif
+
 #include <unordered_map>
 #include <string>
 #include <windows.h>

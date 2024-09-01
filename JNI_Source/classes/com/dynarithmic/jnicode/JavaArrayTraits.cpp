@@ -79,17 +79,17 @@ jmethodID GetJavaClassConstructor(JNIEnv *env, const char* javaClass, const char
 
 jobjectArray CreateJStringArrayFromDTWAIN(JNIEnv *env, DTWAIN_ARRAY arr)
 {
-    const LONG nCount = DTWAIN_ArrayGetCount(arr);
+    const LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(arr);
     jobjectArray ret;
     if ( nCount > 0 )
     {
         ret = static_cast<jobjectArray>(env->NewObjectArray(nCount, env->FindClass("java/lang/String"),
                                                             env->NewStringUTF("")));
-        const LONG maxChars = DTWAIN_ArrayGetMaxStringLength(arr);
+        const LONG maxChars = API_INSTANCE DTWAIN_ArrayGetMaxStringLength(arr);
         std::vector<char> Val(maxChars + 1, 0);
         for ( LONG i = 0; i < nCount; i++ )
         {
-            DTWAIN_ArrayGetAtStringA(arr, i, &Val[0]);
+            API_INSTANCE DTWAIN_ArrayGetAtStringA(arr, i, &Val[0]);
             env->SetObjectArrayElement(ret, i, env->NewStringUTF(&Val[0]));
         }
     }
@@ -102,11 +102,11 @@ jobjectArray CreateJStringArrayFromDTWAIN(JNIEnv *env, DTWAIN_ARRAY arr)
 DTWAIN_ARRAY CreateDTWAINArrayFromJStringArray(JNIEnv *env, jobjectArray strArray)
 {
     const jsize stringCount = env->GetArrayLength(strArray);
-    const DTWAIN_ARRAY arr = DTWAIN_ArrayCreate(DTWAIN_ARRAYSTRING, 0);
+    const DTWAIN_ARRAY arr = API_INSTANCE DTWAIN_ArrayCreate(DTWAIN_ARRAYSTRING, 0);
     if ( arr )
     {
         for (int i = 0; i < stringCount; ++i)
-            DTWAIN_ArrayAddString(arr,
+            API_INSTANCE DTWAIN_ArrayAddString(arr,
                                   reinterpret_cast<LPCTSTR>(GetStringCharsHandler(env,
                                   static_cast<jstring>(env->GetObjectArrayElement(strArray, i))).GetStringChars()));
     }
@@ -117,17 +117,17 @@ DTWAIN_ARRAY CreateDTWAINArrayFromJIntArray(JNIEnv *env, jintArray arr)
 {
 
     jsize nCount = env->GetArrayLength(arr);
-    DTWAIN_ARRAY dArray = DTWAIN_ArrayCreate(DTWAIN_ARRAYLONG, static_cast<LONG>(nCount));
+    DTWAIN_ARRAY dArray = API_INSTANCE  DTWAIN_ArrayCreate(DTWAIN_ARRAYLONG, static_cast<LONG>(nCount));
     if (dArray)
     {
         jint* pElement = env->GetIntArrayElements(arr, nullptr);
-        LONG *pDBuffer = static_cast<LONG*>(DTWAIN_ArrayGetBuffer(dArray, 0));
+        LONG *pDBuffer = static_cast<LONG*>(API_INSTANCE DTWAIN_ArrayGetBuffer(dArray, 0));
         std::copy_n(pElement, nCount, pDBuffer);
 
         // test loop
         LONG tValue;
         for (LONG i = 0; i < nCount; ++i)
-            DTWAIN_ArrayGetAtLong(dArray,i,&tValue);
+            API_INSTANCE DTWAIN_ArrayGetAtLong(dArray,i,&tValue);
         return dArray;
     }
     return nullptr;
@@ -136,7 +136,7 @@ DTWAIN_ARRAY CreateDTWAINArrayFromJIntArray(JNIEnv *env, jintArray arr)
 DTWAIN_ARRAY CreateDTWAINArrayFromJFrameArray(JNIEnv *env, jobjectArray frameArray)
 {
     const jsize frameCount = env->GetArrayLength(frameArray);
-    const DTWAIN_ARRAY arr = DTWAIN_ArrayCreate(DTWAIN_ARRAYFRAME, 0);
+    const DTWAIN_ARRAY arr = API_INSTANCE DTWAIN_ArrayCreate(DTWAIN_ARRAYFRAME, 0);
     if ( arr )
     {
         JavaFrameInfo jInfo(env);
@@ -146,9 +146,9 @@ DTWAIN_ARRAY CreateDTWAINArrayFromJFrameArray(JNIEnv *env, jobjectArray frameArr
             const jobject jFrame = env->GetObjectArrayElement(frameArray, i);
             jInfo.setObject(jFrame);
             jInfo.getJFrameDimensions(&left, &top, &right, &bottom);
-            DTWAIN_FRAME f = DTWAIN_FrameCreate(left, top, right, bottom);
+            DTWAIN_FRAME f = API_INSTANCE DTWAIN_FrameCreate(left, top, right, bottom);
             DTWAINFrame_RAII raii(f);
-            DTWAIN_ArrayAdd(arr, f);
+            API_INSTANCE DTWAIN_ArrayAdd(arr, f);
         }
     }
     return arr;
@@ -159,12 +159,12 @@ jobjectArray CreateJFrameArrayFromDTWAINArray(JNIEnv *env, DTWAIN_ARRAY arr)
     jsize frameCount = 0;
     JavaFrameInfo jInfo(env);
     if ( arr )
-        frameCount = DTWAIN_ArrayGetCount(arr);
+        frameCount = API_INSTANCE DTWAIN_ArrayGetCount(arr);
     const jobjectArray jFrameArray = jInfo.CreateJFrameObjectArray(frameCount);
     double left, top, right, bottom;
     for (int i = 0; i < frameCount; ++i)
     {
-        DTWAIN_ArrayFrameGetAt(arr, i, &left, &top, &right, &bottom);
+        API_INSTANCE DTWAIN_ArrayFrameGetAt(arr, i, &left, &top, &right, &bottom);
         const jobject jObj = env->GetObjectArrayElement(jFrameArray, i);
         jInfo.setObject(jObj);
         jInfo.setJFrameDimensions(left, top, right, bottom);

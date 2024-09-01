@@ -26,7 +26,19 @@
 #include <string>
 #include <set>
 #include <utility>
-#include "dtwain.h"
+
+#ifdef USING_DTWAIN_LOADLIBRARY
+    #include "dtwainx2.h"
+    #ifndef API_INSTANCE
+        #define API_INSTANCE DYNDTWAIN_API::
+    #endif
+#else
+    #include "dtwain.h"
+    #ifndef API_INSTANCE
+        #define API_INSTANCE
+    #endif
+#endif
+
 #include "DTWAINGlobalFn.h"
 #include "DSMCaller.h"
 #include "DTWAINJNI_Version.h"
