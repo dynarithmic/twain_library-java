@@ -53,6 +53,7 @@ public class TwainCallback
         s_mapData.put(NotificationCode.ACQUIREFAILED, "onAcquireFailed()");
         s_mapData.put(NotificationCode.ACQUIRECANCELLED, "onAcquireCancelled()");
         s_mapData.put(NotificationCode.PROCESSEDDIB, "onProcessedDib()");
+        s_mapData.put(NotificationCode.PROCESSDIBACCEPTED, "onProcessedDibAccepted()");
         s_mapData.put(NotificationCode.FILESAVECANCELLED, "onFileSaveCancelled()");
         s_mapData.put(NotificationCode.FILESAVEOK, "onFileSaveOk()");
         s_mapData.put(NotificationCode.FILESAVEERROR, "onFileSaveError()");
