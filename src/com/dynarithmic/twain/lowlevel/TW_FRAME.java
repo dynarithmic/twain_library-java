@@ -106,9 +106,19 @@ public class TW_FRAME extends TwainLowLevel
 
     public boolean isFrameValid()
     {
-        return Left.getValue() != Double.MIN_VALUE &&
-               Right.getValue() != Double.MIN_VALUE &&
-               Top.getValue() != Double.MIN_VALUE &&
-               Bottom.getValue() != Double.MIN_VALUE;
+        boolean test = Left.getValue() != Double.MIN_VALUE &&
+                        Right.getValue() != Double.MIN_VALUE &&
+                        Top.getValue() != Double.MIN_VALUE &&
+                        Bottom.getValue() != Double.MIN_VALUE;
+        if ( !test )
+            return false;
+        test =  Left.getValue() >= 0 &&
+                Right.getValue() >= 0 &&
+                Top.getValue() >= 0 &&
+                Bottom.getValue() >= 0;
+        if (!test)
+            return false;
+        return Left.getValue() < Right.getValue() && 
+               Top.getValue() < Bottom.getValue();
     }
 }
