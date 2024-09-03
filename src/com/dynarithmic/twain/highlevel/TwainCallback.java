@@ -43,6 +43,7 @@ public class TwainCallback
     {
         s_mapData.put(NotificationCode.ACQUIREDONE, "onAcquireDone()");
         s_mapData.put(NotificationCode.ACQUIRESTARTED, "onAcquireStarted()");
+        s_mapData.put(NotificationCode.UIOPENING, "onUIOpening()");
         s_mapData.put(NotificationCode.UIOPENED, "onUIOpened()");
         s_mapData.put(NotificationCode.UICLOSING, "onUIClosing()");
         s_mapData.put(NotificationCode.UICLOSED, "onUIClosed()");
