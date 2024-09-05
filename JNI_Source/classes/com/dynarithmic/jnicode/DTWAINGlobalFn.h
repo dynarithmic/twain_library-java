@@ -31,7 +31,7 @@
     #ifndef API_INSTANCE
         #define API_INSTANCE
     #endif
-#include "dtwain.h"
+    #include "dtwain.h"
 #endif
 
 #include <unordered_map>

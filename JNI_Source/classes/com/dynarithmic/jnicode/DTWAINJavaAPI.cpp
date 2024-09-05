@@ -178,6 +178,7 @@ class JavaCallback : public JavaAdapter
 
         // Constructor
         JavaCallback(JNIEnv * pEnv);
+        void InitInfo(JNIEnv* pEnv);
 };
 
 
@@ -212,9 +213,15 @@ LRESULT CALLBACK JavaCallback::DTWAINCallback(WPARAM w, LPARAM l, JavaCallback::
 
     // Only call this if the error is not a general error
     LRESULT retval = 0;
+
+    // Re-establish callback information (method id's, class id's).  Eventually this should be moved to
+    // RegisterMemberFunctions()
+    pCallback->InitInfo(pEnv);
     if ( !sGeneralErrors.count(w))
+    {
         retval = pEnv->CallStaticIntMethod(pCallInfo.m_jCallbackClass, pCallInfo.m_jCallbackMethodID, w, static_cast<jlong>(l),
                                            API_INSTANCE DTWAIN_IsSourceValid(reinterpret_cast<DTWAIN_SOURCE>(l))?TRUE:FALSE);
+    }
     else
         retval = pEnv->CallStaticIntMethod(pCallInfo.m_jCallbackClass, pCallInfo.m_jCallbackMethodID, w, 0, FALSE);
     return static_cast<callback_type>(retval);
@@ -239,16 +246,21 @@ LRESULT CALLBACK JavaCallback::DTWAINLoggerCallback(LPCTSTR str, LONG64)
 
 JavaCallback::JavaCallback(JNIEnv * pEnv) : JavaAdapter(pEnv)
 {
+    InitInfo(pEnv);
+}
+
+void JavaCallback::InitInfo(JNIEnv* pEnv)
+{
     Init(pEnv);
     // Logger and listener callbacks are initialized here
-    std::array<std::string, 2> categories = {"TwainLogger", "TwainMessageListener"};
-    for (auto &s : categories)
+    std::array<std::string, 2> categories = { "TwainLogger", "TwainMessageListener" };
+    for (auto& s : categories)
     {
         auto iter = JavaFunctionNameMapInstance::getFunctionMap().find(s);
         auto& callback_info = iter->second;
         auto& callback_fn = iter->second.m_mapFunctions;
         auto& namesig = (*callback_fn.begin()).second;
-        auto& jcallback = m_jCallbackInfo.insert({s, {callback_info.m_className, namesig.funcSig}}).first;
+        auto& jcallback = m_jCallbackInfo.insert({ s, {callback_info.m_className, namesig.funcName, namesig.funcSig} }).first;
 
         // Get the java class class
         jcallback->second.m_jCallbackClass = pEnv->FindClass(jcallback->second.m_jClassName.c_str());
@@ -261,20 +273,28 @@ JavaCallback::JavaCallback(JNIEnv * pEnv) : JavaAdapter(pEnv)
     m_pThisObject = this;
 }
 
-
 void InitializeCallbacks(JNIEnv *env)
 {
     if (!g_pDTwainAPICallback )
         g_pDTwainAPICallback = JavaCallbackPtr(new JavaCallback(env));
 }
 
-void InitializeFunctionCallerInfo(std::ifstream& txtRes)
+void InitializeFunctionCallerInfo(JNIEnv *pEnv)
 {
     using JavaFunctionNameMap = std::map<std::string, JavaFunctionClassInfo>;
 
     std::array<std::string, 2> headerInfo;
     int numFuncs = 0;
     std::string line;
+
+    std::ifstream txtRes(g_JNIGlobals.GetResourceFileName());
+    if (!txtRes)
+    {
+        std::string sMsg = std::string(DTWAINJNI_INFOFILE) + " does not exist or could not be opened";
+        JavaExceptionThrower::ThrowFileNotFoundError(pEnv, sMsg.c_str());
+        return;
+    }
+
     while (getline(txtRes, line))
     {
         if (stringjniutils::isAllBlank(line))
@@ -342,7 +362,11 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
     if (strToUse == "<>" || strToUse.empty())
     {
         // Get the instance handle of the application
+        #ifdef USING_DTWAIN_LOADLIBRARY
+        HINSTANCE hInst = GetModuleHandle(sDLLName);
+        #else
         HINSTANCE hInst = GetModuleHandleA(DTWAINJNI_DLLNAME);
+        #endif
         char szName[1024];
         ::GetModuleFileNameA(hInst, szName, 1023);
         strToUse = GetDirectory(szName) + "\\" + std::string(DTWAINJNI_INFOFILE);
@@ -353,6 +377,8 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
             strToUse += "\\";
         strToUse += DTWAINJNI_INFOFILE;
     }
+    g_JNIGlobals.SetResourceFileName(strToUse);
+
     std::ifstream txtRes(strToUse);
     if ( !txtRes )
     {
@@ -360,8 +386,9 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
         JavaExceptionThrower::ThrowFileNotFoundError(env, sMsg.c_str());
         return 0;
     }
+    txtRes.close();
 
-    InitializeFunctionCallerInfo(txtRes);
+    InitializeFunctionCallerInfo(env);
     InitializeCallbacks(env);
     GetStringCharsHandler handler(env, dllToLoad);
     const auto s = reinterpret_cast<LPCTSTR>(handler.GetStringChars());

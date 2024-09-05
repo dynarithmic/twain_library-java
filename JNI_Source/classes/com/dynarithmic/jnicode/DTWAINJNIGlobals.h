@@ -129,6 +129,7 @@ struct DTWAINJNIGlobals
     FunctionCounterMap g_functionCounter;
     CurrentAcquireTypeMap g_CurrentAcquireMap;
     DSMCallerMap g_DSMCallerMap;
+    std::string g_ResourceFileName;
     DTWAINJNIGlobals();
 
     public:
@@ -146,5 +147,7 @@ struct DTWAINJNIGlobals
         static void RegisterJavaFunctionInterface(JavaObjectCaller* pObject,
                                                   const JavaFunctionInfoCategoryMap& fnList,
                                                   int whichAction = DEFINE_METHODS);
+        std::string GetResourceFileName() const { return g_ResourceFileName; }
+        void SetResourceFileName(std::string sName) { g_ResourceFileName = sName; }
 };
 #endif
