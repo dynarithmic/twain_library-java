@@ -216,6 +216,7 @@
     D_ENUMBRIGHTNESSVALUESEXFUNC                                      DYNDTWAIN_API::DTWAIN_EnumBrightnessValuesEx = nullptr;
     D_ENUMBRIGHTNESSVALUESFUNC                                        DYNDTWAIN_API::DTWAIN_EnumBrightnessValues = nullptr;
     D_ENUMCAMERASFUNC                                                 DYNDTWAIN_API::DTWAIN_EnumCameras = nullptr;
+    D_ENUMCAMERASEXFUNC                                               DYNDTWAIN_API::DTWAIN_EnumCamerasEx = nullptr;
     D_ENUMCOMPRESSIONTYPESEXFUNC                                      DYNDTWAIN_API::DTWAIN_EnumCompressionTypesEx = nullptr;
     D_ENUMCOMPRESSIONTYPESFUNC                                        DYNDTWAIN_API::DTWAIN_EnumCompressionTypes = nullptr;
     D_ENUMCONTRASTVALUESEXFUNC                                        DYNDTWAIN_API::DTWAIN_EnumContrastValuesEx = nullptr;
@@ -1257,6 +1258,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_EnumBrightnessValues, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumBrightnessValuesEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumCameras, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_EnumCamerasEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumCompressionTypes, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumCompressionTypesEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumContrastValues, hModule);
