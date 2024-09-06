@@ -216,7 +216,6 @@ LRESULT CALLBACK JavaCallback::DTWAINCallback(WPARAM w, LPARAM l, JavaCallback::
 
     // Re-establish callback information (method id's, class id's).  Eventually this should be moved to
     // RegisterMemberFunctions()
-    pCallback->InitInfo(pEnv);
     if ( !sGeneralErrors.count(w))
     {
         retval = pEnv->CallStaticIntMethod(pCallInfo.m_jCallbackClass, pCallInfo.m_jCallbackMethodID, w, static_cast<jlong>(l),
@@ -263,7 +262,10 @@ void JavaCallback::InitInfo(JNIEnv* pEnv)
         auto& jcallback = m_jCallbackInfo.insert({ s, {callback_info.m_className, namesig.funcName, namesig.funcSig} }).first;
 
         // Get the java class class
-        jcallback->second.m_jCallbackClass = pEnv->FindClass(jcallback->second.m_jClassName.c_str());
+        jclass tempLocalClassRef = pEnv->FindClass(jcallback->second.m_jClassName.c_str());
+        jclass globalClassRef = (jclass)pEnv->NewGlobalRef(tempLocalClassRef);
+        pEnv->DeleteLocalRef(tempLocalClassRef);
+        jcallback->second.m_jCallbackClass = globalClassRef;
 
         // get the method id stored in the class
         jcallback->second.m_jCallbackMethodID = pEnv->GetStaticMethodID(jcallback->second.m_jCallbackClass,
