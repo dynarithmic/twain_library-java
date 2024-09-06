@@ -123,11 +123,6 @@ DTWAIN_ARRAY CreateDTWAINArrayFromJIntArray(JNIEnv *env, jintArray arr)
         jint* pElement = env->GetIntArrayElements(arr, nullptr);
         LONG *pDBuffer = static_cast<LONG*>(API_INSTANCE DTWAIN_ArrayGetBuffer(dArray, 0));
         std::copy_n(pElement, nCount, pDBuffer);
-
-        // test loop
-        LONG tValue;
-        for (LONG i = 0; i < nCount; ++i)
-            API_INSTANCE DTWAIN_ArrayGetAtLong(dArray,i,&tValue);
         return dArray;
     }
     return nullptr;
