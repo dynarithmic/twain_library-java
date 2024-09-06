@@ -731,7 +731,7 @@ public:
     { callObjectMethod(getFunctionName(SetProductFamily), CreateJStringFromCString(m_pJavaEnv,str.c_str())); }
 
     void setProductName(const StringType& str)
-    { callObjectMethod(GetProductName(SetProductName), CreateJStringFromCString(m_pJavaEnv,str.c_str())); }
+    { callObjectMethod(getFunctionName(SetProductName), CreateJStringFromCString(m_pJavaEnv,str.c_str())); }
 
     StringType getVersionInfo()
     { return GetStringCharsHandler(m_pJavaEnv, static_cast<jstring>(callObjectMethod(getFunctionName(GetVersionInfo)))).GetStringChars(); }
