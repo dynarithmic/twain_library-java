@@ -436,6 +436,7 @@ public class OptionsApplyer
             ci.setPixelType(null, op);
 
         int bitDepth = io.getBitDepth();
+        if ( bitDepth != ImageTypeOptions.defaultBitDepth)
         {
             singleList.set(0, bitDepth);
             ci.setBitDepth(singleList, op);
