@@ -29,6 +29,7 @@ public class TwainFileLogger implements TwainLoggerProc
         try 
         {
             logFile.write(sMsg + "\n");
+            logFile.flush();
         } 
         catch (IOException e) 
         {
