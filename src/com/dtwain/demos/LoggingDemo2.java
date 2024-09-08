@@ -69,7 +69,7 @@ public class LoggingDemo2
         }
 
         // Close down the TWAIN Session
-        twainSession.startLogging();
+        twainSession.stopLogging();
         twainSession.stop();
     }
 
