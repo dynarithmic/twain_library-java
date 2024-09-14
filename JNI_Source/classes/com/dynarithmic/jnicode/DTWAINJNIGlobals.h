@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -26,7 +26,19 @@
 #include <string>
 #include <set>
 #include <utility>
-#include "dtwain.h"
+
+#ifdef USING_DTWAIN_LOADLIBRARY
+    #include "dtwainx2.h"
+    #ifndef API_INSTANCE
+        #define API_INSTANCE DYNDTWAIN_API::
+    #endif
+#else
+    #include "dtwain.h"
+    #ifndef API_INSTANCE
+        #define API_INSTANCE
+    #endif
+#endif
+
 #include "DTWAINGlobalFn.h"
 #include "DSMCaller.h"
 #include "DTWAINJNI_Version.h"
@@ -117,6 +129,7 @@ struct DTWAINJNIGlobals
     FunctionCounterMap g_functionCounter;
     CurrentAcquireTypeMap g_CurrentAcquireMap;
     DSMCallerMap g_DSMCallerMap;
+    std::string g_ResourceFileName;
     DTWAINJNIGlobals();
 
     public:
@@ -134,5 +147,7 @@ struct DTWAINJNIGlobals
         static void RegisterJavaFunctionInterface(JavaObjectCaller* pObject,
                                                   const JavaFunctionInfoCategoryMap& fnList,
                                                   int whichAction = DEFINE_METHODS);
+        std::string GetResourceFileName() const { return g_ResourceFileName; }
+        void SetResourceFileName(std::string sName) { g_ResourceFileName = sName; }
 };
 #endif

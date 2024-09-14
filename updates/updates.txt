@@ -1,0 +1,8 @@
+DTWAIN-Java Version changes
+
+Version 1.3
+
+- Fix issue with JNI layer not maintaining global class object for logger and callback Java classes.
+
+- C++/JNI layer no longer has the requirement for DTWAIN import libraries to be used when building
+  the JNI DLL's.

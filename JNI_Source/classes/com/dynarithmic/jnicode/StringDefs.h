@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@
 #include <codecvt>
 #include <algorithm>
 #include <cctype>
+#include <windows.h>
 #pragma warning (disable:4244)
 #ifdef UNICODE
     typedef std::basic_string<jchar> StringType;
@@ -58,12 +59,11 @@
             ++it1;
         }
     }
-
 struct stringjniutils
 {
     static bool isAllBlank(const std::string& s)
     {
-        return s.empty() || std::all_of(s.begin(), s.end(), [&](unsigned char ch){ return std::isspace(ch); });
+        return s.empty() || std::all_of(s.begin(), s.end(), [&](unsigned char ch) { return std::isspace(ch); });
     }
 
     static bool isAllBlank(const std::wstring& s)
@@ -71,12 +71,45 @@ struct stringjniutils
         return s.empty() || std::all_of(s.begin(), s.end(), [&](unsigned int ch) { return std::isspace(ch); });
     }
 
-    using convert_t = std::codecvt_utf8<wchar_t>;
+    static std::wstring string_to_wide_string(const std::string& narrow_string)
+    {
+        if (narrow_string.empty())
+        {
+            return L"";
+        }
+
+        const auto size_needed = MultiByteToWideChar(CP_UTF8, 0, narrow_string.data(), (int)narrow_string.size(), nullptr, 0);
+        if (size_needed <= 0)
+        {
+            throw std::runtime_error("MultiByteToWideChar() failed: " + std::to_string(size_needed));
+        }
+
+        std::wstring result(size_needed, 0);
+        MultiByteToWideChar(CP_UTF8, 0, narrow_string.data(), (int)narrow_string.size(), result.data(), size_needed);
+        return result;
+    }
+
+    static std::string wide_string_to_string(const std::wstring& wide_string)
+    {
+        if (wide_string.empty())
+        {
+            return "";
+        }
+
+        const auto size_needed = WideCharToMultiByte(CP_UTF8, 0, wide_string.data(), (int)wide_string.size(), nullptr, 0, nullptr, nullptr);
+        if (size_needed <= 0)
+        {
+            throw std::runtime_error("WideCharToMultiByte() failed: " + std::to_string(size_needed));
+        }
+
+        std::string result(size_needed, 0);
+        WideCharToMultiByte(CP_UTF8, 0, wide_string.data(), (int)wide_string.size(), result.data(), size_needed, nullptr, nullptr);
+        return result;
+    }
 
     static std::string to_string(const std::wstring& wstr)
     {
-        static std::wstring_convert<convert_t, wchar_t> strconverter;
-        return strconverter.to_bytes(wstr);
+        return wide_string_to_string(wstr);
     }
 
     static std::string& to_string(std::string& str)
@@ -86,8 +119,7 @@ struct stringjniutils
 
     static std::wstring to_wstring(const std::string& str)
     {
-        static std::wstring_convert<convert_t, wchar_t> strconverter;
-        return strconverter.from_bytes(str);
+        return string_to_wide_string(str);
     }
 
     static std::wstring& to_wstring(std::wstring& str)

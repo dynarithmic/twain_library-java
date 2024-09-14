@@ -3,11 +3,11 @@ This repositiory contains the new version of the Java Native Interface (JNI) bri
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
-1. <a href="https://github.com/dynarithmic/twain_library/tree/master/binaries" target="_blank">Version 5.4.2 or higher of the DTWAIN library</a>.  
+1. <a href="https://github.com/dynarithmic/twain_library/tree/master/binaries" target="_blank">Version 5.5 or higher of the DTWAIN library</a>.  
 From the DTWAIN library, you will need one or more of the dynamic link libraries (dtwain32.dll, dtwain32u.dll, dtwain64.dll, or dtwain64u.dll) available, plus the <a href="https://github.com/dynarithmic/twain_library/tree/master/text_resources" target="_blank">text resources</a> should reside in the same folder as the dtwain DLL.
 
 2. The JNI dynamic link libraries in the  32bit and 64bit directories found <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_DLL" target="_blank">here</a>.
-5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.2.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
+5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.3.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
 1. The <a href="https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source" target="_blank">dtwainjni.info</a> file must be accessible by the DLL's mentioned in the previous step.  The **dtwainjni.info** file basically is a bridge between the Java function and class signatures and the C++ translation of those function and class signatures to C++.  Without this file, usage of any of the Java functions that communicate to the JNI layer will throw a Java exception.  The **dtwainjni.info** file must be placed in the same directory as the JNI DLL that will be loaded at runtime.
 ----
 ## Very simple Java application using DTWAIN
@@ -256,27 +256,12 @@ In addition, the following environment variables must be set before building the
 
 1) **JDK_INCLUDE_DIR**, which points to the location of the **jni.h** file that comes with the JDK.
 2) **DTWAIN_INCLUDE_DIR**, which points to the directory where the base DTWAIN library header files are located.  This is usually where your installation of DTWAIN has placed the <a href="https://github.com/dynarithmic/twain_library/tree/master/c_cpp_includes" target="_blank">c_cpp_include</a> directory.
-3) **DTWAIN_LIBRARY_DIR**, which points to the location of the DTWAIN import library files:
 
-```plaintext
-dtwain32.lib
-dtwain32u.lib
-dtwain32ud.lib
-dtwain32d.lib
-dtwain64.lib
-dtwain64u.lib
-dtwain64ud.lib
-dtwain64d.lib
-```
-These files are included in the <a href="https://github.com/dynarithmic/twain_library/blob/master/binaries/32bit/release_libraries.zip" target="_blank">32-bit release libraries</a> and the <a href="https://github.com/dynarithmic/twain_library/blob/master/binaries/64bit/release_libraries.zip" target="_blank">64-bit release libraries.</a>
-
-(Note that the libraries that end with the letter **'d'** (for example **dtwain32d.lib**) are the debug libraries that are available in the <a href="https://github.com/dynarithmic/twain_library_source/tree/main/binaries" target="_blank">twain_library_source repository</a>).
 
 So for example:  
 ```batch
 SET JDK_INCLUDE_DIR=c:\java\jdk1.8\include
 SET DTWAIN_INCLUDE_DIR=c:\dtwain\c_cpp_includes
-SET DTWAIN_LIBRARY_DIR=c:\dtwain\libs
 ```
 should be issued on the command-line before starting Visual Studio and building your project.
 

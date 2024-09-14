@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -175,6 +175,13 @@ public class FileTransferOptions
             multipage_map.put(DTwainConstants.FileType.TIFFLZW, DTwainConstants.FileTypeMultiPage.TIFFLZW );
             multipage_map.put(DTwainConstants.FileType.TIFFNONE, DTwainConstants.FileTypeMultiPage.TIFFNOCOMPRESS );
             multipage_map.put(DTwainConstants.FileType.TIFFPACKBITS, DTwainConstants.FileTypeMultiPage.TIFFPACKBITS );
+            multipage_map.put(DTwainConstants.FileType.BIGTIFFDEFLATE, DTwainConstants.FileTypeMultiPage.BIGTIFFDEFLATE );
+            multipage_map.put(DTwainConstants.FileType.BIGTIFFG3, DTwainConstants.FileTypeMultiPage.BIGTIFFG3 );
+            multipage_map.put(DTwainConstants.FileType.BIGTIFFG4, DTwainConstants.FileTypeMultiPage.BIGTIFFG4 );
+            multipage_map.put(DTwainConstants.FileType.BIGTIFFJPEG, DTwainConstants.FileTypeMultiPage.BIGTIFFJPEG );
+            multipage_map.put(DTwainConstants.FileType.BIGTIFFLZW, DTwainConstants.FileTypeMultiPage.BIGTIFFLZW );
+            multipage_map.put(DTwainConstants.FileType.BIGTIFFNONE, DTwainConstants.FileTypeMultiPage.BIGTIFFNOCOMPRESS );
+            multipage_map.put(DTwainConstants.FileType.BIGTIFFPACKBITS, DTwainConstants.FileTypeMultiPage.BIGTIFFPACKBITS );
             multipage_map.put(DTwainConstants.FileType.TEXT, DTwainConstants.FileTypeMultiPage.TEXT);
 
             multipage_map.forEach((k, v) -> multipage_map2.put(v,k));
@@ -202,6 +209,13 @@ public class FileTransferOptions
             alldevicesupport_set.add(DTwainConstants.FileType.TIFFLZW);
             alldevicesupport_set.add(DTwainConstants.FileType.TIFFNONE);
             alldevicesupport_set.add(DTwainConstants.FileType.TIFFPACKBITS);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFDEFLATE);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFG3);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFG4);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFJPEG);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFLZW);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFNONE);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFPACKBITS);
             alldevicesupport_set.add(DTwainConstants.FileType.ICO);
             alldevicesupport_set.add(DTwainConstants.FileType.WMF);
             alldevicesupport_set.add(DTwainConstants.FileType.EMF);
@@ -217,12 +231,20 @@ public class FileTransferOptions
             alldevicesupport_set.add(DTwainConstants.FileType.TIFFJPEGMULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.TIFFLZWMULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.TIFFJBIGMULTI);
-            alldevicesupport_set.add(DTwainConstants.FileType.TIFFPIXARLOGMULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFNONEMULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFG3MULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFG4MULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFPACKBITSMULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFDEFLATEMULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFJPEGMULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BIGTIFFLZWMULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.POSTSCRIPT1MULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.POSTSCRIPT2MULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.POSTSCRIPT3MULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.PDFMULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.TEXTMULTI);
+            alldevicesupport_set.add(DTwainConstants.FileType.BMP_RLE);
+            alldevicesupport_set.add(DTwainConstants.FileType.TGA_RLE);
 
             sourcedevicesupport_set.add(DTwainConstants.FileType.BMP_SOURCE_MODE);
             sourcedevicesupport_set.add(DTwainConstants.FileType.TIFF_SOURCE_MODE);

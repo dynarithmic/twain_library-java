@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -24,7 +24,17 @@
 #include <jni.h>
 #include <vector>
 #include <algorithm>
+#ifdef USING_DTWAIN_LOADLIBRARY
+    #include "dtwainx2.h"
+    #ifndef API_INSTANCE
+        #define API_INSTANCE DYNDTWAIN_API::
+    #endif
+#else
 #include "dtwain.h"
+#ifndef API_INSTANCE
+    #define API_INSTANCE
+#endif
+#endif
 
 struct JavaLongArrayTraits
 {
@@ -149,12 +159,12 @@ template <typename JavaTraits>
 DTWAIN_ARRAY CreateDTWAINArrayFromJArray(JNIEnv *env, typename JavaTraits::array_type arr)
 {
     jsize nCount = env->GetArrayLength(arr);
-    const DTWAIN_ARRAY dArray = DTWAIN_ArrayCreate(JavaTraits::dtwain_array_type, static_cast<LONG>(nCount));
+    const DTWAIN_ARRAY dArray = API_INSTANCE DTWAIN_ArrayCreate(JavaTraits::dtwain_array_type, static_cast<LONG>(nCount));
     if (dArray)
     {
         typename JavaTraits::base_type* pElement = JavaTraits::GetJArrayElements(env, arr);
         typename JavaTraits::api_base_type *pDBuffer =
-            static_cast<typename JavaTraits::api_base_type*>(DTWAIN_ArrayGetBuffer(dArray, 0));
+            static_cast<typename JavaTraits::api_base_type*>(API_INSTANCE DTWAIN_ArrayGetBuffer(dArray, 0));
         std::copy(pElement, pElement + nCount, pDBuffer);
         return dArray;
     }
@@ -169,10 +179,10 @@ typename JavaTraits::array_type CreateJArrayFromDTWAINArray(JNIEnv* env, DTWAIN_
     typename JavaTraits::array_type ret;
     if ( bCreateAll && theArray )
     {
-        LONG nCount = DTWAIN_ArrayGetCount(theArray);
+        LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(theArray);
         std::vector<typename JavaTraits::base_type> vj(nCount);
         typename JavaTraits::api_base_type* pBuf =
-            static_cast<typename JavaTraits::api_base_type*>(DTWAIN_ArrayGetBuffer(theArray, 0));
+            static_cast<typename JavaTraits::api_base_type*>(API_INSTANCE DTWAIN_ArrayGetBuffer(theArray, 0));
         std::copy(pBuf, pBuf + nCount, vj.begin());
         ret = static_cast<typename JavaTraits::array_type>(JavaTraits::CreateJArray(env, nCount));
         JavaTraits::SetJArrayRegion(env, ret, nCount, vj);

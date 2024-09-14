@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -43,6 +43,7 @@ public class TwainCallback
     {
         s_mapData.put(NotificationCode.ACQUIREDONE, "onAcquireDone()");
         s_mapData.put(NotificationCode.ACQUIRESTARTED, "onAcquireStarted()");
+        s_mapData.put(NotificationCode.UIOPENING, "onUIOpening()");
         s_mapData.put(NotificationCode.UIOPENED, "onUIOpened()");
         s_mapData.put(NotificationCode.UICLOSING, "onUIClosing()");
         s_mapData.put(NotificationCode.UICLOSED, "onUIClosed()");
@@ -52,6 +53,7 @@ public class TwainCallback
         s_mapData.put(NotificationCode.ACQUIREFAILED, "onAcquireFailed()");
         s_mapData.put(NotificationCode.ACQUIRECANCELLED, "onAcquireCancelled()");
         s_mapData.put(NotificationCode.PROCESSEDDIB, "onProcessedDib()");
+        s_mapData.put(NotificationCode.PROCESSDIBACCEPTED, "onProcessedDibAccepted()");
         s_mapData.put(NotificationCode.FILESAVECANCELLED, "onFileSaveCancelled()");
         s_mapData.put(NotificationCode.FILESAVEOK, "onFileSaveOk()");
         s_mapData.put(NotificationCode.FILESAVEERROR, "onFileSaveError()");

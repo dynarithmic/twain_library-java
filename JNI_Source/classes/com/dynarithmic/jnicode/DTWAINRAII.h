@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -22,7 +22,14 @@
 #define DTWAINRAII_H
 
 #include <windows.h>
-#include "dtwain.h"
+
+#ifdef USING_DTWAIN_LOADLIBRARY
+    #include "dtwainx2.h"
+    #define API_INSTANCE DYNDTWAIN_API::
+#else
+    #include "dtwain.h"
+    #define API_INSTANCE
+#endif
 
 template <typename T, typename DestroyTraits>
 struct DTWAIN_RAII
@@ -56,7 +63,7 @@ struct DTWAINArray_DestroyTraits
     static void Destroy(DTWAIN_ARRAY a)
     {
         if (a)
-            DTWAIN_ArrayDestroy(a);
+            API_INSTANCE DTWAIN_ArrayDestroy(a);
     }
 };
 
@@ -65,7 +72,7 @@ struct DTWAINArrayPtr_DestroyTraits
     static void Destroy(DTWAIN_ARRAY* a)
     {
         if (a && *a)
-            DTWAIN_ArrayDestroy(*a);
+            API_INSTANCE DTWAIN_ArrayDestroy(*a);
     }
 };
 
@@ -74,7 +81,7 @@ struct DTWAINFrame_DestroyTraits
     static void Destroy(DTWAIN_FRAME f)
     {
         if (f)
-            DTWAIN_FrameDestroy(f);
+            API_INSTANCE DTWAIN_FrameDestroy(f);
     }
 };
 

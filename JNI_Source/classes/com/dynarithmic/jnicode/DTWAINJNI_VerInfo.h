@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -66,14 +66,14 @@
 
 #define DTWAINJNI_VERINFO_COMMENTS             "Dynarithmic Software\0"
 #define DTWAINJNI_VERINFO_COMPANYNAME          "Dynarithmic Software\0"
-#define DTWAINJNI_VERINFO_LEGALCOPYRIGHT       "Copyright © 2020-2023\0"
-#define DTWAINJNI_VERINFO_PRODUCTNAME          "Dynarithmic Software Twain Library JNI Layer" UNICODEJNI_VERSION "\0"
+#define DTWAINJNI_VERINFO_LEGALCOPYRIGHT       "Copyright © 2020-2024\0"
+#define DTWAINJNI_VERINFO_PRODUCTNAME          "Dynarithmic Software DTWAIN JNI Layer" UNICODEJNI_VERSION "\0"
 #define DTWAINJNI_VERINFO_INTERNALNAME         DTWAINJNI_DLLNAME
 #define DTWAINJNI_VERINFO_ORIGINALFILENAME     DTWAINJNI_DLLNAME
 #define DTWAINJNI_VERINFO_LEGALTRADEMARKS      "Dynarithmic Software\0"
 #define DTWAINJNI_VERINFO_FILEDESCRIPTION      DTWAINJNI_FILEDESCRIPTION
-#define DTWAINJNI_VERINFO_SPECIALBUILD         "Open Source Distribution (Special) Version\0"
-#define DTWAINJNI_VERINFO_PRIVATEBUILD         "Open Source Distribution (Special) Version\0"
+#define DTWAINJNI_VERINFO_SPECIALBUILD         "Build " DTWAINJNI_BUILDVERSION "\0"
+#define DTWAINJNI_VERINFO_PRIVATEBUILD         "Build " DTWAINJNI_BUILDVERSION "\0"
 
 #define DTWAINJNI_NUMERIC_FILE_VERSION         DTWAINJNI_MAJOR_VERSION,DTWAINJNI_SUBVERSION_VERSION,DTWAINJNI_PLACEHOLDER_VERSION,0
 #define DTWAINJNI_NUMERIC_PRODUCT_VERSION      DTWAINJNI_NUMERIC_FILE_VERSION

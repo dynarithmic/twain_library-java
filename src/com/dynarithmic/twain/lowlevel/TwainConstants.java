@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -115,6 +115,27 @@ public final class TwainConstants
         public static final int  CAP_PRINTERINDEXTRIGGER     = 0x104D;
         public static final int  CAP_PRINTERSTRINGPREVIEW    = 0x104E;
         public static final int  CAP_SHEETCOUNT              = 0x104F;
+        public static final int  CAP_IMAGEADDRESSENABLED     = 0x1050;
+        public static final int  CAP_IAFIELDA_LEVEL          = 0x1051;
+        public static final int  CAP_IAFIELDB_LEVEL          = 0x1052;
+        public static final int  CAP_IAFIELDC_LEVEL          = 0x1053;
+        public static final int  CAP_IAFIELDD_LEVEL          = 0x1054;
+        public static final int  CAP_IAFIELDE_LEVEL          = 0x1055;
+        public static final int  CAP_IAFIELDA_PRINTFORMAT    = 0x1056;
+        public static final int  CAP_IAFIELDB_PRINTFORMAT    = 0x1057;
+        public static final int  CAP_IAFIELDC_PRINTFORMAT    = 0x1058;
+        public static final int  CAP_IAFIELDD_PRINTFORMAT    = 0x1059;
+        public static final int  CAP_IAFIELDE_PRINTFORMAT    = 0x105A;
+        public static final int  CAP_IAFIELDA_VALUE          = 0x105B;
+        public static final int  CAP_IAFIELDB_VALUE          = 0x105C;
+        public static final int  CAP_IAFIELDC_VALUE          = 0x105D;
+        public static final int  CAP_IAFIELDD_VALUE          = 0x105E;
+        public static final int  CAP_IAFIELDE_VALUE          = 0x105F;
+        public static final int  CAP_IAFIELDA_LASTPAGE       = 0x1060;
+        public static final int  CAP_IAFIELDB_LASTPAGE       = 0x1061;
+        public static final int  CAP_IAFIELDC_LASTPAGE       = 0x1062;
+        public static final int  CAP_IAFIELDD_LASTPAGE       = 0x1063;
+        public static final int  CAP_IAFIELDE_LASTPAGE       = 0x1064;
 
         /* image data sources MAY support these caps */
         public static final int  ICAP_AUTOBRIGHT                   = 0x1100;
@@ -564,7 +585,7 @@ public final class TwainConstants
 
     public enum TW_FILESYSTEM
     {
-        /* TW_FILESYSTEM.FileType values */
+        // TW_FILESYSTEM.FileType values 
         TWFY_CAMERA            ,
         TWFY_CAMERATOP         ,
         TWFY_CAMERABOTTOM      ,
@@ -575,6 +596,18 @@ public final class TwainConstants
         TWFY_IMAGE             ,
         TWFY_UNKNOWN           ,
         TWFY_DEFAULT
+    }
+
+    public enum CAP_IAFIELD_LEVEL
+    {
+        // CAP_IAFIELD*_LEVEL values  
+        TWIA_UNUSED,
+        TWIA_FIXED ,
+        TWIA_LEVEL1,
+        TWIA_LEVEL2,
+        TWIA_LEVEL3,
+        TWIA_LEVEL4,
+        TWIA_DEFAULT
     }
 
     public enum ICAP_ICCPROFILE
@@ -1654,6 +1687,14 @@ public final class TwainConstants
         public static final int  TWEI_PAPERCOUNT             = 0x1249;
         public static final int  TWEI_PRINTERTEXT            = 0x124A;
         public static final int  TWEI_TWAINDIRECTMETADATA    = 0x124B;
+        public static final int  TWEI_IAFIELDA_VALUE         = 0x124C;
+        public static final int  TWEI_IAFIELDB_VALUE         = 0x124D;
+        public static final int  TWEI_IAFIELDC_VALUE         = 0x124E;
+        public static final int  TWEI_IAFIELDD_VALUE         = 0x124F;
+        public static final int  TWEI_IAFIELDE_VALUE         = 0x1250;
+        public static final int  TWEI_IALEVEL                = 0x1251;
+        public static final int  TWEI_PRINTER                = 0x1252;
+        public static final int  TWEI_BARCODETEXT2           = 0x1253;
         private TWEI() {}
     }
 

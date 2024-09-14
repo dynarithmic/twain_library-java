@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -30,8 +30,10 @@ import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.SourceStateAfterAcquire;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.BufferedTransferInfo;
+import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.ImageHandler;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
+import com.dynarithmic.twain.highlevel.TwainConsoleLogger;
 import com.dynarithmic.twain.highlevel.TwainLogger;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -49,6 +51,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
@@ -99,15 +102,19 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         m_CompressTypeToMenu.put(DTwainConstants.CompressionType.NONE.value(), AcquireCompressNone);
         m_CompressTypeToMenu.put(DTwainConstants.CompressionType.JPEG.value(), AcquireJPEGCompressed);
         enableSourceItems(false);
-        // create a TWAIN session
-        // Get the characteristics for the TWAIN session
-        DTwainGlobalOptions.setJNIVersion(5); //jniToUse - 1);
 
+        setJNIVersion();
         mainTwainSession = new TwainSession();
         mainTwainSession.registerCallback(m_SourceWrapper, new DTwainDemoCallback(this));
 
         // Set the TWAIN DSM to use when starting up the TWAIN system
         mainTwainSession.setDSM(DSMType.LEGACY);
+
+        // Create a logger 
+        TwainLogger logging = this.mainTwainSession.getLogger();
+        logging.setVerbosity(TwainLogger.LoggerVerbosity.MAXIMUM).
+        addLogger(new TwainConsoleLogger());          // Log to the system console
+
 
         // Set the application info
         TwainAppInfo appInfo = mainTwainSession.getAppInfo();
@@ -115,6 +122,37 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         appInfo.setProductName("My Java Product Name");
         appInfo.setVersionInfo("My Java Version Info");
         appInfo.setProductFamily("My Java Product Family");
+    }
+
+    public void setJNIVersion()
+    {
+        boolean choiceOk = false;
+        while (!choiceOk)
+        {
+            System.out.println("Please choose the JNI to use for the full demo application:\n");
+            System.out.println("  1. 32-bit ANSI (running JRE must be 32-bit)");
+            System.out.println("  2. 32-bit Unicode (running JRE must be 32-bit)");
+            System.out.println("  3. 64-bit ANSI (running JRE must be 64-bit)");
+            System.out.println("  4. 64-bit Unicode (running JRE must be 64-bit)");
+            System.out.println("  5. 32-bit ANSI Debug (running JRE must be 32-bit)");
+            System.out.println("  6. 32-bit Unicode Debug (running JRE must be 32-bit)");
+            System.out.println("  7. 64-bit ANSI Debug (running JRE must be 64-bit)");
+            System.out.println("  8. 64-bit Unicode Debug (running JRE must be 64-bit)");
+            System.out.print("(1 - 8): ");
+    
+            @SuppressWarnings("resource")
+            Scanner input = new Scanner(System.in);
+            int jniToUse = input.nextInt();
+            if ( jniToUse < 1 || jniToUse > 8)
+                System.out.println("Invalid choice");
+            else
+            {
+                choiceOk = true;
+                // Set the JNI version
+                DTwainGlobalOptions.setJNIVersion(jniToUse - 1);
+            }
+        }
+        System.out.println("Starting Full Demo...");
     }
 
     public boolean startTwainSession() throws DTwainJavaAPIException, Exception

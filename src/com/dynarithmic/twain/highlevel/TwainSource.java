@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -566,7 +566,8 @@ public class TwainSource
         {
             DTwainJavaAPI handle = twainSession.getAPIHandle();
             int retVal = handle.DTWAIN_CloseSource(sourceHandle);
-            if ( retVal != DTwainConstants.ErrorCode.ERROR_NONE.value() )
+            int last_error = this.twainSession.getLastError();
+            if ( last_error != DTwainConstants.ErrorCode.ERROR_NONE.value() )
                 return false;
             TwainSession.removeTwainSource(sourceHandle);
             sourceHandle = 0;
@@ -590,7 +591,8 @@ public class TwainSource
         {
             DTwainJavaAPI handle = twainSession.getAPIHandle();
             int retVal = handle.DTWAIN_OpenSource(sourceHandle);
-            if ( retVal != DTwainConstants.ErrorCode.ERROR_NONE.value())
+            int last_error = this.twainSession.getLastError();
+            if ( last_error != DTwainConstants.ErrorCode.ERROR_NONE.value())
             {
 
                 errorReturnCode = ErrorCode.from(retVal);

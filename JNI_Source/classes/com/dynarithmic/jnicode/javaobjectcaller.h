@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2023 Dynarithmic Software.
+    Copyright (c) 2002-2024 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -442,7 +442,7 @@ public:
     jobject constructObject(size_t constructorNumber, Params&& ...params)
     {
         const std::string key = getConstructorKey(constructorNumber);
-        if ( !key.empty())
+        if (!key.empty())
             return m_jObject = m_pJavaEnv->NewObject(m_jClass, m_nConstructorList[key].m_jMethodID, std::forward<Params>(params)...);
         return {};
     }
@@ -459,7 +459,7 @@ public:
     jobject callObjectMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
+        if (!defs.m_jMethodName.empty())
             return m_pJavaEnv->CallObjectMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return nullptr;
     }
@@ -478,7 +478,7 @@ public:
     int64_t callLongMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
+        if (!defs.m_jMethodName.empty())
             return m_pJavaEnv->CallLongMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return 0;
     }
@@ -487,7 +487,7 @@ public:
     double callDoubleMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
+        if (!defs.m_jMethodName.empty())
             return m_pJavaEnv->CallDoubleMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return 0;
     }
@@ -496,7 +496,7 @@ public:
     char callByteMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
+        if (!defs.m_jMethodName.empty())
             return m_pJavaEnv->CallByteMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return 0;
     }
@@ -505,7 +505,7 @@ public:
     short callShortMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
+        if (!defs.m_jMethodName.empty())
             return m_pJavaEnv->CallShortMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return 0;
     }
@@ -514,7 +514,7 @@ public:
     int callBooleanMethod(const std::string& methodName, Params&& ...params)
     {
         const JObjectCallerDefs defs = getFunctionDef(methodName);
-        if ( !defs.m_jMethodName.empty() )
+        if (!defs.m_jMethodName.empty())
             return m_pJavaEnv->CallBooleanMethod(m_jObject, defs.m_jMethodID, std::forward<Params>(params)...);
         return 0;
     }
@@ -731,7 +731,7 @@ public:
     { callObjectMethod(getFunctionName(SetProductFamily), CreateJStringFromCString(m_pJavaEnv,str.c_str())); }
 
     void setProductName(const StringType& str)
-    { callObjectMethod(GetProductName(SetProductName), CreateJStringFromCString(m_pJavaEnv,str.c_str())); }
+    { callObjectMethod(getFunctionName(SetProductName), CreateJStringFromCString(m_pJavaEnv,str.c_str())); }
 
     StringType getVersionInfo()
     { return GetStringCharsHandler(m_pJavaEnv, static_cast<jstring>(callObjectMethod(getFunctionName(GetVersionInfo)))).GetStringChars(); }
@@ -2824,7 +2824,7 @@ class JavaExtendedImageInfo_ParentClass : public JavaObjectCaller
 struct ExtendedImageInfo_BarcodeInfoNative
 {
     TW_UINT32 confidence  = 0;
-    TW_UINT32 rotation;
+    TW_UINT32 rotation = 0;
     TW_UINT32 length = 0;
     TW_UINT32 xCoordinate = 0;
     TW_UINT32 yCoordinate = 0;
