@@ -1073,6 +1073,111 @@ public class CapabilityInterface
         return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_FEEDPAGE, gcType));
     }
 
+    public List<Integer> getIAFieldALevel(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDALEVEL, gcType));
+    }
+
+    public List<Integer> getIAFieldBLevel(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDBLEVEL, gcType));
+    }
+
+    public List<Integer> getIAFieldCLevel(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDCLEVEL, gcType));
+    }
+
+    public List<Integer> getIAFieldDLevel(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDDLEVEL, gcType));
+    }
+
+    public List<Integer> getIAFieldELevel(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDELEVEL, gcType));
+    }
+
+    public List<String> getIAFieldAPrintFormat(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDAPRINTFORMAT, gcType));
+    }
+    
+    public List<String> getIAFieldBPrintFormat(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDBPRINTFORMAT, gcType));
+    }
+
+    public List<String> getIAFieldCPrintFormat(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDCPRINTFORMAT, gcType));
+    }
+
+    public List<String> getIAFieldDPrintFormat(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDDPRINTFORMAT, gcType));
+    }
+
+    public List<String> getIAFieldEPrintFormat(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDEPRINTFORMAT, gcType));
+    }
+
+    public List<String> getIAFieldAValue(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDAVALUE, gcType));
+    }
+
+    public List<String> getIAFieldBValue(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDBVALUE, gcType));
+    }
+
+    public List<String> getIAFieldCValue(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDCVALUE, gcType));
+    }
+
+    public List<String> getIAFieldDValue(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDDVALUE, gcType));
+    }
+
+    public List<String> getIAFieldEValue(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDEVALUE, gcType));
+    }
+
+    public List<String> getIAFieldALastPage(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDALASTPAGE, gcType));
+    }
+
+    public List<String> getIAFieldBLastPage(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDBLASTPAGE, gcType));
+    }
+
+    public List<String> getIAFieldCLastPage(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDCLASTPAGE, gcType));
+    }
+
+    public List<String> getIAFieldDLastPage(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDDLASTPAGE, gcType));
+    }
+
+    public List<String> getIAFieldELastPage(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IAFIELDELASTPAGE, gcType));
+    }
+
+    public List<Boolean> getImageAddressEnabled(GetCapOperation gcType) throws DTwainJavaAPIException
+    {
+        return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_IMAGEADDRESSENABLED, gcType));
+    }
+    
     public List<Boolean> getIndicators(GetCapOperation gcType) throws DTwainJavaAPIException
     {
         return TwainObjectUtils.getObjectListAsType(getCapValues(CAPS.CAP_INDICATORS, gcType));
@@ -2099,6 +2204,132 @@ public class CapabilityInterface
         return this;
     }
 
+    public CapabilityInterface setIAFieldALevel(List<Integer> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDALEVEL, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldBLevel(List<Integer> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDBLEVEL, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldCLevel(List<Integer> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDCLEVEL, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldDLevel(List<Integer> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDDLEVEL, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldELevel(List<Integer> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDELEVEL, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldAPrintFormat(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDAPRINTFORMAT, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldBPrintFormat(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDBPRINTFORMAT, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldCPrintFormat(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDCPRINTFORMAT, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldDPrintFormat(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDDPRINTFORMAT, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldEPrintFormat(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDEPRINTFORMAT, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldAValue(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDAVALUE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldBValue(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDBVALUE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldCValue(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDCVALUE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldDValue(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDDVALUE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldEValue(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDEVALUE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldALastPage(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDALASTPAGE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldBLastPage(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDBLASTPAGE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldCLastPage(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDCLASTPAGE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldDLastPage(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDDLASTPAGE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setIAFieldELastPage(List<String> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IAFIELDELASTPAGE, scType);
+        return this;
+    }
+
+    public CapabilityInterface setImageAddressEnabled(List<Boolean> vals, SetCapOperation scType) throws DTwainJavaAPIException
+    {
+        setCapValues(vals, CAPS.CAP_IMAGEADDRESSENABLED, scType);
+        return this;
+    }
+    
     public CapabilityInterface setICCProfile(List<Integer> vals, SetCapOperation scType) throws DTwainJavaAPIException
     {
         setCapValues(vals, CAPS.ICAP_ICCPROFILE, scType);
@@ -3940,6 +4171,111 @@ public class CapabilityInterface
     public boolean isICCProfileValueSupported(Integer capValue) throws DTwainJavaAPIException
     {
         return isCapValueSupported(capValue, CAPS.ICAP_ICCPROFILE);
+    }
+
+    public boolean isIAFieldALevelValueSupported(Integer capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDALEVEL);
+    }
+
+    public boolean isIAFieldBLevelValueSupported(Integer capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDBLEVEL);
+    }
+
+    public boolean isIAFieldCLevelValueSupported(Integer capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDCLEVEL);
+    }
+
+    public boolean isIAFieldDLevelValueSupported(Integer capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDDLEVEL);
+    }
+
+    public boolean isIAFieldELevelValueSupported(Integer capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDELEVEL);
+    }
+
+    public boolean isIAFieldAPrintFormatValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDAPRINTFORMAT);
+    }
+
+    public boolean isIAFieldBPrintFormatValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDBPRINTFORMAT);
+    }
+
+    public boolean isIAFieldCPrintFormatValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDCPRINTFORMAT);
+    }
+
+    public boolean isIAFieldDPrintFormatValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDDPRINTFORMAT);
+    }
+
+    public boolean isIAFieldEPrintFormatValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDEPRINTFORMAT);
+    }
+
+    public boolean isIAFieldAValueValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDAVALUE);
+    }
+
+    public boolean isIAFieldBValueValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDBVALUE);
+    }
+    
+    public boolean isIAFieldCValueValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDCVALUE);
+    }
+    
+    public boolean isIAFieldDValueValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDDVALUE);
+    }
+    
+    public boolean isIAFieldEValueValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDEVALUE);
+    }
+
+    public boolean isIAFieldALastPageValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDALASTPAGE);
+    }
+
+    public boolean isIAFieldBLastPageValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDBLASTPAGE);
+    }
+
+    public boolean isIAFieldCLastPageValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDCLASTPAGE);
+    }
+
+    public boolean isIAFieldDLastPageValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDDLASTPAGE);
+    }
+
+    public boolean isIAFieldELastPageValueSupported(String capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IAFIELDELASTPAGE);
+    }
+
+    public boolean isImageAddressEnabledValue(Boolean capValue) throws DTwainJavaAPIException
+    {
+        return isCapValueSupported(capValue, CAPS.CAP_IMAGEADDRESSENABLED);
     }
 
     public boolean isImageDataSetValueSupported(Integer capValue) throws DTwainJavaAPIException
