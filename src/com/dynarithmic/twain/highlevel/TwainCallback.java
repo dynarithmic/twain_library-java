@@ -83,6 +83,9 @@ public class TwainCallback
         s_mapData.put(NotificationCode.BLANKPAGEDETECTED3, "onBlankPageDetectedEvent3()");
         s_mapData.put(NotificationCode.BLANKPAGEDISCARDED1, "onBlankPageDiscardedEvent1()");
         s_mapData.put(NotificationCode.BLANKPAGEDISCARDED2, "onBlankPageDiscardedEvent2()");
+        s_mapData.put(NotificationCode.TRANSFERTILEREADY, "onTransferTileReady()");
+        s_mapData.put(NotificationCode.TRANSFERTILEDONE, "onTransferTileDone()");
+        
     }
 
     public TwainCallback() 
@@ -497,6 +500,13 @@ public class TwainCallback
                     case TWAINTRIPLETEND:
                         returner = theCallback.onTwainTripletEnd(sourceHandle);
                         break;
+                    case TRANSFERTILEREADY:
+                        returner = theCallback.onTransferTileReady(sourceHandle);
+                        break;
+                    case TRANSFERTILEDONE:
+                        returner = theCallback.onTransferTileDone(sourceHandle);
+                        break;
+                        
                     default:
                         break;
                 }
@@ -921,6 +931,16 @@ public class TwainCallback
     }
 
     public int onFeederNotLoaded(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+
+    public int onTransferTileReady(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onTransferTileDone(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }

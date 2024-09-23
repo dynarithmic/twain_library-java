@@ -499,7 +499,9 @@ public class DTwainConstants
         PROCESSEDAUDIOFILE  (1182),
         TWAINTRIPLETBEGIN (1183),
         TWAINTRIPLETEND (1184),
-        FEEDERNOTLOADED (1200);
+        FEEDERNOTLOADED (1200),
+        TRANSFERTILEREADY (1300),
+        TRANSFERTILEDONE (1301);
 
         private final int enumValue;
         NotificationCode(int i)

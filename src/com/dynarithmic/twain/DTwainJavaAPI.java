@@ -34,6 +34,7 @@ import com.dynarithmic.twain.highlevel.TwainAcquireArea;
 import com.dynarithmic.twain.highlevel.TwainAcquisitionArray;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.BufferedStripInfo;
+import com.dynarithmic.twain.highlevel.BufferedTileInfo;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo;
 import com.dynarithmic.twain.highlevel.JNITwainAcquireOptions;
 import com.dynarithmic.twain.highlevel.PDFTextElement;
@@ -42,6 +43,7 @@ import com.dynarithmic.twain.highlevel.TwainImageData;
 import com.dynarithmic.twain.highlevel.TwainSourceInfo;
 import com.dynarithmic.twain.highlevel.TwainStartupOptions;
 import com.dynarithmic.twain.lowlevel.TW_IDENTITY;
+import com.dynarithmic.twain.lowlevel.TW_IMAGEMEMXFER;
 import com.dynarithmic.twain.lowlevel.TW_UINT16;
 import com.dynarithmic.twain.lowlevel.TW_UINT32;
 import com.dynarithmic.twain.lowlevel.TwainTriplet;
@@ -365,6 +367,7 @@ public class DTwainJavaAPI
     public native String[] DTWAIN_EnumTopCameras(long Source) throws DTwainJavaAPIException;
     public native String[] DTWAIN_EnumBottomCameras(long Source) throws DTwainJavaAPIException;
     public native String[] DTWAIN_EnumCameras(long Source) throws DTwainJavaAPIException;
+    public native String[] DTWAIN_EnumCamerasEx(long Source, int whichCamera) throws DTwainJavaAPIException;
 
     // 2 argument functions
     public native boolean DTWAIN_IsCapSupported(long Source, int capValue) throws DTwainJavaAPIException;
@@ -496,6 +499,7 @@ public class DTwainJavaAPI
     public native TwainAcquireArea DTWAIN_SetAcquireArea(long Source, int setType, TwainAcquireArea aArea) throws DTwainJavaAPIException;
 
     public native TwainImageInfo DTWAIN_GetImageInfo(long Source) throws DTwainJavaAPIException;
+    public native BufferedTileInfo DTWAIN_GetAcquiredTileInfo(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_SetTwainLog(int nFlags, String szFile) throws DTwainJavaAPIException;
 
     // acquisitions
@@ -562,7 +566,10 @@ public class DTwainJavaAPI
 
     public native BufferedStripInfo DTWAIN_CreateBufferedStripInfo(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_SetBufferedTransferInfo(long Source, BufferedStripInfo info) throws DTwainJavaAPIException;
+    public native int DTWAIN_SetBufferedTransferInfo(long Source, BufferedTileInfo info) throws DTwainJavaAPIException;
     public native int DTWAIN_GetBufferedStripData(long Source, BufferedStripInfo info) throws DTwainJavaAPIException;
+    public native BufferedTileInfo DTWAIN_GetBufferedTileInfo(long Source) throws DTwainJavaAPIException;
+    public native TW_IMAGEMEMXFER DTWAIN_GetBufferedTransferInfo(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_EndBufferedTransfer(long Source, BufferedStripInfo info) throws DTwainJavaAPIException;
 
     public native int DTWAIN_ResetCapValues(long Source, int nCapValue) throws DTwainJavaAPIException;

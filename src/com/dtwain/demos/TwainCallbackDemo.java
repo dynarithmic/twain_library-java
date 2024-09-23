@@ -68,6 +68,13 @@ public class TwainCallbackDemo
         }
 
         @Override
+        public int onUIOpening(TwainSource sourceHandle)
+        {
+            printInfo(sourceHandle, " UI is opening ");
+            return 1;
+        }
+        
+        @Override
         public int onUIClosing(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " UI is closing ");

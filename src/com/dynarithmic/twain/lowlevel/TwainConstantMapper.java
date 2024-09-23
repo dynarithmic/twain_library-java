@@ -22,6 +22,8 @@
 package com.dynarithmic.twain.lowlevel;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import org.apache.commons.lang3.*;
@@ -76,6 +78,30 @@ public class TwainConstantMapper<T>
             }
         }
         isInitialized = true;
+    }
+
+    public int getSize() { return intToStringMap.size(); }
+    
+    public List<Integer> getInts() 
+    { 
+        
+        List<Integer> ret = new ArrayList<>();
+        intToStringMap.forEach((key, value) ->
+        {        
+            ret.add(key);
+        });
+        return ret;
+    }
+
+    public List<String> getStrings() 
+    { 
+        
+        List<String> ret = new ArrayList<>();
+        intToStringMap.forEach((key, value) ->
+        {        
+            ret.add(value);
+        });
+        return ret;
     }
 
     public String toString(int nName) throws IllegalArgumentException, IllegalAccessException
