@@ -23,60 +23,42 @@
 
 #include <map>
 #include <jni.h>
-#include "DTWAINGlobalFn.h"
 #include "DTWAINRAII.h"
 #include "JavaArrayTraits.h"
 
-template <typename FnGlobalVPtrType, typename FnGlobalType, typename JavaTraits>
-typename JavaTraits::array_type CallFnReturnArray0(JNIEnv* env, FnGlobalVPtrType& gType, const std::string& funcName)
+struct JavaStringTraits 
+{
+    typedef jobjectArray array_type;
+};
+
+template <typename JavaTraits, typename apiFunc,  typename ...Params>
+typename JavaTraits::array_type CallFnReturnArray(JNIEnv* env, LPDTWAIN_ARRAY arr, apiFunc fn, Params&& ...params)
 {
     if (!IsModuleInitialized())
         throw "DTwain Module not loaded";
-    AddToFunctionCounter(funcName);
-    typename FnGlobalType::DTWAINFN_Map::iterator it = gType->m_FnMap.find(funcName);
-    if (it != gType->m_FnMap.end())
+    BOOL bRet = fn(std::forward<Params>(params)...);
+    if constexpr (std::is_same_v<JavaTraits, JavaStringTraits>)
     {
-        DTWAIN_ARRAY A = 0;
-        BOOL bRet = (*it->second)(&A);
-        DTWAINArray_RAII arr(A);
-        return CreateJArrayFromDTWAINArray<JavaTraits>(env, A, bRet ? true : false);
+        if (arr && *arr)
+            return CreateJStringArrayFromDTWAINArray(env, *arr);
+        return CreateJStringArrayFromDTWAINArray(env, nullptr);
     }
-    throw "Function Not Found";
+    else
+    {
+        if (arr && *arr)
+            return CreateJArrayFromDTWAINArray<JavaTraits>(env, *arr, bRet ? true : false);
+        return CreateJArrayFromDTWAINArray<JavaTraits>(env, nullptr, bRet ? true : false);
+    }
 }
 
-template <typename FnGlobalVPtrType, typename FnGlobalType, typename Arg, typename JavaTraits>
-typename JavaTraits::array_type CallFnReturnArray1(JNIEnv* env, FnGlobalVPtrType& gType,
-                                                   const std::string& funcName, Arg a1)
+template <typename JavaTraits, typename apiFunc, typename ...Params>
+typename JavaTraits::array_type CallFnReturnArray2(JNIEnv* env, apiFunc fn, Params&& ...params)
 {
     if ( !IsModuleInitialized() )
         throw "DTwain Module not loaded";
-    AddToFunctionCounter(funcName);
-    typename FnGlobalType::DTWAINFN_Map::iterator it = gType->m_FnMap.find(funcName);
-    if ( it != gType->m_FnMap.end() )
-    {
-        DTWAIN_ARRAY A=0;
-        BOOL bRet = (*it->second)(a1, &A);
-        DTWAINArray_RAII arr(A);
-        return CreateJArrayFromDTWAINArray<JavaTraits>(env, A, bRet?true:false);
-    }
-    throw "Function Not Found";
+    DTWAIN_ARRAY arr = fn(std::forward<Params>(params)...);
+    DTWAINArray_RAII raii(arr);
+    return CreateJArrayFromDTWAINArray<JavaIntArrayTraits>(env, arr, arr != nullptr);
 }
 
-template <typename FnGlobalVPtrType, typename FnGlobalType, typename Arg1, typename Arg2, typename JavaTraits>
-typename JavaTraits::array_type CallFnReturnArray2(JNIEnv* env, FnGlobalVPtrType& gType,
-                                                   const std::string& funcName, Arg1 a1, Arg2 a2)
-{
-    if ( !IsModuleInitialized() )
-        throw "DTwain Module not loaded";
-    AddToFunctionCounter(funcName);
-    typename FnGlobalType::DTWAINFN_Map::iterator it = gType->m_FnMap.find(funcName);
-    if ( it != gType->m_FnMap.end() )
-    {
-        DTWAIN_ARRAY A=0;
-        BOOL bRet = (*it->second)(a1, &A, a2);
-        DTWAINArray_RAII arr(A);
-        return CreateJArrayFromDTWAINArray<JavaTraits> (env, A, bRet?true:false);
-    }
-    throw "Function Not Found";
-}
 #endif

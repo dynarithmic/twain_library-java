@@ -20,6 +20,7 @@
  */
 #include "javaobjectcaller.h"
 #include "DTWAINJNIGlobals.h"
+#include "DTWAINRAII.h"
 
 extern DTWAINJNIGlobals g_JNIGlobals;
 
@@ -2978,6 +2979,33 @@ jobject JavaBufferedStripInfo::createFullObject(LONG prefSize, LONG minimumSiz, 
     return constructObject(1, prefSize, minimumSiz, maximumSiz);
 }
 
+
+////////////////////////////////////////////////////////////////////////////////////////
+JavaBufferedTileInfo::JavaBufferedTileInfo(JNIEnv* env) :
+    JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "BufferedTileInfo",
+        { SetInfo, SetTileData })
+{
+    RegisterMemberFunctions(*this, getObjectName());
+    defaultConstructObject();
+}
+
+jobject JavaBufferedTileInfo::createFullObject(TW_IMAGEMEMXFER memXFer)
+{
+    JavaDTwainLowLevel_TW_IMAGEMEMXFER memXFerTo(m_pJavaEnv);
+    memXFerTo.setValue(memXFer);
+    jobject javaMemXFer = memXFerTo.getObject();
+    callVoidMethod(getFunctionName(SetInfo), javaMemXFer);
+    if (memXFer.Memory.TheMem)
+    {
+        HandleRAII byteData(memXFer.Memory.TheMem);
+        callVoidMethod(getFunctionName(SetTileData), 
+            CreateJArrayFromCArray<JavaByteArrayTraits<char> >(m_pJavaEnv, reinterpret_cast<char*>(byteData.getData()), memXFer.Memory.Length));
+    }
+    return getObject();
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+
 JavaFrameInfo::JavaFrameInfo(JNIEnv *pEnv) :
     JavaObjectCaller(pEnv, JavaFunctionNameMapInstance::getFunctionMap(), "TwainFrame",
             {SetLeft, SetTop, SetBottom, SetRight, GetLeft, GetTop, GetRight, GetBottom})
@@ -4170,9 +4198,9 @@ TW_IMAGEMEMXFER JavaDTwainLowLevel_TW_IMAGEMEMXFER::getValue()
     return JavaToNative();
 }
 
-void JavaDTwainLowLevel_TW_IMAGEMEMXFER::setValue(const TW_IMAGEMEMXFER & twimagelayout)
+void JavaDTwainLowLevel_TW_IMAGEMEMXFER::setValue(const TW_IMAGEMEMXFER & twimagememxfer)
 {
-    NativeToJava(twimagelayout);
+    NativeToJava(twimagememxfer);
 }
 //////////////////////////////////////////////////////////////////////////////////
 

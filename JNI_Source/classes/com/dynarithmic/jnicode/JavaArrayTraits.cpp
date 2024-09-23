@@ -77,7 +77,7 @@ jmethodID GetJavaClassConstructor(JNIEnv *env, const char* javaClass, const char
 }
 
 
-jobjectArray CreateJStringArrayFromDTWAIN(JNIEnv *env, DTWAIN_ARRAY arr)
+jobjectArray CreateJStringArrayFromDTWAINArray(JNIEnv *env, DTWAIN_ARRAY arr)
 {
     const LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(arr);
     jobjectArray ret;

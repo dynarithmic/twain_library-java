@@ -249,6 +249,238 @@ extern "C" {
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_FreeLibrary
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1FreeLibrary
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_EnumSources
+ * Signature: ()[J
+ */
+JNIEXPORT jlongArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnumSources
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_IsTwainAvailable
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsTwainAvailable
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SysInitialize
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SysInitialize
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SysDestroy
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SysDestroy
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SelectSource
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SelectSource
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SelectDefaultSource
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SelectDefaultSource
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetLastError
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetLastError
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetTwainMode
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTwainMode
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_IsSessionEnabled
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsSessionEnabled
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_StartTwainSession
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1StartTwainSession
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_EndTwainSession
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EndTwainSession
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetCountry
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCountry
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetLanguage
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetLanguage
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_IsMsgNotifyEnabled
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsMsgNotifyEnabled
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetTwainHwnd
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTwainHwnd
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_IsAcquiring
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsAcquiring
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_CreateAcquisitionArray
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1CreateAcquisitionArray
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_ClearErrorBuffer
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1ClearErrorBuffer
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetErrorBufferThreshold
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetErrorBufferThreshold
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetTwainAvailability
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTwainAvailability
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetVersionInfo
+ * Signature: ()Lcom/dynarithmic/twain/DTwainVersionInfo;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVersionInfo
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_StartThread
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1StartThread
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_EndThread
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EndThread
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetTwainMode
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetTwainMode
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetCountry
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCountry
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetLanguage
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetLanguage
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_EnableMsgNotify
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableMsgNotify
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_EnableTripletsNotify
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableTripletsNotify
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
     * Method:    DTWAIN_OpenSourcesOnSelect
     * Signature: (I)I
     */
@@ -1009,6 +1241,14 @@ extern "C" {
 
     /*
     * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_EnumCamerasEx
+ * Signature: (JI)[Ljava/lang/String;
+ */
+JNIEXPORT jobjectArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnumCamerasEx
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
     * Method:    DTWAIN_IsCapSupported
     * Signature: (JI)Z
     */
@@ -1921,6 +2161,14 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetC
 
     /*
     * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetAcquiredTileInfo
+ * Signature: (J)Lcom/dynarithmic/twain/highlevel/BufferedTileInfo;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetAcquiredTileInfo
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
     * Method:    DTWAIN_SetTwainLog
     * Signature: (ILjava/lang/String;)I
     */
@@ -2372,7 +2620,15 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetC
     * Method:    DTWAIN_SetBufferedTransferInfo
     * Signature: (JLcom/dynarithmic/twain/highlevel/BufferedStripInfo;)I
     */
-    JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetBufferedTransferInfo
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetBufferedTransferInfo__JLcom_dynarithmic_twain_highlevel_BufferedStripInfo_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetBufferedTransferInfo
+ * Signature: (JLcom/dynarithmic/twain/highlevel/BufferedTileInfo;)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetBufferedTransferInfo__JLcom_dynarithmic_twain_highlevel_BufferedTileInfo_2
     (JNIEnv *, jobject, jlong, jobject);
 
     /*
@@ -2382,6 +2638,22 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetC
     */
     JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetBufferedStripData
     (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetBufferedTileInfo
+ * Signature: (J)Lcom/dynarithmic/twain/highlevel/BufferedTileInfo;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetBufferedTileInfo
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetBufferedTransferInfo
+ * Signature: (J)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetBufferedTransferInfo
+  (JNIEnv *, jobject, jlong);
 
     /*
     * Class:     com_dynarithmic_twain_DTwainJavaAPI

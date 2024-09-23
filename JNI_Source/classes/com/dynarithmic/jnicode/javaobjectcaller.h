@@ -794,6 +794,17 @@ public:
     jobject createFullObject(LONG prefSize, LONG minimumSiz, LONG maximumSiz);
 };
 
+class JavaBufferedTileInfo : public JavaObjectCaller
+{
+    static constexpr const char* SetInfo = "SetInfo";
+    static constexpr const char* SetTileData = "SetTileData";
+
+public:
+    JavaBufferedTileInfo(JNIEnv* env);
+
+    jobject createFullObject(TW_IMAGEMEMXFER memXFer);
+};
+
 struct FrameStruct;
 
 class JavaFrameInfo : public JavaObjectCaller

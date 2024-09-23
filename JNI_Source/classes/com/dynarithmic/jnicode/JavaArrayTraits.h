@@ -232,7 +232,7 @@ jstring CreateJStringFromCStringW(JNIEnv *env, LPCSTR str);
 jstring CreateJStringFromCStringW(JNIEnv *env, LPCWSTR str);
 jclass GetJavaClassID(JNIEnv* env, const char* javaClass);
 jmethodID GetJavaClassConstructor(JNIEnv *env, const char* javaClass, const char* constructorSig);
-jobjectArray CreateJStringArrayFromDTWAIN(JNIEnv *env, DTWAIN_ARRAY arr);
+jobjectArray CreateJStringArrayFromDTWAINArray(JNIEnv *env, DTWAIN_ARRAY arr);
 DTWAIN_ARRAY CreateDTWAINArrayFromJStringArray(JNIEnv *env, jobjectArray strArray);
 DTWAIN_ARRAY CreateDTWAINArrayFromJIntArray(JNIEnv *env, jintArray arr);
 DTWAIN_ARRAY CreateDTWAINArrayFromJFrameArray(JNIEnv *env, jobjectArray frameArray);

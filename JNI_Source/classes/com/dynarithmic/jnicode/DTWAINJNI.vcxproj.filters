@@ -27,9 +27,6 @@
     <ClInclude Include="DTWAINFunctionCaller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DTWAINGlobalFn.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DTWAINJNI_VerInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
