@@ -163,6 +163,11 @@ SetYOff                                 setyOffsetInImage                  (I)V
 SetBytesWritten                         setBytesWritten                    (I)V
 SetBytesPerRow                          setBytesPerRow                     (I)V
 
+BufferedTileInfo                        com/dynarithmic/twain/highlevel/BufferedTileInfo           3 
+DefaultConstructor                      <>                                 ()V
+SetInfo                                 setInfo                            (Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;)V
+SetTileData                             setTileData                        ([B)V 
+  
 DTwainVersionInfo                       com/dynarithmic/twain/DTwainVersionInfo                     10
 DefaultConstructor                      <>                                 ()V
 Constructor                             <>                                 (IIIILjava/lang/String;)V
@@ -232,6 +237,13 @@ SetIndex                                setIndex                           (Lcom
 SetChannel1                             setChannel1                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT8;)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
 SetChannel2                             setChannel2                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT8;)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
 SetChannel3                             setChannel3                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT8;)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
+
+TW_MEMREF                               com/dynarithmic/twain/lowlevel/TW_MEMREF                  5
+DefaultConstructor                      <>                                 ()V
+GetHandle                               getHandle                          ()J
+GetValue                                getValue                           ()J
+SetHandle                               setHandle                          (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF; 
+SetValue                                setValue                           (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF; 
 
 TW_FILTER                               com/dynarithmic/twain/lowlevel/TW_FILTER                    11
 DefaultConstructor                      <>                                 ()V
