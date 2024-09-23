@@ -22,19 +22,31 @@
 package com.dynarithmic.twain.highlevel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.dynarithmic.twain.DTwainJavaAPI;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.exceptions.DTwainRuntimeException;
+import com.dynarithmic.twain.lowlevel.TwainConstantMapper;
+import com.dynarithmic.twain.lowlevel.TwainConstants;
+import com.dynarithmic.twain.lowlevel.TwainConstants.TW_FILESYSTEM;
 
 public class DeviceCameraInfo
 {
-    Map<String, Boolean> allCamerasMap = new HashMap<>();
+    Map<Integer, List<String>> allCamerasMap = new HashMap<>();
+    List<String> topCameras = new ArrayList<>();
+    List<String> bottomCameras = new ArrayList<>();
+    List<String> allCameras = new ArrayList<>();
+    
     TwainSource m_Source = null;
+    private static final TwainConstantMapper<TW_FILESYSTEM> cameraToStringMap = 
+            new TwainConstantMapper<>(TwainConstants.TW_FILESYSTEM.class);
 
     public DeviceCameraInfo()
     {}
@@ -48,66 +60,60 @@ public class DeviceCameraInfo
     {
         DTwainJavaAPI handle = theSource.getTwainSession().getAPIHandle();
         allCamerasMap.clear();
-        String [] topCameras = handle.DTWAIN_EnumTopCameras(theSource.getSourceHandle());
-        String [] bottomCameras = handle.DTWAIN_EnumBottomCameras(theSource.getSourceHandle());
-        for (String camera : topCameras)
-            allCamerasMap.put(camera, true);
-        for (String camera : bottomCameras)
-            allCamerasMap.put(camera, false);
+        List<Integer> allConstants = cameraToStringMap.getInts();
+        for (int i = 0; i < allConstants.size(); ++i)
+        {
+            int cameraToGet = allConstants.get(i);
+            String [] theCameras = handle.DTWAIN_EnumCamerasEx(theSource.getSourceHandle(), cameraToGet);
+            if ( theCameras.length > 0 )
+            {
+                List<String> theCameraList = Arrays.asList(theCameras);
+                allCamerasMap.put(cameraToGet, theCameraList);
+                allCameras.addAll(theCameraList);
+            }
+        }
+        topCameras = allCamerasMap.get(TW_FILESYSTEM.TWFY_CAMERATOP);
+        bottomCameras = allCamerasMap.get(TW_FILESYSTEM.TWFY_CAMERABOTTOM);
         m_Source = theSource;
         return this;
     }
 
-    public String [] getAllCameraNames()
+    public List<String> getAllCameraNames()
     {
-        String [] allCameras = new String[allCamerasMap.size()];
-        int i = 0;
-        for ( Entry<String, Boolean> entry : allCamerasMap.entrySet())
-        {
-            allCameras[i] = entry.getKey();
-            ++i;
-        }
         return allCameras;
     }
 
-    private String [] cameraEnumerator(boolean which)
+    public List<String> getTopCameraNames()
     {
-        List<String> cameraList = new ArrayList<>();
-        for ( Entry<String, Boolean> entry : allCamerasMap.entrySet())
-        {
-            if (entry.getValue() == which)
-                cameraList.add(entry.getKey());
-        }
-        return cameraList.toArray(new String[cameraList.size()]);
+        return topCameras;
     }
 
-    public String [] getTopCameraNames()
+    public List<String> getBottomCameraNames()
     {
-        return cameraEnumerator(true);
+        return bottomCameras;
     }
 
-    public String [] getBottomCameraNames()
+    private boolean checkCameraInList(List<String> cameraList, String name)
     {
-        return cameraEnumerator(false);
+        List<String> result = cameraList.stream()
+                .filter(a -> Objects.equals(a, name))
+                .collect(Collectors.toList());     
+            return result.size() > 0;
     }
 
     boolean isTopCamera(String name)
     {
-        if (allCamerasMap.containsKey(name))
-            return allCamerasMap.get(name) == true;
-        return false;
+        return checkCameraInList(topCameras, name);
     }
 
     boolean isBottomCamera(String name)
     {
-        if (allCamerasMap.containsKey(name))
-            return allCamerasMap.get(name) == false;
-        return false;
+        return checkCameraInList(bottomCameras, name);
     }
 
     boolean isCamera(String name)
     {
-        return allCamerasMap.containsKey(name);
+        return checkCameraInList(allCameras, name);
     }
 
     boolean setCamera(String name)
@@ -120,5 +126,17 @@ public class DeviceCameraInfo
                 ok = handle.DTWAIN_SetCamera(m_Source.getSourceHandle(), name);
         }
         return ok;
+    }
+    
+    int getCameraType(String name)
+    {
+        Iterator<Map.Entry<Integer, List<String>>> iterator = allCamerasMap.entrySet().iterator();
+        while (iterator.hasNext()) 
+        {
+            Map.Entry<Integer, List<String>> entry = iterator.next();
+            if (checkCameraInList(entry.getValue(), name))
+                return entry.getKey();
+        }        
+        return -1;
     }
 }
