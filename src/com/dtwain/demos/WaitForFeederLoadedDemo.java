@@ -43,7 +43,7 @@ public class WaitForFeederLoadedDemo {
             if ( source.isOpened())
             {
                 CapabilityInterface ci = source.getCapabilityInterface();
-                if (!ci.isPaperDetectableSupported())
+                if (!source.isFeederWaitSupported())
                 {
                     session.stop();
                     return;
@@ -65,6 +65,9 @@ public class WaitForFeederLoadedDemo {
                 // Set to a TIFF-LZW file
                 FileTransferOptions ftOpts = ac.getFileTransferOptions();
                 ftOpts.setName("tif_from_wrapper.tif").setType(FileType.TIFFLZWMULTI);
+                
+                // Turn off the user interface
+                ac.getUserInterfaceOptions().showUI(false);
                 
                 // We will only acquire 2 pages
                 ac.getGeneralOptions().setMaxPageCount(2);

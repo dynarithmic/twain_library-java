@@ -225,6 +225,47 @@ public class TwainSource
         return this;
     }
 
+    public boolean isFeederWaitSupported() throws DTwainJavaAPIException
+    {
+        isValidSource();
+        // First check if ICAP_FEEDERENABLED is supported, and if so, get the
+        // current value.
+        if (!capabilityInterface.isFeederEnabledSupported())
+            return false; // Cannot enable a feeder if it doesn't exist
+        
+        GetCapOperation getOp = capabilityInterface.get();
+        SetCapOperation setOp = capabilityInterface.set();
+        
+        // Enabled is supported, socheck the value
+        List<Boolean> listEnabled = capabilityInterface.getFeederEnabled(getOp);
+        if ( listEnabled.size() > 0)
+        {
+            // Supported, so see if we can actually use the feeder    
+            if (listEnabled.get(0) == false)
+            {
+                // Feeder turned off, so temporarily enable the feeder
+                capabilityInterface.setFeederEnabled(Arrays.asList(true), setOp);        
+
+                // See if we enabled it successfully
+                listEnabled = capabilityInterface.getFeederEnabled(getOp);
+                boolean feederenabled = (listEnabled.size() > 0 && listEnabled.get(0) == true);
+
+                if (feederenabled)
+                {
+                    // reset to original value
+                    capabilityInterface.setFeederEnabled(Arrays.asList(false), setOp);        
+                }
+                else
+                    return false; // couldn't enable the feeder, so can't really
+                                  // test the feederloaded capability.
+            }
+            // Finally, check to see if ICAP_FEEDERLOADED capability is supported.
+            return capabilityInterface.isFeederLoadedSupported();
+        }
+        // No support for waiting for feeder
+        return false;
+    }
+    
     //////////////////////
     void startApply() throws DTwainJavaAPIException
     {
@@ -362,29 +403,26 @@ public class TwainSource
 
     private boolean waitForFeeder(PaperHandlingInfo paperInfo) throws DTwainJavaAPIException
     {
-        boolean isFeederSupported = paperInfo.isFeederSupported();
-        if ( !isFeederSupported )
-            return true;
         SetCapOperation op = capabilityInterface.set();
         GetCapOperation getOp = capabilityInterface.getCurrent();
+
+        boolean isFeederSupported =  paperInfo.isFeederSupported();
+        if ( !isFeederSupported )
+            return true;
 
         capabilityInterface.setFeederEnabled(Arrays.asList(true), op);
         List<Boolean> enabled = capabilityInterface.getFeederEnabled(getOp);
         if ( enabled.isEmpty() || !enabled.get(0) )
             return true;
 
-        boolean ispaperdetectable = capabilityInterface.isPaperDetectableSupported();
-        if ( !ispaperdetectable )
-            return true;
-
-        boolean isfeederloaded = capabilityInterface.isFeederLoadedSupported();
-        if (!isfeederloaded )
+        if (!capabilityInterface.isFeederLoadedSupported())
             return true;
 
         PaperHandlingOptions paperOpts = acquireCharacteristics.getPaperHandlingOptions();
         int timeoutval = paperOpts.getFeederWaitTime();
         if (timeoutval == PaperHandlingOptions.noFeederWaitTime)
             return true;
+        
         StopWatch stopwatch = new StopWatch();
         stopwatch.start();
         try
