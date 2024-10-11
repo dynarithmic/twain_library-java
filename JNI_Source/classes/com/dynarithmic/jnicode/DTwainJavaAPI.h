@@ -2313,6 +2313,14 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetAc
 
     /*
     * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetTwainNameFromConstant
+ * Signature: (II)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTwainNameFromConstant
+  (JNIEnv *, jobject, jint, jint);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
     * Method:    DTWAIN_SetPDFAuthor
     * Signature: (JLjava/lang/String;)I
     */

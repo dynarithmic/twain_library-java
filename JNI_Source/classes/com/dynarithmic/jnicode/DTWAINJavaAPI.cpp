@@ -6031,3 +6031,18 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSo
     return CreateJStringFromCString(env, szNothing);
     DO_DTWAIN_CATCH(env)
 }
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetTwainNameFromConstant
+ * Signature: (II)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTwainNameFromConstant
+(JNIEnv* env, jobject, jint constantType, jint constantValue)
+{
+    DO_DTWAIN_TRY
+    TCHAR arg2[1024] = { 0 };
+    API_INSTANCE DTWAIN_GetTwainNameFromConstant(constantType, constantValue, arg2, 1023);
+    return CreateJStringFromCString(env, arg2);
+    DO_DTWAIN_CATCH(env)
+}
