@@ -525,6 +525,7 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetNameFromCap(int capability) throws DTwainJavaAPIException;
     public native int DTWAIN_GetCapFromName(String capName) throws DTwainJavaAPIException;
     public native int DTWAIN_TwainSave(String sCmd) throws DTwainJavaAPIException;
+    public native String DTWAIN_GetTwainNameFromConstant(int constantType, int constant) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFAuthor(long Source, String sAuthor) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFCreator(long Source, String sCreator) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFTitle(long Source, String sTitle) throws DTwainJavaAPIException;
