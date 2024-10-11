@@ -619,18 +619,24 @@ public class CapabilityInterface
             if ( this.capMap.containsKey(val))
                 this.extendedCapMap.put(val, new TwainCapInfo(this.capMap.get(val)));
         }
-
-        // Get the extendimgeinfo caps
-        List<Integer> extInfo = this.getSupportedExtImageInfo(get());
-        for (Integer val : extInfo )
-        {
-            String name = apiHandle.DTWAIN_GetNameFromCap(val + 1000);
-            int theType = apiHandle.DTWAIN_GetCapDataType(twainSource.getSourceHandle(), val + 1000);
-            this.extendedImageCapsMap.put(val, new TwainCapInfo(name, TwainConstants.MSG.MSG_GET, theType));
-        }
         return this.capMap.size() > 0;
     }
 
+    public void initializeExtendedImageInfo() throws DTwainJavaAPIException
+    {
+        if (extendedImageCapsMap.isEmpty())
+        {
+            // Get the extendimgeinfo caps
+            List<Integer> extInfo = this.getSupportedExtImageInfo(get());
+            for (Integer val : extInfo )
+            {
+                String name = apiHandle.DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWEI, val);
+                int theType = apiHandle.DTWAIN_GetCapDataType(twainSource.getSourceHandle(), val + 0x1000);
+                this.extendedImageCapsMap.put(val, new TwainCapInfo(name, TwainConstants.MSG.MSG_GET, theType));
+            }
+        }
+    }
+    
     public int getNumCaps()
     {
         return this.capMap.size();
@@ -4277,7 +4283,7 @@ public class CapabilityInterface
     {
         return isCapValueSupported(capValue, CAPS.CAP_IMAGEADDRESSENABLED);
     }
-
+    
     public boolean isImageDataSetValueSupported(Integer capValue) throws DTwainJavaAPIException
     {
         return isCapValueSupported(capValue, CAPS.ICAP_IMAGEDATASET);
