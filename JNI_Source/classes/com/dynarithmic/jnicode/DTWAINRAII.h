@@ -36,6 +36,19 @@ struct DTWAIN_RAII
 {
     T m_a;
     DTWAIN_RAII(T a) : m_a(a) {}
+    DTWAIN_RAII(const DTWAIN_RAII&) = delete;
+    DTWAIN_RAII& operator=(const DTWAIN_RAII&) = delete;
+    DTWAIN_RAII(DTWAIN_RAII&& rhs) : m_a(rhs.m_a) { rhs.m_a = {} };
+    DTWAIN_RAII& operator=(DTWAIN_RAII&& rhs)
+    {
+        if (&rhs != this)
+        {
+            m_a = rhs.m_a;
+            rhs.m_a = {};
+        }
+        return *this;
+    }
+
     void SetObject(T a) { m_a = a; }
     void Disconnect() { m_a = 0 ; }
     virtual ~DTWAIN_RAII() { DestroyTraits::Destroy(m_a); }

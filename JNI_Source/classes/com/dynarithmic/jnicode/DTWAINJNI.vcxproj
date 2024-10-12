@@ -573,6 +573,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClCompile Include="DTWAINJavaAPI.cpp" />
     <ClCompile Include="DTWAINJNIGlobals.cpp" />
     <ClCompile Include="dtwimpl.cpp" />
+    <ClCompile Include="ExtendedImageInfo.cpp" />
     <ClCompile Include="JavaAdapter.cpp" />
     <ClCompile Include="JavaArrayTraits.cpp" />
     <ClCompile Include="javaobjectcaller.cpp" />
@@ -587,6 +588,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClInclude Include="DTWAINJNI_Version.h" />
     <ClInclude Include="DTWAINRAII.h" />
     <ClInclude Include="dtwainx2.h" />
+    <ClInclude Include="ExtendedImageInfo.h" />
     <ClInclude Include="JavaAdapter.h" />
     <ClInclude Include="JavaArrayList.h" />
     <ClInclude Include="JavaArrayTraits.h" />

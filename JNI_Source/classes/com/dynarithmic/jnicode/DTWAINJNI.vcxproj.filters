@@ -19,6 +19,9 @@
     <ClCompile Include="javaobjectcaller.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExtendedImageInfo.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DSMCaller.h">
@@ -67,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dtwainx2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedImageInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

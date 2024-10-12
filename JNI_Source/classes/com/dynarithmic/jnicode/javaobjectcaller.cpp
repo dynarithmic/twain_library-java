@@ -3322,7 +3322,7 @@ void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setTextLength(TW_UINT32 val)
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setString(StringType val)
 {
-    JavaDTwainLowLevel_TW_STR32 strproxy(getEnvironment());
+    JavaDTwainLowLevel_TW_STR255 strproxy(getEnvironment());
     setProxyData(strproxy, getFunctionName(SetString).c_str(), val);
 }
 

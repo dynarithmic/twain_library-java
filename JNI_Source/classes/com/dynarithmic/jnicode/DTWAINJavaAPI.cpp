@@ -60,7 +60,7 @@
 #include "javaobjectcaller.h"
 #include "UTFCharsHandler.h"
 #include "DTWAINJNI_VerInfo.h"
-
+#include "ExtendedImageInfo.h"
 #define TWRC_WRONGOBJECT     10000;
 
 DTWAINJNIGlobals g_JNIGlobals;
@@ -299,6 +299,8 @@ void InitializeFunctionCallerInfo(JNIEnv *pEnv)
         {
             getline(txtRes, line);
             if ( stringjniutils::isAllBlank(line) )
+                continue;
+            if (line.front() == ';') // This is a comment
                 continue;
             std::istringstream strm2(line);
             std::string category, funcname, funcsig;
@@ -5770,8 +5772,8 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableAu
 (JNIEnv *env, jobject, jint latency, jboolean enable)
 {
     DO_DTWAIN_TRY
-        DO_DTWAIN_CHECK_MODULE_LOAD
-        auto ret = 1; // API_INSTANCE DTWAIN_EnableAutoFeedNotify(latency, static_cast<LONG>(enable));
+    DO_DTWAIN_CHECK_MODULE_LOAD
+    auto ret = 1; // API_INSTANCE DTWAIN_EnableAutoFeedNotify(latency, static_cast<LONG>(enable));
     return ret;
     DO_DTWAIN_CATCH(env)
 }
@@ -5803,6 +5805,27 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetEx
     DO_DTWAIN_TRY
     DO_DTWAIN_CHECK_MODULE_LOAD
     JavaExtendedImageInfo extImageInfo(env);
+    ExtendedImageInformation extendedInfo(reinterpret_cast<DTWAIN_SOURCE>(source));
+    if (extendedInfo.IsInfoRetrieved())
+    {
+        // Get the barcode information 
+        extendedInfo.FillBarcodeInfo();
+        auto actualCount = extendedInfo.GetBarcodeCount();
+        extImageInfo.setBarcodeInfoCount(actualCount);
+        for (int i = 0; i < actualCount; ++i)
+        {
+            ExtendedImageInfo_BarcodeInfoNative bcNative;
+            bcNative.xCoordinate = extendedInfo.m_vBarcodePosition.size() > i?extendedInfo.m_vBarcodePosition[i].first:0;
+            bcNative.yCoordinate = extendedInfo.m_vBarcodePosition.size() > i ? extendedInfo.m_vBarcodePosition[i].second: 0; 
+            bcNative.rotation = extendedInfo.m_vBarcodeRotation.size() > i?extendedInfo.m_vBarcodeRotation[i]:0;
+            bcNative.confidence = extendedInfo.m_vBarcodeConfidence.size() > i?extendedInfo.m_vBarcodeConfidence[i]:0;
+            bcNative.type = extendedInfo.m_vBarcodeType.size() > i?extendedInfo.m_vBarcodeType[i]:0;
+            if (extendedInfo.m_vBarcodeText[i].size() > i)
+                strcpy(bcNative.text, extendedInfo.m_vBarcodeText[i].c_str());
+            extImageInfo.setBarcodeInfo(bcNative, i);
+        }
+    }
+
 #if 0
     ExtendedImageInfo_BarcodeInfoNative bcNative;
     extImageInfo.setBarcodeInfoCount(1);
