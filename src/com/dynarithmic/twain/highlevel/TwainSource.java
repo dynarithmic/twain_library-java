@@ -742,4 +742,11 @@ public class TwainSource
             return twainSession.getAPIHandle().DTWAIN_GetSourceID(sourceHandle);
         throw new DTwainJavaAPIException("Invalid source or TWAIN session handle");
     }
+    
+    public ExtendedImageInfo getExtendedImageInfo()
+    {
+        if ( sourceHandle != 0 && twainSession != null && isOpened)
+            return twainSession.getAPIHandle().DTWAIN_GetExtendedImageInfo(sourceHandle);
+    	return new ExtendedImageInfo();
+    }
 }

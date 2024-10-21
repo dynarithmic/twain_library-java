@@ -24,6 +24,7 @@ package com.dynarithmic.twain.highlevel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dynarithmic.twain.DTwainConstants;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.lowlevel.TW_BOOL;
 import com.dynarithmic.twain.lowlevel.TW_FRAME;
@@ -96,8 +97,15 @@ public class ExtendedImageInfo {
             public TW_UINT32 getType() {
                 return type;
             }
-            public TW_STR255 getText() {
-                return text;
+            
+            public String getTypeName(TwainSession session) throws DTwainJavaAPIException
+            {
+                return 
+                    session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWBT,(int)type.getValue());
+            }
+            
+            public String getText() {
+                return text.getValue();
             }
         }
 
@@ -330,116 +338,166 @@ public class ExtendedImageInfo {
             return whiteSpecklesRemoved;
         }
     }
+
     public class HorizontalLineDetectionInfo
     {
         TW_UINT32 count = new TW_UINT32();
-        TW_UINT32 xCoordinate = new TW_UINT32();
-        TW_UINT32 yCoordinate = new TW_UINT32();
-        TW_UINT32 length    = new TW_UINT32();
-        TW_UINT32 thickness = new TW_UINT32();
+
+        public class HorizontalLineDetectionSingleInfo
+        {
+            TW_UINT32 xCoordinate = new TW_UINT32();
+            TW_UINT32 yCoordinate = new TW_UINT32();
+            TW_UINT32 length    = new TW_UINT32();
+            TW_UINT32 thickness = new TW_UINT32();
+
+            private HorizontalLineDetectionSingleInfo  setXCoordinate(TW_UINT32 xCoordinate) {
+                this.xCoordinate = xCoordinate;
+                return this;
+            }
+
+            private HorizontalLineDetectionSingleInfo  setYCoordinate(TW_UINT32 yCoordinate) {
+                this.yCoordinate = yCoordinate;
+                return this;
+            }
+
+            private  HorizontalLineDetectionSingleInfo setLength(TW_UINT32 length) {
+                this.length = length;
+                return this;
+            }
+
+            private  HorizontalLineDetectionSingleInfo setThickness(TW_UINT32 thickness) {
+                this.thickness = thickness;
+                return this;
+            }
+
+            public TW_UINT32 getXCoordinate() {
+                return xCoordinate;
+            }
+
+            public TW_UINT32 getYCoordinate() {
+                return yCoordinate;
+            }
+
+            public TW_UINT32 getLength() {
+                return length;
+            }
+
+            public TW_UINT32 getThickness() {
+                return thickness;
+            }
+        }
+
+        List<HorizontalLineDetectionSingleInfo> horizontalLineInfos = new ArrayList<>();
 
         public HorizontalLineDetectionInfo() {}
-
-        private HorizontalLineDetectionInfo  setCount(TW_UINT32 count) {
+        
+        private HorizontalLineDetectionInfo setCount(TW_UINT32 count) 
+        {
             this.count = count;
+            horizontalLineInfos.clear();
+            for (int i = 0; i < this.count.getValue(); ++i)
+                horizontalLineInfos.add(new HorizontalLineDetectionSingleInfo());
             return this;
         }
 
-        private HorizontalLineDetectionInfo  setXCoordinate(TW_UINT32 xCoordinate) {
-            this.xCoordinate = xCoordinate;
+        private HorizontalLineDetectionInfo setSingleInfo(HorizontalLineDetectionSingleInfo info, int nWhich)
+        {
+            this.horizontalLineInfos.set(nWhich, info);
             return this;
         }
 
-        private HorizontalLineDetectionInfo  setYCoordinate(TW_UINT32 yCoordinate) {
-            this.yCoordinate = yCoordinate;
-            return this;
+        public HorizontalLineDetectionSingleInfo getSingleInfo(int nWhich) throws DTwainJavaAPIException
+        {
+            if ( nWhich >= this.horizontalLineInfos.size() || nWhich < 0)
+                throw new DTwainJavaAPIException("Out of bounds");
+            return this.horizontalLineInfos.get(nWhich);
         }
-
-        private HorizontalLineDetectionInfo  setLength(TW_UINT32 length) {
-            this.length = length;
-            return this;
-        }
-
-        private HorizontalLineDetectionInfo  setThickness(TW_UINT32 thickness) {
-            this.thickness = thickness;
-            return this;
-        }
-
+        
         public TW_UINT32 getCount() {
             return count;
         }
 
-        public TW_UINT32 getXCoordinate() {
-            return xCoordinate;
-        }
-
-        public TW_UINT32 getYCoordinate() {
-            return yCoordinate;
-        }
-
-        public TW_UINT32 getLength() {
-            return length;
-        }
-
-        public TW_UINT32 getThickness() {
-            return thickness;
-        }
     }
+    
     public class VerticalLineDetectionInfo
     {
         TW_UINT32 count = new TW_UINT32();
-        TW_UINT32 xCoordinate = new TW_UINT32();
-        TW_UINT32 yCoordinate = new TW_UINT32();
-        TW_UINT32 length    = new TW_UINT32();
-        TW_UINT32 thickness = new TW_UINT32();
+
+        public class VerticalLineDetectionSingleInfo
+        {
+            TW_UINT32 xCoordinate = new TW_UINT32();
+            TW_UINT32 yCoordinate = new TW_UINT32();
+            TW_UINT32 length    = new TW_UINT32();
+            TW_UINT32 thickness = new TW_UINT32();
+
+            private VerticalLineDetectionSingleInfo  setXCoordinate(TW_UINT32 xCoordinate) {
+                this.xCoordinate = xCoordinate;
+                return this;
+            }
+
+            private VerticalLineDetectionSingleInfo  setYCoordinate(TW_UINT32 yCoordinate) {
+                this.yCoordinate = yCoordinate;
+                return this;
+            }
+
+            private  VerticalLineDetectionSingleInfo setLength(TW_UINT32 length) {
+                this.length = length;
+                return this;
+            }
+
+            private  VerticalLineDetectionSingleInfo setThickness(TW_UINT32 thickness) {
+                this.thickness = thickness;
+                return this;
+            }
+
+            public TW_UINT32 getXCoordinate() {
+                return xCoordinate;
+            }
+
+            public TW_UINT32 getYCoordinate() {
+                return yCoordinate;
+            }
+
+            public TW_UINT32 getLength() {
+                return length;
+            }
+
+            public TW_UINT32 getThickness() {
+                return thickness;
+            }
+        }
+
+        List<VerticalLineDetectionSingleInfo> VerticalLineInfos = new ArrayList<>();
 
         public VerticalLineDetectionInfo() {}
-
-        private VerticalLineDetectionInfo  setCount(TW_UINT32 count) {
+        
+        private VerticalLineDetectionInfo setCount(TW_UINT32 count) 
+        {
             this.count = count;
+            VerticalLineInfos.clear();
+            for (int i = 0; i < this.count.getValue(); ++i)
+                VerticalLineInfos.add(new VerticalLineDetectionSingleInfo());
             return this;
         }
 
-        private VerticalLineDetectionInfo  setXCoordinate(TW_UINT32 xCoordinate) {
-            this.xCoordinate = xCoordinate;
+        private VerticalLineDetectionInfo setSingleInfo(VerticalLineDetectionSingleInfo info, int nWhich)
+        {
+            this.VerticalLineInfos.set(nWhich, info);
             return this;
         }
 
-        private VerticalLineDetectionInfo  setYCoordinate(TW_UINT32 yCoordinate) {
-            this.yCoordinate = yCoordinate;
-            return this;
+        public VerticalLineDetectionSingleInfo getSingleInfo(int nWhich) throws DTwainJavaAPIException
+        {
+            if ( nWhich >= this.VerticalLineInfos.size() || nWhich < 0)
+                throw new DTwainJavaAPIException("Out of bounds");
+            return this.VerticalLineInfos.get(nWhich);
         }
-
-        private VerticalLineDetectionInfo  setLength(TW_UINT32 length) {
-            this.length = length;
-            return this;
-        }
-
-        private VerticalLineDetectionInfo  setThickness(TW_UINT32 thickness) {
-            this.thickness = thickness;
-            return this;
-        }
-
+        
         public TW_UINT32 getCount() {
             return count;
         }
-
-        public TW_UINT32 getXCoordinate() {
-            return xCoordinate;
-        }
-
-        public TW_UINT32 getYCoordinate() {
-            return yCoordinate;
-        }
-
-        public TW_UINT32 getLength() {
-            return length;
-        }
-
-        public TW_UINT32 getThickness() {
-            return thickness;
-        }
     }
+
     public class PatchcodeDetectionInfo
     {
         TW_UINT32 patchcode = new TW_UINT32();
@@ -638,10 +696,16 @@ public class ExtendedImageInfo {
         TW_STR255 camera    = new TW_STR255();
         TW_UINT32 frameNumber = new TW_UINT32();
         TW_FRAME frame  = new TW_FRAME();
+        TW_UINT16 pageside = new TW_UINT16();
         TW_UINT16 pixelFlavor = new TW_UINT16();
 
         public PageSourceInfo() {}
 
+        private PageSourceInfo setPageSide(TW_UINT16 pageSide) {
+            this.pageside = pageSide;
+            return this;
+        }
+        
         private PageSourceInfo setBookname(TW_STR255 bookname) {
             this.bookname = bookname; return this;
         }
@@ -667,8 +731,18 @@ public class ExtendedImageInfo {
             this.pixelFlavor = pixelFlavor; return this;
         }
 
-        public TW_STR255 getBookname() {
-            return bookname;
+        public TW_UINT16 getPageSide()
+        {
+            return this.pageside;
+        }
+        
+        public String getPageSideName(TwainSession session) throws DTwainJavaAPIException 
+        {
+            return
+            session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWCS,(int)pageside.getValue());
+        }
+        public String getBookname() {
+            return bookname.getValue();
         }
 
         public TW_UINT32 getChapterNumber() {
@@ -683,8 +757,8 @@ public class ExtendedImageInfo {
             return pageNumber;
         }
 
-        public TW_STR255 getCamera() {
-            return camera;
+        public String getCamera() {
+            return camera.getValue();
         }
 
         public TW_UINT32 getFrameNumber() {
@@ -719,8 +793,8 @@ public class ExtendedImageInfo {
             this.segmentNumber = segmentNumber; return this;
         }
 
-        public TW_STR255 getICCProfile() {
-            return ICCProfile;
+        public String getICCProfile() {
+            return ICCProfile.getValue();
         }
 
         public TW_BOOL isLastSegment() {
@@ -745,7 +819,73 @@ public class ExtendedImageInfo {
             return magtype;
         }
     }
-
+    
+    public class ExtendedImageInfo21
+    {
+        TW_STR255 fileSystemSource = new TW_STR255();
+        TW_BOOL   imageMerged = new TW_BOOL();
+        byte [] magData = new byte [0];
+        TW_UINT32 magDataLength = new TW_UINT32();
+        TW_UINT16 pageSide = new TW_UINT16();
+        
+        public ExtendedImageInfo21() {}
+        
+        private ExtendedImageInfo21 setFileSystemSource(TW_STR255 fileSystemSource)
+        {
+            this.fileSystemSource = fileSystemSource;
+            return this;
+        }
+        
+        private ExtendedImageInfo21 setMagData(byte [] magData)
+        {
+            this.magData = magData;
+            return this;
+        }
+        
+        private ExtendedImageInfo21 setImageMerged(TW_BOOL imageMerged)
+        {
+            this.imageMerged = imageMerged;
+            return this;
+        }
+        
+        private ExtendedImageInfo21 setMagDataLength(TW_UINT32 magDataLength)
+        {
+            this.magDataLength = magDataLength;
+            return this;
+        }
+        
+        private ExtendedImageInfo21 setPageSide(TW_UINT16 pageSide)
+        {
+            this.pageSide = pageSide;
+            return this;
+        }
+        
+        public String getFileSystemSource()
+        {
+            return this.fileSystemSource.getValue();
+        }
+        
+        public byte [] getMagData()
+        {
+            return this.magData;
+        }
+        
+        public TW_BOOL getImageMerged()
+        {
+            return this.imageMerged;
+        }
+        
+        public TW_UINT32 getMagDataLength()
+        {
+            return this.magDataLength;
+        }
+        
+        public TW_UINT16 getPageSide()
+        {
+            return this.pageSide;
+        }
+    }
+    
     BarcodeInfo barcodeInfo = new BarcodeInfo();
     ShadedAreaDetectionInfo shadedAreaDetectionInfo = new ShadedAreaDetectionInfo();
     SpeckleRemovalInfo speckleRemovalInfo = new SpeckleRemovalInfo();
@@ -758,6 +898,7 @@ public class ExtendedImageInfo {
     PageSourceInfo pageSourceInfo = new PageSourceInfo();
     ImageSegmentationInfo imageSegmentationInfo = new ImageSegmentationInfo();
     MICRInfo micrInfo   = new MICRInfo();
+    ExtendedImageInfo21 extImageInfo21 = new ExtendedImageInfo21();
 
     public ExtendedImageInfo()
     {}
@@ -810,6 +951,12 @@ public class ExtendedImageInfo {
         this.micrInfo = micrInfo; return this;
     }
 
+    private ExtendedImageInfo setExtendedImageInfo21(ExtendedImageInfo21 extImageInfo21)
+    {
+        this.extImageInfo21 = extImageInfo21;
+        return this;
+    }
+
     public BarcodeInfo getBarcodeInfo() {
         return barcodeInfo;
     }
@@ -857,5 +1004,8 @@ public class ExtendedImageInfo {
     public MICRInfo getMicrInfo() {
         return micrInfo;
     }
-
+    
+    public ExtendedImageInfo21 getExtendedImageInfo21() {
+        return this.extImageInfo21;
+    }
 }
