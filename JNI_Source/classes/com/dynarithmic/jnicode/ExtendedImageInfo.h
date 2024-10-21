@@ -22,6 +22,7 @@
 #define EXTENDEDIMAGEINFO_H
 #include <vector>
 #include <string>
+#include "ExtendedImageInfo_Types.h"
 
 #ifdef USING_DTWAIN_LOADLIBRARY
     #include "dtwainx2.h"
@@ -31,6 +32,9 @@
 
 class ExtendedImageInformation
 {
+    private:
+        bool GenericFillLineInfo(ExtendedImageInfo_LineDetectionNative& allInfo, int32_t itemCountType, const std::array<int32_t, 4>& itemsToGet);
+
     public:
         // For barcode information
         DTWAIN_SOURCE m_theSource = nullptr;
@@ -42,13 +46,39 @@ class ExtendedImageInformation
         bool infoRetrieved = false;
         int m_actualCount = 0;
 
-        // For camera information
+        // For page source information
         std::string m_CameraInfo;
+        std::string m_Bookname;
+        LONG m_ChapterNumber = 0;
+        LONG m_DocumentNumber = 0;
+        LONG m_PageNumber = 0;
+        LONG m_FrameNumber = 0;
+        LONG m_PageSide = 0;
 
+        ExtendedImageInfo_SkewDetectionInfoNative m_skewDetection;
+        ExtendedImageInfo_PageSourceInfoNative m_pageSource;
+        ExtendedImageInfo_BarcodeNative m_barcodeInfo;
+        ExtendedImageInfo_ShadedAreaDetectionInfoNativeV m_shadedInfo;
+        ExtendedImageInfo_SpeckleRemovalInfoNative m_speckleRemoval;
+        ExtendedImageInfo_LineDetectionNative m_horizontalLineInfo;
+        ExtendedImageInfo_LineDetectionNative m_verticalLineInfo;
+        ExtendedImageInfo_FormsRecognitionNative m_formsRecognitionInfo;
+        ExtendedImageInfo_ImageSegmentationInfoNative m_imageSementationInfo;
+        ExtendedImageInfo_EndorsedTextInfoNative m_endorsedTextInfo;
+        ExtendedImageInfo_ExtendedImageInfo21Native m_extendedImageInfo21;
         ExtendedImageInformation(DTWAIN_SOURCE theSource);
+
         bool IsInfoRetrieved() const { return infoRetrieved; }
         bool FillBarcodeInfo();
-        bool FillCameraInfo();
-        int GetBarcodeCount() { return m_actualCount; }
+        bool FillPageSourceInfo();
+        bool FillSkewInfo();
+        bool FillShadedAreaInfo();
+        bool FillSpeckleRemovalInfo();
+        bool FillHorizontalLineInfo();
+        bool FillVerticalLineInfo();
+        bool FillFormsRecognitionInfo();
+        bool FillImageSegmentationInfo();
+        bool FillEndorsedTextInfo();
+        bool FillExtendedImageInfo21();
 };
 #endif

@@ -5810,20 +5810,46 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetEx
     {
         // Get the barcode information 
         extendedInfo.FillBarcodeInfo();
-        auto actualCount = extendedInfo.GetBarcodeCount();
-        extImageInfo.setBarcodeInfoCount(actualCount);
-        for (int i = 0; i < actualCount; ++i)
-        {
-            ExtendedImageInfo_BarcodeInfoNative bcNative;
-            bcNative.xCoordinate = extendedInfo.m_vBarcodePosition.size() > i?extendedInfo.m_vBarcodePosition[i].first:0;
-            bcNative.yCoordinate = extendedInfo.m_vBarcodePosition.size() > i ? extendedInfo.m_vBarcodePosition[i].second: 0; 
-            bcNative.rotation = extendedInfo.m_vBarcodeRotation.size() > i?extendedInfo.m_vBarcodeRotation[i]:0;
-            bcNative.confidence = extendedInfo.m_vBarcodeConfidence.size() > i?extendedInfo.m_vBarcodeConfidence[i]:0;
-            bcNative.type = extendedInfo.m_vBarcodeType.size() > i?extendedInfo.m_vBarcodeType[i]:0;
-            if (extendedInfo.m_vBarcodeText[i].size() > i)
-                strcpy(bcNative.text, extendedInfo.m_vBarcodeText[i].c_str());
-            extImageInfo.setBarcodeInfo(bcNative, i);
-        }
+        extImageInfo.setAllBarcodeInfo(extendedInfo.m_barcodeInfo);
+
+        // Get the pagesource information
+        extendedInfo.FillPageSourceInfo();
+        extImageInfo.setPageSourceInfo(extendedInfo.m_pageSource);
+
+        // Set the skew information
+        extendedInfo.FillSkewInfo();
+        extImageInfo.setSkewDetectionInfo(extendedInfo.m_skewDetection);
+
+        // Set the shade area detection
+        extendedInfo.FillShadedAreaInfo();
+        extImageInfo.setShadedAreaDetectionInfo(extendedInfo.m_shadedInfo);
+
+        // Set the speckle removal detection
+        extendedInfo.FillSpeckleRemovalInfo();
+        extImageInfo.setSpeckleRemovalInfo(extendedInfo.m_speckleRemoval);
+
+        // Set the horizontal and vertical line info
+        extendedInfo.FillHorizontalLineInfo();
+        extendedInfo.FillVerticalLineInfo();
+
+        extImageInfo.setAllHorizontalLineInfo(extendedInfo.m_horizontalLineInfo);
+        extImageInfo.setAllVerticalLineInfo(extendedInfo.m_verticalLineInfo);
+
+        // Get the form recognition information
+        extendedInfo.FillFormsRecognitionInfo();
+        extImageInfo.setAllFormsRecognitionInfo(extendedInfo.m_formsRecognitionInfo);
+
+        // Get the image segmentation info
+        extendedInfo.FillImageSegmentationInfo();
+        extImageInfo.setAllImageSegmentationInfo(extendedInfo.m_imageSementationInfo);
+
+        // Get the endorsed text info
+        extendedInfo.FillEndorsedTextInfo();
+        extImageInfo.setAllEndorsedInfo(extendedInfo.m_endorsedTextInfo);
+
+        // get the extended image info for version 2.1 of TWAIN
+        extendedInfo.FillExtendedImageInfo21();
+        extImageInfo.setAllExtendedImageInfo21(extendedInfo.m_extendedImageInfo21);
     }
 
 #if 0

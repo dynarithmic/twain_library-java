@@ -75,6 +75,9 @@
     <ClInclude Include="ExtendedImageInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ExtendedImageInfo_Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

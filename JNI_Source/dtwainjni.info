@@ -741,7 +741,10 @@ GetStrokeWidth                          getStrokeWidth                     ()I
 GetRGBColor                             getRGBColor                        ()Lcom/dynarithmic/twain/highlevel/RGBColor;
 GetRenderMode                           getRenderModeAsInt                 ()I
 GetDisplayOptions                       getPageDisplayOptionsAsInt         ()I
-
+;
+; ==================================================
+; ExtendedImageInfo handling signatures
+;===================================================
 ExtendedImageInfo_BarcodeInfo_SingleInfo  com/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo 8
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;)V
 SetConfidence                           setConfidence                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
@@ -784,23 +787,31 @@ Constructor                             <>                                 (Lcom
 SetSpecklesRemoved                      setSpecklesRemoved                 (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
 SetWhiteSpecklesRemoved                 setWhiteSpecklesRemoved            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
 SetBlackSpecklesRemoved                 setBlackSpecklesRemoved            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+;------------------------------------------------------------------------------------
+ExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo                   com/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo$HorizontalLineDetectionSingleInfo 5
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo;)V
+SetXCoordinate                          setXCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo$HorizontalLineDetectionSingleInfo;
+SetYCoordinate                          setYCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo$HorizontalLineDetectionSingleInfo;
+SetLength                               setLength                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo$HorizontalLineDetectionSingleInfo;
+SetThickness                            setThickness                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo$HorizontalLineDetectionSingleInfo;
 
-ExtendedImageInfo_HorizontalLineDetectionInfo    com/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo  6
+ExtendedImageInfo_HorizontalLineDetectionInfo                              com/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo  3
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
 SetCount                                setCount                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo;
-SetXCoordinate                          setXCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo;
-SetYCoordinate                          setYCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo;
-SetLength                               setLength                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo;
-SetThickness                            setThickness                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo;
+SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo$HorizontalLineDetectionSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$HorizontalLineDetectionInfo;
 
-ExtendedImageInfo_VerticalLineDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo  6
+ExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo                     com/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo$VerticalLineDetectionSingleInfo 5
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo;)V
+SetXCoordinate                          setXCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo$VerticalLineDetectionSingleInfo;
+SetYCoordinate                          setYCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo$VerticalLineDetectionSingleInfo;
+SetLength                               setLength                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo$VerticalLineDetectionSingleInfo;
+SetThickness                            setThickness                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo$VerticalLineDetectionSingleInfo;
+
+ExtendedImageInfo_VerticalLineDetectionInfo                                com/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo  3
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
 SetCount                                setCount                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo;
-SetXCoordinate                          setXCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo;
-SetYCoordinate                          setYCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo;
-SetLength                               setLength                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo;
-SetThickness                            setThickness                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo;
-
+SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo$VerticalLineDetectionSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$VerticalLineDetectionInfo;
+;------------------------------------------------------------------------------------
 ExtendedImageInfo_PatchcodeDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo  2
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
 SetPatchcode                            setPatchcode                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo;
@@ -832,7 +843,7 @@ SetTemplatePageMatch                    setTemplatePageMatch               (Ljav
 SetHorizontalDocOffset                  setHorizontalDocOffset             (Ljava/util/List;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
 SetVerticalDocOffset                    setVerticalDocOffset               (Ljava/util/List;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
 
-ExtendedImageInfo_PageSourceInfo       com/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo  9
+ExtendedImageInfo_PageSourceInfo       com/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo  10
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
 SetBookname                            setBookname                         (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
 SetChapterNumber                       setChapterNumber                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
@@ -842,6 +853,15 @@ SetCamera                              setCamera                           (Lcom
 SetFrameNumber                         setFrameNumber                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
 SetFrame                               setFrame                            (Lcom/dynarithmic/twain/lowlevel/TW_FRAME;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
 SetPixelFlavor                         setPixelFlavor                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetPageSide                            setPageSide                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+
+ExtendedImageInfo_ExtendedImageInfo21  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21	  6
+Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetFileSystemSource                    setFileSystemSource                 (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetMagData                             setMagData                          ([B)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetImageMerged                         setImageMerged                      (Lcom/dynarithmic/twain/lowlevel/TW_BOOL;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetMagDataLength                       setMagDataLength                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetPageSide                            setPageSide                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
 
 
 ExtendedImageInfo_ImageSegmentationInfo com/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo  4
@@ -855,7 +875,7 @@ Constructor                             <>                                 (Lcom
 SetMagType                             setMagType                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$MICRInfo;
 
 
-ExtendedImageInfo                      com/dynarithmic/twain/highlevel/ExtendedImageInfo    25
+ExtendedImageInfo                      com/dynarithmic/twain/highlevel/ExtendedImageInfo    27
 DefaultConstructor                      <>                                 ()V
 SetBarcodeInfo                         setBarcodeInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
 SetShadedAreaDetectionInfo             setShadedAreaDetectionInfo          (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
@@ -869,6 +889,7 @@ SetFormsRecognitionInfo                setFormsRecognitionInfo             (Lcom
 SetPageSourceInfo                      setPageSourceInfo                   (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
 SetImageSegmentationInfo               setImageSegmentationInfo            (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
 SetMicrInfo                            setMicrInfo                         (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$MICRInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetExtendedImageInfo21                 setExtendedImageInfo21              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
 GetBarcodeInfo                         getBarcodeInfo                      ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
 GetShadedAreaDetectionInfo             getShadedAreaDetectionInfo          ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
 GetSpeckleRemovalInfo                  getSpeckleRemovalInfo               ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
@@ -881,4 +902,5 @@ GetFormsRecognitionInfo                getFormsRecognitionInfo             ()Lco
 GetPageSourceInfo                      getPageSourceInfo                   ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
 GetImageSegmentationInfo               getImageSegmentationInfo            ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
 GetMicrInfo                            getMicrInfo                         ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$MICRInfo;
+GetExtendedImageInfo21                 getExtendedImageInfo21              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
 

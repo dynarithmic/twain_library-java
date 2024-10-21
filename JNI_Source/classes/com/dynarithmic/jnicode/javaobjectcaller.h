@@ -35,6 +35,7 @@
 #include "JavaArrayList.h"
 #include "JavaArrayTraits.h"
 #include "UTFCharsHandler.h"
+#include "ExtendedImageInfo_Types.h"
 
 struct JavaFunctionInfo
 {
@@ -2832,17 +2833,6 @@ class JavaExtendedImageInfo_ParentClass : public JavaObjectCaller
     void setExtendedObject(JavaClass* ptr) { m_ptrExtendedImageInfo = ptr; }
 };
 
-struct ExtendedImageInfo_BarcodeInfoNative
-{
-    TW_UINT32 confidence  = 0;
-    TW_UINT32 rotation = 0;
-    TW_UINT32 length = 0;
-    TW_UINT32 xCoordinate = 0;
-    TW_UINT32 yCoordinate = 0;
-    TW_UINT32 type = 0;
-    TW_STR255 text {};
-};
-
 class JavaExtendedImageInfo_BarcodeInfo;
 
 class JavaExtendedImageInfo_BarcodeInfo_SingleInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo_BarcodeInfo>
@@ -2893,26 +2883,7 @@ public:
     void setCount(TW_UINT32);
     void setSingleInfo(jobject objParent, ExtendedImageInfo_BarcodeInfoNative&, int);
 };
-
-struct ExtendedImageInfo_ShadedAreaDetectionInfoNative
-{
-    TW_UINT32 count = 0;
-    TW_UINT32 top = 0;
-    TW_UINT32 left = 0;
-    TW_UINT32 height = 0;
-    TW_UINT32 width = 0;
-    TW_UINT32 size = 0;
-    TW_UINT32 blackCountOld = 0;
-    TW_UINT32 blackCountNew = 0;
-    TW_UINT32 blackRLMin = 0;
-    TW_UINT32 blackRLMax = 0;
-    TW_UINT32 whiteCountOld = 0;
-    TW_UINT32 whiteCountNew = 0;
-    TW_UINT32 whiteRLMin = 0;
-    TW_UINT32 whiteRLMax = 0;
-    TW_UINT32 whiteRLAvg = 0;
-};
-
+///////////////////////////////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_ShadedAreaDetectionInfo;
 
 class JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo_ShadedAreaDetectionInfo>
@@ -2969,13 +2940,6 @@ public:
     void setSingleInfo(jobject objParent, ExtendedImageInfo_ShadedAreaDetectionInfoNative&, int);
 };
 //////////////////////////////////////////////////////////////////////////////////////
-struct ExtendedImageInfo_SpeckleRemovalInfoNative
-{
-    TW_UINT32 specklesRemoved = 0;
-    TW_UINT32 whiteSpecklesRemoved = 0;
-    TW_UINT32 blackSpecklesRemoved = 0;
-};
-
 class JavaExtendedImageInfo_SpeckleRemovalInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetSpecklesRemoved = "SetSpecklesRemoved";
@@ -2992,25 +2956,53 @@ public:
     void setBlackSpecklesRemoved(TW_UINT32);
     void NativeToJava(const ExtendedImageInfo_SpeckleRemovalInfoNative& val);
 };
+//////////////////////////////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_LineSingleInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetXCoordinate = "SetXCoordinate";
+    static constexpr const char* SetYCoordinate = "SetYCoordinate";
+    static constexpr const char* SetLength = "SetLength";
+    static constexpr const char* SetThickness = "SetThickness";
+
+    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
+
+public:
+    JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env, std::string sOrientation);
+
+    void setXCoordinate(TW_UINT32);
+    void setYCoordinate(TW_UINT32);
+    void setLength(TW_UINT32);
+    void setThickness(TW_UINT32);
+    void NativeToJava(const ExtendedImageInfo_LineDetectionInfoNative& info);
+};
+
+class JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo : public JavaExtendedImageInfo_LineSingleInfo
+{
+    public:
+        JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo(JNIEnv* env);
+};
+
+class JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo : public JavaExtendedImageInfo_LineSingleInfo
+{
+    public:
+        JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo(JNIEnv* env);
+};
+
 
 class JavaExtendedImageInfo_LineDetectionInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetCount = "SetCount";
-    static constexpr const char * SetXCoordinate = "SetXCoordinate";
-    static constexpr const char * SetYCoordinate = "SetYCoordinate";
-    static constexpr const char * SetLength ="SetLength";
-    static constexpr const char * SetThickness = "SetThickness";
+    static constexpr const char * SetSingleInfo = "SetSingleInfo";
 
     JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
+    JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo proxy_hlineInfo;
+    JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo proxy_vlineInfo;
 
 public:
     JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env, std::string sOrientation);
 
     void setCount(TW_UINT32);
-    void setXCoordinate(TW_UINT32);
-    void setYCoordinate(TW_UINT32);
-    void setLength(TW_UINT32);
-    void setThickness(TW_UINT32);
+    void setSingleInfo(jobject objParent, const ExtendedImageInfo_LineDetectionInfoNative&, int, int);
 };
 
 class JavaExtendedImageInfo_HorizontalLineDetectionInfo : public JavaExtendedImageInfo_LineDetectionInfo
@@ -3105,8 +3097,10 @@ public:
     void setTemplatePageMatch(std::vector<TW_UINT32>& val);
     void setHorizontalDocOffset(std::vector<TW_UINT32>& val);
     void setVerticalDocOffset(std::vector<TW_UINT32>& val);
+    void setAllValues(ExtendedImageInfo_FormsRecognitionNative& info);
 };
 ///////////////////////////////////////////////////////////////////////////////////
+
 class JavaExtendedImageInfo_PageSourceInfo: public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetBookname = "SetBookname";
@@ -3117,6 +3111,8 @@ class JavaExtendedImageInfo_PageSourceInfo: public JavaExtendedImageInfo_ParentC
     static constexpr const char * SetFrameNumber = "SetFrameNumber";
     static constexpr const char * SetFrame = "SetFrame";
     static constexpr const char * SetPixelFlavor = "SetPixelFlavor";
+    static constexpr const char*  SetPageSide = "SetPageSide";
+
 
     JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
     JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
@@ -3133,6 +3129,7 @@ public:
     void setFrameNumber(TW_UINT32);
     void setFrame(TW_FRAME);
     void setPixelFlavor(TW_UINT16);
+    void setPageSide(TW_UINT16);
 };
 /////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_ImageSegmentationInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
@@ -3162,6 +3159,28 @@ public:
     JavaExtendedImageInfo_MICRInfo(JNIEnv* env);
     void setMagType(TW_UINT16);
 };
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo21: public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetFileSystemSource = "SetFileSystemSource";
+    static constexpr const char* SetMagData = "SetMagData";
+    static constexpr const char* SetImageMerged = "SetImageMerged";
+    static constexpr const char* SetMagDataLength = "SetMagDataLength";
+    static constexpr const char* SetPageSide = "SetPageSide";
+
+    JavaDTwainLowLevel_TW_BOOL   proxy_bool;
+    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
+    JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
+    JavaDTwainLowLevel_TW_STR255 proxy_str255;
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo21(JNIEnv* env);
+    void setFileSystemSource(TW_STR255);
+    void setImageMerged(TW_BOOL);
+    void setMagDataLength(TW_UINT32);
+    void setPageSide(TW_UINT16);
+    void setMagData(jbyteArray imageData);
+};
 ////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo : public JavaObjectCaller
 {
@@ -3178,6 +3197,7 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         static constexpr const char * SetPageSourceInfo                = "SetPageSourceInfo";
         static constexpr const char * SetImageSegmentationInfo         = "SetImageSegmentationInfo";
         static constexpr const char * SetMicrInfo                      = "SetMicrInfo";
+        static constexpr const char * SetExtendedImageInfo21           = "SetExtendedImageInfo21";
 
         static constexpr const char * GetBarcodeInfo = "GetBarcodeInfo";
         static constexpr const char * GetShadedAreaDetectionInfo = "GetShadedAreaDetectionInfo";
@@ -3191,6 +3211,7 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         static constexpr const char * GetPageSourceInfo = "GetPageSourceInfo";
         static constexpr const char * GetImageSegmentationInfo = "GetImageSegmentationInfo";
         static constexpr const char * GetMicrInfo = "GetMicrInfo";
+        static constexpr const char * GetExtendedImageInfo21 = "GetExtendedImageInfo21";
 
     private:
         JavaExtendedImageInfo_BarcodeInfo proxy_barcodeinfo;
@@ -3199,21 +3220,30 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         JavaExtendedImageInfo_HorizontalLineDetectionInfo proxy_hlinedetectioninfo;
         JavaExtendedImageInfo_VerticalLineDetectionInfo proxy_vlinedetectioninfo;
         JavaExtendedImageInfo_PatchcodeDetectionInfo proxy_patchcodedetioninfo;
-        JavaExtendedImageInfo_SkewDetectionInfo proxy_detectioninfo;
+        JavaExtendedImageInfo_SkewDetectionInfo proxy_skewdetectioninfo;
         JavaExtendedImageInfo_EndorsedTextInfo proxy_endorsedtextinfo;
         JavaExtendedImageInfo_FormsRecognitionInfo proxy_formsdefinitioninfo;
         JavaExtendedImageInfo_PageSourceInfo proxy_pagesourceinfo;
         JavaExtendedImageInfo_ImageSegmentationInfo proxy_imagesegmentationinfo;
+        JavaExtendedImageInfo_ExtendedImageInfo21 proxy_extendedimageinfo21;
 
     public:
         JavaExtendedImageInfo(JNIEnv* env);
+        void setAllBarcodeInfo(ExtendedImageInfo_BarcodeNative& info);
         void setBarcodeInfo(ExtendedImageInfo_BarcodeInfoNative&, int nWhich);
         void setBarcodeInfoCount(TW_UINT32 count);
+        void setPageSourceInfo(ExtendedImageInfo_PageSourceInfoNative& info);
+        void setSkewDetectionInfo(ExtendedImageInfo_SkewDetectionInfoNative& info);
         void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNative&, int nWhich);
+        void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNativeV& info);
         void setShadedAreaInfoCount(TW_UINT32 count);
-
-        void setSpeckleRemovalInfo(const ExtendedImageInfo_SpeckleRemovalInfoNative&);
-
+        void setSpeckleRemovalInfo(const ExtendedImageInfo_SpeckleRemovalInfoNative& sInfo);
+        void setAllHorizontalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo);
+        void setAllVerticalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo);
+        void setAllFormsRecognitionInfo(ExtendedImageInfo_FormsRecognitionNative& info);
+        void setAllImageSegmentationInfo(ExtendedImageInfo_ImageSegmentationInfoNative& info);
+        void setAllEndorsedInfo(ExtendedImageInfo_EndorsedTextInfoNative& info);
+        void setAllExtendedImageInfo21(ExtendedImageInfo_ExtendedImageInfo21Native& info);
 /*
     void setSpeckleRemoveInfo
     void setHorizontalLineDetectionInfo

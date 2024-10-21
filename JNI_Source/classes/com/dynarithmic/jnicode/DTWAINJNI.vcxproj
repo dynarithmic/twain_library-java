@@ -37,7 +37,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5E81073C-53DD-4684-96A4-60E2E3027100}</ProjectGuid>
     <RootNamespace>DTWAINJNI</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>DTWAINJNI</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -589,6 +589,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClInclude Include="DTWAINRAII.h" />
     <ClInclude Include="dtwainx2.h" />
     <ClInclude Include="ExtendedImageInfo.h" />
+    <ClInclude Include="ExtendedImageInfo_Types.h" />
     <ClInclude Include="JavaAdapter.h" />
     <ClInclude Include="JavaArrayList.h" />
     <ClInclude Include="JavaArrayTraits.h" />
