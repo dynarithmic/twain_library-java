@@ -43,6 +43,11 @@ ExtendedImageInformation::ExtendedImageInformation(DTWAIN_SOURCE theSource) : m_
     infoRetrieved = retValue ? true : false;
 }
 
+ExtendedImageInformation::~ExtendedImageInformation()
+{
+    API_INSTANCE DTWAIN_FreeExtImageInfo(m_theSource);
+}
+
 bool ExtendedImageInformation::FillBarcodeInfo()
 {
     if (!infoRetrieved)
@@ -468,6 +473,24 @@ bool ExtendedImageInformation::FillEndorsedTextInfo()
     return true;
 }
 
+bool ExtendedImageInformation::FillExtendedImageInfo20()
+{
+    if (!infoRetrieved)
+        return false;
+    DTWAIN_ARRAY aValues = {};
+    DTWAINArray_RAII raii(aValues);
+
+    API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_MAGTYPE, &aValues);
+    LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
+    if (nCount > 0)
+    {
+        LONG lVal = 0;
+        API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
+        m_extendedImageInfo20.m_magType = lVal;
+    }
+    return true;
+}
+
 bool ExtendedImageInformation::FillExtendedImageInfo21()
 {
     if (!infoRetrieved)
@@ -530,6 +553,140 @@ bool ExtendedImageInformation::FillExtendedImageInfo21()
         LONG lVal = 0;
         API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
         m_extendedImageInfo21.m_imageMerged = lVal;
+    }
+    return true;
+}
+
+bool ExtendedImageInformation::FillExtendedImageInfo22()
+{
+    if (!infoRetrieved)
+        return false;
+    DTWAIN_ARRAY aValues = {};
+    DTWAINArray_RAII raii(aValues);
+
+    API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_PAPERCOUNT, &aValues);
+    LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
+    if (nCount > 0)
+    {
+        LONG lVal = 0;
+        API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
+        m_extendedImageInfo22.m_PaperCount = lVal;
+    }
+    return true;
+}
+
+bool ExtendedImageInformation::FillExtendedImageInfo23()
+{
+    if (!infoRetrieved)
+        return false;
+    DTWAIN_ARRAY aValues = {};
+    DTWAINArray_RAII raii(aValues);
+
+    API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_PRINTERTEXT, &aValues);
+    LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
+    if (nCount > 0)
+    {
+        TW_STR255 szData = {};
+        API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szData);
+        strcpy(m_extendedImageInfo23.m_PrinterText, szData);
+    }
+    return true;
+}
+
+bool ExtendedImageInformation::FillExtendedImageInfo24()
+{
+    if (!infoRetrieved)
+        return false;
+    DTWAIN_ARRAY aValues = {};
+    DTWAINArray_RAII raii(aValues);
+
+    API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_TWAINDIRECTMETADATA, &aValues);
+    LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
+    if (nCount > 0)
+    {
+        // This is a handle, so global lock it
+        DTWAIN_HANDLE sHandle;
+        API_INSTANCE DTWAIN_ArrayGetAt(aValues, 0, &sHandle);
+        if (sHandle)
+        {
+            HandleRAII raii(sHandle);
+            char* pData = (char*)raii.getData();
+            m_extendedImageInfo24.m_twainDirectMetaData = pData;
+        }
+    }
+    return true;
+}
+
+bool ExtendedImageInformation::FillExtendedImageInfo25()
+{
+    if (!infoRetrieved)
+        return false;
+
+    std::array<int32_t, 5> intTypes = { TWEI_IAFIELDA_VALUE, TWEI_IAFIELDB_VALUE, TWEI_IAFIELDC_VALUE, TWEI_IAFIELDD_VALUE, TWEI_IAFIELDE_VALUE};
+    std::array<DTWAIN_ARRAY, 5> aValue;
+    std::array<DTWAINArray_RAII, 5> aVects = { aValue[0], aValue[1], aValue[2], aValue[3], aValue[4] };
+
+    for (size_t i = 0; i < aValue.size(); ++i)
+    {
+        API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intTypes[i], &aValue[i]);
+        LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValue[i]);
+        if (nCount > 0)
+        {
+            TW_STR32 szData = {};
+            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValue[i], 0, szData);
+            strcpy(m_extendedImageInfo25.m_ImageAddressing.m_AddressInfo[i], szData);
+        }
+    }
+
+    std::array<int32_t, 2> int16Types = { TWEI_IALEVEL, TWEI_PRINTER };
+    std::array<TW_UINT16*, 2> ptrInt = { &m_extendedImageInfo25.m_ImageAddressing.m_iaLevel, &m_extendedImageInfo25.m_printer };
+    for (size_t i = 0; i < int16Types.size(); ++i)
+    {
+        API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, int16Types[i], &aValue[i]);
+        LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValue[i]);
+        if (nCount > 0)
+        {
+            LONG lVal = 0;
+            API_INSTANCE DTWAIN_ArrayGetAtLong(aValue[i], 0, &lVal);
+            *(ptrInt[i]) = static_cast<TW_UINT16>(lVal);
+        }
+    }
+
+    API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_BARCODETEXT2, &aValue[0]);
+    LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValue[0]);
+    if (nCount > 0)
+    {
+        // The first entry is a handle to either a string or more handles
+        DTWAIN_HANDLE sHandle;
+        API_INSTANCE DTWAIN_ArrayGetAt(aValue[0], 0, &sHandle);
+        if (nCount == 1)
+        {
+            HandleRAII raii(sHandle);
+            char* pData = (char*)raii.getData();
+            m_extendedImageInfo25.m_barcodeText.push_back(pData);
+            return true;
+        }
+        else
+        {
+            // The first handle is a handle to nCount number of handles
+            HandleRAII raii(sHandle);
+            char* pData = (char*)raii.getData();
+            for (int i = 0; i < nCount; ++i)
+            {
+                // Get to each handle
+                DTWAIN_HANDLE sHandle2 = ((DTWAIN_HANDLE*)pData)[i];
+                if (sHandle2)
+                {
+                    // Lock handle
+                    HandleRAII raii2(sHandle2);
+                    char* pStrData = (char*)raii2.getData();
+                    if (pStrData)
+                        m_extendedImageInfo25.m_barcodeText.push_back(pStrData);
+                }
+                else
+                    m_extendedImageInfo25.m_barcodeText.push_back({});
+            }
+        }
     }
     return true;
 }

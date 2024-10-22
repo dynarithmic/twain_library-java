@@ -5808,6 +5808,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetEx
     ExtendedImageInformation extendedInfo(reinterpret_cast<DTWAIN_SOURCE>(source));
     if (extendedInfo.IsInfoRetrieved())
     {
+        // The following are extended image info prior to TWAIN 2.0
         // Get the barcode information 
         extendedInfo.FillBarcodeInfo();
         extImageInfo.setAllBarcodeInfo(extendedInfo.m_barcodeInfo);
@@ -5847,32 +5848,30 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetEx
         extendedInfo.FillEndorsedTextInfo();
         extImageInfo.setAllEndorsedInfo(extendedInfo.m_endorsedTextInfo);
 
+        // get the extended image info for version 2.0 of TWAIN
+        extendedInfo.FillExtendedImageInfo20();
+        extImageInfo.setAllExtendedImageInfo20(extendedInfo.m_extendedImageInfo20);
+
         // get the extended image info for version 2.1 of TWAIN
         extendedInfo.FillExtendedImageInfo21();
         extImageInfo.setAllExtendedImageInfo21(extendedInfo.m_extendedImageInfo21);
-    }
 
-#if 0
-    ExtendedImageInfo_BarcodeInfoNative bcNative;
-    extImageInfo.setBarcodeInfoCount(1);
-    bcNative.xCoordinate = 100;
-    bcNative.yCoordinate = 200;
-    bcNative.rotation =    40;
-    strcpy(bcNative.text, "abc123");
-    extImageInfo.setBarcodeInfo(bcNative, 0);
-    ExtendedImageInfo_ShadedAreaDetectionInfoNative sNative;
-    extImageInfo.setShadedAreaInfoCount(1);
-    sNative.top = 23;
-    sNative.left = 34;
-    sNative.height = 300;
-    sNative.width = 600;
-    extImageInfo.setShadedAreaDetectionInfo(sNative, 0);
-/*    ExtendedImageInfo_SpeckleRemovalInfoNative sSpeckle;
-    sSpeckle.specklesRemoved = 1000;
-    sSpeckle.whiteSpecklesRemoved = 501;
-    sSpeckle.blackSpecklesRemoved = 499;
-    extImageInfo.setSpeckleRemovalInfo(sSpeckle);*/
-#endif
+        // get the extended image info for version 2.2 of TWAIN
+        extendedInfo.FillExtendedImageInfo22();
+        extImageInfo.setAllExtendedImageInfo22(extendedInfo.m_extendedImageInfo22);
+
+        // get the extended image info for version 2.3 of TWAIN
+        extendedInfo.FillExtendedImageInfo23();
+        extImageInfo.setAllExtendedImageInfo23(extendedInfo .m_extendedImageInfo23);
+
+        // get the extended image info for version 2.4 of TWAIN
+        extendedInfo.FillExtendedImageInfo24();
+        extImageInfo.setAllExtendedImageInfo24(extendedInfo.m_extendedImageInfo24);
+
+        // get the extended image info for version 2.5 of TWAIN
+        extendedInfo.FillExtendedImageInfo25();
+        extImageInfo.setAllExtendedImageInfo25(extendedInfo.m_extendedImageInfo25);
+    }
     return extImageInfo.getObject();
     DO_DTWAIN_CATCH(env)
 }

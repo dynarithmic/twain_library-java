@@ -3238,11 +3238,12 @@ JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
     JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "ExtendedImageInfo",
      {SetBarcodeInfo,SetShadedAreaDetectionInfo, SetSpeckleRemovalInfo, SetHorizontalLineDetectionInfo, SetVerticalLineDetectionInfo,
       SetPatchcodeDetectionInfo, SetSkewDetectionInfo, SetEndorsedTextInfo, SetFormsRecognitionInfo, SetPageSourceInfo,
-      SetImageSegmentationInfo, SetMicrInfo, SetExtendedImageInfo21,
+      SetImageSegmentationInfo, SetExtendedImageInfo20, SetExtendedImageInfo21, 
 
      GetBarcodeInfo,GetShadedAreaDetectionInfo, GetSpeckleRemovalInfo, GetHorizontalLineDetectionInfo, GetVerticalLineDetectionInfo,
      GetPatchcodeDetectionInfo, GetSkewDetectionInfo, GetEndorsedTextInfo, GetFormsRecognitionInfo, GetPageSourceInfo,
-     GetImageSegmentationInfo, GetMicrInfo, GetExtendedImageInfo21}),
+     GetImageSegmentationInfo, GetExtendedImageInfo20, GetExtendedImageInfo21, GetExtendedImageInfo22, GetExtendedImageInfo23, GetExtendedImageInfo24,
+     GetExtendedImageInfo25 }),
 
             proxy_barcodeinfo(env),
             proxy_shadedareainfo(env),
@@ -3255,7 +3256,12 @@ JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
             proxy_formsdefinitioninfo(env),
             proxy_pagesourceinfo(env),
             proxy_imagesegmentationinfo(env),
-            proxy_extendedimageinfo21(env)
+            proxy_extendedimageinfo20(env),
+            proxy_extendedimageinfo21(env),
+            proxy_extendedimageinfo22(env),
+            proxy_extendedimageinfo23(env),
+            proxy_extendedimageinfo24(env),
+            proxy_extendedimageinfo25(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
     defaultConstructObject();
@@ -3306,6 +3312,13 @@ void JavaExtendedImageInfo::setAllEndorsedInfo(ExtendedImageInfo_EndorsedTextInf
     proxy_endorsedtextinfo.setText(info.m_sEndorsedText);
 }
 
+void JavaExtendedImageInfo::setAllExtendedImageInfo20(ExtendedImageInfo_ExtendedImageInfo20Native& info)
+{
+    jobject sObject = callObjectMethod(getFunctionName(GetExtendedImageInfo20));
+    proxy_extendedimageinfo20.setObject(sObject);
+    proxy_extendedimageinfo20.setMagType(info.m_magType);
+}
+
 void JavaExtendedImageInfo::setAllExtendedImageInfo21(ExtendedImageInfo_ExtendedImageInfo21Native& info)
 {
     jobject sObject = callObjectMethod(getFunctionName(GetExtendedImageInfo21));
@@ -3318,6 +3331,42 @@ void JavaExtendedImageInfo::setAllExtendedImageInfo21(ExtendedImageInfo_Extended
         CreateJArrayFromCArray<JavaByteArrayTraits<char>>(m_pJavaEnv, 
                                                           reinterpret_cast<char*>(info.m_magData.data()), 
                                                           info.m_magData.size()));
+}
+
+void JavaExtendedImageInfo::setAllExtendedImageInfo22(ExtendedImageInfo_ExtendedImageInfo22Native& info)
+{
+    jobject sObject = callObjectMethod(getFunctionName(GetExtendedImageInfo22));
+    proxy_extendedimageinfo22.setObject(sObject);
+    proxy_extendedimageinfo22.setPaperCount(info.m_PaperCount);
+}
+
+void JavaExtendedImageInfo::setAllExtendedImageInfo23(ExtendedImageInfo_ExtendedImageInfo23Native& info)
+{
+    jobject sObject = callObjectMethod(getFunctionName(GetExtendedImageInfo23));
+    proxy_extendedimageinfo23.setObject(sObject);
+    proxy_extendedimageinfo23.setPrinterText(info.m_PrinterText);
+}
+
+void JavaExtendedImageInfo::setAllExtendedImageInfo24(ExtendedImageInfo_ExtendedImageInfo24Native& info)
+{
+    jobject sObject = callObjectMethod(getFunctionName(GetExtendedImageInfo24));
+    proxy_extendedimageinfo24.setObject(sObject);
+    proxy_extendedimageinfo24.setTwainDirectMetaData(info.m_twainDirectMetaData);
+}
+
+void JavaExtendedImageInfo::setAllExtendedImageInfo25(ExtendedImageInfo_ExtendedImageInfo25Native& info)
+{
+    jobject sObject = callObjectMethod(getFunctionName(GetExtendedImageInfo25));
+    proxy_extendedimageinfo25.setObject(sObject);
+    proxy_extendedimageinfo25.setIAFieldA(info.m_ImageAddressing.m_AddressInfo[0]);
+    proxy_extendedimageinfo25.setIAFieldB(info.m_ImageAddressing.m_AddressInfo[1]);
+    proxy_extendedimageinfo25.setIAFieldC(info.m_ImageAddressing.m_AddressInfo[2]);
+    proxy_extendedimageinfo25.setIAFieldD(info.m_ImageAddressing.m_AddressInfo[3]);
+    proxy_extendedimageinfo25.setIAFieldE(info.m_ImageAddressing.m_AddressInfo[4]);
+    proxy_extendedimageinfo25.setIALevel(info.m_ImageAddressing.m_iaLevel);
+    proxy_extendedimageinfo25.setPrinter(info.m_printer);
+    for (auto& str : info.m_barcodeText)
+        proxy_extendedimageinfo25.addBarcodeText(str);
 }
 
 void JavaExtendedImageInfo::setBarcodeInfo(ExtendedImageInfo_BarcodeInfoNative& info, int nWhich)
@@ -3967,14 +4016,14 @@ void JavaExtendedImageInfo_ImageSegmentationInfo::setSegmentNumber(TW_UINT32 val
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-JavaExtendedImageInfo_MICRInfo::JavaExtendedImageInfo_MICRInfo(JNIEnv* env) :
-    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_MICRInfo",
+JavaExtendedImageInfo_ExtendedImageInfo20::JavaExtendedImageInfo_ExtendedImageInfo20(JNIEnv* env) :
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo20",
                      { SetMagType }), proxy_uint16(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
-void JavaExtendedImageInfo_MICRInfo::setMagType(TW_UINT16 val)
+void JavaExtendedImageInfo_ExtendedImageInfo20::setMagType(TW_UINT16 val)
 {
     setProxyData(proxy_uint16, getFunctionName(SetMagType).c_str(), val);
 }
@@ -4010,6 +4059,89 @@ void JavaExtendedImageInfo_ExtendedImageInfo21::setMagDataLength(TW_UINT32 val)
 void JavaExtendedImageInfo_ExtendedImageInfo21::setMagData(jbyteArray magData)
 {
     callVoidMethod(getFunctionName(SetMagData), magData);
+}
+////////////////////////////////////////////////////////////
+JavaExtendedImageInfo_ExtendedImageInfo22::JavaExtendedImageInfo_ExtendedImageInfo22(JNIEnv* env) :
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo22",
+        { SetPaperCount }), proxy_uint32(env)
+{
+    RegisterMemberFunctions(*this, getObjectName());
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo22::setPaperCount(TW_UINT32 val)
+{
+    setProxyData(proxy_uint32, getFunctionName(SetPaperCount).c_str(), val);
+}
+////////////////////////////////////////////////////////////
+JavaExtendedImageInfo_ExtendedImageInfo23::JavaExtendedImageInfo_ExtendedImageInfo23(JNIEnv* env) :
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo23", { SetPrinterText }), proxy_str255(env)
+{
+    RegisterMemberFunctions(*this, getObjectName());
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo23::setPrinterText(TW_STR255 val)
+{
+    setProxyData(proxy_str255, getFunctionName(SetPrinterText).c_str(), val);
+}
+////////////////////////////////////////////////////////////
+JavaExtendedImageInfo_ExtendedImageInfo24::JavaExtendedImageInfo_ExtendedImageInfo24(JNIEnv* env) :
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo24", { SetTwainDirectMetaData })
+{
+    RegisterMemberFunctions(*this, getObjectName());
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo24::setTwainDirectMetaData(std::string sMetaData)
+{
+    callVoidMethod(getFunctionName(SetTwainDirectMetaData), CreateJStringFromCStringA(m_pJavaEnv, sMetaData.c_str()));
+}
+////////////////////////////////////////////////////////////
+JavaExtendedImageInfo_ExtendedImageInfo25::JavaExtendedImageInfo_ExtendedImageInfo25(JNIEnv* env) :
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo25", 
+        { SetIAFieldA, SetIAFieldB, SetIAFieldC, SetIAFieldD, SetIAFieldE, SetIALevel, SetPrinter, AddBarcodeText }),
+        proxy_str32(env), proxy_uint16(env)
+{
+    RegisterMemberFunctions(*this, getObjectName());
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldA(TW_STR32 val)
+{
+    setProxyData(proxy_str32, getFunctionName(SetIAFieldA).c_str(), val);
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldB(TW_STR32 val)
+{
+    setProxyData(proxy_str32, getFunctionName(SetIAFieldB).c_str(), val);
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldC(TW_STR32 val)
+{
+    setProxyData(proxy_str32, getFunctionName(SetIAFieldC).c_str(), val);
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldD(TW_STR32 val)
+{
+    setProxyData(proxy_str32, getFunctionName(SetIAFieldD).c_str(), val);
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldE(TW_STR32 val)
+{
+    setProxyData(proxy_str32, getFunctionName(SetIAFieldE).c_str(), val);
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIALevel(TW_UINT16 val)
+{
+    setProxyData(proxy_uint16, getFunctionName(SetIALevel).c_str(), val);
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::setPrinter(TW_UINT16 val)
+{
+    setProxyData(proxy_uint16, getFunctionName(SetPrinter).c_str(), val);
+}
+
+void JavaExtendedImageInfo_ExtendedImageInfo25::addBarcodeText(std::string text)
+{
+    const jstring str = CreateJStringFromCStringA(m_pJavaEnv, text.c_str());
+    callObjectMethod(getFunctionName(AddBarcodeText), str);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////

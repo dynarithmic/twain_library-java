@@ -65,8 +65,14 @@ class ExtendedImageInformation
         ExtendedImageInfo_FormsRecognitionNative m_formsRecognitionInfo;
         ExtendedImageInfo_ImageSegmentationInfoNative m_imageSementationInfo;
         ExtendedImageInfo_EndorsedTextInfoNative m_endorsedTextInfo;
+        ExtendedImageInfo_ExtendedImageInfo20Native m_extendedImageInfo20;
         ExtendedImageInfo_ExtendedImageInfo21Native m_extendedImageInfo21;
+        ExtendedImageInfo_ExtendedImageInfo22Native m_extendedImageInfo22;
+        ExtendedImageInfo_ExtendedImageInfo23Native m_extendedImageInfo23;
+        ExtendedImageInfo_ExtendedImageInfo24Native m_extendedImageInfo24;
+        ExtendedImageInfo_ExtendedImageInfo25Native m_extendedImageInfo25;
         ExtendedImageInformation(DTWAIN_SOURCE theSource);
+        ~ExtendedImageInformation();
 
         bool IsInfoRetrieved() const { return infoRetrieved; }
         bool FillBarcodeInfo();
@@ -79,6 +85,11 @@ class ExtendedImageInformation
         bool FillFormsRecognitionInfo();
         bool FillImageSegmentationInfo();
         bool FillEndorsedTextInfo();
+        bool FillExtendedImageInfo20();
         bool FillExtendedImageInfo21();
+        bool FillExtendedImageInfo22();
+        bool FillExtendedImageInfo23();
+        bool FillExtendedImageInfo24();
+        bool FillExtendedImageInfo25();
 };
 #endif

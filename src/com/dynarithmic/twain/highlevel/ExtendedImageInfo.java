@@ -29,6 +29,7 @@ import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.lowlevel.TW_BOOL;
 import com.dynarithmic.twain.lowlevel.TW_FRAME;
 import com.dynarithmic.twain.lowlevel.TW_STR255;
+import com.dynarithmic.twain.lowlevel.TW_STR32;
 import com.dynarithmic.twain.lowlevel.TW_UINT16;
 import com.dynarithmic.twain.lowlevel.TW_UINT32;
 
@@ -805,13 +806,13 @@ public class ExtendedImageInfo {
             return segmentNumber;
         }
     }
-    public class MICRInfo
+    public class ExtendedImageInfo20
     {
         TW_UINT16 magtype = new TW_UINT16();
 
-        public MICRInfo() {}
+        public ExtendedImageInfo20() {}
 
-        private MICRInfo setMagType(TW_UINT16 magtype) {
+        private ExtendedImageInfo20 setMagType(TW_UINT16 magtype) {
             this.magtype = magtype; return this;
         }
 
@@ -885,7 +886,150 @@ public class ExtendedImageInfo {
             return this.pageSide;
         }
     }
-    
+
+    public class ExtendedImageInfo22
+    {
+        TW_UINT32 paperCount = new TW_UINT32();
+        public ExtendedImageInfo22() {}
+        
+        private ExtendedImageInfo22 setPaperCount(TW_UINT32 paperCount) 
+        {
+            this.paperCount = paperCount;
+            return this;
+        }
+        
+        public TW_UINT32 getPaperCount()
+        {
+            return this.paperCount;
+        }
+    }
+
+    public class ExtendedImageInfo23
+    {
+        TW_STR255 printerText = new TW_STR255();
+        public ExtendedImageInfo23() {}
+        private ExtendedImageInfo23 setPrinterText(TW_STR255 printerText) 
+        {
+            this.printerText = printerText;
+            return this;
+        }
+        
+        public String getPrinterText()
+        {
+            return this.printerText.getValue();
+        }
+    }
+
+    public class ExtendedImageInfo24
+    {
+        String twainDirectMetaData = new String();
+        public ExtendedImageInfo24() {}
+        private ExtendedImageInfo24 setTwainDirectMetaData(String twainDirectMetaData) 
+        {
+            this.twainDirectMetaData = twainDirectMetaData;
+            return this;
+        }
+        
+        public String getTwainDirectMetaData()
+        {
+            return this.twainDirectMetaData;
+        }
+    }
+
+    public class ExtendedImageInfo25
+    {
+        private TW_STR32[] iAField = new TW_STR32[] 
+                {new TW_STR32(), new TW_STR32(), new TW_STR32(), new TW_STR32(), new TW_STR32()};
+        private TW_UINT16 iALevel = new TW_UINT16();
+        private TW_UINT16 printer = new TW_UINT16();
+        private List<String> barcodeText = new ArrayList<>();
+        
+        private void setIAField(TW_STR32 val, int nWhich)
+        {
+            iAField[nWhich] = val;
+        }
+        private String getIAField(int nWhich)
+        {
+            return iAField[nWhich].getValue();
+        }
+        private ExtendedImageInfo25 setIAFieldValueA(TW_STR32 val)
+        {
+            setIAField(val, 0);
+            return this;
+        }
+        private ExtendedImageInfo25 setIAFieldValueB(TW_STR32 val)
+        {
+            setIAField(val, 1);
+            return this;
+        }
+        private ExtendedImageInfo25 setIAFieldValueC(TW_STR32 val)
+        {
+            setIAField(val, 2);
+            return this;
+        }
+        private ExtendedImageInfo25 setIAFieldValueD(TW_STR32 val)
+        {
+            setIAField(val, 3);
+            return this;
+        }
+        private ExtendedImageInfo25 setIAFieldValueE(TW_STR32 val)
+        {
+            setIAField(val, 4);
+            return this;
+        }
+        private ExtendedImageInfo25 setIALevel(TW_UINT16 val)
+        {
+            this.iALevel = val;
+            return this;
+        }
+        private ExtendedImageInfo25 setPrinter(TW_UINT16 val)
+        {
+            this.printer = val;
+            return this;
+        }
+        private ExtendedImageInfo25 addBarcodeText(String text)
+        {
+            barcodeText.add(text);
+            return this;
+        }
+        public String getIAFieldValueA()
+        {
+            return this.getIAField(0);
+        }
+        public String getIAFieldValueB()
+        {
+            return this.getIAField(1);
+        }
+        public String getIAFieldValueC()
+        {
+            return this.getIAField(2);
+        }
+        public String getIAFieldValueD()
+        {
+            return this.getIAField(3);
+        }
+        public String getIAFieldValueE()
+        {
+            return this.getIAField(4);
+        }
+        public TW_UINT16 getIALevel()
+        {
+            return this.iALevel;
+        }
+        public TW_UINT16 getPrinter()
+        {
+            return this.printer;
+        }
+        public int getNumBarCodes() { return this.barcodeText.size(); }
+        public String getBarCode(int i) 
+        {
+            String s = "";
+            if ( i < 0 || i >= getNumBarCodes() )
+                return s;
+            return this.barcodeText.get(i);
+        }
+    }
+
     BarcodeInfo barcodeInfo = new BarcodeInfo();
     ShadedAreaDetectionInfo shadedAreaDetectionInfo = new ShadedAreaDetectionInfo();
     SpeckleRemovalInfo speckleRemovalInfo = new SpeckleRemovalInfo();
@@ -897,8 +1041,12 @@ public class ExtendedImageInfo {
     FormsRecognitionInfo formsRecognitionInfo = new FormsRecognitionInfo();
     PageSourceInfo pageSourceInfo = new PageSourceInfo();
     ImageSegmentationInfo imageSegmentationInfo = new ImageSegmentationInfo();
-    MICRInfo micrInfo   = new MICRInfo();
+    ExtendedImageInfo20 extimageInfo20 = new ExtendedImageInfo20();
     ExtendedImageInfo21 extImageInfo21 = new ExtendedImageInfo21();
+    ExtendedImageInfo22 extImageInfo22 = new ExtendedImageInfo22();
+    ExtendedImageInfo23 extImageInfo23 = new ExtendedImageInfo23();
+    ExtendedImageInfo24 extImageInfo24 = new ExtendedImageInfo24();
+    ExtendedImageInfo25 extImageInfo25 = new ExtendedImageInfo25();
 
     public ExtendedImageInfo()
     {}
@@ -947,8 +1095,8 @@ public class ExtendedImageInfo {
         this.imageSegmentationInfo = imageSegmentationInfo; return this;
     }
 
-    private ExtendedImageInfo setMicrInfo(MICRInfo micrInfo) {
-        this.micrInfo = micrInfo; return this;
+    private ExtendedImageInfo setExtendedImageInfo20(ExtendedImageInfo20 extimageInfo20) {
+        this.extimageInfo20 = extimageInfo20; return this;
     }
 
     private ExtendedImageInfo setExtendedImageInfo21(ExtendedImageInfo21 extImageInfo21)
@@ -957,6 +1105,29 @@ public class ExtendedImageInfo {
         return this;
     }
 
+    private ExtendedImageInfo setExtendedImageInfo22(ExtendedImageInfo22 extImageInfo22)
+    {
+        this.extImageInfo22 = extImageInfo22;
+        return this;
+    }
+    private ExtendedImageInfo setExtendedImageInfo23(ExtendedImageInfo23 extImageInfo23)
+    {
+        this.extImageInfo23 = extImageInfo23;
+        return this;
+    }
+
+    private ExtendedImageInfo setExtendedImageInfo24(ExtendedImageInfo24 extImageInfo24)
+    {
+        this.extImageInfo24 = extImageInfo24;
+        return this;
+    }
+
+    private ExtendedImageInfo setExtendedImageInfo25(ExtendedImageInfo25 extImageInfo25)
+    {
+        this.extImageInfo25 = extImageInfo25;
+        return this;
+    }
+    
     public BarcodeInfo getBarcodeInfo() {
         return barcodeInfo;
     }
@@ -1001,11 +1172,24 @@ public class ExtendedImageInfo {
         return imageSegmentationInfo;
     }
 
-    public MICRInfo getMicrInfo() {
-        return micrInfo;
+    public ExtendedImageInfo20 getExtendedImageInfo20() {
+        return extimageInfo20;
     }
     
     public ExtendedImageInfo21 getExtendedImageInfo21() {
         return this.extImageInfo21;
+    }
+    
+    public ExtendedImageInfo22 getExtendedImageInfo22() {
+        return this.extImageInfo22;
+    }
+    public ExtendedImageInfo23 getExtendedImageInfo23() {
+        return this.extImageInfo23;
+    }
+    public ExtendedImageInfo24 getExtendedImageInfo24() {
+        return this.extImageInfo24;
+    }
+    public ExtendedImageInfo25 getExtendedImageInfo25() {
+        return this.extImageInfo25;
     }
 }

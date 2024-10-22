@@ -3149,14 +3149,14 @@ public:
     void setSegmentNumber(TW_UINT32);
 };
 /////////////////////////////////////////////////////////////////
-class JavaExtendedImageInfo_MICRInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+class JavaExtendedImageInfo_ExtendedImageInfo20 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetMagType = "SetMagType";
 
     JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
 
 public:
-    JavaExtendedImageInfo_MICRInfo(JNIEnv* env);
+    JavaExtendedImageInfo_ExtendedImageInfo20(JNIEnv* env);
     void setMagType(TW_UINT16);
 };
 /////////////////////////////////////////////////////////////////
@@ -3181,6 +3181,64 @@ public:
     void setPageSide(TW_UINT16);
     void setMagData(jbyteArray imageData);
 };
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo22 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetPaperCount = "SetPaperCount";
+
+    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo22(JNIEnv* env);
+    void setPaperCount(TW_UINT32);
+};
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo23 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetPrinterText= "SetPrinterText";
+
+    JavaDTwainLowLevel_TW_STR255 proxy_str255;
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo23(JNIEnv* env);
+    void setPrinterText(TW_STR255);
+};
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo24 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetTwainDirectMetaData = "SetTwainDirectMetaData";
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo24(JNIEnv* env);
+    void setTwainDirectMetaData(std::string sMetaData);
+};
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo25 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetIAFieldA = "SetIAFieldA";
+    static constexpr const char* SetIAFieldB = "SetIAFieldB";
+    static constexpr const char* SetIAFieldC = "SetIAFieldC";
+    static constexpr const char* SetIAFieldD = "SetIAFieldD";
+    static constexpr const char* SetIAFieldE = "SetIAFieldE";
+    static constexpr const char* SetIALevel  = "SetIALevel";
+    static constexpr const char* SetPrinter =  "SetPrinter";
+    static constexpr const char* AddBarcodeText = "AddBarcodeText";
+
+    JavaDTwainLowLevel_TW_STR32 proxy_str32;
+    JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo25(JNIEnv* env);
+    void setIAFieldA(TW_STR32 val);
+    void setIAFieldB(TW_STR32 val);
+    void setIAFieldC(TW_STR32 val);
+    void setIAFieldD(TW_STR32 val);
+    void setIAFieldE(TW_STR32 val);
+    void setIALevel(TW_UINT16 val);
+    void setPrinter(TW_UINT16 val);
+    void addBarcodeText(std::string val);
+};
+
 ////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo : public JavaObjectCaller
 {
@@ -3196,7 +3254,7 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         static constexpr const char * SetFormsRecognitionInfo          = "SetFormsRecognitionInfo";
         static constexpr const char * SetPageSourceInfo                = "SetPageSourceInfo";
         static constexpr const char * SetImageSegmentationInfo         = "SetImageSegmentationInfo";
-        static constexpr const char * SetMicrInfo                      = "SetMicrInfo";
+        static constexpr const char * SetExtendedImageInfo20           = "SetExtendedImageInfo20";
         static constexpr const char * SetExtendedImageInfo21           = "SetExtendedImageInfo21";
 
         static constexpr const char * GetBarcodeInfo = "GetBarcodeInfo";
@@ -3210,8 +3268,12 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         static constexpr const char * GetFormsRecognitionInfo = "GetFormsRecognitionInfo";
         static constexpr const char * GetPageSourceInfo = "GetPageSourceInfo";
         static constexpr const char * GetImageSegmentationInfo = "GetImageSegmentationInfo";
-        static constexpr const char * GetMicrInfo = "GetMicrInfo";
+        static constexpr const char * GetExtendedImageInfo20 = "GetExtendedImageInfo20";
         static constexpr const char * GetExtendedImageInfo21 = "GetExtendedImageInfo21";
+        static constexpr const char * GetExtendedImageInfo22 = "GetExtendedImageInfo22";
+        static constexpr const char * GetExtendedImageInfo23 = "GetExtendedImageInfo23";
+        static constexpr const char * GetExtendedImageInfo24 = "GetExtendedImageInfo24";
+        static constexpr const char * GetExtendedImageInfo25 = "GetExtendedImageInfo25";
 
     private:
         JavaExtendedImageInfo_BarcodeInfo proxy_barcodeinfo;
@@ -3225,9 +3287,13 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         JavaExtendedImageInfo_FormsRecognitionInfo proxy_formsdefinitioninfo;
         JavaExtendedImageInfo_PageSourceInfo proxy_pagesourceinfo;
         JavaExtendedImageInfo_ImageSegmentationInfo proxy_imagesegmentationinfo;
+        JavaExtendedImageInfo_ExtendedImageInfo20 proxy_extendedimageinfo20;
         JavaExtendedImageInfo_ExtendedImageInfo21 proxy_extendedimageinfo21;
-
-    public:
+        JavaExtendedImageInfo_ExtendedImageInfo22 proxy_extendedimageinfo22;
+        JavaExtendedImageInfo_ExtendedImageInfo23 proxy_extendedimageinfo23;
+        JavaExtendedImageInfo_ExtendedImageInfo24 proxy_extendedimageinfo24;
+        JavaExtendedImageInfo_ExtendedImageInfo25 proxy_extendedimageinfo25;
+public:
         JavaExtendedImageInfo(JNIEnv* env);
         void setAllBarcodeInfo(ExtendedImageInfo_BarcodeNative& info);
         void setBarcodeInfo(ExtendedImageInfo_BarcodeInfoNative&, int nWhich);
@@ -3243,8 +3309,13 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         void setAllFormsRecognitionInfo(ExtendedImageInfo_FormsRecognitionNative& info);
         void setAllImageSegmentationInfo(ExtendedImageInfo_ImageSegmentationInfoNative& info);
         void setAllEndorsedInfo(ExtendedImageInfo_EndorsedTextInfoNative& info);
+        void setAllExtendedImageInfo20(ExtendedImageInfo_ExtendedImageInfo20Native& info);
         void setAllExtendedImageInfo21(ExtendedImageInfo_ExtendedImageInfo21Native& info);
-/*
+        void setAllExtendedImageInfo22(ExtendedImageInfo_ExtendedImageInfo22Native& info);
+        void setAllExtendedImageInfo23(ExtendedImageInfo_ExtendedImageInfo23Native& info);
+        void setAllExtendedImageInfo24(ExtendedImageInfo_ExtendedImageInfo24Native& info);
+        void setAllExtendedImageInfo25(ExtendedImageInfo_ExtendedImageInfo25Native& info);
+        /*
     void setSpeckleRemoveInfo
     void setHorizontalLineDetectionInfo
     void setVerticalLineDetectionInfo
