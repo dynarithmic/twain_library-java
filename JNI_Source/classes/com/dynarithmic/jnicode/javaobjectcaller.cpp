@@ -3286,7 +3286,7 @@ void JavaExtendedImageInfo::setAllBarcodeInfo(ExtendedImageInfo_BarcodeNative& i
         bcNative.rotation = oneBarInfo.rotation;
         bcNative.confidence = oneBarInfo.confidence;
         bcNative.type = oneBarInfo.type;
-        strcpy(bcNative.text, oneBarInfo.text);
+        bcNative.text = oneBarInfo.text;
         setBarcodeInfo(bcNative, i);
         ++i;
     }
@@ -3507,7 +3507,7 @@ void JavaExtendedImageInfo::setAllVerticalLineInfo(const ExtendedImageInfo_LineD
 ////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_BarcodeInfo_SingleInfo::JavaExtendedImageInfo_BarcodeInfo_SingleInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_BarcodeInfo_SingleInfo",
-    { SetConfidence, SetRotation, SetTextLength,SetString, SetX, SetY, SetType }), proxy_uint32(env)
+    { SetConfidence, SetRotation, SetTextLength,SetText, SetX, SetY, SetType }), proxy_uint32(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
@@ -3527,10 +3527,10 @@ void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setTextLength(TW_UINT32 val)
     setProxyData(proxy_uint32, getFunctionName(SetTextLength).c_str(), val);
 }
 
-void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setString(StringType val)
+void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setText(std::string val)
 {
-    JavaDTwainLowLevel_TW_STR255 strproxy(getEnvironment());
-    setProxyData(strproxy, getFunctionName(SetString).c_str(), val);
+    const jstring str = CreateJStringFromCStringA(m_pJavaEnv, val.c_str());
+    callObjectMethod(getFunctionName(SetText), str);
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setX(TW_UINT32 val)
@@ -3556,9 +3556,7 @@ void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::NativeToJava(ExtendedImageInf
     setType(val.type);
     setX(val.xCoordinate);
     setY(val.yCoordinate);
-    StringType str;
-    copy_until_null_check(val.text, val.text + sizeof(val), std::back_inserter(str));
-    setString(str);
+    setText(val.text);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

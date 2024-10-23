@@ -47,7 +47,7 @@ public class ExtendedImageInfo {
             TW_UINT32 xCoordinate = new TW_UINT32();
             TW_UINT32 yCoordinate = new TW_UINT32();
             TW_UINT32 type  = new TW_UINT32();
-            TW_STR255 text;
+            String text;
 
             private BarcodeSingleInfo setConfidence(TW_UINT32 confidence) {
                 this.confidence = confidence;
@@ -61,7 +61,7 @@ public class ExtendedImageInfo {
                 this.length = textLength;
                 return this;
             }
-            private BarcodeSingleInfo setString(TW_STR255 textStr) {
+            private BarcodeSingleInfo setText(String textStr) {
                 this.text = textStr;
                 return this;
             }
@@ -107,7 +107,7 @@ public class ExtendedImageInfo {
             }
             
             public String getText() {
-                return text.getValue();
+                return text;
             }
         }
 

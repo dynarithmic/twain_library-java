@@ -66,8 +66,8 @@ public class BarcodeDemo
                 for (long i = 0; i < barcodeCount; ++i)
                 {
                 	BarcodeSingleInfo singleInfo = barInfo.getSingleInfo((int)i);
-                	System.out.println("Barcode #" + (i + 1) + " (x,y) position = {" + 
-                			singleInfo.getXCoordinate().getValue() + ", " + singleInfo.getYCoordinate().getValue() + "}");
+                	System.out.println("Barcode #" + (i + 1) + " (x,y) position = (" + 
+                			singleInfo.getXCoordinate().getValue() + ", " + singleInfo.getYCoordinate().getValue() + ")");
                 	System.out.println("Barcode #" + (i + 1) + " text = " + singleInfo.getText());
                 	System.out.println("Barcode #" + (i + 1) + " type = " + singleInfo.getTypeName(sourceHandle.getTwainSession())); 
                 	System.out.println("Barcode #" + (i + 1) + " type value = " + singleInfo.getType().getValue()); 

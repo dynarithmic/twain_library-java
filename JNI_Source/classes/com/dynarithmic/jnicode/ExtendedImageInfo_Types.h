@@ -32,7 +32,7 @@ struct ExtendedImageInfo_BarcodeInfoNative
     TW_UINT32 xCoordinate = 0;
     TW_UINT32 yCoordinate = 0;
     TW_UINT32 type = 0;
-    TW_STR255 text{};
+    std::string text;
 };
 
 struct ExtendedImageInfo_BarcodeNative

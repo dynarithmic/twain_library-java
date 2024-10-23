@@ -2840,7 +2840,7 @@ class JavaExtendedImageInfo_BarcodeInfo_SingleInfo : public JavaExtendedImageInf
     static constexpr const char * SetConfidence = "SetConfidence";
     static constexpr const char * SetRotation = "SetRotation";
     static constexpr const char * SetTextLength = "SetTextLength";
-    static constexpr const char * SetString = "SetString";
+    static constexpr const char * SetText = "SetText";
     static constexpr const char * SetX = "SetX";
     static constexpr const char * SetY = "SetY";
     static constexpr const char * SetType = "SetType";
@@ -2848,19 +2848,12 @@ class JavaExtendedImageInfo_BarcodeInfo_SingleInfo : public JavaExtendedImageInf
     JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
 
 public:
-#ifdef UNICODE
-    using value_type = std::wstring;
-#else
-    using value_type = std::string;
-#endif
-    using StringType = value_type;
-
     JavaExtendedImageInfo_BarcodeInfo_SingleInfo(JNIEnv* env);
 
     void setConfidence(TW_UINT32);
     void setRotation(TW_UINT32);
     void setTextLength(TW_UINT32);
-    void setString(StringType s);
+    void setText(std::string s);
     void setX(TW_UINT32);
     void setY(TW_UINT32);
     void setType(TW_UINT32);

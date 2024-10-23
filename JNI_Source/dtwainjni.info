@@ -750,7 +750,7 @@ Constructor                             <>                                 (Lcom
 SetConfidence                           setConfidence                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
 SetRotation                             setRotation                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
 SetTextLength                           setTextLength                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
-SetString                               setString                          (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetText                                 setText                            (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
 SetX                                    setXCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
 SetY                                    setYCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
 SetType                                 setType                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;

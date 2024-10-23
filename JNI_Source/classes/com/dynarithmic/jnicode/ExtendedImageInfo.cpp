@@ -94,18 +94,17 @@ bool ExtendedImageInformation::FillBarcodeInfo()
     // Fill in the barcode texts
     for (int i = 0; i < barCodeCount; ++i)
     {
-        char szBarText[256];
+        std::string szBarText;
         DTWAIN_HANDLE sHandle;
         LONG length = 0;
         API_INSTANCE DTWAIN_ArrayGetAt(aText, i, &sHandle);
         API_INSTANCE DTWAIN_ArrayGetAtLong(aTextLength, i, &length);
         HandleRAII raii(sHandle);
         char* pText = (char *)raii.getData();
-        if ( pText )
-            memcpy(szBarText, pText + lastLen, length);
-        szBarText[length] = 0;
+        if (pText)
+            szBarText = std::string(pText + lastLen, length);
         lastLen += length;
-        strcpy(m_barcodeInfo.m_vBarInfos[i].text, szBarText);
+        m_barcodeInfo.m_vBarInfos[i].text = szBarText;
     }
 
     // Fill in the other information
@@ -182,7 +181,7 @@ bool ExtendedImageInformation::FillPageSourceInfo()
             {
                 LONG lVal;
                 API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
-                *(refInts[i]) = lVal;
+                *(refInts[i]) = static_cast<TW_UINT16>(lVal);
             }
         }
     }
@@ -198,17 +197,17 @@ bool ExtendedImageInformation::FillPageSourceInfo()
         DTWAINArray_RAII raii2(aFix32);
         LONG Whole, Frac;
         API_INSTANCE DTWAIN_ArrayFix32GetAt(aFix32, 0, &Whole, &Frac);
-        m_pageSource.frame.Left.Whole = Whole;
-        m_pageSource.frame.Left.Frac = Frac;
+        m_pageSource.frame.Left.Whole = static_cast<TW_UINT16>(Whole);
+        m_pageSource.frame.Left.Frac = static_cast<TW_UINT16>(Frac);
         API_INSTANCE DTWAIN_ArrayFix32GetAt(aFix32, 1, &Whole, &Frac);
-        m_pageSource.frame.Top.Whole = Whole;
-        m_pageSource.frame.Top.Frac = Frac;
+        m_pageSource.frame.Top.Whole = static_cast<TW_UINT16>(Whole);
+        m_pageSource.frame.Top.Frac = static_cast<TW_UINT16>(Frac);
         API_INSTANCE DTWAIN_ArrayFix32GetAt(aFix32, 2, &Whole, &Frac);
-        m_pageSource.frame.Right.Whole = Whole;
-        m_pageSource.frame.Right.Frac = Frac;
+        m_pageSource.frame.Right.Whole = static_cast<TW_UINT16>(Whole);
+        m_pageSource.frame.Right.Frac = static_cast<TW_UINT16>(Frac);
         API_INSTANCE DTWAIN_ArrayFix32GetAt(aFix32, 3, &Whole, &Frac);
-        m_pageSource.frame.Bottom.Whole = Whole;
-        m_pageSource.frame.Bottom.Frac = Frac;
+        m_pageSource.frame.Bottom.Whole = static_cast<TW_UINT16>(Whole);
+        m_pageSource.frame.Bottom.Frac = static_cast<TW_UINT16>(Frac);
     }
     return true;
 }
@@ -455,7 +454,7 @@ bool ExtendedImageInformation::FillImageSegmentationInfo()
     {
         LONG lVal = 0;
         API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
-        m_imageSementationInfo.m_bLastSegment = lVal;
+        m_imageSementationInfo.m_bLastSegment = static_cast<TW_UINT16>(lVal);
     }
 
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_SEGMENTNUMBER, &aValues);
@@ -496,7 +495,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo20()
     {
         LONG lVal = 0;
         API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
-        m_extendedImageInfo20.m_magType = lVal;
+        m_extendedImageInfo20.m_magType = static_cast<TW_UINT16>(lVal);
     }
     return true;
 }
@@ -533,7 +532,6 @@ bool ExtendedImageInformation::FillExtendedImageInfo21()
             else
             {
                 // The data is a handle, so maybe GlobalLock it?
-                LONG length;
                 API_INSTANCE DTWAIN_ArrayGetAt(aValues, 0, &sHandle);
                 HandleRAII raii(sHandle);
                 char* pText = (char*)raii.getData();
@@ -554,7 +552,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo21()
     {
         LONG lVal = 0;
         API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
-        m_extendedImageInfo21.m_pageSide = lVal;
+        m_extendedImageInfo21.m_pageSide = static_cast<TW_UINT16>(lVal);
     }
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_IMAGEMERGED, &aValues);
     nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
@@ -562,7 +560,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo21()
     {
         LONG lVal = 0;
         API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
-        m_extendedImageInfo21.m_imageMerged = lVal;
+        m_extendedImageInfo21.m_imageMerged = static_cast<TW_UINT16>(lVal);
     }
     return true;
 }
