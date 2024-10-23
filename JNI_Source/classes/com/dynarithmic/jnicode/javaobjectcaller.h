@@ -2960,7 +2960,7 @@ class JavaExtendedImageInfo_LineSingleInfo : public JavaExtendedImageInfo_Parent
     JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
 
 public:
-    JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env, std::string sOrientation);
+    JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env);
 
     void setXCoordinate(TW_UINT32);
     void setYCoordinate(TW_UINT32);
@@ -2969,46 +2969,21 @@ public:
     void NativeToJava(const ExtendedImageInfo_LineDetectionInfoNative& info);
 };
 
-class JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo : public JavaExtendedImageInfo_LineSingleInfo
-{
-    public:
-        JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo(JNIEnv* env);
-};
-
-class JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo : public JavaExtendedImageInfo_LineSingleInfo
-{
-    public:
-        JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo(JNIEnv* env);
-};
-
-
 class JavaExtendedImageInfo_LineDetectionInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetCount = "SetCount";
     static constexpr const char * SetSingleInfo = "SetSingleInfo";
 
     JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-    JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo proxy_hlineInfo;
-    JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo proxy_vlineInfo;
+    JavaExtendedImageInfo_LineSingleInfo proxy_lineInfo;
 
 public:
-    JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env, std::string sOrientation);
+    JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env);
 
     void setCount(TW_UINT32);
-    void setSingleInfo(jobject objParent, const ExtendedImageInfo_LineDetectionInfoNative&, int, int);
+    void setSingleInfo(jobject objParent, const ExtendedImageInfo_LineDetectionInfoNative&, int);
 };
 
-class JavaExtendedImageInfo_HorizontalLineDetectionInfo : public JavaExtendedImageInfo_LineDetectionInfo
-{
-    public:
-        JavaExtendedImageInfo_HorizontalLineDetectionInfo(JNIEnv* env);
-};
-
-class JavaExtendedImageInfo_VerticalLineDetectionInfo : public JavaExtendedImageInfo_LineDetectionInfo
-{
-    public:
-        JavaExtendedImageInfo_VerticalLineDetectionInfo(JNIEnv* env);
-};
 /////////////////////////////////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_PatchcodeDetectionInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
@@ -3273,8 +3248,7 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         JavaExtendedImageInfo_BarcodeInfo proxy_barcodeinfo;
         JavaExtendedImageInfo_ShadedAreaDetectionInfo proxy_shadedareainfo;
         JavaExtendedImageInfo_SpeckleRemovalInfo proxy_speckleremovalinfo;
-        JavaExtendedImageInfo_HorizontalLineDetectionInfo proxy_hlinedetectioninfo;
-        JavaExtendedImageInfo_VerticalLineDetectionInfo proxy_vlinedetectioninfo;
+        JavaExtendedImageInfo_LineDetectionInfo proxy_linedetectioninfo;
         JavaExtendedImageInfo_PatchcodeDetectionInfo proxy_patchcodedetioninfo;
         JavaExtendedImageInfo_SkewDetectionInfo proxy_skewdetectioninfo;
         JavaExtendedImageInfo_EndorsedTextInfo proxy_endorsedtextinfo;
@@ -3287,6 +3261,8 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         JavaExtendedImageInfo_ExtendedImageInfo23 proxy_extendedimageinfo23;
         JavaExtendedImageInfo_ExtendedImageInfo24 proxy_extendedimageinfo24;
         JavaExtendedImageInfo_ExtendedImageInfo25 proxy_extendedimageinfo25;
+
+        void setAllLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo, const char* fn);
 public:
         JavaExtendedImageInfo(JNIEnv* env);
         void setExtendedImageInfoTypes(std::vector<LONG>& vInfos);

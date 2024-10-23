@@ -596,7 +596,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo23()
     {
         TW_STR255 szData = {};
         API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szData);
-        strcpy(m_extendedImageInfo23.m_PrinterText, szData);
+        strcpy_s(m_extendedImageInfo23.m_PrinterText, szData);
     }
     return true;
 }
@@ -642,7 +642,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo25()
         {
             TW_STR32 szData = {};
             API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValue[i], 0, szData);
-            strcpy(m_extendedImageInfo25.m_ImageAddressing.m_AddressInfo[i], szData);
+            strcpy_s(m_extendedImageInfo25.m_ImageAddressing.m_AddressInfo[i], szData);
         }
     }
 

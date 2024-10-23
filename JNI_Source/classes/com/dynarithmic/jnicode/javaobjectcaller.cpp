@@ -3248,8 +3248,7 @@ JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
             proxy_barcodeinfo(env),
             proxy_shadedareainfo(env),
             proxy_speckleremovalinfo(env),
-            proxy_hlinedetectioninfo(env),
-            proxy_vlinedetectioninfo(env),
+            proxy_linedetectioninfo(env),
             proxy_patchcodedetioninfo(env),
             proxy_skewdetectioninfo(env),
             proxy_endorsedtextinfo(env),
@@ -3476,30 +3475,27 @@ void JavaExtendedImageInfo::setSpeckleRemovalInfo(const ExtendedImageInfo_Speckl
     proxy_speckleremovalinfo.NativeToJava(sInfo);
 }
 
-void JavaExtendedImageInfo::setAllHorizontalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo)
+void JavaExtendedImageInfo::setAllLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo, const char* fn)
 {
-    jobject sObject = callObjectMethod(getFunctionName(GetHorizontalLineDetectionInfo));
-    proxy_hlinedetectioninfo.setObject(sObject);
-    proxy_hlinedetectioninfo.setCount(sInfo.m_vLineInfo.size());
+    jobject sObject = callObjectMethod(fn);
+    proxy_linedetectioninfo.setObject(sObject);
+    proxy_linedetectioninfo.setCount(sInfo.m_vLineInfo.size());
     int i = 0;
     for (auto& oneInfo : sInfo.m_vLineInfo)
     {
-        proxy_hlinedetectioninfo.setSingleInfo(sObject, oneInfo, i, 0);
+        proxy_linedetectioninfo.setSingleInfo(sObject, oneInfo, i);
         ++i;
     }
 }
 
+void JavaExtendedImageInfo::setAllHorizontalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo)
+{
+    setAllLineInfo(sInfo, getFunctionName(GetHorizontalLineDetectionInfo).c_str());
+}
+
 void JavaExtendedImageInfo::setAllVerticalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo)
 {
-    jobject sObject = callObjectMethod(getFunctionName(GetVerticalLineDetectionInfo));
-    proxy_vlinedetectioninfo.setObject(sObject);
-    proxy_vlinedetectioninfo.setCount(sInfo.m_vLineInfo.size());
-    int i = 0;
-    for (auto& oneInfo : sInfo.m_vLineInfo)
-    {
-        proxy_vlinedetectioninfo.setSingleInfo(sObject, oneInfo, i, 1);
-        ++i;
-    }
+    setAllLineInfo(sInfo, getFunctionName(GetVerticalLineDetectionInfo).c_str());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3728,8 +3724,8 @@ void JavaExtendedImageInfo_SpeckleRemovalInfo::NativeToJava(const ExtendedImageI
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-JavaExtendedImageInfo_LineSingleInfo::JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env, std::string orientation) 
-    : JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>(env, "ExtendedImageInfo_" + orientation + "LineDetectionInfo_SingleInfo",
+JavaExtendedImageInfo_LineSingleInfo::JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env) 
+    : JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>(env, "ExtendedImageInfo_LineDetectionInfo_SingleInfo",
         { SetXCoordinate, SetYCoordinate, SetLength, SetThickness}), proxy_uint32(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
@@ -3763,9 +3759,9 @@ void JavaExtendedImageInfo_LineSingleInfo::NativeToJava(const ExtendedImageInfo_
     setLength(info.length);
 }
 
-JavaExtendedImageInfo_LineDetectionInfo::JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env, std::string orientation) :
-    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_"+orientation+"LineDetectionInfo",
-    {SetCount, SetSingleInfo}), proxy_uint32(env), proxy_hlineInfo(env), proxy_vlineInfo(env)
+JavaExtendedImageInfo_LineDetectionInfo::JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env) :
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_LineDetectionInfo",
+    {SetCount, SetSingleInfo}), proxy_uint32(env), proxy_lineInfo(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
@@ -3775,34 +3771,12 @@ void JavaExtendedImageInfo_LineDetectionInfo::setCount(TW_UINT32 val)
     setProxyData(proxy_uint32, getFunctionName(SetCount).c_str(), val);
 }
 
-void JavaExtendedImageInfo_LineDetectionInfo::setSingleInfo(jobject objParent, const ExtendedImageInfo_LineDetectionInfoNative& info, int nWhich, int nWhichProxy)
+void JavaExtendedImageInfo_LineDetectionInfo::setSingleInfo(jobject objParent, const ExtendedImageInfo_LineDetectionInfoNative& info, int nWhich)
 {
-    if (nWhichProxy == 0) // Horizontal
-    {
-        proxy_hlineInfo.constructObject(1, objParent);
-        proxy_hlineInfo.NativeToJava(info);
-        callObjectMethod(getFunctionName(SetSingleInfo), proxy_hlineInfo.getObject(), nWhich);
-    }
-    else
-    {
-        proxy_vlineInfo.constructObject(1, objParent);
-        proxy_vlineInfo.NativeToJava(info);
-        callObjectMethod(getFunctionName(SetSingleInfo), proxy_vlineInfo.getObject(), nWhich);
-    }
+    proxy_lineInfo.constructObject(1, objParent);
+    proxy_lineInfo.NativeToJava(info);
+    callObjectMethod(getFunctionName(SetSingleInfo), proxy_lineInfo.getObject(), nWhich);
 }
-
-JavaExtendedImageInfo_HorizontalLineDetectionInfo::JavaExtendedImageInfo_HorizontalLineDetectionInfo(JNIEnv* env) :
-    JavaExtendedImageInfo_LineDetectionInfo(env, "Horizontal") {}
-
-JavaExtendedImageInfo_VerticalLineDetectionInfo::JavaExtendedImageInfo_VerticalLineDetectionInfo(JNIEnv* env) :
-    JavaExtendedImageInfo_LineDetectionInfo(env, "Vertical") {}
-
-JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo::JavaExtendedImageInfo_HorizontalLineDetectionInfo_SingleInfo(JNIEnv* env) :
-    JavaExtendedImageInfo_LineSingleInfo(env, "Horizontal") {}
-
-JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo::JavaExtendedImageInfo_VerticalLineDetectionInfo_SingleInfo(JNIEnv* env) :
-    JavaExtendedImageInfo_LineSingleInfo(env, "Vertical") {}
-
 
 //////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_PatchcodeDetectionInfo::JavaExtendedImageInfo_PatchcodeDetectionInfo(JNIEnv* env) :

@@ -29,8 +29,7 @@ import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo.*;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo.BarcodeInfo.BarcodeSingleInfo;
-import com.dynarithmic.twain.highlevel.ExtendedImageInfo.HorizontalLineDetectionInfo.HorizontalLineDetectionSingleInfo;
-import com.dynarithmic.twain.highlevel.ExtendedImageInfo.VerticalLineDetectionInfo.VerticalLineDetectionSingleInfo;
+import com.dynarithmic.twain.highlevel.ExtendedImageInfo.LineDetectionInfo.LineDetectionSingleInfo;
 import com.dynarithmic.twain.highlevel.TwainCallback;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -129,21 +128,22 @@ public class ExtendedImageInfoDemo
                 System.out.println("Shaded area count: " + shadedInfo.getCount().getValue());
                 
                 // Test the horizontal line detection
-                HorizontalLineDetectionInfo horz =  info.getHorizontalLineDetectionInfo();
+                LineDetectionInfo horz =  info.getHorizontalLineDetectionInfo();
                 if ( horz.getCount().getValue() > 0)
                 {
-                    HorizontalLineDetectionSingleInfo singleInfoH = horz.getSingleInfo(0);
+                    LineDetectionSingleInfo singleInfoH = horz.getSingleInfo(0);
                     System.out.println("Horizontal Line Info:");
+                    System.out.println("count: " + horz.getCount().getValue());
                     System.out.println("x-coord: " + singleInfoH.getXCoordinate().getValue());
                     System.out.println("y-coord: " + singleInfoH.getYCoordinate().getValue());
                     System.out.println("thickness: " + singleInfoH.getThickness().getValue());
                     System.out.println("length: " + singleInfoH.getLength().getValue());
                 }
                 
-                VerticalLineDetectionInfo vert =  info.getVerticalLineDetectionInfo();
+                LineDetectionInfo vert =  info.getVerticalLineDetectionInfo();
                 if ( vert.getCount().getValue() > 0)
                 {
-                    VerticalLineDetectionSingleInfo singleInfoV = vert.getSingleInfo(0);
+                    LineDetectionSingleInfo singleInfoV = vert.getSingleInfo(0);
                     System.out.println("Vertical Line Info:");
                     System.out.println("x-coord: " + singleInfoV.getXCoordinate().getValue());
                     System.out.println("y-coord: " + singleInfoV.getYCoordinate().getValue());

@@ -341,33 +341,33 @@ public class ExtendedImageInfo {
         }
     }
 
-    public class HorizontalLineDetectionInfo
+    public class LineDetectionInfo
     {
         TW_UINT32 count = new TW_UINT32();
 
-        public class HorizontalLineDetectionSingleInfo
+        public class LineDetectionSingleInfo
         {
             TW_UINT32 xCoordinate = new TW_UINT32();
             TW_UINT32 yCoordinate = new TW_UINT32();
             TW_UINT32 length    = new TW_UINT32();
             TW_UINT32 thickness = new TW_UINT32();
 
-            private HorizontalLineDetectionSingleInfo  setXCoordinate(TW_UINT32 xCoordinate) {
+            private LineDetectionSingleInfo  setXCoordinate(TW_UINT32 xCoordinate) {
                 this.xCoordinate = xCoordinate;
                 return this;
             }
 
-            private HorizontalLineDetectionSingleInfo  setYCoordinate(TW_UINT32 yCoordinate) {
+            private LineDetectionSingleInfo  setYCoordinate(TW_UINT32 yCoordinate) {
                 this.yCoordinate = yCoordinate;
                 return this;
             }
 
-            private  HorizontalLineDetectionSingleInfo setLength(TW_UINT32 length) {
+            private  LineDetectionSingleInfo setLength(TW_UINT32 length) {
                 this.length = length;
                 return this;
             }
 
-            private  HorizontalLineDetectionSingleInfo setThickness(TW_UINT32 thickness) {
+            private  LineDetectionSingleInfo setThickness(TW_UINT32 thickness) {
                 this.thickness = thickness;
                 return this;
             }
@@ -389,110 +389,30 @@ public class ExtendedImageInfo {
             }
         }
 
-        List<HorizontalLineDetectionSingleInfo> horizontalLineInfos = new ArrayList<>();
+        List<LineDetectionSingleInfo> lineInfos = new ArrayList<>();
 
-        public HorizontalLineDetectionInfo() {}
+        public LineDetectionInfo() {}
         
-        private HorizontalLineDetectionInfo setCount(TW_UINT32 count) 
+        private LineDetectionInfo setCount(TW_UINT32 count) 
         {
             this.count = count;
-            horizontalLineInfos.clear();
+            lineInfos.clear();
             for (int i = 0; i < this.count.getValue(); ++i)
-                horizontalLineInfos.add(new HorizontalLineDetectionSingleInfo());
+                lineInfos.add(new LineDetectionSingleInfo());
             return this;
         }
 
-        private HorizontalLineDetectionInfo setSingleInfo(HorizontalLineDetectionSingleInfo info, int nWhich)
+        private LineDetectionInfo setSingleInfo(LineDetectionSingleInfo info, int nWhich)
         {
-            this.horizontalLineInfos.set(nWhich, info);
+            this.lineInfos.set(nWhich, info);
             return this;
         }
 
-        public HorizontalLineDetectionSingleInfo getSingleInfo(int nWhich) throws DTwainJavaAPIException
+        public LineDetectionSingleInfo getSingleInfo(int nWhich) throws DTwainJavaAPIException
         {
-            if ( nWhich >= this.horizontalLineInfos.size() || nWhich < 0)
+            if ( nWhich >= this.lineInfos.size() || nWhich < 0)
                 throw new DTwainJavaAPIException("Out of bounds");
-            return this.horizontalLineInfos.get(nWhich);
-        }
-        
-        public TW_UINT32 getCount() {
-            return count;
-        }
-
-    }
-    
-    public class VerticalLineDetectionInfo
-    {
-        TW_UINT32 count = new TW_UINT32();
-
-        public class VerticalLineDetectionSingleInfo
-        {
-            TW_UINT32 xCoordinate = new TW_UINT32();
-            TW_UINT32 yCoordinate = new TW_UINT32();
-            TW_UINT32 length    = new TW_UINT32();
-            TW_UINT32 thickness = new TW_UINT32();
-
-            private VerticalLineDetectionSingleInfo  setXCoordinate(TW_UINT32 xCoordinate) {
-                this.xCoordinate = xCoordinate;
-                return this;
-            }
-
-            private VerticalLineDetectionSingleInfo  setYCoordinate(TW_UINT32 yCoordinate) {
-                this.yCoordinate = yCoordinate;
-                return this;
-            }
-
-            private  VerticalLineDetectionSingleInfo setLength(TW_UINT32 length) {
-                this.length = length;
-                return this;
-            }
-
-            private  VerticalLineDetectionSingleInfo setThickness(TW_UINT32 thickness) {
-                this.thickness = thickness;
-                return this;
-            }
-
-            public TW_UINT32 getXCoordinate() {
-                return xCoordinate;
-            }
-
-            public TW_UINT32 getYCoordinate() {
-                return yCoordinate;
-            }
-
-            public TW_UINT32 getLength() {
-                return length;
-            }
-
-            public TW_UINT32 getThickness() {
-                return thickness;
-            }
-        }
-
-        List<VerticalLineDetectionSingleInfo> VerticalLineInfos = new ArrayList<>();
-
-        public VerticalLineDetectionInfo() {}
-        
-        private VerticalLineDetectionInfo setCount(TW_UINT32 count) 
-        {
-            this.count = count;
-            VerticalLineInfos.clear();
-            for (int i = 0; i < this.count.getValue(); ++i)
-                VerticalLineInfos.add(new VerticalLineDetectionSingleInfo());
-            return this;
-        }
-
-        private VerticalLineDetectionInfo setSingleInfo(VerticalLineDetectionSingleInfo info, int nWhich)
-        {
-            this.VerticalLineInfos.set(nWhich, info);
-            return this;
-        }
-
-        public VerticalLineDetectionSingleInfo getSingleInfo(int nWhich) throws DTwainJavaAPIException
-        {
-            if ( nWhich >= this.VerticalLineInfos.size() || nWhich < 0)
-                throw new DTwainJavaAPIException("Out of bounds");
-            return this.VerticalLineInfos.get(nWhich);
+            return this.lineInfos.get(nWhich);
         }
         
         public TW_UINT32 getCount() {
@@ -1031,12 +951,13 @@ public class ExtendedImageInfo {
         }
     }
 
+    public enum LineDetection {HORIZONTAL, VERTICAL};
+    
     int [] supportedExtImageInfo = new int[0];
     BarcodeInfo barcodeInfo = new BarcodeInfo();
     ShadedAreaDetectionInfo shadedAreaDetectionInfo = new ShadedAreaDetectionInfo();
     SpeckleRemovalInfo speckleRemovalInfo = new SpeckleRemovalInfo();
-    HorizontalLineDetectionInfo horizontalLineDetectionInfo = new HorizontalLineDetectionInfo();
-    VerticalLineDetectionInfo verticalLineDetectionInfo = new VerticalLineDetectionInfo();
+    LineDetectionInfo [] lineDeetectionInfo = new LineDetectionInfo[] {new LineDetectionInfo(), new LineDetectionInfo()};
     PatchcodeDetectionInfo patchcodeDetectionInfo = new PatchcodeDetectionInfo();
     SkewDetectionInfo skewDetectionInfo = new SkewDetectionInfo();
     EndorsedTextInfo endorsedTextInfo = new EndorsedTextInfo();
@@ -1071,12 +992,18 @@ public class ExtendedImageInfo {
         this.speckleRemovalInfo = speckleRemoveInfo; return this;
     }
 
-    private ExtendedImageInfo setHorizontalLineDetectionInfo(HorizontalLineDetectionInfo horizontalLineDetectionInfo) {
-        this.horizontalLineDetectionInfo = horizontalLineDetectionInfo; return this;
+    private ExtendedImageInfo setLineDetectionInfo(LineDetectionInfo detectInfo, LineDetection nWhich)
+    {
+        this.lineDeetectionInfo[nWhich.ordinal()] = detectInfo;
+        return this;
+    }
+    
+    private ExtendedImageInfo setHorizontalLineDetectionInfo(LineDetectionInfo horizontalLineDetectionInfo) {
+        this.lineDeetectionInfo[LineDetection.HORIZONTAL.ordinal()] = horizontalLineDetectionInfo; return this;
     }
 
-    private ExtendedImageInfo setVerticalLineDetectionInfo(VerticalLineDetectionInfo verticalLineDetectionInfo) {
-        this.verticalLineDetectionInfo = verticalLineDetectionInfo; return this;
+    private ExtendedImageInfo setVerticalLineDetectionInfo(LineDetectionInfo verticalLineDetectionInfo) {
+        this.lineDeetectionInfo[LineDetection.VERTICAL.ordinal()] = verticalLineDetectionInfo; return this;
     }
 
     private ExtendedImageInfo setPatchcodeDetectionInfo(PatchcodeDetectionInfo patchcodeDetectionInfo) {
@@ -1148,12 +1075,12 @@ public class ExtendedImageInfo {
         return speckleRemovalInfo;
     }
 
-    public HorizontalLineDetectionInfo getHorizontalLineDetectionInfo() {
-        return horizontalLineDetectionInfo;
+    public LineDetectionInfo getHorizontalLineDetectionInfo() {
+        return this.lineDeetectionInfo[LineDetection.HORIZONTAL.ordinal()]; // horizontalLineDetectionInfo;
     }
 
-    public VerticalLineDetectionInfo getVerticalLineDetectionInfo() {
-        return verticalLineDetectionInfo;
+    public LineDetectionInfo getVerticalLineDetectionInfo() {
+        return this.lineDeetectionInfo[LineDetection.VERTICAL.ordinal()]; 
     }
 
     public PatchcodeDetectionInfo getPatchcodeDetectionInfo() {
