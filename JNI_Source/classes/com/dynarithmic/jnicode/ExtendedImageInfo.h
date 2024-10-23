@@ -36,25 +36,11 @@ class ExtendedImageInformation
         bool GenericFillLineInfo(ExtendedImageInfo_LineDetectionNative& allInfo, int32_t itemCountType, const std::array<int32_t, 4>& itemsToGet);
 
     public:
-        // For barcode information
         DTWAIN_SOURCE m_theSource = nullptr;
-        std::vector<std::string> m_vBarcodeText;
-        std::vector<std::pair<uint32_t, uint32_t>> m_vBarcodePosition;
-        std::vector<uint32_t> m_vBarcodeRotation;
-        std::vector<uint32_t> m_vBarcodeType;
-        std::vector<uint32_t> m_vBarcodeConfidence;
+        std::vector<LONG> m_vFoundTypes;
         bool infoRetrieved = false;
-        int m_actualCount = 0;
 
         // For page source information
-        std::string m_CameraInfo;
-        std::string m_Bookname;
-        LONG m_ChapterNumber = 0;
-        LONG m_DocumentNumber = 0;
-        LONG m_PageNumber = 0;
-        LONG m_FrameNumber = 0;
-        LONG m_PageSide = 0;
-
         ExtendedImageInfo_SkewDetectionInfoNative m_skewDetection;
         ExtendedImageInfo_PageSourceInfoNative m_pageSource;
         ExtendedImageInfo_BarcodeNative m_barcodeInfo;
@@ -71,6 +57,7 @@ class ExtendedImageInformation
         ExtendedImageInfo_ExtendedImageInfo23Native m_extendedImageInfo23;
         ExtendedImageInfo_ExtendedImageInfo24Native m_extendedImageInfo24;
         ExtendedImageInfo_ExtendedImageInfo25Native m_extendedImageInfo25;
+        ExtendedImageInfo_PatchCodeNative m_patchCode;
         ExtendedImageInformation(DTWAIN_SOURCE theSource);
         ~ExtendedImageInformation();
 
@@ -91,5 +78,6 @@ class ExtendedImageInformation
         bool FillExtendedImageInfo23();
         bool FillExtendedImageInfo24();
         bool FillExtendedImageInfo25();
+        bool FillPatchCodeInfo();
 };
 #endif

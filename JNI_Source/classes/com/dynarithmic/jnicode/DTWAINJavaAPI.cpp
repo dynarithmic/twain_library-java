@@ -5808,10 +5808,14 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetEx
     ExtendedImageInformation extendedInfo(reinterpret_cast<DTWAIN_SOURCE>(source));
     if (extendedInfo.IsInfoRetrieved())
     {
+        extImageInfo.setExtendedImageInfoTypes(extendedInfo.m_vFoundTypes);
         // The following are extended image info prior to TWAIN 2.0
         // Get the barcode information 
         extendedInfo.FillBarcodeInfo();
         extImageInfo.setAllBarcodeInfo(extendedInfo.m_barcodeInfo);
+
+        extendedInfo.FillPatchCodeInfo();
+        extImageInfo.setAllPatchCodeInfo(extendedInfo.m_patchCode);
 
         // Get the pagesource information
         extendedInfo.FillPageSourceInfo();

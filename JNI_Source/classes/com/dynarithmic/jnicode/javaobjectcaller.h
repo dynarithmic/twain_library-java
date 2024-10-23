@@ -3256,6 +3256,7 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         static constexpr const char * SetImageSegmentationInfo         = "SetImageSegmentationInfo";
         static constexpr const char * SetExtendedImageInfo20           = "SetExtendedImageInfo20";
         static constexpr const char * SetExtendedImageInfo21           = "SetExtendedImageInfo21";
+        static constexpr const char * SetSupportedExtendedImageInfo    = "SetSupportedExtendedImageInfo";
 
         static constexpr const char * GetBarcodeInfo = "GetBarcodeInfo";
         static constexpr const char * GetShadedAreaDetectionInfo = "GetShadedAreaDetectionInfo";
@@ -3295,6 +3296,7 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         JavaExtendedImageInfo_ExtendedImageInfo25 proxy_extendedimageinfo25;
 public:
         JavaExtendedImageInfo(JNIEnv* env);
+        void setExtendedImageInfoTypes(std::vector<LONG>& vInfos);
         void setAllBarcodeInfo(ExtendedImageInfo_BarcodeNative& info);
         void setBarcodeInfo(ExtendedImageInfo_BarcodeInfoNative&, int nWhich);
         void setBarcodeInfoCount(TW_UINT32 count);
@@ -3315,6 +3317,7 @@ public:
         void setAllExtendedImageInfo23(ExtendedImageInfo_ExtendedImageInfo23Native& info);
         void setAllExtendedImageInfo24(ExtendedImageInfo_ExtendedImageInfo24Native& info);
         void setAllExtendedImageInfo25(ExtendedImageInfo_ExtendedImageInfo25Native& info);
+        void setAllPatchCodeInfo(ExtendedImageInfo_PatchCodeNative& info);
         /*
     void setSpeckleRemoveInfo
     void setHorizontalLineDetectionInfo

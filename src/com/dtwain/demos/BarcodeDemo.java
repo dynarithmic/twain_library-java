@@ -21,23 +21,65 @@
  */
 package com.dtwain.demos;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
+import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
-import com.dynarithmic.twain.highlevel.ImageHandler;
+import com.dynarithmic.twain.highlevel.ExtendedImageInfo;
+import com.dynarithmic.twain.highlevel.ExtendedImageInfo.BarcodeInfo;
+import com.dynarithmic.twain.highlevel.ExtendedImageInfo.BarcodeInfo.BarcodeSingleInfo;
+import com.dynarithmic.twain.highlevel.TwainCallback;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.BarcodeDetectionOptions;
 import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
-import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface.GetCapOperation;
 
 public class BarcodeDemo
 {
+	// We will use this callback to get the barcode information that was found
+	// by the TWAIN device.  The device must 
+	// 1) support Extended Image Information to get any information and
+	// 2) Support the barcode specific information from the extended image information
+    public class BarcodeCallback extends TwainCallback
+    {
+        @Override
+        public int onTransferDone(TwainSource sourceHandle)
+        {
+            try 
+            {
+            	// The barcode info is part of the extended image information
+                sourceHandle.getCapabilityInterface().initializeExtendedImageInfo();
+                
+                // Get the extended information now
+                ExtendedImageInfo info = sourceHandle.getExtendedImageInfo();
+                
+                // Get the barcode information from the extended image info
+                BarcodeInfo barInfo = info.getBarcodeInfo();
+                
+                // Get the number of barcodes detected
+                long barcodeCount = barInfo.getCount().getValue();
+                System.out.println("Barcode count = " + barcodeCount);
+                
+                // Print out barcode information for each barcode found
+                for (long i = 0; i < barcodeCount; ++i)
+                {
+                	BarcodeSingleInfo singleInfo = barInfo.getSingleInfo((int)i);
+                	System.out.println("Barcode #" + (i + 1) + " (x,y) position = {" + 
+                			singleInfo.getXCoordinate().getValue() + ", " + singleInfo.getYCoordinate().getValue() + "}");
+                	System.out.println("Barcode #" + (i + 1) + " text = " + singleInfo.getText());
+                	System.out.println("Barcode #" + (i + 1) + " type = " + singleInfo.getTypeName(sourceHandle.getTwainSession())); 
+                	System.out.println("Barcode #" + (i + 1) + " type value = " + singleInfo.getType().getValue()); 
+                }
+            } catch (DTwainJavaAPIException e) {
+                System.out.println("Could not retrieve extended image information");
+                System.out.println(e);
+            }
+            return 1;
+        }
+    }
+	
     // Simple acquire to a file
     public void run() throws Exception
     {
@@ -48,6 +90,9 @@ public class BarcodeDemo
         TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
+            // callback to get detailed barcode information
+            twainSession.registerCallback(ts, new BarcodeCallback());
+
             // See if the device supports barcodes
             CapabilityInterface ci = ts.getCapabilityInterface();
             if ( !ci.isBarcodeDetectionEnabledSupported() )
@@ -57,11 +102,7 @@ public class BarcodeDemo
                 return;
             }
 
-            GetCapOperation getAll = ci.get();
-            ci.setBarcodeDetectionEnabled(Arrays.asList(true), ci.set());
-            List<Integer> bcOptionsList = ci.getBarcodeSearchMode(getAll);
-            for (int i = 0; i < bcOptionsList.size(); ++i)
-                System.out.println(bcOptionsList.get(i));
+            // Enable the bar code detection
             BarcodeDetectionOptions bcOptions = ts.getAcquireCharacteristics().getBarcodeDetectionOptions();
             bcOptions.enable(true);
 
@@ -72,47 +113,7 @@ public class BarcodeDemo
             // Start the acquisition
             AcquireReturnInfo retInfo = ts.acquire();
             if ( retInfo.getReturnCode() == ErrorCode.ERROR_NONE )
-            {
                 System.out.println("Acquisition Successful");
-
-                // Now get the image data from the acquisition.  The ImageHandler class
-                // does this.
-                ImageHandler iHandler = retInfo.getImageHandler();
-
-                // Get the number of times user hit the "scan pages" indicator on the TWAIN device's
-                // user interface. Note that this is the typical way most TWAIN devices with an
-                // interface work.
-                long count = iHandler.getNumAcquisitions();
-                System.out.println("You probably hit the scan button " + count + " times.");
-                if ( count == 0 )
-                    twainSession.stop(); // Just stop the session and return
-
-                // Now for each time a scan was done, get the number of pages.
-                // Note that devices with a document feeder allows you to scan multiple pages
-                // a multiple number of times before closing the user interface.
-                for (int i = 0; i < count; ++i)
-                {
-                    // Get the number of images from scan attempt i
-                    long numImages = iHandler.getNumImages(i);
-                    System.out.println("For scan number " + (i+1) + ", you scanned " + numImages + " pages");
-
-                    // Now get the image data.
-                    // This for loop only shows how to get the image data.
-                    // After the loop, we will send iHandler's information to a
-                    // dialog that displays the image.
-                    for (int j = 0; j < numImages; ++j)
-                    {
-                        // imageData is the actual raw bytes of the image.
-                        // For TWAIN devices, by default this will always be
-                        // a Windows BMP.  For now, we won't do anything inside
-                        // the loop.
-                        byte [] imageData = iHandler.getImageData(i, j);
-                        // Now you can take the imageData and give it to your favorite
-                        // Image handling code...
-                        System.out.println("The image obtained contains " + imageData.length + " bytes of data");
-                    }
-                }
-            }
             else
                 System.out.println("Acquisition Failed with error: " + retInfo.getReturnCode());
         }

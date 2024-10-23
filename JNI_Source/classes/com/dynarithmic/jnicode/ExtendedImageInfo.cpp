@@ -36,10 +36,22 @@
 
 ExtendedImageInformation::ExtendedImageInformation(DTWAIN_SOURCE theSource) : m_theSource(theSource) 
 {
-    // Make sure we started the engine
+    m_vFoundTypes.clear();
     auto retValue = API_INSTANCE DTWAIN_InitExtImageInfo(m_theSource);
     if (retValue)
+    {
         API_INSTANCE DTWAIN_GetExtImageInfo(m_theSource);
+        DTWAIN_ARRAY aValues = {};
+        DTWAINArray_RAII raii(aValues);
+        API_INSTANCE DTWAIN_EnumExtImageInfoTypes(m_theSource, &aValues);
+        LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
+        for (LONG i = 0; i < nCount; ++i)
+        {
+            LONG lVal = 0;
+            API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, i, &lVal);
+            m_vFoundTypes.push_back(lVal);
+        }
+    }
     infoRetrieved = retValue ? true : false;
 }
 
@@ -102,8 +114,6 @@ bool ExtendedImageInformation::FillBarcodeInfo()
                                     API_INSTANCE DTWAIN_ArrayGetCount(aType),
                                     API_INSTANCE DTWAIN_ArrayGetCount(aRotation),
                                     API_INSTANCE DTWAIN_ArrayGetCount(aConfidence) };
-
-    std::array<std::vector<uint32_t>*, 5> aPtrVectors = { nullptr, nullptr, &m_vBarcodeType, &m_vBarcodeRotation, &m_vBarcodeConfidence };
 
     LONG* pBufferX = (LONG *)API_INSTANCE DTWAIN_ArrayGetBuffer(aCountX, 0);
     LONG* pBufferY = (LONG*)API_INSTANCE DTWAIN_ArrayGetBuffer(aCountY, 0);
@@ -691,53 +701,20 @@ bool ExtendedImageInformation::FillExtendedImageInfo25()
     return true;
 }
 
-#if 0
+bool ExtendedImageInformation::FillPatchCodeInfo()
+{
     if (!infoRetrieved)
         return false;
-
     DTWAIN_ARRAY aValues = {};
     DTWAINArray_RAII raii(aValues);
 
-    // Get the count information
-    LONG horizCount = 0;
-    API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_HORZLINECOUNT, &aValues);
+    API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_PATCHCODE, &aValues);
     LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
-    if (nCount == 0)
-        return true;
-    bool retVal = API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &horizCount);
-    if (!retVal || horizCount == 0)
-        return true;
-    
-    m_horizontalLineInfo.m_vLineInfo.resize(nCount);
-
-    std::array<int32_t, 4> intItems = { TWEI_HORZLINEXCOORD,
-                                        TWEI_HORZLINEYCOORD,
-                                        TWEI_HORZLINELENGTH,
-                                        TWEI_HORZLINETHICKNESS };
-
-    std::array<DTWAIN_ARRAY, 4> aAllValues;
-    std::array<DTWAINArray_RAII, 4> aVects = { aAllValues[0], aAllValues[1], aAllValues[2], aAllValues[3] };
-    std::array<LONG, 4> allCounts {};
-    for (size_t i = 0; i < intItems.size(); ++i)
+    if (nCount > 0)
     {
-        auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aAllValues[i]);
-        allCounts[i] = API_INSTANCE DTWAIN_ArrayGetCount(aAllValues[i]);
-    }
-    LONG maxCount = *std::min_element(allCounts.begin(), allCounts.end());
-    for (LONG i = 0; i < maxCount; ++i)
-    {
-        ExtendedImageInfo_LineDetectionInfoNative oneLine{};
-        LONG lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[0], i, &lVal);
-        oneLine.xCoordinate = lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[1], i, &lVal);
-        oneLine.yCoordinate = lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[2], i, &lVal);
-        oneLine.length = lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[3], i, &lVal);
-        oneLine.thickness = lVal;
-        m_horizontalLineInfo.m_vLineInfo.push_back(oneLine);
+        LONG lVal = 0;
+        API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
+        m_patchCode.m_patchCode = lVal;
     }
     return true;
 }
-#endif

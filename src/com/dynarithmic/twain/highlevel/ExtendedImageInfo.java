@@ -22,6 +22,7 @@
 package com.dynarithmic.twain.highlevel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.dynarithmic.twain.DTwainConstants;
@@ -1030,6 +1031,7 @@ public class ExtendedImageInfo {
         }
     }
 
+    int [] supportedExtImageInfo = new int[0];
     BarcodeInfo barcodeInfo = new BarcodeInfo();
     ShadedAreaDetectionInfo shadedAreaDetectionInfo = new ShadedAreaDetectionInfo();
     SpeckleRemovalInfo speckleRemovalInfo = new SpeckleRemovalInfo();
@@ -1051,6 +1053,12 @@ public class ExtendedImageInfo {
     public ExtendedImageInfo()
     {}
 
+    private ExtendedImageInfo setSupportedExtendedImageInfo(int [] supportedExtImageInfo )
+    {
+        this.supportedExtImageInfo = supportedExtImageInfo;
+        return this;
+    }
+    
     private ExtendedImageInfo setBarcodeInfo(BarcodeInfo barcodeInfo) {
         this.barcodeInfo = barcodeInfo; return this;
     }
@@ -1191,5 +1199,15 @@ public class ExtendedImageInfo {
     }
     public ExtendedImageInfo25 getExtendedImageInfo25() {
         return this.extImageInfo25;
+    }
+    public int[] getSupportedExtendedImageInfo()
+    {
+        return this.supportedExtImageInfo;
+    }
+    
+    public static String getTypeName(TwainSession session, int value) throws DTwainJavaAPIException
+    {
+        return 
+            session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWEI, value);
     }
 }

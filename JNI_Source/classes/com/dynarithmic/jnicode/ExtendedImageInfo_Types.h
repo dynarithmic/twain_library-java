@@ -193,4 +193,8 @@ struct ExtendedImageInfo_ExtendedImageInfo25Native
     ImageAddressing m_ImageAddressing;
 };
 
+struct ExtendedImageInfo_PatchCodeNative
+{
+    TW_UINT32 m_patchCode = {};
+};
 #endif

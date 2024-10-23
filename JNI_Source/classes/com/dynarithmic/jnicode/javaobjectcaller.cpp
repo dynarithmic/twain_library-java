@@ -3238,7 +3238,7 @@ JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
     JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "ExtendedImageInfo",
      {SetBarcodeInfo,SetShadedAreaDetectionInfo, SetSpeckleRemovalInfo, SetHorizontalLineDetectionInfo, SetVerticalLineDetectionInfo,
       SetPatchcodeDetectionInfo, SetSkewDetectionInfo, SetEndorsedTextInfo, SetFormsRecognitionInfo, SetPageSourceInfo,
-      SetImageSegmentationInfo, SetExtendedImageInfo20, SetExtendedImageInfo21, 
+      SetImageSegmentationInfo, SetExtendedImageInfo20, SetExtendedImageInfo21, SetSupportedExtendedImageInfo,
 
      GetBarcodeInfo,GetShadedAreaDetectionInfo, GetSpeckleRemovalInfo, GetHorizontalLineDetectionInfo, GetVerticalLineDetectionInfo,
      GetPatchcodeDetectionInfo, GetSkewDetectionInfo, GetEndorsedTextInfo, GetFormsRecognitionInfo, GetPageSourceInfo,
@@ -3265,6 +3265,13 @@ JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
 {
     RegisterMemberFunctions(*this, getObjectName());
     defaultConstructObject();
+}
+
+void JavaExtendedImageInfo::setExtendedImageInfoTypes(std::vector<LONG>& vInfos)
+{
+    // Create a java object array of items from the buffer
+    auto jArray = CreateJArrayFromCArray<JavaIntArrayTraits>(m_pJavaEnv, &vInfos[0], vInfos.size());
+    callVoidMethod(getFunctionName(SetSupportedExtendedImageInfo), jArray);
 }
 
 void JavaExtendedImageInfo::setAllBarcodeInfo(ExtendedImageInfo_BarcodeNative& info)
@@ -3368,6 +3375,14 @@ void JavaExtendedImageInfo::setAllExtendedImageInfo25(ExtendedImageInfo_Extended
     for (auto& str : info.m_barcodeText)
         proxy_extendedimageinfo25.addBarcodeText(str);
 }
+
+void JavaExtendedImageInfo::setAllPatchCodeInfo(ExtendedImageInfo_PatchCodeNative& info)
+{
+    jobject sObject = callObjectMethod(getFunctionName(GetPatchcodeDetectionInfo));
+    proxy_patchcodedetioninfo.setObject(sObject);
+    proxy_patchcodedetioninfo.setPatchcode(info.m_patchCode);
+}
+
 
 void JavaExtendedImageInfo::setBarcodeInfo(ExtendedImageInfo_BarcodeInfoNative& info, int nWhich)
 {
