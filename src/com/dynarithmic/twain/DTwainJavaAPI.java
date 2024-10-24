@@ -107,11 +107,20 @@ public class DTwainJavaAPI
 
     private void InitialLoadLibrary() throws DTwainJavaAPIException 
     {
+        try
+        {
         // Load the JNI DLL
         System.loadLibrary(s_DLLMap.get(m_DLLName).s_DTwainJNIName);
 
         // Have the JNI DLL start the internal DTWAIN DLL's
         DTWAIN_LoadLibrary(s_DLLMap.get(m_DLLName).s_DTwainDLLName, "");
+        }
+        catch (UnsatisfiedLinkError e) 
+        {
+            System.out.println(e);
+            System.out.println("Conflict in 32/64 bit versions between the Java runtime and DTWAIN JNI layer (bitness does not match)\nEither set the proper runtime environment (32-bit, 64-bit) in your Java runtime or");
+            System.out.println("call com.dynarithmic.twain.DTwainGlobalOptions.setJNIVersion() to set the proper JNI version to use (32-bit, 64-bit) to match the Java runtime being used");
+        }
     }
 
     private boolean EndLoadLibrary() throws DTwainJavaAPIException
