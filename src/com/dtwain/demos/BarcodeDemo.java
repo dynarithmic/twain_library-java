@@ -59,7 +59,7 @@ public class BarcodeDemo
                 BarcodeInfo barInfo = info.getBarcodeInfo();
                 
                 // Get the number of barcodes detected
-                long barcodeCount = barInfo.getCount().getValue();
+                long barcodeCount = barInfo.getCount();
                 System.out.println("Barcode count = " + barcodeCount);
                 
                 // Print out barcode information for each barcode found
@@ -67,10 +67,10 @@ public class BarcodeDemo
                 {
                 	BarcodeSingleInfo singleInfo = barInfo.getSingleInfo((int)i);
                 	System.out.println("Barcode #" + (i + 1) + " (x,y) position = (" + 
-                			singleInfo.getXCoordinate().getValue() + ", " + singleInfo.getYCoordinate().getValue() + ")");
+                			singleInfo.getXCoordinate() + ", " + singleInfo.getYCoordinate() + ")");
                 	System.out.println("Barcode #" + (i + 1) + " text = " + singleInfo.getText());
                 	System.out.println("Barcode #" + (i + 1) + " type = " + singleInfo.getTypeName(sourceHandle.getTwainSession())); 
-                	System.out.println("Barcode #" + (i + 1) + " type value = " + singleInfo.getType().getValue()); 
+                	System.out.println("Barcode #" + (i + 1) + " type value = " + singleInfo.getType()); 
                 }
             } catch (DTwainJavaAPIException e) {
                 System.out.println("Could not retrieve extended image information");

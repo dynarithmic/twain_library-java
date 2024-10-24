@@ -22,8 +22,8 @@
 package com.dynarithmic.twain.highlevel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.dynarithmic.twain.DTwainConstants;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
@@ -34,30 +34,32 @@ import com.dynarithmic.twain.lowlevel.TW_STR32;
 import com.dynarithmic.twain.lowlevel.TW_UINT16;
 import com.dynarithmic.twain.lowlevel.TW_UINT32;
 
+// The private functions and variables are used by the internals of these classes
+// and the JNI layer.  
 public class ExtendedImageInfo {
     public class BarcodeInfo
     {
-        TW_UINT32 count = new TW_UINT32();
+        long count;
 
         public class BarcodeSingleInfo
         {
-            TW_UINT32 confidence =  new TW_UINT32();
-            TW_UINT32 rotation =  new TW_UINT32();
-            TW_UINT32 length =  new TW_UINT32();
-            TW_UINT32 xCoordinate = new TW_UINT32();
-            TW_UINT32 yCoordinate = new TW_UINT32();
-            TW_UINT32 type  = new TW_UINT32();
+            long confidence;
+            long rotation;
+            long length;
+            long xCoordinate;
+            long yCoordinate;
+            long type;
             String text;
 
-            private BarcodeSingleInfo setConfidence(TW_UINT32 confidence) {
+            private BarcodeSingleInfo setConfidence(long confidence) {
                 this.confidence = confidence;
                 return this;
             }
-            private BarcodeSingleInfo setRotation(TW_UINT32 rotation) {
+            private BarcodeSingleInfo setRotation(long rotation) {
                 this.rotation = rotation;
                 return this;
             }
-            private BarcodeSingleInfo setTextLength(TW_UINT32 textLength) {
+            private BarcodeSingleInfo setTextLength(long textLength) {
                 this.length = textLength;
                 return this;
             }
@@ -66,44 +68,44 @@ public class ExtendedImageInfo {
                 return this;
             }
 
-            private BarcodeSingleInfo setXCoordinate(TW_UINT32 xCoord) {
+            private BarcodeSingleInfo setXCoordinate(long xCoord) {
                 this.xCoordinate = xCoord;
                 return this;
             }
 
-            private BarcodeSingleInfo setYCoordinate(TW_UINT32 yCoord) {
+            private BarcodeSingleInfo setYCoordinate(long yCoord) {
                 this.yCoordinate = yCoord;
                 return this;
             }
 
-            private BarcodeSingleInfo setType(TW_UINT32 type) {
+            private BarcodeSingleInfo setType(long type) {
                 this.type = type;
                 return this;
             }
 
-            public TW_UINT32 getConfidence() {
+            public long getConfidence() {
                 return confidence;
             }
-            public TW_UINT32 getRotation() {
+            public long getRotation() {
                 return rotation;
             }
-            public TW_UINT32 getLength() {
+            public long getLength() {
                 return length;
             }
-            public TW_UINT32 getXCoordinate() {
+            public long getXCoordinate() {
                 return xCoordinate;
             }
-            public TW_UINT32 getYCoordinate() {
+            public long getYCoordinate() {
                 return yCoordinate;
             }
-            public TW_UINT32 getType() {
+            public long getType() {
                 return type;
             }
             
             public String getTypeName(TwainSession session) throws DTwainJavaAPIException
             {
                 return 
-                    session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWBT,(int)type.getValue());
+                    session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWBT,(int)type);
             }
             
             public String getText() {
@@ -115,11 +117,11 @@ public class ExtendedImageInfo {
 
         public BarcodeInfo() {}
 
-        private BarcodeInfo setCount(TW_UINT32 nCount)
+        private BarcodeInfo setCount(long nCount)
         {
             this.count = nCount;
             barcodeInfos.clear();
-            for (int i = 0; i < this.count.getValue(); ++i)
+            for (int i = 0; i < this.count; ++i)
                 barcodeInfos.add(new BarcodeSingleInfo());
             return this;
         }
@@ -135,7 +137,7 @@ public class ExtendedImageInfo {
             return this.barcodeInfos;
         }
 
-        public TW_UINT32 getCount()
+        public long getCount()
         {
             return this.count;
         }
@@ -150,129 +152,129 @@ public class ExtendedImageInfo {
 
     public class ShadedAreaDetectionInfo
     {
-        TW_UINT32 count = new TW_UINT32();
+        long count;
         class ShadedAreaSingleInfo
         {
-            TW_UINT32 top = new TW_UINT32();
-            TW_UINT32 left = new TW_UINT32();
-            TW_UINT32 height = new TW_UINT32();
-            TW_UINT32 width = new TW_UINT32();
-            TW_UINT32 size = new TW_UINT32();
-            TW_UINT32 blackCountOld = new TW_UINT32();
-            TW_UINT32 blackCountNew = new TW_UINT32();
-            TW_UINT32 blackRLMin = new TW_UINT32();
-            TW_UINT32 blackRLMax = new TW_UINT32();
-            TW_UINT32 whiteCountOld = new TW_UINT32();
-            TW_UINT32 whiteCountNew = new TW_UINT32();
-            TW_UINT32 whiteRLMin = new TW_UINT32();
-            TW_UINT32 whiteRLMax = new TW_UINT32();
-            TW_UINT32 whiteRLAverage = new TW_UINT32();
+            long top;
+            long left;
+            long height;
+            long width;
+            long size;
+            long blackCountOld;
+            long blackCountNew;
+            long blackRLMin;
+            long blackRLMax;
+            long whiteCountOld;
+            long whiteCountNew;
+            long whiteRLMin;
+            long whiteRLMax;
+            long whiteRLAverage;
 
-            private ShadedAreaSingleInfo setTop(TW_UINT32 top) {
+            private ShadedAreaSingleInfo setTop(long top) {
                 this.top = top; return this;
             }
-            private ShadedAreaSingleInfo setLeft(TW_UINT32 left) {
+            private ShadedAreaSingleInfo setLeft(long left) {
                 this.left = left; return this;
             }
-            private ShadedAreaSingleInfo setHeight(TW_UINT32 height) {
+            private ShadedAreaSingleInfo setHeight(long height) {
                 this.height = height; return this;
             }
-            private ShadedAreaSingleInfo setWidth(TW_UINT32 width) {
+            private ShadedAreaSingleInfo setWidth(long width) {
                 this.width = width; return this;
             }
-            private ShadedAreaSingleInfo setSize(TW_UINT32 size) {
+            private ShadedAreaSingleInfo setSize(long size) {
                 this.size = size; return this;
             }
-            private ShadedAreaSingleInfo setBlackCountOld(TW_UINT32 blackCountOld) {
+            private ShadedAreaSingleInfo setBlackCountOld(long blackCountOld) {
                 this.blackCountOld = blackCountOld;
                 return this;
             }
-            private ShadedAreaSingleInfo setBlackCountNew(TW_UINT32 blackCountNew) {
+            private ShadedAreaSingleInfo setBlackCountNew(long blackCountNew) {
                 this.blackCountNew = blackCountNew;
                 return this;
             }
-            private ShadedAreaSingleInfo setBlackRLMin(TW_UINT32 blackRLMin) {
+            private ShadedAreaSingleInfo setBlackRLMin(long blackRLMin) {
                 this.blackRLMin = blackRLMin;
                 return this;
             }
-            private ShadedAreaSingleInfo setBlackRLMax(TW_UINT32 blackRLMax) {
+            private ShadedAreaSingleInfo setBlackRLMax(long blackRLMax) {
                 this.blackRLMax = blackRLMax;
                 return this;
             }
-            private ShadedAreaSingleInfo setWhiteCountOld(TW_UINT32 whiteCountOld) {
+            private ShadedAreaSingleInfo setWhiteCountOld(long whiteCountOld) {
                 this.whiteCountOld = whiteCountOld;
                 return this;
             }
-            private ShadedAreaSingleInfo setWhiteCountNew(TW_UINT32 whiteCountNew) {
+            private ShadedAreaSingleInfo setWhiteCountNew(long whiteCountNew) {
                 this.whiteCountNew = whiteCountNew;
                 return this;
             }
-            private ShadedAreaSingleInfo setWhiteRLMin(TW_UINT32 whiteRLMin) {
+            private ShadedAreaSingleInfo setWhiteRLMin(long whiteRLMin) {
                 this.whiteRLMin = whiteRLMin;
                 return this;
             }
-            private ShadedAreaSingleInfo setWhiteRLMax(TW_UINT32 whiteRLMax) {
+            private ShadedAreaSingleInfo setWhiteRLMax(long whiteRLMax) {
                 this.whiteRLMax = whiteRLMax;
                 return this;
             }
-            private ShadedAreaSingleInfo setWhiteRLAverage(TW_UINT32 whilteRLAverage) {
+            private ShadedAreaSingleInfo setWhiteRLAverage(long whilteRLAverage) {
                 this.whiteRLAverage = whilteRLAverage;
                 return this;
             }
 
-            public TW_UINT32 getTop() {
+            public long getTop() {
                 return top;
             }
 
-            public TW_UINT32 getLeft() {
+            public long getLeft() {
                 return left;
             }
 
-            public TW_UINT32 getHeight() {
+            public long getHeight() {
                 return height;
             }
 
-            public TW_UINT32 getWidth() {
+            public long getWidth() {
                 return width;
             }
 
-            public TW_UINT32 getSize() {
+            public long getSize() {
                 return size;
             }
 
-            public TW_UINT32 getBlackCountOld() {
+            public long getBlackCountOld() {
                 return blackCountOld;
             }
 
-            public TW_UINT32 getBlackCountNew() {
+            public long getBlackCountNew() {
                 return blackCountNew;
             }
 
-            public TW_UINT32 getBlackRLMin() {
+            public long getBlackRLMin() {
                 return blackRLMin;
             }
 
-            public TW_UINT32 getBlackRLMax() {
+            public long getBlackRLMax() {
                 return blackRLMax;
             }
 
-            public TW_UINT32 getWhiteCountOld() {
+            public long getWhiteCountOld() {
                 return whiteCountOld;
             }
 
-            public TW_UINT32 getWhiteCountNew() {
+            public long getWhiteCountNew() {
                 return whiteCountNew;
             }
 
-            public TW_UINT32 getWhiteRLMin() {
+            public long getWhiteRLMin() {
                 return whiteRLMin;
             }
 
-            public TW_UINT32 getWhiteRLMax() {
+            public long getWhiteRLMax() {
                 return whiteRLMax;
             }
 
-            public TW_UINT32 getWhiteRLAverage() {
+            public long getWhiteRLAverage() {
                 return whiteRLAverage;
             }
         }
@@ -281,10 +283,10 @@ public class ExtendedImageInfo {
 
         ShadedAreaDetectionInfo() {}
 
-        private ShadedAreaDetectionInfo setCount(TW_UINT32 count) {
+        private ShadedAreaDetectionInfo setCount(long count) {
             this.count = count;
             shadedAreaInfos.clear();
-            for (int i = 0; i < this.count.getValue(); ++i)
+            for (int i = 0; i < this.count; ++i)
                 shadedAreaInfos.add(new ShadedAreaSingleInfo());
             return this;
         }
@@ -295,7 +297,7 @@ public class ExtendedImageInfo {
             return this;
         }
 
-        public TW_UINT32 getCount() {
+        public long getCount() {
             return count;
         }
 
@@ -309,82 +311,82 @@ public class ExtendedImageInfo {
 
     public class SpeckleRemovalInfo
     {
-        TW_UINT32 specklesRemoved = new TW_UINT32();
-        TW_UINT32 blackSpecklesRemoved = new TW_UINT32();
-        TW_UINT32 whiteSpecklesRemoved = new TW_UINT32();
+        long specklesRemoved;
+        long blackSpecklesRemoved;
+        long whiteSpecklesRemoved;
 
         public SpeckleRemovalInfo() {}
 
-        private SpeckleRemovalInfo setSpecklesRemoved(TW_UINT32 specklesRemoved) {
+        private SpeckleRemovalInfo setSpecklesRemoved(long specklesRemoved) {
             this.specklesRemoved = specklesRemoved;
             return this;
         }
-        private SpeckleRemovalInfo setBlackSpecklesRemoved(TW_UINT32 blackSpecklesRemoved) {
+        private SpeckleRemovalInfo setBlackSpecklesRemoved(long blackSpecklesRemoved) {
             this.blackSpecklesRemoved = blackSpecklesRemoved;
             return this;
         }
-        private SpeckleRemovalInfo setWhiteSpecklesRemoved(TW_UINT32 whiteSpecklesRemoved) {
+        private SpeckleRemovalInfo setWhiteSpecklesRemoved(long whiteSpecklesRemoved) {
             this.whiteSpecklesRemoved = whiteSpecklesRemoved;
             return this;
         }
 
-        public TW_UINT32 getSpecklesRemoved() {
+        public long getSpecklesRemoved() {
             return specklesRemoved;
         }
 
-        public TW_UINT32 getBlackSpecklesRemoved() {
+        public long getBlackSpecklesRemoved() {
             return blackSpecklesRemoved;
         }
 
-        public TW_UINT32 getWhiteSpecklesRemoved() {
+        public long getWhiteSpecklesRemoved() {
             return whiteSpecklesRemoved;
         }
     }
 
     public class LineDetectionInfo
     {
-        TW_UINT32 count = new TW_UINT32();
+        long count;
 
         public class LineDetectionSingleInfo
         {
-            TW_UINT32 xCoordinate = new TW_UINT32();
-            TW_UINT32 yCoordinate = new TW_UINT32();
-            TW_UINT32 length    = new TW_UINT32();
-            TW_UINT32 thickness = new TW_UINT32();
+            long xCoordinate;
+            long yCoordinate;
+            long length;
+            long thickness;
 
-            private LineDetectionSingleInfo  setXCoordinate(TW_UINT32 xCoordinate) {
+            private LineDetectionSingleInfo  setXCoordinate(long xCoordinate) {
                 this.xCoordinate = xCoordinate;
                 return this;
             }
 
-            private LineDetectionSingleInfo  setYCoordinate(TW_UINT32 yCoordinate) {
+            private LineDetectionSingleInfo  setYCoordinate(long yCoordinate) {
                 this.yCoordinate = yCoordinate;
                 return this;
             }
 
-            private  LineDetectionSingleInfo setLength(TW_UINT32 length) {
+            private  LineDetectionSingleInfo setLength(long length) {
                 this.length = length;
                 return this;
             }
 
-            private  LineDetectionSingleInfo setThickness(TW_UINT32 thickness) {
+            private  LineDetectionSingleInfo setThickness(long thickness) {
                 this.thickness = thickness;
                 return this;
             }
 
-            public TW_UINT32 getXCoordinate() {
+            public long getXCoordinate() {
                 return xCoordinate;
             }
 
-            public TW_UINT32 getYCoordinate() {
+            public long getYCoordinate() {
                 return yCoordinate;
             }
 
-            public TW_UINT32 getLength() {
+            public long getLength() {
                 return length;
             }
 
-            public TW_UINT32 getThickness() {
+            public long getThickness() {
                 return thickness;
             }
         }
@@ -393,11 +395,11 @@ public class ExtendedImageInfo {
 
         public LineDetectionInfo() {}
         
-        private LineDetectionInfo setCount(TW_UINT32 count) 
+        private LineDetectionInfo setCount(long count) 
         {
             this.count = count;
             lineInfos.clear();
-            for (int i = 0; i < this.count.getValue(); ++i)
+            for (int i = 0; i < this.count; ++i)
                 lineInfos.add(new LineDetectionSingleInfo());
             return this;
         }
@@ -415,145 +417,146 @@ public class ExtendedImageInfo {
             return this.lineInfos.get(nWhich);
         }
         
-        public TW_UINT32 getCount() {
+        public long getCount() {
             return count;
         }
     }
 
     public class PatchcodeDetectionInfo
     {
-        TW_UINT32 patchcode = new TW_UINT32();
+        long patchcode;
 
         public PatchcodeDetectionInfo() {}
 
-        private PatchcodeDetectionInfo setPatchcode(TW_UINT32 patchcode) {
+        private PatchcodeDetectionInfo setPatchcode(long patchcode) {
             this.patchcode = patchcode;
             return this;
         }
 
-        public TW_UINT32 getPatchcode() {
+        public long getPatchcode() {
             return patchcode;
         }
     }
+    
     public class SkewDetectionInfo
     {
-        TW_UINT32 deskewStatus = new TW_UINT32();
-        TW_UINT32 originalAngle = new TW_UINT32();
-        TW_UINT32 finalAngle = new TW_UINT32();
-        TW_UINT32 confidence = new TW_UINT32();
-        TW_UINT32 windowX1 = new TW_UINT32();
-        TW_UINT32 windowX2 = new TW_UINT32();
-        TW_UINT32 windowX3 = new TW_UINT32();
-        TW_UINT32 windowX4 = new TW_UINT32();
-        TW_UINT32 windowY1 = new TW_UINT32();
-        TW_UINT32 windowY2 = new TW_UINT32();
-        TW_UINT32 windowY3 = new TW_UINT32();
-        TW_UINT32 windowY4 = new TW_UINT32();
+        long deskewStatus;
+        long originalAngle;
+        long finalAngle;
+        long confidence;
+        long windowX1;
+        long windowX2;
+        long windowX3;
+        long windowX4;
+        long windowY1;
+        long windowY2;
+        long windowY3;
+        long windowY4;
 
         public SkewDetectionInfo() {}
 
-        SkewDetectionInfo setDeskewStatus(TW_UINT32 deskewStatus) {
+        SkewDetectionInfo setDeskewStatus(long deskewStatus) {
             this.deskewStatus = deskewStatus; return this;
         }
 
-        SkewDetectionInfo setOriginalAngle(TW_UINT32 originalAngle) {
+        SkewDetectionInfo setOriginalAngle(long originalAngle) {
             this.originalAngle = originalAngle; return this;
         }
 
-        SkewDetectionInfo setFinalAngle(TW_UINT32 finalAngle) {
+        SkewDetectionInfo setFinalAngle(long finalAngle) {
             this.finalAngle = finalAngle; return this;
         }
 
-        SkewDetectionInfo setConfidence(TW_UINT32 confidence) {
+        SkewDetectionInfo setConfidence(long confidence) {
             this.confidence = confidence; return this;
         }
 
-        SkewDetectionInfo setWindowX1(TW_UINT32 windowX1) {
+        SkewDetectionInfo setWindowX1(long windowX1) {
             this.windowX1 = windowX1; return this;
         }
 
-        SkewDetectionInfo setWindowX2(TW_UINT32 windowX2) {
+        SkewDetectionInfo setWindowX2(long windowX2) {
             this.windowX2 = windowX2; return this;
         }
 
-        SkewDetectionInfo setWindowX3(TW_UINT32 windowX3) {
+        SkewDetectionInfo setWindowX3(long windowX3) {
             this.windowX3 = windowX3; return this;
         }
 
-        SkewDetectionInfo setWindowX4(TW_UINT32 windowX4) {
+        SkewDetectionInfo setWindowX4(long windowX4) {
             this.windowX4 = windowX4; return this;
         }
 
-        SkewDetectionInfo setWindowY1(TW_UINT32 windowY1) {
+        SkewDetectionInfo setWindowY1(long windowY1) {
             this.windowY1 = windowY1; return this;
         }
 
-        SkewDetectionInfo setWindowY2(TW_UINT32 windowY2) {
+        SkewDetectionInfo setWindowY2(long windowY2) {
             this.windowY2 = windowY2; return this;
         }
 
-        SkewDetectionInfo setWindowY3(TW_UINT32 windowY3) {
+        SkewDetectionInfo setWindowY3(long windowY3) {
             this.windowY3 = windowY3; return this;
         }
 
-        SkewDetectionInfo setWindowY4(TW_UINT32 windowY4) {
+        SkewDetectionInfo setWindowY4(long windowY4) {
             this.windowY4 = windowY4; return this;
         }
 
-        public TW_UINT32 getDeskewStatus() {
+        public long getDeskewStatus() {
             return deskewStatus;
         }
 
-        public TW_UINT32 getOriginalAngle() {
+        public long getOriginalAngle() {
             return originalAngle;
         }
 
-        public TW_UINT32 getFinalAngle() {
+        public long getFinalAngle() {
             return finalAngle;
         }
 
-        public TW_UINT32 getConfidence() {
+        public long getConfidence() {
             return confidence;
         }
 
-        public TW_UINT32 getWindowX1() {
+        public long getWindowX1() {
             return windowX1;
         }
 
-        public TW_UINT32 getWindowX2() {
+        public long getWindowX2() {
             return windowX2;
         }
 
-        public TW_UINT32 getWindowX3() {
+        public long getWindowX3() {
             return windowX3;
         }
 
-        public TW_UINT32 getWindowX4() {
+        public long getWindowX4() {
             return windowX4;
         }
 
-        public TW_UINT32 getWindowY1() {
+        public long getWindowY1() {
             return windowY1;
         }
 
-        public TW_UINT32 getWindowY2() {
+        public long getWindowY2() {
             return windowY2;
         }
 
-        public TW_UINT32 getWindowY3() {
+        public long getWindowY3() {
             return windowY3;
         }
 
-        public TW_UINT32 getWindowY4() {
+        public long getWindowY4() {
             return windowY4;
         }
-
     }
+    
     public class EndorsedTextInfo
     {
-        TW_STR255 text = new TW_STR255();
+        String text;
         public EndorsedTextInfo() {}
-        private EndorsedTextInfo setText(TW_STR255 text)
+        private EndorsedTextInfo setText(String text)
         {
             this.text = text;
             return this;
@@ -561,99 +564,127 @@ public class ExtendedImageInfo {
 
         public String getText()
         {
-            return this.text.getValue();
+            return this.text;
         }
     }
+    
     public class FormsRecognitionInfo
     {
-        List<TW_UINT32> confidence = new ArrayList<>();
-        List<TW_STR255> templateMatch = new ArrayList<>();
-        List<TW_UINT32> templatePageMatch = new ArrayList<>();
-        List<TW_UINT32> horizontalDocOffset = new ArrayList<>();
-        List<TW_UINT32> verticalDocOffset = new ArrayList<>();
+        List<Long> confidenceI = new ArrayList<>();
+        List<String> templateMatchS = new ArrayList<>();
+        List<Long> templatePageMatchI = new ArrayList<>();
+        List<Long> horizontalDocOffsetI = new ArrayList<>();
+        List<Long> verticalDocOffsetI = new ArrayList<>();
+        
         public FormsRecognitionInfo() {}
 
-        private FormsRecognitionInfo setConfidence(List<TW_UINT32> confidence) {
-            this.confidence = confidence; return this;
+        private FormsRecognitionInfo setConfidence(List<TW_UINT32> confidence) 
+        {
+            this.confidenceI = confidence.stream()
+                    .map(value -> new Long(value.getValue()))
+                    .collect(Collectors.toList());
+            return this;
         }
-        private FormsRecognitionInfo setTemplateMatch(List<TW_STR255> templateMatch) {
-            this.templateMatch = templateMatch; return this;
+        
+        private FormsRecognitionInfo setTemplateMatch(List<TW_STR255> templateMatch) 
+        {
+            this.templateMatchS = templateMatch.stream()
+                    .map(value -> new String(value.getValue()))
+                    .collect(Collectors.toList());
+            return this;
         }
-        private FormsRecognitionInfo setTemplatePageMatch(List<TW_UINT32> templatePageMatch) {
-            this.templatePageMatch = templatePageMatch; return this;
+        
+        private FormsRecognitionInfo setTemplatePageMatch(List<TW_UINT32> templatePageMatch) 
+        {
+            this.templatePageMatchI = templatePageMatch.stream()
+                    .map(value -> new Long(value.getValue()))
+                    .collect(Collectors.toList());
+            return this;
         }
-        private FormsRecognitionInfo setHorizontalDocOffset(List<TW_UINT32> horizontalDocOffset) {
-            this.horizontalDocOffset = horizontalDocOffset; return this;
+        
+        private FormsRecognitionInfo setHorizontalDocOffset(List<TW_UINT32> horizontalDocOffset) 
+        {
+            this.horizontalDocOffsetI = horizontalDocOffset.stream()
+                    .map(value -> new Long(value.getValue()))
+                    .collect(Collectors.toList());
+            return this;
         }
-        private FormsRecognitionInfo setVerticalDocOffset(List<TW_UINT32> verticalDocOffset) {
-            this.verticalDocOffset = verticalDocOffset; return this;
+        
+        private FormsRecognitionInfo setVerticalDocOffset(List<TW_UINT32> verticalDocOffset) 
+        {
+            this.verticalDocOffsetI = verticalDocOffset.stream()
+                    .map(value -> new Long(value.getValue()))
+                    .collect(Collectors.toList());
+            return this;
         }
 
-        public List<TW_UINT32> getConfidence() {
-            return confidence;
+        public List<Long> getConfidence() {
+            return confidenceI;
         }
 
-        public List<TW_STR255> getTemplateMatch() {
-            return templateMatch;
+        public List<String> getTemplateMatch() {
+            return templateMatchS;
         }
 
-        public List<TW_UINT32> getTemplatePageMatch() {
-            return templatePageMatch;
+        public List<Long> getTemplatePageMatch() {
+            return templatePageMatchI;
         }
 
-        public List<TW_UINT32> getHorizontalDocOffset() {
-            return horizontalDocOffset;
+        public List<Long> getHorizontalDocOffset() {
+            return horizontalDocOffsetI;
         }
 
-        public List<TW_UINT32> getVerticalDocOffset() {
-            return verticalDocOffset;
+        public List<Long> getVerticalDocOffset() {
+            return verticalDocOffsetI;
         }
     }
+    
     public class PageSourceInfo
     {
-        TW_STR255 bookname = new TW_STR255();
-        TW_UINT32 chapterNumber = new TW_UINT32();
-        TW_UINT32 documentNumber = new TW_UINT32();
-        TW_UINT32 pageNumber = new TW_UINT32();
-        TW_STR255 camera    = new TW_STR255();
-        TW_UINT32 frameNumber = new TW_UINT32();
-        TW_FRAME frame  = new TW_FRAME();
-        TW_UINT16 pageside = new TW_UINT16();
-        TW_UINT16 pixelFlavor = new TW_UINT16();
+        String bookname;
+        String camera;
+        long chapterNumber;
+        long documentNumber;
+        long pageNumber;
+        long frameNumber;
+        TwainFrameDouble frameD = new TwainFrameDouble();
+        int pageside;
+        int pixelFlavor;
 
         public PageSourceInfo() {}
 
-        private PageSourceInfo setPageSide(TW_UINT16 pageSide) {
+        private PageSourceInfo setPageSide(int pageSide) {
             this.pageside = pageSide;
             return this;
         }
         
-        private PageSourceInfo setBookname(TW_STR255 bookname) {
+        private PageSourceInfo setBookname(String bookname) {
             this.bookname = bookname; return this;
         }
-        private PageSourceInfo setChapterNumber(TW_UINT32 chapterNumber) {
+        private PageSourceInfo setChapterNumber(long chapterNumber) {
             this.chapterNumber = chapterNumber; return this;
         }
-        private PageSourceInfo setDocumentNumber(TW_UINT32 documentNumber) {
+        private PageSourceInfo setDocumentNumber(long documentNumber) {
             this.documentNumber = documentNumber; return this;
         }
-        private PageSourceInfo setPageNumber(TW_UINT32 pageNumber) {
+        private PageSourceInfo setPageNumber(long pageNumber) {
             this.pageNumber = pageNumber; return this;
         }
-        private PageSourceInfo setCamera(TW_STR255 camera) {
+        private PageSourceInfo setCamera(String camera) {
             this.camera = camera; return this;
         }
-        private PageSourceInfo setFrameNumber(TW_UINT32 frameNumber) {
+        private PageSourceInfo setFrameNumber(long frameNumber) {
             this.frameNumber = frameNumber; return this;
         }
         private PageSourceInfo setFrame(TW_FRAME frame) {
-            this.frame = frame; return this;
+            frameD.setAll(frame);
+            return this;
         }
-        private PageSourceInfo setPixelFlavor(TW_UINT16 pixelFlavor) {
+        private PageSourceInfo setPixelFlavor(int pixelFlavor) {
             this.pixelFlavor = pixelFlavor; return this;
         }
 
-        public TW_UINT16 getPageSide()
+        public int getPageSide()
         {
             return this.pageside;
         }
@@ -661,98 +692,101 @@ public class ExtendedImageInfo {
         public String getPageSideName(TwainSession session) throws DTwainJavaAPIException 
         {
             return
-            session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWCS,(int)pageside.getValue());
+            session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWCS,(int)pageside);
         }
+        
         public String getBookname() {
-            return bookname.getValue();
+            return bookname;
         }
 
-        public TW_UINT32 getChapterNumber() {
+        public long getChapterNumber() {
             return chapterNumber;
         }
 
-        public TW_UINT32 getDocumentNumber() {
+        public long getDocumentNumber() {
             return documentNumber;
         }
 
-        public TW_UINT32 getPageNumber() {
+        public long getPageNumber() {
             return pageNumber;
         }
 
         public String getCamera() {
-            return camera.getValue();
+            return camera;
         }
 
-        public TW_UINT32 getFrameNumber() {
+        public long getFrameNumber() {
             return frameNumber;
         }
 
-        public TW_FRAME getFrame() {
-            return frame;
+        public TwainFrameDouble getFrame() {
+            return frameD;
         }
 
-        public TW_UINT16 getPixelFlavor() {
+        public int getPixelFlavor() {
             return pixelFlavor;
         }
     }
+    
     public class ImageSegmentationInfo
     {
-        TW_STR255 ICCProfile = new TW_STR255();
-        TW_BOOL lastSegment = new TW_BOOL();
-        TW_UINT32 segmentNumber = new TW_UINT32();
+        String ICCProfile;
+        boolean lastSegment;
+        long segmentNumber;
 
         public ImageSegmentationInfo() {}
 
-        private ImageSegmentationInfo setICCProfile(TW_STR255 iCCProfile) {
+        private ImageSegmentationInfo setICCProfile(String iCCProfile) {
             ICCProfile = iCCProfile; return this;
         }
 
-        private ImageSegmentationInfo setLastSegment(TW_BOOL lastSegment) {
+        private ImageSegmentationInfo setLastSegment(boolean lastSegment) {
             this.lastSegment = lastSegment; return this;
         }
 
-        private ImageSegmentationInfo setSegmentNumber(TW_UINT32 segmentNumber) {
+        private ImageSegmentationInfo setSegmentNumber(long segmentNumber) {
             this.segmentNumber = segmentNumber; return this;
         }
 
         public String getICCProfile() {
-            return ICCProfile.getValue();
+            return ICCProfile;
         }
 
-        public TW_BOOL isLastSegment() {
+        public boolean isLastSegment() {
             return lastSegment;
         }
 
-        public TW_UINT32 getSegmentNumber() {
+        public long getSegmentNumber() {
             return segmentNumber;
         }
     }
+    
     public class ExtendedImageInfo20
     {
-        TW_UINT16 magtype = new TW_UINT16();
+        int magtype;
 
         public ExtendedImageInfo20() {}
 
-        private ExtendedImageInfo20 setMagType(TW_UINT16 magtype) {
+        private ExtendedImageInfo20 setMagType(int magtype) {
             this.magtype = magtype; return this;
         }
 
-        public TW_UINT16 getMagType() {
+        public int getMagType() {
             return magtype;
         }
     }
     
     public class ExtendedImageInfo21
     {
-        TW_STR255 fileSystemSource = new TW_STR255();
-        TW_BOOL   imageMerged = new TW_BOOL();
+        String fileSystemSource;
+        boolean imageMerged;
         byte [] magData = new byte [0];
-        TW_UINT32 magDataLength = new TW_UINT32();
-        TW_UINT16 pageSide = new TW_UINT16();
+        long magDataLength;
+        int pageSide;
         
         public ExtendedImageInfo21() {}
         
-        private ExtendedImageInfo21 setFileSystemSource(TW_STR255 fileSystemSource)
+        private ExtendedImageInfo21 setFileSystemSource(String fileSystemSource)
         {
             this.fileSystemSource = fileSystemSource;
             return this;
@@ -764,19 +798,19 @@ public class ExtendedImageInfo {
             return this;
         }
         
-        private ExtendedImageInfo21 setImageMerged(TW_BOOL imageMerged)
+        private ExtendedImageInfo21 setImageMerged(boolean imageMerged)
         {
             this.imageMerged = imageMerged;
             return this;
         }
         
-        private ExtendedImageInfo21 setMagDataLength(TW_UINT32 magDataLength)
+        private ExtendedImageInfo21 setMagDataLength(long magDataLength)
         {
             this.magDataLength = magDataLength;
             return this;
         }
         
-        private ExtendedImageInfo21 setPageSide(TW_UINT16 pageSide)
+        private ExtendedImageInfo21 setPageSide(int pageSide)
         {
             this.pageSide = pageSide;
             return this;
@@ -784,7 +818,7 @@ public class ExtendedImageInfo {
         
         public String getFileSystemSource()
         {
-            return this.fileSystemSource.getValue();
+            return this.fileSystemSource;
         }
         
         public byte [] getMagData()
@@ -792,17 +826,17 @@ public class ExtendedImageInfo {
             return this.magData;
         }
         
-        public TW_BOOL getImageMerged()
+        public boolean getImageMerged()
         {
             return this.imageMerged;
         }
         
-        public TW_UINT32 getMagDataLength()
+        public long getMagDataLength()
         {
             return this.magDataLength;
         }
         
-        public TW_UINT16 getPageSide()
+        public int getPageSide()
         {
             return this.pageSide;
         }
@@ -810,16 +844,16 @@ public class ExtendedImageInfo {
 
     public class ExtendedImageInfo22
     {
-        TW_UINT32 paperCount = new TW_UINT32();
+        long paperCount;
         public ExtendedImageInfo22() {}
         
-        private ExtendedImageInfo22 setPaperCount(TW_UINT32 paperCount) 
+        private ExtendedImageInfo22 setPaperCount(long paperCount) 
         {
             this.paperCount = paperCount;
             return this;
         }
         
-        public TW_UINT32 getPaperCount()
+        public long getPaperCount()
         {
             return this.paperCount;
         }
@@ -827,9 +861,9 @@ public class ExtendedImageInfo {
 
     public class ExtendedImageInfo23
     {
-        TW_STR255 printerText = new TW_STR255();
+        String printerText;
         public ExtendedImageInfo23() {}
-        private ExtendedImageInfo23 setPrinterText(TW_STR255 printerText) 
+        private ExtendedImageInfo23 setPrinterText(String printerText) 
         {
             this.printerText = printerText;
             return this;
@@ -837,7 +871,7 @@ public class ExtendedImageInfo {
         
         public String getPrinterText()
         {
-            return this.printerText.getValue();
+            return this.printerText;
         }
     }
 
@@ -859,51 +893,51 @@ public class ExtendedImageInfo {
 
     public class ExtendedImageInfo25
     {
-        private TW_STR32[] iAField = new TW_STR32[] 
-                {new TW_STR32(), new TW_STR32(), new TW_STR32(), new TW_STR32(), new TW_STR32()};
-        private TW_UINT16 iALevel = new TW_UINT16();
-        private TW_UINT16 printer = new TW_UINT16();
+        private String[] iAField = new String[] 
+                {new String(), new String(), new String(), new String(), new String()};
+        private int iALevel;
+        private int printer;
         private List<String> barcodeText = new ArrayList<>();
         
-        private void setIAField(TW_STR32 val, int nWhich)
+        private void setIAField(String val, int nWhich)
         {
             iAField[nWhich] = val;
         }
         private String getIAField(int nWhich)
         {
-            return iAField[nWhich].getValue();
+            return iAField[nWhich];
         }
-        private ExtendedImageInfo25 setIAFieldValueA(TW_STR32 val)
+        private ExtendedImageInfo25 setIAFieldValueA(String val)
         {
             setIAField(val, 0);
             return this;
         }
-        private ExtendedImageInfo25 setIAFieldValueB(TW_STR32 val)
+        private ExtendedImageInfo25 setIAFieldValueB(String val)
         {
             setIAField(val, 1);
             return this;
         }
-        private ExtendedImageInfo25 setIAFieldValueC(TW_STR32 val)
+        private ExtendedImageInfo25 setIAFieldValueC(String val)
         {
             setIAField(val, 2);
             return this;
         }
-        private ExtendedImageInfo25 setIAFieldValueD(TW_STR32 val)
+        private ExtendedImageInfo25 setIAFieldValueD(String val)
         {
             setIAField(val, 3);
             return this;
         }
-        private ExtendedImageInfo25 setIAFieldValueE(TW_STR32 val)
+        private ExtendedImageInfo25 setIAFieldValueE(String val)
         {
             setIAField(val, 4);
             return this;
         }
-        private ExtendedImageInfo25 setIALevel(TW_UINT16 val)
+        private ExtendedImageInfo25 setIALevel(int val)
         {
             this.iALevel = val;
             return this;
         }
-        private ExtendedImageInfo25 setPrinter(TW_UINT16 val)
+        private ExtendedImageInfo25 setPrinter(int val)
         {
             this.printer = val;
             return this;
@@ -933,11 +967,11 @@ public class ExtendedImageInfo {
         {
             return this.getIAField(4);
         }
-        public TW_UINT16 getIALevel()
+        public int getIALevel()
         {
             return this.iALevel;
         }
-        public TW_UINT16 getPrinter()
+        public int getPrinter()
         {
             return this.printer;
         }

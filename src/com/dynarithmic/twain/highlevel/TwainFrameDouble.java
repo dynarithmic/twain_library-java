@@ -21,6 +21,8 @@
  */
 package com.dynarithmic.twain.highlevel;
 
+import com.dynarithmic.twain.lowlevel.TW_FRAME;
+
 public class TwainFrameDouble
 {
     private TwainAcquireArea twainAcquireArea = new TwainAcquireArea();
@@ -28,12 +30,30 @@ public class TwainFrameDouble
     public TwainFrameDouble()
     {
     }
+    
+    public TwainFrameDouble(TW_FRAME frame)
+    {
+        setAll(frame);
+    }
 
     public TwainFrameDouble(Double l, Double t, Double r, Double b)
+    {
+        setAll(l, t, r, b);
+    }
+
+    public void setAll(double l, double t, double r, double b)
     {
         this.twainAcquireArea.setAll(l, t, r, b);
     }
 
+    public void setAll(TW_FRAME frame)
+    {
+        this.twainAcquireArea.setAll(frame.getLeft().getValue(),
+                frame.getTop().getValue(),
+                frame.getRight().getValue(),
+                frame.getBottom().getValue());
+    }
+    
     public double getLeft()
     {
         return this.twainAcquireArea.left();

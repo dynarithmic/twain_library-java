@@ -22,21 +22,14 @@
 package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainGlobalOptions;
-import com.dynarithmic.twain.DTwainConstants.AcquireType;
-import com.dynarithmic.twain.DTwainConstants.ErrorCode;
+import com.dynarithmic.twain.DTwainConstants.*;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
-import com.dynarithmic.twain.highlevel.ExtendedImageInfo;
+import com.dynarithmic.twain.highlevel.*;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo.*;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo.BarcodeInfo.BarcodeSingleInfo;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo.LineDetectionInfo.LineDetectionSingleInfo;
-import com.dynarithmic.twain.highlevel.TwainCallback;
-import com.dynarithmic.twain.highlevel.TwainSession;
-import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
-import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
-import com.dynarithmic.twain.highlevel.acquirecharacteristics.BarcodeDetectionOptions;
-import com.dynarithmic.twain.highlevel.acquirecharacteristics.PatchcodeDetectionOptions;
+import com.dynarithmic.twain.highlevel.acquirecharacteristics.*;
 import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
 import com.dynarithmic.twain.lowlevel.TW_FRAME;
 
@@ -84,7 +77,7 @@ public class ExtendedImageInfoDemo
                 BarcodeInfo barInfo = info.getBarcodeInfo();
                 
                 // Get the number of barcodes detected
-                long barcodeCount = barInfo.getCount().getValue();
+                long barcodeCount = barInfo.getCount();
                 System.out.println("Barcode count = " + barcodeCount);
                 
                 // Print out barcode information for each barcode found
@@ -92,63 +85,63 @@ public class ExtendedImageInfoDemo
                 {
                     BarcodeSingleInfo singleInfo = barInfo.getSingleInfo((int)i);
                     System.out.println("Barcode #" + (i + 1) + " (x,y) position = {" + 
-                            singleInfo.getXCoordinate().getValue() + ", " + singleInfo.getYCoordinate().getValue() + "}");
+                            singleInfo.getXCoordinate() + ", " + singleInfo.getYCoordinate() + "}");
                     System.out.println("Barcode #" + (i + 1) + " text = " + singleInfo.getText());
                     System.out.println("Barcode #" + (i + 1) + " type = " + singleInfo.getTypeName(sourceHandle.getTwainSession())); 
-                    System.out.println("Barcode #" + (i + 1) + " type value = " + singleInfo.getType().getValue()); 
+                    System.out.println("Barcode #" + (i + 1) + " type value = " + singleInfo.getType()); 
                 }
 
                 // Get the patchcode information
                 PatchcodeDetectionInfo pcInfo = info.getPatchcodeDetectionInfo();
                 System.out.println();
-                System.out.println("patch code information: " + pcInfo.getPatchcode().getValue());
+                System.out.println("patch code information: " + pcInfo.getPatchcode());
                 
                 // Get the pagesource information
                 PageSourceInfo pageSource = info.getPageSourceInfo();
                 System.out.println("Camera information: " + pageSource.getCamera());
                 System.out.println("Book name: " + pageSource.getBookname());
-                System.out.println("Page number: " + pageSource.getPageNumber().getValue());
-                System.out.println("Document number: " + pageSource.getDocumentNumber().getValue());
-                System.out.println("Frame number: " + pageSource.getFrameNumber().getValue());
-                System.out.println("Chapter number: " + pageSource.getChapterNumber().getValue());
+                System.out.println("Page number: " + pageSource.getPageNumber());
+                System.out.println("Document number: " + pageSource.getDocumentNumber());
+                System.out.println("Frame number: " + pageSource.getFrameNumber());
+                System.out.println("Chapter number: " + pageSource.getChapterNumber());
                 System.out.println("PageSide: " + pageSource.getPageSideName(sourceHandle.getTwainSession()));
-                TW_FRAME frame = pageSource.getFrame();
-                System.out.println("Frame: (" + frame.getLeft().getValue() + "," +
-                                   frame.getTop().getValue() + "," +
-                                   frame.getRight().getValue() + "," +
-                                   frame.getBottom().getValue() + ")");
+                TwainFrameDouble frame = pageSource.getFrame();
+                System.out.println("Frame: (" + frame.getLeft() + "," +
+                                   frame.getTop() + "," +
+                                   frame.getRight() + "," +
+                                   frame.getBottom() + ")");
                 
                 // Get the skew status information
                 SkewDetectionInfo skewStatus = info.getSkewDetectionInfo();
                 System.out.println();
-                System.out.println("Skew status: " + skewStatus.getDeskewStatus().getValue());
+                System.out.println("Skew status: " + skewStatus.getDeskewStatus());
                 
                 // Shaded area detection info
                 ShadedAreaDetectionInfo shadedInfo = info.getShadedAreaDetectionInfo();
-                System.out.println("Shaded area count: " + shadedInfo.getCount().getValue());
+                System.out.println("Shaded area count: " + shadedInfo.getCount());
                 
                 // Test the horizontal line detection
                 LineDetectionInfo horz =  info.getHorizontalLineDetectionInfo();
-                if ( horz.getCount().getValue() > 0)
+                if ( horz.getCount() > 0)
                 {
                     LineDetectionSingleInfo singleInfoH = horz.getSingleInfo(0);
                     System.out.println("Horizontal Line Info:");
-                    System.out.println("count: " + horz.getCount().getValue());
-                    System.out.println("x-coord: " + singleInfoH.getXCoordinate().getValue());
-                    System.out.println("y-coord: " + singleInfoH.getYCoordinate().getValue());
-                    System.out.println("thickness: " + singleInfoH.getThickness().getValue());
-                    System.out.println("length: " + singleInfoH.getLength().getValue());
+                    System.out.println("count: " + horz.getCount());
+                    System.out.println("x-coord: " + singleInfoH.getXCoordinate());
+                    System.out.println("y-coord: " + singleInfoH.getYCoordinate());
+                    System.out.println("thickness: " + singleInfoH.getThickness());
+                    System.out.println("length: " + singleInfoH.getLength());
                 }
                 
                 LineDetectionInfo vert =  info.getVerticalLineDetectionInfo();
-                if ( vert.getCount().getValue() > 0)
+                if ( vert.getCount() > 0)
                 {
                     LineDetectionSingleInfo singleInfoV = vert.getSingleInfo(0);
                     System.out.println("Vertical Line Info:");
-                    System.out.println("x-coord: " + singleInfoV.getXCoordinate().getValue());
-                    System.out.println("y-coord: " + singleInfoV.getYCoordinate().getValue());
-                    System.out.println("thickness: " + singleInfoV.getThickness().getValue());
-                    System.out.println("length: " + singleInfoV.getLength().getValue());
+                    System.out.println("x-coord: " + singleInfoV.getXCoordinate());
+                    System.out.println("y-coord: " + singleInfoV.getYCoordinate());
+                    System.out.println("thickness: " + singleInfoV.getThickness());
+                    System.out.println("length: " + singleInfoV.getLength());
                 }
                 
                 // Test the image segmentation info
@@ -156,8 +149,8 @@ public class ExtendedImageInfoDemo
                 System.out.println();
                 System.out.println("Image Segmentation Info:");
                 System.out.println("ICCProfile: " + iInfo.getICCProfile());
-                System.out.println("Last Segment: " + iInfo.isLastSegment().getValue());
-                System.out.println("Segment Number: " + iInfo.getSegmentNumber().getValue());
+                System.out.println("Last Segment: " + iInfo.isLastSegment());
+                System.out.println("Segment Number: " + iInfo.getSegmentNumber());
                 
                 // Test the endorsed text
                 EndorsedTextInfo endorsedInfo = info.getEndorsedTextInfo();
@@ -169,23 +162,23 @@ public class ExtendedImageInfoDemo
                 ExtendedImageInfo20 info20 = info.getExtendedImageInfo20();
                 System.out.println();
                 System.out.println("Image Info 20 data:");
-                System.out.println("MagType: " + info20.getMagType().getValue());
+                System.out.println("MagType: " + info20.getMagType());
 
                 // Test the version 2.1 info
                 ExtendedImageInfo21 info21 = info.getExtendedImageInfo21();
                 System.out.println();
                 System.out.println("Image Info 21 data:");
                 System.out.println("File system source: " + info21.getFileSystemSource());
-                System.out.println("Mag data length: " + info21.getMagDataLength().getValue());
-                System.out.println("Page Side: " + info21.getPageSide().getValue());
+                System.out.println("Mag data length: " + info21.getMagDataLength());
+                System.out.println("Page Side: " + info21.getPageSide());
                 System.out.println("Mag data: " + new String(info21.getMagData()));
-                System.out.println("Image Merged: " + info21.getImageMerged().getValue());
+                System.out.println("Image Merged: " + info21.getImageMerged());
 
                 // Test the version 2.2 info
                 ExtendedImageInfo22 info22 = info.getExtendedImageInfo22();
                 System.out.println();
                 System.out.println("Image Info 22 data:");
-                System.out.println("Paper count: " + info22.getPaperCount().getValue());
+                System.out.println("Paper count: " + info22.getPaperCount());
                 
                 // Test the version 2.3 info
                 ExtendedImageInfo23 info23 = info.getExtendedImageInfo23();
@@ -204,8 +197,8 @@ public class ExtendedImageInfoDemo
                 System.out.println();
                 System.out.println("Image Info 25 data:");
                 System.out.println("IALevelA: " + info25.getIAFieldValueA());
-                System.out.println("IALevel: " + info25.getIALevel().getValue());
-                System.out.println("Printer: " + info25.getPrinter().getValue());
+                System.out.println("IALevel: " + info25.getIALevel());
+                System.out.println("Printer: " + info25.getPrinter());
                 System.out.println("Num Codes: " + info25.getNumBarCodes());
                 System.out.println("Code: " + info25.getBarCode(6));
                 

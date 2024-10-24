@@ -3429,10 +3429,11 @@ void JavaExtendedImageInfo::setSkewDetectionInfo(ExtendedImageInfo_SkewDetection
     proxy_skewdetectioninfo.setWindowY3(info.WindowY3);
     proxy_skewdetectioninfo.setWindowY4(info.WindowY4);
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void JavaExtendedImageInfo::setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNativeV& info)
 {
-    setShadedAreaInfoCount(info.count);
+    jobject thisObject = callObjectMethod(getFunctionName(GetShadedAreaDetectionInfo));
+    setShadedAreaInfoCount(info.count, thisObject);
     for (TW_UINT32 i = 0; i < info.count; ++i)
     {
         ExtendedImageInfo_ShadedAreaDetectionInfoNative sInfo;
@@ -3450,24 +3451,22 @@ void JavaExtendedImageInfo::setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedA
         sInfo.whiteRLMax = info.whiteRLMaxV[i];
         sInfo.whiteRLAvg = info.whiteRLAvgV[i];
         sInfo.size = info.sizeV[i];
-        setShadedAreaDetectionInfo(sInfo, i);
+        setShadedAreaDetectionInfo(sInfo, i, thisObject);
     }
 }
 
-void JavaExtendedImageInfo::setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNative& sInfo, int nWhich)
+void JavaExtendedImageInfo::setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNative& sInfo, int nWhich, jobject thisObject)
 {
-    jobject sObject = callObjectMethod(getFunctionName(GetShadedAreaDetectionInfo));
-    proxy_shadedareainfo.setObject(sObject);
-    proxy_shadedareainfo.setSingleInfo(sObject, sInfo, nWhich);
+    proxy_shadedareainfo.setObject(thisObject);
+    proxy_shadedareainfo.setSingleInfo(thisObject, sInfo, nWhich);
 }
 
-void JavaExtendedImageInfo::setShadedAreaInfoCount(TW_UINT32 count)
+void JavaExtendedImageInfo::setShadedAreaInfoCount(TW_UINT32 count, jobject thisObject)
 {
-    jobject sObject = callObjectMethod(getFunctionName(GetShadedAreaDetectionInfo));
-    proxy_shadedareainfo.setObject(sObject);
+    proxy_shadedareainfo.setObject(thisObject);
     proxy_shadedareainfo.setCount(count);
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 void JavaExtendedImageInfo::setSpeckleRemovalInfo(const ExtendedImageInfo_SpeckleRemovalInfoNative& sInfo)
 {
     jobject sObject = callObjectMethod(getFunctionName(GetSpeckleRemovalInfo));
@@ -3503,24 +3502,24 @@ void JavaExtendedImageInfo::setAllVerticalLineInfo(const ExtendedImageInfo_LineD
 ////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_BarcodeInfo_SingleInfo::JavaExtendedImageInfo_BarcodeInfo_SingleInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_BarcodeInfo_SingleInfo",
-    { SetConfidence, SetRotation, SetTextLength,SetText, SetX, SetY, SetType }), proxy_uint32(env)
+    { SetConfidence, SetRotation, SetTextLength,SetText, SetX, SetY, SetType })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setConfidence(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetConfidence).c_str(), val);
+    callObjectMethod(getFunctionName(SetConfidence), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setRotation(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetRotation).c_str(), val);
+    callObjectMethod(getFunctionName(SetRotation), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setTextLength(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetTextLength).c_str(), val);
+    callObjectMethod(getFunctionName(SetTextLength), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setText(std::string val)
@@ -3531,17 +3530,17 @@ void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setText(std::string val)
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setX(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetX).c_str(), val);
+    callObjectMethod(getFunctionName(SetX), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setY(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetY).c_str(), val);
+    callObjectMethod(getFunctionName(SetY), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::setType(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetType).c_str(), val);
+    callObjectMethod(getFunctionName(SetType), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::NativeToJava(ExtendedImageInfo_BarcodeInfoNative& val)
@@ -3558,14 +3557,14 @@ void JavaExtendedImageInfo_BarcodeInfo_SingleInfo::NativeToJava(ExtendedImageInf
 ///////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_BarcodeInfo::JavaExtendedImageInfo_BarcodeInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_BarcodeInfo",
-        {SetCount, SetSingleInfo}), proxy_uint32(env), proxy_singleinfo(env)
+        {SetCount, SetSingleInfo}), proxy_singleinfo(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_BarcodeInfo::setCount(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32,  getFunctionName(SetCount).c_str(), val);
+    callObjectMethod(getFunctionName(SetCount), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_BarcodeInfo::setSingleInfo(jobject objParent, ExtendedImageInfo_BarcodeInfoNative& info, int nWhich)
@@ -3580,79 +3579,79 @@ void JavaExtendedImageInfo_BarcodeInfo::setSingleInfo(jobject objParent, Extende
 JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo",
     { SetTop, SetLeft, SetHeight, SetWidth, SetSize, SetBlackCountOld, SetBlackCountNew, SetBlackRLMin,
-        SetBlackRLMax, SetWhiteCountOld, SetWhiteCountNew, SetWhiteRLMin, SetWhiteRLMax, SetWhiteRLAvg}), proxy_uint32(env)
+        SetBlackRLMax, SetWhiteCountOld, SetWhiteCountNew, SetWhiteRLMin, SetWhiteRLMax, SetWhiteRLAvg})
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setTop(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetTop).c_str(), val);
+    callObjectMethod(getFunctionName(SetTop), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setLeft(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetLeft).c_str(), val);
+    callObjectMethod(getFunctionName(SetLeft), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setHeight(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetHeight).c_str(), val);
+    callObjectMethod(getFunctionName(SetHeight), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setWidth(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWidth).c_str(), val);
+    callObjectMethod(getFunctionName(SetWidth), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setSize(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetSize).c_str(), val);
+    callObjectMethod(getFunctionName(SetSize), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setBlackCountOld(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetBlackCountOld).c_str(), val);
+    callObjectMethod(getFunctionName(SetBlackCountOld), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setBlackCountNew(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetBlackCountNew).c_str(), val);
+    callObjectMethod(getFunctionName(SetBlackCountNew), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setBlackRLMin(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetBlackRLMin).c_str(), val);
+    callObjectMethod(getFunctionName(SetBlackRLMin), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setBlackRLMax(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetBlackRLMax).c_str(), val);
+    callObjectMethod(getFunctionName(SetBlackRLMax), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setWhiteCountOld(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWhiteCountOld).c_str(), val);
+    callObjectMethod(getFunctionName(SetWhiteCountOld), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setWhiteCountNew(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWhiteCountNew).c_str(), val);
+    callObjectMethod(getFunctionName(SetWhiteCountNew), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setWhiteRLMin(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWhiteRLMin).c_str(), val);
+    callObjectMethod(getFunctionName(SetWhiteRLMin), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setWhiteRLMax(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWhiteRLMax).c_str(), val);
+    callObjectMethod(getFunctionName(SetWhiteRLMax), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::setWhiteRLAvg(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWhiteRLAvg).c_str(), val);
+    callObjectMethod(getFunctionName(SetWhiteRLAvg), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo::NativeToJava(const ExtendedImageInfo_ShadedAreaDetectionInfoNative& val)
@@ -3682,7 +3681,7 @@ JavaExtendedImageInfo_ShadedAreaDetectionInfo::JavaExtendedImageInfo_ShadedAreaD
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo::setCount(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetCount).c_str(), val);
+    callObjectMethod(getFunctionName(SetCount), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ShadedAreaDetectionInfo::setSingleInfo(jobject objParent, ExtendedImageInfo_ShadedAreaDetectionInfoNative& info, int nWhich)
@@ -3695,25 +3694,24 @@ void JavaExtendedImageInfo_ShadedAreaDetectionInfo::setSingleInfo(jobject objPar
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_SpeckleRemovalInfo::JavaExtendedImageInfo_SpeckleRemovalInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_SpeckleRemovalInfo",
-    { SetSpecklesRemoved, SetWhiteSpecklesRemoved, SetBlackSpecklesRemoved }),
-    proxy_uint32(env)
+    { SetSpecklesRemoved, SetWhiteSpecklesRemoved, SetBlackSpecklesRemoved })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_SpeckleRemovalInfo::setSpecklesRemoved(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetSpecklesRemoved).c_str(), val);
+    callObjectMethod(getFunctionName(SetSpecklesRemoved), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SpeckleRemovalInfo::setWhiteSpecklesRemoved(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWhiteSpecklesRemoved).c_str(), val);
+    callObjectMethod(getFunctionName(SetWhiteSpecklesRemoved), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SpeckleRemovalInfo::setBlackSpecklesRemoved(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetBlackSpecklesRemoved).c_str(), val);
+    callObjectMethod(getFunctionName(SetBlackSpecklesRemoved), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SpeckleRemovalInfo::NativeToJava(const ExtendedImageInfo_SpeckleRemovalInfoNative& val)
@@ -3726,29 +3724,29 @@ void JavaExtendedImageInfo_SpeckleRemovalInfo::NativeToJava(const ExtendedImageI
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_LineSingleInfo::JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env) 
     : JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>(env, "ExtendedImageInfo_LineDetectionInfo_SingleInfo",
-        { SetXCoordinate, SetYCoordinate, SetLength, SetThickness}), proxy_uint32(env)
+        { SetXCoordinate, SetYCoordinate, SetLength, SetThickness})
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_LineSingleInfo::setXCoordinate(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetXCoordinate).c_str(), val);
+    callObjectMethod(getFunctionName(SetXCoordinate), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_LineSingleInfo::setYCoordinate(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetYCoordinate).c_str(), val);
+    callObjectMethod(getFunctionName(SetYCoordinate), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_LineSingleInfo::setLength(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetLength).c_str(), val);
+    callObjectMethod(getFunctionName(SetLength), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_LineSingleInfo::setThickness(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetThickness).c_str(), val);
+    callObjectMethod(getFunctionName(SetThickness), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_LineSingleInfo::NativeToJava(const ExtendedImageInfo_LineDetectionInfoNative& info)
@@ -3761,14 +3759,14 @@ void JavaExtendedImageInfo_LineSingleInfo::NativeToJava(const ExtendedImageInfo_
 
 JavaExtendedImageInfo_LineDetectionInfo::JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_LineDetectionInfo",
-    {SetCount, SetSingleInfo}), proxy_uint32(env), proxy_lineInfo(env)
+    {SetCount, SetSingleInfo}), proxy_lineInfo(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_LineDetectionInfo::setCount(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetCount).c_str(), val);
+    callObjectMethod(getFunctionName(SetCount), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_LineDetectionInfo::setSingleInfo(jobject objParent, const ExtendedImageInfo_LineDetectionInfoNative& info, int nWhich)
@@ -3781,95 +3779,94 @@ void JavaExtendedImageInfo_LineDetectionInfo::setSingleInfo(jobject objParent, c
 //////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_PatchcodeDetectionInfo::JavaExtendedImageInfo_PatchcodeDetectionInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_PatchcodeDetectionInfo",
-                     { SetPatchcode }), proxy_uint32(env)
+                     { SetPatchcode })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_PatchcodeDetectionInfo::setPatchcode(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetPatchcode).c_str(), val);
+    callObjectMethod(getFunctionName(SetPatchcode), static_cast<jlong>(val));
 }
-
 //////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_SkewDetectionInfo::JavaExtendedImageInfo_SkewDetectionInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_SkewDetectionInfo",
                      {SetDeskewStatus,SetOriginalAngle, SetFinalAngle,SetConfidence,SetWindowX1,
                       SetWindowX2,SetWindowX3,SetWindowX4,SetWindowY1,SetWindowY2,SetWindowY3,
-                      SetWindowY4}), proxy_uint32(env)
+                      SetWindowY4})
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setDeskewStatus(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetDeskewStatus).c_str(), val);
+    callObjectMethod(getFunctionName(SetDeskewStatus), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setOriginalAngle(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetOriginalAngle).c_str(), val);
+    callObjectMethod(getFunctionName(SetOriginalAngle), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setFinalAngle(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetFinalAngle).c_str(), val);
+    callObjectMethod(getFunctionName(SetFinalAngle), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setConfidence(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetConfidence).c_str(), val);
+    callObjectMethod(getFunctionName(SetConfidence), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowX1(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowX1).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowX1), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowX2(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowX2).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowX2), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowX3(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowX3).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowX3), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowX4(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowX4).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowX4), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowY1(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowY1).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowY1), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowY2(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowY2).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowY2), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowY3(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowY3).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowY3), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_SkewDetectionInfo::setWindowY4(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetWindowY4).c_str(), val);
+    callObjectMethod(getFunctionName(SetWindowY4), static_cast<jlong>(val));
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_EndorsedTextInfo::JavaExtendedImageInfo_EndorsedTextInfo(JNIEnv* env) :
-    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_EndorsedTextInfo", { SetText }), strproxy(env)
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_EndorsedTextInfo", { SetText })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
-void JavaExtendedImageInfo_EndorsedTextInfo::setText(const TW_STR255 val)
+void JavaExtendedImageInfo_EndorsedTextInfo::setText(std::string val)
 {
-    setProxyData(strproxy, getFunctionName(SetText).c_str(), val);
+    callObjectMethod(getFunctionName(SetText), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3928,39 +3925,39 @@ JavaExtendedImageInfo_PageSourceInfo::JavaExtendedImageInfo_PageSourceInfo(JNIEn
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_PageSourceInfo",
                      { SetBookname, SetChapterNumber, SetDocumentNumber,
                          SetPageNumber, SetCamera, SetFrameNumber, SetFrame, SetPixelFlavor, SetPageSide }),
-                        proxy_uint32(env), proxy_uint16(env), proxy_str255(env), proxy_frame(env)
+                         proxy_frame(env)
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
-void JavaExtendedImageInfo_PageSourceInfo::setBookname(TW_STR255 val)
+void JavaExtendedImageInfo_PageSourceInfo::setBookname(std::string val)
 {
-    setProxyData(proxy_str255, getFunctionName(SetBookname).c_str(), val);
+    callObjectMethod(getFunctionName(SetBookname), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
 void JavaExtendedImageInfo_PageSourceInfo::setChapterNumber(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetChapterNumber).c_str(), val);
+    callObjectMethod(getFunctionName(SetChapterNumber), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_PageSourceInfo::setDocumentNumber(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetDocumentNumber).c_str(), val);
+    callObjectMethod(getFunctionName(SetDocumentNumber), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_PageSourceInfo::setPageNumber(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetPageNumber).c_str(), val);
+    callObjectMethod(getFunctionName(SetPageNumber), static_cast<jlong>(val));
 }
 
-void JavaExtendedImageInfo_PageSourceInfo::setCamera(TW_STR255 val)
+void JavaExtendedImageInfo_PageSourceInfo::setCamera(std::string val)
 {
-    setProxyData(proxy_str255, getFunctionName(SetCamera).c_str(), val);
+    callObjectMethod(getFunctionName(SetCamera), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
 void JavaExtendedImageInfo_PageSourceInfo::setFrameNumber(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetFrameNumber).c_str(), val);
+    callObjectMethod(getFunctionName(SetFrameNumber), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_PageSourceInfo::setFrame(TW_FRAME val)
@@ -3970,36 +3967,35 @@ void JavaExtendedImageInfo_PageSourceInfo::setFrame(TW_FRAME val)
 
 void JavaExtendedImageInfo_PageSourceInfo::setPixelFlavor(TW_UINT16 val)
 {
-    setProxyData(proxy_uint16, getFunctionName(SetPixelFlavor).c_str(), val);
+    callObjectMethod(getFunctionName(SetPixelFlavor), static_cast<jint>(val));
 }
 
 void JavaExtendedImageInfo_PageSourceInfo::setPageSide(TW_UINT16 val)
 {
-    setProxyData(proxy_uint16, getFunctionName(SetPageSide).c_str(), val);
+    callObjectMethod(getFunctionName(SetPageSide), static_cast<jint>(val));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_ImageSegmentationInfo::JavaExtendedImageInfo_ImageSegmentationInfo(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ImageSegmentationInfo",
-                     { SetICCProfile, SetLastSegment, SetSegmentNumber }),
-                        proxy_bool(env), proxy_uint32(env), proxy_str255(env)
+                     { SetICCProfile, SetLastSegment, SetSegmentNumber })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
-void JavaExtendedImageInfo_ImageSegmentationInfo::setICCProfile(TW_STR255 val)
+void JavaExtendedImageInfo_ImageSegmentationInfo::setICCProfile(std::string val)
 {
-    setProxyData(proxy_str255, getFunctionName(SetICCProfile).c_str(), val);
+    callObjectMethod(getFunctionName(SetICCProfile), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
 void JavaExtendedImageInfo_ImageSegmentationInfo::setLastSegment(TW_BOOL val)
 {
-    setProxyData(proxy_bool, getFunctionName(SetLastSegment).c_str(), val);
+    callObjectMethod(getFunctionName(SetLastSegment), static_cast<jboolean>(val));
 }
 
 void JavaExtendedImageInfo_ImageSegmentationInfo::setSegmentNumber(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetSegmentNumber).c_str(), val);
+    callObjectMethod(getFunctionName(SetSegmentNumber), static_cast<jlong>(val));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4012,63 +4008,62 @@ JavaExtendedImageInfo_ExtendedImageInfo20::JavaExtendedImageInfo_ExtendedImageIn
 
 void JavaExtendedImageInfo_ExtendedImageInfo20::setMagType(TW_UINT16 val)
 {
-    setProxyData(proxy_uint16, getFunctionName(SetMagType).c_str(), val);
+    callObjectMethod(getFunctionName(SetMagType), static_cast<jint>(val));
 }
 ////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_ExtendedImageInfo21::JavaExtendedImageInfo_ExtendedImageInfo21(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo21",
-        { SetFileSystemSource, SetImageMerged, SetPageSide, SetMagData, SetMagDataLength}), 
-        proxy_uint16(env), proxy_uint32(env), proxy_str255(env), proxy_bool(env)
+        { SetFileSystemSource, SetImageMerged, SetPageSide, SetMagData, SetMagDataLength})
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
-void JavaExtendedImageInfo_ExtendedImageInfo21::setFileSystemSource(TW_STR255 val)
+void JavaExtendedImageInfo_ExtendedImageInfo21::setFileSystemSource(std::string val)
 {
-    setProxyData(proxy_str255, getFunctionName(SetFileSystemSource).c_str(), val);
+    callObjectMethod(getFunctionName(SetFileSystemSource), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo21::setImageMerged(TW_BOOL val)
 {
-    setProxyData(proxy_bool, getFunctionName(SetImageMerged).c_str(), val);
+    callObjectMethod(getFunctionName(SetImageMerged), static_cast<jboolean>(val));
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo21::setPageSide(TW_UINT16 val)
 {
-    setProxyData(proxy_uint16, getFunctionName(SetPageSide).c_str(), val);
+    callObjectMethod(getFunctionName(SetPageSide), static_cast<jint>(val));
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo21::setMagDataLength(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetMagDataLength).c_str(), val);
+    callObjectMethod(getFunctionName(SetMagDataLength), static_cast<jlong>(val));
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo21::setMagData(jbyteArray magData)
 {
-    callVoidMethod(getFunctionName(SetMagData), magData);
+    callObjectMethod(getFunctionName(SetMagData), magData);
 }
 ////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_ExtendedImageInfo22::JavaExtendedImageInfo_ExtendedImageInfo22(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo22",
-        { SetPaperCount }), proxy_uint32(env)
+        { SetPaperCount })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo22::setPaperCount(TW_UINT32 val)
 {
-    setProxyData(proxy_uint32, getFunctionName(SetPaperCount).c_str(), val);
+    callObjectMethod(getFunctionName(SetPaperCount), static_cast<jlong>(val));
 }
 ////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_ExtendedImageInfo23::JavaExtendedImageInfo_ExtendedImageInfo23(JNIEnv* env) :
-    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo23", { SetPrinterText }), proxy_str255(env)
+    JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo23", { SetPrinterText })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
-void JavaExtendedImageInfo_ExtendedImageInfo23::setPrinterText(TW_STR255 val)
+void JavaExtendedImageInfo_ExtendedImageInfo23::setPrinterText(std::string val)
 {
-    setProxyData(proxy_str255, getFunctionName(SetPrinterText).c_str(), val);
+    callObjectMethod(getFunctionName(SetPrinterText), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 ////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_ExtendedImageInfo24::JavaExtendedImageInfo_ExtendedImageInfo24(JNIEnv* env) :
@@ -4079,56 +4074,54 @@ JavaExtendedImageInfo_ExtendedImageInfo24::JavaExtendedImageInfo_ExtendedImageIn
 
 void JavaExtendedImageInfo_ExtendedImageInfo24::setTwainDirectMetaData(std::string sMetaData)
 {
-    callVoidMethod(getFunctionName(SetTwainDirectMetaData), CreateJStringFromCStringA(m_pJavaEnv, sMetaData.c_str()));
+    callObjectMethod(getFunctionName(SetTwainDirectMetaData), CreateJStringFromCStringA(m_pJavaEnv, sMetaData.c_str()));
 }
 ////////////////////////////////////////////////////////////
 JavaExtendedImageInfo_ExtendedImageInfo25::JavaExtendedImageInfo_ExtendedImageInfo25(JNIEnv* env) :
     JavaExtendedImageInfo_ParentClass(env, "ExtendedImageInfo_ExtendedImageInfo25", 
-        { SetIAFieldA, SetIAFieldB, SetIAFieldC, SetIAFieldD, SetIAFieldE, SetIALevel, SetPrinter, AddBarcodeText }),
-        proxy_str32(env), proxy_uint16(env)
+        { SetIAFieldA, SetIAFieldB, SetIAFieldC, SetIAFieldD, SetIAFieldE, SetIALevel, SetPrinter, AddBarcodeText })
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
 
-void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldA(TW_STR32 val)
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldA(std::string val)
 {
-    setProxyData(proxy_str32, getFunctionName(SetIAFieldA).c_str(), val);
+    callObjectMethod(getFunctionName(SetIAFieldA), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
-void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldB(TW_STR32 val)
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldB(std::string val)
 {
-    setProxyData(proxy_str32, getFunctionName(SetIAFieldB).c_str(), val);
+    callObjectMethod(getFunctionName(SetIAFieldB), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
-void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldC(TW_STR32 val)
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldC(std::string val)
 {
-    setProxyData(proxy_str32, getFunctionName(SetIAFieldC).c_str(), val);
+    callObjectMethod(getFunctionName(SetIAFieldC), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
-void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldD(TW_STR32 val)
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldD(std::string val)
 {
-    setProxyData(proxy_str32, getFunctionName(SetIAFieldD).c_str(), val);
+    callObjectMethod(getFunctionName(SetIAFieldD), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
-void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldE(TW_STR32 val)
+void JavaExtendedImageInfo_ExtendedImageInfo25::setIAFieldE(std::string val)
 {
-    setProxyData(proxy_str32, getFunctionName(SetIAFieldE).c_str(), val);
+    callObjectMethod(getFunctionName(SetIAFieldE), CreateJStringFromCStringA(m_pJavaEnv, val.c_str()));
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo25::setIALevel(TW_UINT16 val)
 {
-    setProxyData(proxy_uint16, getFunctionName(SetIALevel).c_str(), val);
+    callObjectMethod(getFunctionName(SetIALevel), static_cast<jint>(val));
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo25::setPrinter(TW_UINT16 val)
 {
-    setProxyData(proxy_uint16, getFunctionName(SetPrinter).c_str(), val);
+    callObjectMethod(getFunctionName(SetPrinter), static_cast<jint>(val));
 }
 
 void JavaExtendedImageInfo_ExtendedImageInfo25::addBarcodeText(std::string text)
 {
-    const jstring str = CreateJStringFromCStringA(m_pJavaEnv, text.c_str());
-    callObjectMethod(getFunctionName(AddBarcodeText), str);
+    callObjectMethod(getFunctionName(AddBarcodeText), CreateJStringFromCStringA(m_pJavaEnv, text.c_str()));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////

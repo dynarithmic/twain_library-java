@@ -714,20 +714,20 @@ Constructor                             <>                                 (D)V
 DoubleValue                             doubleValue                        ()D
 
 TextRenderMode                          com/dynarithmic/twain/DTwainConstants/TextRenderMode      2
-Constructor				<>                                 (I)V
+Constructor                             <>                                 (I)V
 GetValue                                value                              ()I
 
 TextPageDisplayOptions                  com/dynarithmic/twain/DTwainConstants/TextPageDisplayOptions    2
-Constructor				<>                                 (I)V
+Constructor                             <>                                 (I)V
 GetValue                                value                              ()I
 
-RGBColor				com/dynarithmic/twain/highlevel/RGBColor                   4
+RGBColor                                com/dynarithmic/twain/highlevel/RGBColor                   4
 DefaultConstructor                      <>                                 ()V
 GetR                                    getR                               ()I
 GetG                                    getG                               ()I
 GetB                                    getB                               ()I
 
-PDFTextElement				com/dynarithmic/twain/highlevel/PDFTextElement		    13
+PDFTextElement                          com/dynarithmic/twain/highlevel/PDFTextElement          13
 DefaultConstructor                      <>                                 ()V
 GetFontName                             getFontName                        ()Ljava/lang/String;
 GetText                                 getText                            ()Ljava/lang/String;
@@ -747,81 +747,81 @@ GetDisplayOptions                       getPageDisplayOptionsAsInt         ()I
 ;===================================================
 ExtendedImageInfo_BarcodeInfo_SingleInfo  com/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo 8
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;)V
-SetConfidence                           setConfidence                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
-SetRotation                             setRotation                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
-SetTextLength                           setTextLength                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetConfidence                           setConfidence                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetRotation                             setRotation                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetTextLength                           setTextLength                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
 SetText                                 setText                            (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
-SetX                                    setXCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
-SetY                                    setYCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
-SetType                                 setType                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetX                                    setXCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetY                                    setYCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetType                                 setType                            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
 
 ExtendedImageInfo_BarcodeInfo           com/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo 3
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetCount                                setCount                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
+SetCount                                setCount                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
 SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
 
 ExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo 15
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;)V
-SetTop                                  setTop                             (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetLeft                                 setLeft                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetHeight                               setHeight                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetWidth                                setWidth                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetSize                                 setSize                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetBlackCountOld                        setBlackCountOld                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetBlackCountNew                        setBlackCountNew                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetBlackRLMin                           setBlackRLMin                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetBlackRLMax                           setBlackRLMax                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetWhiteCountOld                        setWhiteCountOld                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetWhiteCountNew                        setWhiteCountNew                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetWhiteRLMin                           setWhiteRLMin                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetWhiteRLMax                           setWhiteRLMax                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
-SetWhiteRLAvg                           setWhiteRLAverage                  (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetTop                                  setTop                             (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetLeft                                 setLeft                            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetHeight                               setHeight                          (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWidth                                setWidth                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetSize                                 setSize                            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackCountOld                        setBlackCountOld                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackCountNew                        setBlackCountNew                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackRLMin                           setBlackRLMin                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackRLMax                           setBlackRLMax                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteCountOld                        setWhiteCountOld                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteCountNew                        setWhiteCountNew                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteRLMin                           setWhiteRLMin                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteRLMax                           setWhiteRLMax                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteRLAvg                           setWhiteRLAverage                  (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
 
 ExtendedImageInfo_ShadedAreaDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo  3
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetCount                                setCount                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
+SetCount                                setCount                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
 SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
 
 ExtendedImageInfo_SpeckleRemovalInfo    com/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo  4
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetSpecklesRemoved                      setSpecklesRemoved                 (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
-SetWhiteSpecklesRemoved                 setWhiteSpecklesRemoved            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
-SetBlackSpecklesRemoved                 setBlackSpecklesRemoved            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+SetSpecklesRemoved                      setSpecklesRemoved                 (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+SetWhiteSpecklesRemoved                 setWhiteSpecklesRemoved            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+SetBlackSpecklesRemoved                 setBlackSpecklesRemoved            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
 ;------------------------------------------------------------------------------------
 ExtendedImageInfo_LineDetectionInfo_SingleInfo                             com/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo 5
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;)V
-SetXCoordinate                          setXCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
-SetYCoordinate                          setYCoordinate                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
-SetLength                               setLength                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
-SetThickness                            setThickness                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+SetXCoordinate                          setXCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+SetYCoordinate                          setYCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+SetLength                               setLength                          (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+SetThickness                            setThickness                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
 
 ExtendedImageInfo_LineDetectionInfo                                        com/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo  3
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetCount                                setCount                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;
+SetCount                                setCount                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;
 SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;
 ;------------------------------------------------------------------------------------
 ExtendedImageInfo_PatchcodeDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo  2
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetPatchcode                            setPatchcode                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo;
+SetPatchcode                            setPatchcode                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo;
 
 ExtendedImageInfo_SkewDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo  13
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetDeskewStatus                         setDeskewStatus                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetOriginalAngle                        setOriginalAngle                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetFinalAngle                           setFinalAngle                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetConfidence                           setConfidence                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowX1                             setWindowX1                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowX2                             setWindowX2                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowX3                             setWindowX3                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowX4                             setWindowX4                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowY1                             setWindowY1                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowY2                             setWindowY2                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowY3                             setWindowY3                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
-SetWindowY4                             setWindowY4                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetDeskewStatus                         setDeskewStatus                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetOriginalAngle                        setOriginalAngle                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetFinalAngle                           setFinalAngle                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetConfidence                           setConfidence                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX1                             setWindowX1                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX2                             setWindowX2                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX3                             setWindowX3                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX4                             setWindowX4                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY1                             setWindowY1                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY2                             setWindowY2                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY3                             setWindowY3                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY4                             setWindowY4                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
 
 ExtendedImageInfo_EndorsedTextInfo      com/dynarithmic/twain/highlevel/ExtendedImageInfo$EndorsedTextInfo  2
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetText                                 setText                            (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$EndorsedTextInfo;
+SetText                                 setText                            (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$EndorsedTextInfo;
 
 ExtendedImageInfo_FormsRecognitionInfo  com/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo  6
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
@@ -833,56 +833,56 @@ SetVerticalDocOffset                    setVerticalDocOffset               (Ljav
 
 ExtendedImageInfo_PageSourceInfo       com/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo  10
 Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetBookname                            setBookname                         (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
-SetChapterNumber                       setChapterNumber                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
-SetDocumentNumber                      setDocumentNumber                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
-SetPageNumber                          setPageNumber                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
-SetCamera                              setCamera                           (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
-SetFrameNumber                         setFrameNumber                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetBookname                            setBookname                         (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetChapterNumber                       setChapterNumber                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetDocumentNumber                      setDocumentNumber                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetPageNumber                          setPageNumber                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetCamera                              setCamera                           (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetFrameNumber                         setFrameNumber                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
 SetFrame                               setFrame                            (Lcom/dynarithmic/twain/lowlevel/TW_FRAME;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
-SetPixelFlavor                         setPixelFlavor                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
-SetPageSide                            setPageSide                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetPixelFlavor                         setPixelFlavor                      (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetPageSide                            setPageSide                         (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
 
 ExtendedImageInfo_ExtendedImageInfo20  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20  2
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetMagType                             setMagType                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20;
+SetMagType                             setMagType                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20;
 
-ExtendedImageInfo_ExtendedImageInfo21  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21	  6
+ExtendedImageInfo_ExtendedImageInfo21  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21      6
 Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetFileSystemSource                    setFileSystemSource                 (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetFileSystemSource                    setFileSystemSource                 (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
 SetMagData                             setMagData                          ([B)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
-SetImageMerged                         setImageMerged                      (Lcom/dynarithmic/twain/lowlevel/TW_BOOL;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
-SetMagDataLength                       setMagDataLength                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
-SetPageSide                            setPageSide                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetImageMerged                         setImageMerged                      (Z)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetMagDataLength                       setMagDataLength                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetPageSide                            setPageSide                         (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
 
-ExtendedImageInfo_ExtendedImageInfo22  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22	  2
+ExtendedImageInfo_ExtendedImageInfo22  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22      2
 Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetPaperCount                          setPaperCount                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22;
+SetPaperCount                          setPaperCount                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22;
 
-ExtendedImageInfo_ExtendedImageInfo23  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23	  2
+ExtendedImageInfo_ExtendedImageInfo23  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23      2
 Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetPrinterText                         setPrinterText                      (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
+SetPrinterText                         setPrinterText                      (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
 
-ExtendedImageInfo_ExtendedImageInfo24  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24	  2
+ExtendedImageInfo_ExtendedImageInfo24  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24      2
 Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
 SetTwainDirectMetaData                 setTwainDirectMetaData              (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
 
-ExtendedImageInfo_ExtendedImageInfo25  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25	  9
+ExtendedImageInfo_ExtendedImageInfo25  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25      9
 Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetIAFieldA                            setIAFieldValueA                    (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-SetIAFieldB                            setIAFieldValueB                    (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-SetIAFieldC                            setIAFieldValueC                    (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-SetIAFieldD                            setIAFieldValueD                    (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-SetIAFieldE                            setIAFieldValueE                    (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-SetIALevel                             setIALevel                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-SetPrinter                             setPrinter                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldA                            setIAFieldValueA                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldB                            setIAFieldValueB                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldC                            setIAFieldValueC                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldD                            setIAFieldValueD                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldE                            setIAFieldValueE                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIALevel                             setIALevel                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetPrinter                             setPrinter                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
 AddBarcodeText                         addBarcodeText                      (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;  
 
 ExtendedImageInfo_ImageSegmentationInfo com/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo  4
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
-SetICCProfile                          setICCProfile                       (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
-SetLastSegment                         setLastSegment                      (Lcom/dynarithmic/twain/lowlevel/TW_BOOL;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
-SetSegmentNumber                       setSegmentNumber                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
+SetICCProfile                          setICCProfile                       (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
+SetLastSegment                         setLastSegment                      (Z)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
+SetSegmentNumber                       setSegmentNumber                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
 
 ExtendedImageInfo                      com/dynarithmic/twain/highlevel/ExtendedImageInfo    36
 DefaultConstructor                      <>                                 ()V
@@ -903,7 +903,7 @@ SetExtendedImageInfo22                 setExtendedImageInfo22              (Lcom
 SetExtendedImageInfo23                 setExtendedImageInfo23              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
 SetExtendedImageInfo24                 setExtendedImageInfo24              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
 SetExtendedImageInfo25                 setExtendedImageInfo25              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
-SetSupportedExtendedImageInfo		   setSupportedExtendedImageInfo       ([I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+SetSupportedExtendedImageInfo          setSupportedExtendedImageInfo       ([I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
 GetBarcodeInfo                         getBarcodeInfo                      ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
 GetShadedAreaDetectionInfo             getShadedAreaDetectionInfo          ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
 GetSpeckleRemovalInfo                  getSpeckleRemovalInfo               ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;

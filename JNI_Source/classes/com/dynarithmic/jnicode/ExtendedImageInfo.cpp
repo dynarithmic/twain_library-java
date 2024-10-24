@@ -146,14 +146,18 @@ bool ExtendedImageInformation::FillPageSourceInfo()
     DTWAIN_ARRAY aValues = {};
     DTWAINArray_RAII raii(aValues);
     std::array<int32_t, 2> stringItems = { TWEI_CAMERA, TWEI_BOOKNAME };
-    std::array<TW_STR255*, 2> refStrings = { &m_pageSource.camera, &m_pageSource.bookname};
+    std::array<std::string*, 2> refStrings = { &m_pageSource.camera, &m_pageSource.bookname};
 
     for (size_t i = 0; i < stringItems.size(); ++i)
     {
         auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, stringItems[i], &aValues);
         int nItems = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         if (nItems > 0)
-            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, *(refStrings[i]));
+        {
+            TW_STR255 szData = {};
+            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szData);
+            *(refStrings[i]) = szData;
+        }
     }
 
     {
@@ -446,7 +450,11 @@ bool ExtendedImageInformation::FillImageSegmentationInfo()
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_ICCPROFILE, &aValues);
     LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
     if (nCount > 0)
-        API_INSTANCE DTWAIN_ArrayGetAtANSIString(m_theSource, 0, m_imageSementationInfo.m_sICCProfile);
+    {
+        TW_STR255 szData = {};
+        API_INSTANCE DTWAIN_ArrayGetAtANSIString(m_theSource, 0, szData);
+        m_imageSementationInfo.m_sICCProfile = szData;
+    }
 
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_LASTSEGMENT, &aValues);
     nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
@@ -454,7 +462,7 @@ bool ExtendedImageInformation::FillImageSegmentationInfo()
     {
         LONG lVal = 0;
         API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &lVal);
-        m_imageSementationInfo.m_bLastSegment = static_cast<TW_UINT16>(lVal);
+        m_imageSementationInfo.m_bLastSegment = static_cast<TW_BOOL>(lVal);
     }
 
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_SEGMENTNUMBER, &aValues);
@@ -478,7 +486,11 @@ bool ExtendedImageInformation::FillEndorsedTextInfo()
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_ENDORSEDTEXT, &aValues);
     LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
     if (nCount > 0)
-        API_INSTANCE DTWAIN_ArrayGetAtANSIString(m_theSource, 0, m_endorsedTextInfo.m_sEndorsedText);
+    {
+        TW_STR255 szEndorsedInfo = {};
+        API_INSTANCE DTWAIN_ArrayGetAtANSIString(m_theSource, 0, szEndorsedInfo);
+        m_endorsedTextInfo.m_sEndorsedText = szEndorsedInfo;
+    }
     return true;
 }
 
@@ -545,7 +557,11 @@ bool ExtendedImageInformation::FillExtendedImageInfo21()
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_FILESYSTEMSOURCE, &aValues);
     nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
     if (nCount > 0)
-        API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, m_extendedImageInfo21.m_fileSystemSource);
+    {
+        TW_STR255 szData = {};
+        API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szData);
+        m_extendedImageInfo21.m_fileSystemSource = szData;
+    }
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_PAGESIDE, &aValues);
     nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
     if (nCount > 0)
@@ -596,7 +612,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo23()
     {
         TW_STR255 szData = {};
         API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szData);
-        strcpy_s(m_extendedImageInfo23.m_PrinterText, szData);
+        m_extendedImageInfo23.m_PrinterText = szData;
     }
     return true;
 }
@@ -642,7 +658,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo25()
         {
             TW_STR32 szData = {};
             API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValue[i], 0, szData);
-            strcpy_s(m_extendedImageInfo25.m_ImageAddressing.m_AddressInfo[i], szData);
+            m_extendedImageInfo25.m_ImageAddressing.m_AddressInfo[i] = szData;
         }
     }
 

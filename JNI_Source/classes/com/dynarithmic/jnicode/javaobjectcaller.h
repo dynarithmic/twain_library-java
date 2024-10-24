@@ -2845,8 +2845,6 @@ class JavaExtendedImageInfo_BarcodeInfo_SingleInfo : public JavaExtendedImageInf
     static constexpr const char * SetY = "SetY";
     static constexpr const char * SetType = "SetType";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-
 public:
     JavaExtendedImageInfo_BarcodeInfo_SingleInfo(JNIEnv* env);
 
@@ -2866,7 +2864,6 @@ class JavaExtendedImageInfo_BarcodeInfo : public JavaExtendedImageInfo_ParentCla
     static constexpr const char * SetCount = "SetCount";
     static constexpr const char * SetSingleInfo = "SetSingleInfo";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
     JavaExtendedImageInfo_BarcodeInfo_SingleInfo proxy_singleinfo;
 
 public:
@@ -2895,8 +2892,6 @@ class JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo : public JavaExte
     static constexpr const char * SetWhiteRLMin = "SetWhiteRLMin";
     static constexpr const char * SetWhiteRLMax = "SetWhiteRLMax";
     static constexpr const char * SetWhiteRLAvg = "SetWhiteRLAvg";
-
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
 
 public:
     JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo(JNIEnv* env);
@@ -2939,8 +2934,6 @@ class JavaExtendedImageInfo_SpeckleRemovalInfo : public JavaExtendedImageInfo_Pa
     static constexpr const char * SetWhiteSpecklesRemoved = "SetWhiteSpecklesRemoved";
     static constexpr const char * SetBlackSpecklesRemoved = "SetBlackSpecklesRemoved";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-
 public:
     JavaExtendedImageInfo_SpeckleRemovalInfo(JNIEnv* env);
 
@@ -2957,8 +2950,6 @@ class JavaExtendedImageInfo_LineSingleInfo : public JavaExtendedImageInfo_Parent
     static constexpr const char* SetLength = "SetLength";
     static constexpr const char* SetThickness = "SetThickness";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-
 public:
     JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env);
 
@@ -2974,7 +2965,6 @@ class JavaExtendedImageInfo_LineDetectionInfo : public JavaExtendedImageInfo_Par
     static constexpr const char * SetCount = "SetCount";
     static constexpr const char * SetSingleInfo = "SetSingleInfo";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
     JavaExtendedImageInfo_LineSingleInfo proxy_lineInfo;
 
 public:
@@ -2988,8 +2978,6 @@ public:
 class JavaExtendedImageInfo_PatchcodeDetectionInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetPatchcode= "SetPatchcode";
-
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
 
 public:
     JavaExtendedImageInfo_PatchcodeDetectionInfo(JNIEnv* env);
@@ -3012,8 +3000,6 @@ class JavaExtendedImageInfo_SkewDetectionInfo: public JavaExtendedImageInfo_Pare
     static constexpr const char * SetWindowY3      = "SetWindowY3";
     static constexpr const char * SetWindowY4      = "SetWindowY4";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-
 public:
     JavaExtendedImageInfo_SkewDetectionInfo(JNIEnv* env);
 
@@ -3035,11 +3021,10 @@ public:
 class JavaExtendedImageInfo_EndorsedTextInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetText = "SetText";
-    JavaDTwainLowLevel_TW_STR255 strproxy;
 
     public:
         JavaExtendedImageInfo_EndorsedTextInfo(JNIEnv* env);
-        void setText(const TW_STR255);
+        void setText(std::string val);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_FormsRecognitionInfo: public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
@@ -3081,19 +3066,15 @@ class JavaExtendedImageInfo_PageSourceInfo: public JavaExtendedImageInfo_ParentC
     static constexpr const char * SetPixelFlavor = "SetPixelFlavor";
     static constexpr const char*  SetPageSide = "SetPageSide";
 
-
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-    JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
-    JavaDTwainLowLevel_TW_STR255 proxy_str255;
     JavaDTwainLowLevel_TW_FRAME  proxy_frame;
 
 public:
     JavaExtendedImageInfo_PageSourceInfo(JNIEnv* env);
-    void setBookname(TW_STR255);
+    void setBookname(std::string val);
     void setChapterNumber(TW_UINT32);
     void setDocumentNumber(TW_UINT32);
     void setPageNumber(TW_UINT32);
-    void setCamera(TW_STR255);
+    void setCamera(std::string val);
     void setFrameNumber(TW_UINT32);
     void setFrame(TW_FRAME);
     void setPixelFlavor(TW_UINT16);
@@ -3106,13 +3087,9 @@ class JavaExtendedImageInfo_ImageSegmentationInfo : public JavaExtendedImageInfo
     static constexpr const char * SetLastSegment ="SetLastSegment";
     static constexpr const char * SetSegmentNumber = "SetSegmentNumber";
 
-    JavaDTwainLowLevel_TW_BOOL   proxy_bool;
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-    JavaDTwainLowLevel_TW_STR255 proxy_str255;
-
 public:
     JavaExtendedImageInfo_ImageSegmentationInfo(JNIEnv* env);
-    void setICCProfile(TW_STR255);
+    void setICCProfile(std::string);
     void setLastSegment(TW_BOOL);
     void setSegmentNumber(TW_UINT32);
 };
@@ -3136,14 +3113,9 @@ class JavaExtendedImageInfo_ExtendedImageInfo21: public JavaExtendedImageInfo_Pa
     static constexpr const char* SetMagDataLength = "SetMagDataLength";
     static constexpr const char* SetPageSide = "SetPageSide";
 
-    JavaDTwainLowLevel_TW_BOOL   proxy_bool;
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-    JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
-    JavaDTwainLowLevel_TW_STR255 proxy_str255;
-
 public:
     JavaExtendedImageInfo_ExtendedImageInfo21(JNIEnv* env);
-    void setFileSystemSource(TW_STR255);
+    void setFileSystemSource(std::string);
     void setImageMerged(TW_BOOL);
     void setMagDataLength(TW_UINT32);
     void setPageSide(TW_UINT16);
@@ -3154,8 +3126,6 @@ class JavaExtendedImageInfo_ExtendedImageInfo22 : public JavaExtendedImageInfo_P
 {
     static constexpr const char* SetPaperCount = "SetPaperCount";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-
 public:
     JavaExtendedImageInfo_ExtendedImageInfo22(JNIEnv* env);
     void setPaperCount(TW_UINT32);
@@ -3165,11 +3135,9 @@ class JavaExtendedImageInfo_ExtendedImageInfo23 : public JavaExtendedImageInfo_P
 {
     static constexpr const char* SetPrinterText= "SetPrinterText";
 
-    JavaDTwainLowLevel_TW_STR255 proxy_str255;
-
 public:
     JavaExtendedImageInfo_ExtendedImageInfo23(JNIEnv* env);
-    void setPrinterText(TW_STR255);
+    void setPrinterText(std::string);
 };
 /////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_ExtendedImageInfo24 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
@@ -3192,16 +3160,13 @@ class JavaExtendedImageInfo_ExtendedImageInfo25 : public JavaExtendedImageInfo_P
     static constexpr const char* SetPrinter =  "SetPrinter";
     static constexpr const char* AddBarcodeText = "AddBarcodeText";
 
-    JavaDTwainLowLevel_TW_STR32 proxy_str32;
-    JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
-
 public:
     JavaExtendedImageInfo_ExtendedImageInfo25(JNIEnv* env);
-    void setIAFieldA(TW_STR32 val);
-    void setIAFieldB(TW_STR32 val);
-    void setIAFieldC(TW_STR32 val);
-    void setIAFieldD(TW_STR32 val);
-    void setIAFieldE(TW_STR32 val);
+    void setIAFieldA(std::string val);
+    void setIAFieldB(std::string val);
+    void setIAFieldC(std::string val);
+    void setIAFieldD(std::string val);
+    void setIAFieldE(std::string val);
     void setIALevel(TW_UINT16 val);
     void setPrinter(TW_UINT16 val);
     void addBarcodeText(std::string val);
@@ -3271,9 +3236,9 @@ public:
         void setBarcodeInfoCount(TW_UINT32 count);
         void setPageSourceInfo(ExtendedImageInfo_PageSourceInfoNative& info);
         void setSkewDetectionInfo(ExtendedImageInfo_SkewDetectionInfoNative& info);
-        void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNative&, int nWhich);
+        void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNative&, int nWhich, jobject thisObject);
         void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNativeV& info);
-        void setShadedAreaInfoCount(TW_UINT32 count);
+        void setShadedAreaInfoCount(TW_UINT32 count, jobject thisObject);
         void setSpeckleRemovalInfo(const ExtendedImageInfo_SpeckleRemovalInfoNative& sInfo);
         void setAllHorizontalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo);
         void setAllVerticalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo);

@@ -42,11 +42,11 @@ struct ExtendedImageInfo_BarcodeNative
 
 struct ExtendedImageInfo_PageSourceInfoNative
 {
-    TW_STR255 bookname{};
+    std::string bookname;
     TW_UINT32 chapterNumber = 0;
     TW_UINT32 documentNumber = 0;
     TW_UINT32 pageNumber = 0;
-    TW_STR255 camera{};
+    std::string camera;
     TW_UINT32 frameNumber = 0;
     TW_FRAME frame{};
     TW_UINT16 pixelFlavor = 0;
@@ -142,14 +142,14 @@ struct ExtendedImageInfo_FormsRecognitionNative
 
 struct ExtendedImageInfo_ImageSegmentationInfoNative
 {
-    TW_STR255 m_sICCProfile = {};
+    std::string m_sICCProfile;
     TW_BOOL m_bLastSegment = {};
     TW_UINT32 m_segmentNumber = {};
 };
 
 struct ExtendedImageInfo_EndorsedTextInfoNative
 {
-    TW_STR255 m_sEndorsedText = {};
+    std::string m_sEndorsedText;
 };
 
 struct ExtendedImageInfo_ExtendedImageInfo20Native
@@ -159,7 +159,7 @@ struct ExtendedImageInfo_ExtendedImageInfo20Native
 
 struct ExtendedImageInfo_ExtendedImageInfo21Native
 {
-    TW_STR255 m_fileSystemSource = {};
+    std::string m_fileSystemSource;
     TW_BOOL m_imageMerged = {};
     std::vector<char> m_magData;
     TW_UINT32 m_magDataLength = {};
@@ -173,7 +173,7 @@ struct ExtendedImageInfo_ExtendedImageInfo22Native
 
 struct ExtendedImageInfo_ExtendedImageInfo23Native
 {
-    TW_STR255 m_PrinterText = {};
+    std::string m_PrinterText;
 };
 
 struct ExtendedImageInfo_ExtendedImageInfo24Native
@@ -185,7 +185,7 @@ struct ExtendedImageInfo_ExtendedImageInfo25Native
 {
     struct ImageAddressing
     {
-        std::array<TW_STR32, 5> m_AddressInfo = {};
+        std::array<std::string, 5> m_AddressInfo = {};
         TW_UINT16 m_iaLevel = {};
     };
     TW_UINT16 m_printer = {};
