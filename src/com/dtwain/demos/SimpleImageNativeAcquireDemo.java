@@ -78,8 +78,10 @@ public class SimpleImageNativeAcquireDemo
 
                     // Now get the image data.
                     // This for loop only shows how to get the image data.
-                    // After the loop, we will send iHandler's information to a
-                    // dialog that displays the image.
+                    // After the loop, we could send iHandler's information to a
+                    // dialog that displays the image.  For more details see 
+                    // the com.dtwain.demos.fulldemo.DTwainFullDemo.java and the 
+                    // call to the private function AcquireHelper() to see this in action.
                     for (int j = 0; j < numImages; ++j)
                     {
                         // imageData is the actual raw bytes of the image.

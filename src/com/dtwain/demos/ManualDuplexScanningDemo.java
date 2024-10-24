@@ -89,7 +89,12 @@ public class ManualDuplexScanningDemo
         if ( ts.isOpened() )
         {
             // We don't care if the device has a duplexer, we can still scan duplex
-            // enable manual duplex mode
+            // since we will get the user to flip the pages once one side of all the 
+            // pages are done.
+            //
+            // Enable manual duplex mode.  We assume that the documents are fed into
+            // the feeder face up (away from the scanner, with the bottom page being 
+            // fed first (this can be adjusted using the ManualDuplexMode constants).
             AcquireCharacteristics ac = ts.getAcquireCharacteristics();
             ac.getPaperHandlingOptions().setManualDuplexMode(ManualDuplexMode.FACEUPBOTTOMFEED);
 

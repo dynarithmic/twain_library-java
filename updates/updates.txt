@@ -1,5 +1,24 @@
 DTWAIN-Java Version changes
 
+Version 1.4
+
+- Add ExtendedImageInfo.java to allow retrieval of extended image information such as barcode text
+  and positioning, imprinter text, line speckle removal, etc.  See the TWEI_... constants and
+  definitions in the TWAIN 2.x specification for more information.
+
+- Added ExtendedImageInfoDemo.java to demonstrate usage of the ExtendedImageInfo class.
+
+- Updated BarcodeDemo.java to output the information on the barcodes that have been found on the 
+  acquired page.  Note that your device must support barcode retrieval, and support extended image
+  information that will report barcode information (see update above).
+
+- The dtwainjni.info file has been updated.  You must use this updated file with version 1.4 of
+  DTWAIN_Java, as any earlier versions of dtwainjni.info will not work with this version.
+
+- You must use the DTWAIN DLL's (dtwain32u.dll, dtwain64u.dll, etc.) that are of version 5.5.4 or higher.  
+  Earlier versions of DTWAIN will not work correctly with version 1.4 of DTWAIN_Java.
+
+
 Version 1.3
 
 - Fix issue with JNI layer not maintaining global class object for logger and callback Java classes.

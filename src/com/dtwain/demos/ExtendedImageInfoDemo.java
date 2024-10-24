@@ -31,7 +31,6 @@ import com.dynarithmic.twain.highlevel.ExtendedImageInfo.LineDetectionInfo.LineD
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.*;
 import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
-import com.dynarithmic.twain.lowlevel.TW_FRAME;
 
 public class ExtendedImageInfoDemo
 {
