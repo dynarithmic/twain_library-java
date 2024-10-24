@@ -127,6 +127,17 @@ public class DTwainConstants
         public static final int DTWAIN_CONSTANT_DG       = 59;
         public static final int DTWAIN_CONSTANT_DAT      = 60;
         public static final int DTWAIN_CONSTANT_DF       = 61;
+        public static final int DTWAIN_CONSTANT_TWTY     = 62;
+        public static final int DTWAIN_CONSTANT_TWCB     = 63;
+        public static final int DTWAIN_CONSTANT_TWAF     = 64;
+        public static final int DTWAIN_CONSTANT_TWFS     = 65;
+        public static final int DTWAIN_CONSTANT_TWJS     = 66;
+        public static final int DTWAIN_CONSTANT_TWMR     = 67;
+        public static final int DTWAIN_CONSTANT_TWDP     = 68;
+        public static final int DTWAIN_CONSTANT_TWUS     = 69;
+        public static final int DTWAIN_CONSTANT_TWDF     = 70;
+        public static final int DTWAIN_CONSTANT_TWFM     = 71;
+        public static final int DTWAIN_CONSTANT_TWSG     = 72;
     }
 
     public enum SessionStartupMode
@@ -537,6 +548,8 @@ public class DTwainConstants
         PAGEDISCARDED (1054),
         PROCESSDIBACCEPTED (1055),
         PROCESSDIBFINALACCEPTED (1056),
+        CLOSEDIBFAILED  (1057),
+        INVALID_TWAINDSM2_BITMAP (1058),
         DEVICEEVENT (1100),
         TWAINPAGECANCELLED (1105),
         TWAINPAGEFAILED (1106),
