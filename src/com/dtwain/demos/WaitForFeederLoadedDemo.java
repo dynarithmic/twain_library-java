@@ -30,7 +30,6 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteris
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.FileTransferOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.PaperHandlingOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.PaperHandlingOptions.FeederMode;
-import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
 
 public class WaitForFeederLoadedDemo {
 
@@ -42,7 +41,6 @@ public class WaitForFeederLoadedDemo {
             TwainSource source = EnhancedSourceSelector.selectSource(session);
             if ( source.isOpened())
             {
-                CapabilityInterface ci = source.getCapabilityInterface();
                 if (!source.isFeederWaitSupported())
                 {
                     session.stop();

@@ -27,15 +27,13 @@ import java.util.stream.Collectors;
 
 import com.dynarithmic.twain.DTwainConstants;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.lowlevel.TW_BOOL;
 import com.dynarithmic.twain.lowlevel.TW_FRAME;
 import com.dynarithmic.twain.lowlevel.TW_STR255;
-import com.dynarithmic.twain.lowlevel.TW_STR32;
-import com.dynarithmic.twain.lowlevel.TW_UINT16;
 import com.dynarithmic.twain.lowlevel.TW_UINT32;
 
 // The private functions and variables are used by the internals of these classes
 // and the JNI layer.  
+@SuppressWarnings("unused")
 public class ExtendedImageInfo {
     public class BarcodeInfo
     {
@@ -581,7 +579,7 @@ public class ExtendedImageInfo {
         private FormsRecognitionInfo setConfidence(List<TW_UINT32> confidence) 
         {
             this.confidenceI = confidence.stream()
-                    .map(value -> new Long(value.getValue()))
+                    .map(TW_UINT32::getValue)
                     .collect(Collectors.toList());
             return this;
         }
@@ -589,7 +587,7 @@ public class ExtendedImageInfo {
         private FormsRecognitionInfo setTemplateMatch(List<TW_STR255> templateMatch) 
         {
             this.templateMatchS = templateMatch.stream()
-                    .map(value -> new String(value.getValue()))
+                    .map(TW_STR255::getValue)
                     .collect(Collectors.toList());
             return this;
         }
@@ -597,7 +595,7 @@ public class ExtendedImageInfo {
         private FormsRecognitionInfo setTemplatePageMatch(List<TW_UINT32> templatePageMatch) 
         {
             this.templatePageMatchI = templatePageMatch.stream()
-                    .map(value -> new Long(value.getValue()))
+                    .map(TW_UINT32::getValue)
                     .collect(Collectors.toList());
             return this;
         }
@@ -605,7 +603,7 @@ public class ExtendedImageInfo {
         private FormsRecognitionInfo setHorizontalDocOffset(List<TW_UINT32> horizontalDocOffset) 
         {
             this.horizontalDocOffsetI = horizontalDocOffset.stream()
-                    .map(value -> new Long(value.getValue()))
+                    .map(TW_UINT32::getValue)
                     .collect(Collectors.toList());
             return this;
         }
@@ -613,7 +611,7 @@ public class ExtendedImageInfo {
         private FormsRecognitionInfo setVerticalDocOffset(List<TW_UINT32> verticalDocOffset) 
         {
             this.verticalDocOffsetI = verticalDocOffset.stream()
-                    .map(value -> new Long(value.getValue()))
+                    .map(TW_UINT32::getValue)
                     .collect(Collectors.toList());
             return this;
         }
@@ -692,7 +690,7 @@ public class ExtendedImageInfo {
         public String getPageSideName(TwainSession session) throws DTwainJavaAPIException 
         {
             return
-            session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWCS,(int)pageside);
+            session.getAPIHandle().DTWAIN_GetTwainNameFromConstant(DTwainConstants.DTwainConstantToString.DTWAIN_CONSTANT_TWCS,pageside);
         }
         
         public String getBookname() {
@@ -877,7 +875,7 @@ public class ExtendedImageInfo {
 
     public class ExtendedImageInfo24
     {
-        String twainDirectMetaData = new String();
+        String twainDirectMetaData = "";
         public ExtendedImageInfo24() {}
         private ExtendedImageInfo24 setTwainDirectMetaData(String twainDirectMetaData) 
         {
@@ -893,11 +891,10 @@ public class ExtendedImageInfo {
 
     public class ExtendedImageInfo25
     {
-        private String[] iAField = new String[] 
-                {new String(), new String(), new String(), new String(), new String()};
+        private final String[] iAField = new String[]{"", "", "", "", ""};
         private int iALevel;
         private int printer;
-        private List<String> barcodeText = new ArrayList<>();
+        private final List<String> barcodeText = new ArrayList<>();
         
         private void setIAField(String val, int nWhich)
         {

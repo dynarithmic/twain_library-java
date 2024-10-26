@@ -54,6 +54,9 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.CAP_JOBCONTROL;
 import com.dynarithmic.twain.lowlevel.TW_IDENTITY;
 import org.apache.commons.lang3.time.StopWatch;
 
+/**
+ * The Class TwainSource.
+ */
 public class TwainSource
 {
     public class AcquireReturnInfo

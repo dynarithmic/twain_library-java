@@ -47,6 +47,13 @@ import com.dynarithmic.twain.highlevel.TwainFrameDouble;
 import com.dynarithmic.twain.highlevel.TwainRange;
 import com.dynarithmic.twain.highlevel.TwainRangeException;
 import com.dynarithmic.twain.highlevel.TwainRangeUtils;
+/**
+ * @author Dynarithmic Software
+ * <p>CapabilityInterface class details the set of capabilities and features the device will use when
+ * acquiring an image.<p>
+ * The CapabilityInterface class allows the setting, getting, and querying of any capability of the TWAIN
+ * device. The CapabilityInterface for an open TwainSource is retrieved by calling TwainSource.getCapabilityInterface()
+ */
 
 public class CapabilityInterface
 {
