@@ -21,7 +21,6 @@
  */
 package com.dtwain.demos;
 
-import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.highlevel.ImageHandler;

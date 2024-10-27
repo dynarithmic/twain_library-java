@@ -21,50 +21,87 @@
  */
 package com.dtwain.demos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import com.dynarithmic.twain.DTwainConstants;
 import com.dynarithmic.twain.DTwainGlobalOptions;
 
 public class ConsoleJNISelector 
 {
-    public static boolean setJNIVersion(String appName)
+    public static void setJNIVersion(String appName)
     {
+        class Choice
+        {
+            String message;
+            int jniVersion;
+            public Choice(String message, int jniVersion)
+            {
+                this.message = message;
+                this.jniVersion = jniVersion;
+            }
+        }
+        
+        List<Choice> arrList = new ArrayList<>();
+        boolean is64Bit = DTwainGlobalOptions.Is64BitArchitecture();
+        if ( is64Bit )
+        {
+            arrList.add(new Choice("64-bit default (Unicode)",DTwainConstants.JNIVersion.JNI_64U));
+            arrList.add(new Choice("64-bit Unicode",DTwainConstants.JNIVersion.JNI_64U));
+            arrList.add(new Choice("64-bit ANSI",DTwainConstants.JNIVersion.JNI_64));
+            arrList.add(new Choice("64-bit Debug Unicode",DTwainConstants.JNIVersion.JNI_64UD));
+            arrList.add(new Choice("64-bit Debug ANSI",DTwainConstants.JNIVersion.JNI_64D));
+        }
+        else
+        {
+            arrList.add(new Choice("32-bit default (Unicode)",DTwainConstants.JNIVersion.JNI_32U));
+            arrList.add(new Choice("32-bit Unicode",DTwainConstants.JNIVersion.JNI_32U));
+            arrList.add(new Choice("32-bit ANSI",DTwainConstants.JNIVersion.JNI_32));
+            arrList.add(new Choice("32-bit Debug Unicode",DTwainConstants.JNIVersion.JNI_32UD));
+            arrList.add(new Choice("32-bit Debug ANSI",DTwainConstants.JNIVersion.JNI_32D));
+        }
+        
+        System.out.println("");
         boolean choiceOk = false;
-        @SuppressWarnings("resource")
         Scanner input = new Scanner(System.in);
+        int nChoice = 1;
         while (!choiceOk)
         {
             System.out.println("Please choose the JNI to use for " + appName);
-            System.out.println("  0. Use current JNI (must match same bit-setting as JRE)");
-            System.out.println("  1. 32-bit ANSI (running JRE must be 32-bit)");
-            System.out.println("  2. 32-bit Unicode (running JRE must be 32-bit)");
-            System.out.println("  3. 64-bit ANSI (running JRE must be 64-bit)");
-            System.out.println("  4. 64-bit Unicode (running JRE must be 64-bit)");
-            System.out.println("  5. 32-bit ANSI Debug (running JRE must be 32-bit)");
-            System.out.println("  6. 32-bit Unicode Debug (running JRE must be 32-bit)");
-            System.out.println("  7. 64-bit ANSI Debug (running JRE must be 64-bit)");
-            System.out.println("  8. 64-bit Unicode Debug (running JRE must be 64-bit)");
-            System.out.println("  9. Exit application " + appName);
-            System.out.print("(0 - 9): ");
-    
-            int jniToUse = input.nextInt();
-            if ( jniToUse == 0 )
-                return true;
-            if ( jniToUse == 9)
+            for (int i = 0; i < 5; ++i)
             {
-                System.exit(0);
+                System.out.println("  " + nChoice + ". " + arrList.get(i).message);
+                ++nChoice;
             }
-            if ( jniToUse < 0 || jniToUse > 8)
-                System.out.println("Invalid choice");
-            else
+            System.out.println("  6. Exit application " + appName);
+            System.out.print("Press Enter for default or enter 1 - 6: ");
+            String inputLine = input.nextLine();
+            if ( inputLine.equals("") )
             {
-                choiceOk = true;
-                // Set the JNI version
-                DTwainGlobalOptions.setJNIVersion(jniToUse - 1);
+                DTwainGlobalOptions.setJNIVersion(arrList.get(0).jniVersion);
+                break;
+            }
+            try 
+            {
+                int jniToUse = Integer.parseInt(inputLine);
+                if ( jniToUse < 1 || jniToUse > 6)
+                    System.out.println("Invalid choice");
+                else
+                if ( jniToUse == 6)
+                    System.exit(0);
+                else
+                {
+                    DTwainGlobalOptions.setJNIVersion(arrList.get(jniToUse - 1).jniVersion);
+                    break;
+                }
+            }
+            catch( NumberFormatException e)
+            {
+                System.out.println("Invalid choice");
             }
         }
         input.close();
         System.out.println("Starting " + appName + "...");
-        return true;
     }
 }

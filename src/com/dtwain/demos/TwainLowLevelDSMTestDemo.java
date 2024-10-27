@@ -26,8 +26,6 @@ import java.util.Map;
 
 import org.javatuples.Triplet;
 
-import com.dynarithmic.twain.DTwainConstants.JNIVersion;
-import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.TwainCharacteristics;

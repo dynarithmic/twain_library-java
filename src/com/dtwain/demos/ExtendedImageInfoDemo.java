@@ -21,7 +21,6 @@
  */
 package com.dtwain.demos;
 
-import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.DTwainConstants.*;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.*;

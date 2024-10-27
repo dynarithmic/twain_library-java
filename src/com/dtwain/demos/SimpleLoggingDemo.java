@@ -20,7 +20,6 @@
 
  */
 package com.dtwain.demos;
-import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.SessionStartupMode;
 import com.dynarithmic.twain.highlevel.TwainConsoleLogger;

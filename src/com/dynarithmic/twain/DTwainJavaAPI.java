@@ -68,13 +68,13 @@ public class DTwainJavaAPI
      * JNI layer.  This function must be called before calling any other
      * DTwain API Java function.
      * <p>
-     * The underlying JNI layer that will be used will be based on a 32-bit, Unicode-based
-     * system.  If 64-bit Unicode is desired, see DTwainJavaAPI(int)
+     * The underlying JNI layer that will be used will be based on whether the JVM is running
+     * 64-bit or 32-bit.  If either 32 or 64-bit the Unicode based version of DTWAIN will be utilized.
      */
     public DTwainJavaAPI()
     {
         m_LibraryHandle = 0;
-        m_DLLName = JNIVersion.JNI_32U;
+        m_DLLName = DTwainGlobalOptions.Is64BitArchitecture()?JNIVersion.JNI_64U:JNIVersion.JNI_32U;
     }
 
     /**

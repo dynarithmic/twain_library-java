@@ -52,7 +52,6 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;

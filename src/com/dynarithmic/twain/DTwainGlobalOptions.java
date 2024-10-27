@@ -26,7 +26,7 @@ import com.dynarithmic.twain.highlevel.TwainSession;
 
 public class DTwainGlobalOptions
 {
-    static private int jniVersion = JNIVersion.JNI_32U;
+    static private int jniVersion = Is64BitArchitecture()?JNIVersion.JNI_64U:JNIVersion.JNI_32U;
     public static int getJNIVersion() { return jniVersion; }
     public static String getJNIVersionAsString()
     {
@@ -71,5 +71,13 @@ public class DTwainGlobalOptions
         {
             jniVersion = JNIVersion.JNI_32U;
         }
+    }
+    
+    public static boolean Is64BitArchitecture() 
+    {
+        String arch = System.getProperty("os.arch");
+        if (arch.contains("64")) 
+            return true;
+        return false;
     }
 }
