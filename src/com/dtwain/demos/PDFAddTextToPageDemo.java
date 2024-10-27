@@ -25,7 +25,6 @@ import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.DTwainConstants.TextPageDisplayOptions;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.PDFTextElement;
 import com.dynarithmic.twain.highlevel.RGBColor;
 import com.dynarithmic.twain.highlevel.TwainCallback;
@@ -78,6 +77,9 @@ public class PDFAddTextToPageDemo
     // Acquire to a PDF file, with encryption settings turned on
     public void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+        
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 

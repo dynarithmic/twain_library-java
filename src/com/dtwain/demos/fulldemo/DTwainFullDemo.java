@@ -20,6 +20,8 @@
 
  */
 package com.dtwain.demos.fulldemo;
+import com.dtwain.demos.ConsoleJNISelector;
+import com.dtwain.demos.EnhancedSourceSelector;
 import com.dynarithmic.twain.*;
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
@@ -30,7 +32,6 @@ import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.SourceStateAfterAcquire;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.BufferedTransferInfo;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.ImageHandler;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.TwainConsoleLogger;
@@ -126,33 +127,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
 
     public void setJNIVersion()
     {
-        boolean choiceOk = false;
-        while (!choiceOk)
-        {
-            System.out.println("Please choose the JNI to use for the full demo application:\n");
-            System.out.println("  1. 32-bit ANSI (running JRE must be 32-bit)");
-            System.out.println("  2. 32-bit Unicode (running JRE must be 32-bit)");
-            System.out.println("  3. 64-bit ANSI (running JRE must be 64-bit)");
-            System.out.println("  4. 64-bit Unicode (running JRE must be 64-bit)");
-            System.out.println("  5. 32-bit ANSI Debug (running JRE must be 32-bit)");
-            System.out.println("  6. 32-bit Unicode Debug (running JRE must be 32-bit)");
-            System.out.println("  7. 64-bit ANSI Debug (running JRE must be 64-bit)");
-            System.out.println("  8. 64-bit Unicode Debug (running JRE must be 64-bit)");
-            System.out.print("(1 - 8): ");
-    
-            @SuppressWarnings("resource")
-            Scanner input = new Scanner(System.in);
-            int jniToUse = input.nextInt();
-            if ( jniToUse < 1 || jniToUse > 8)
-                System.out.println("Invalid choice");
-            else
-            {
-                choiceOk = true;
-                // Set the JNI version
-                DTwainGlobalOptions.setJNIVersion(jniToUse - 1);
-            }
-        }
-        System.out.println("Starting Full Demo...");
+        ConsoleJNISelector.setJNIVersion("Full Demo");
     }
 
     public boolean startTwainSession() throws DTwainJavaAPIException, Exception

@@ -30,6 +30,9 @@ public class SetApplicationInfoDemo
     // Simple acquire to a file
     public void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         // Create the TWAIN characteristics that allows a TwainSession to
         // be created, but not started.
         TwainCharacteristics tc = new TwainCharacteristics();

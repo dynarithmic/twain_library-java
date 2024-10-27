@@ -23,7 +23,6 @@ package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
@@ -37,6 +36,9 @@ public class WaitForFeederLoadedDemo {
     {
         try 
         {
+            // Allows runtime choice of choosing which JNI DLL is loaded.
+            ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+            
             TwainSession session = new TwainSession();
             TwainSource source = EnhancedSourceSelector.selectSource(session);
             if ( source.isOpened())

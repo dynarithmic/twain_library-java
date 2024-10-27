@@ -24,7 +24,6 @@ package com.dtwain.demos;
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo.BarcodeInfo;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo.BarcodeInfo.BarcodeSingleInfo;
@@ -83,6 +82,9 @@ public class BarcodeDemo
     // Simple acquire to a file
     public void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+        
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 

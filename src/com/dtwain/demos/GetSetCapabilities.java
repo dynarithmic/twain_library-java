@@ -39,6 +39,9 @@ public class GetSetCapabilities
 
     public void run() throws DTwainJavaAPIException
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 

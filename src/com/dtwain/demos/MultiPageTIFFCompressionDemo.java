@@ -72,6 +72,9 @@ public class MultiPageTIFFCompressionDemo
     // be preferred, and for color/grayscale, a TIFF-LZW
     public void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 

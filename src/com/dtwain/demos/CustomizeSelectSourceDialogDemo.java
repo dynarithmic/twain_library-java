@@ -95,6 +95,9 @@ public class CustomizeSelectSourceDialogDemo
 
     public static void main(String [] args)
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion("CustomizeSelectSourceDialogDemo");
+        
         CustomizeSelectSourceDialogDemo s;
         try
         {

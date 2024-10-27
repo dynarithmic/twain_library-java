@@ -30,6 +30,9 @@ public class TinyApplication
     {
         try
         {
+            // Allows runtime choice of choosing which JNI DLL is loaded.
+            ConsoleJNISelector.setJNIVersion("Tiny Application");
+            
             // Open a session
             TwainSession session = new TwainSession();
 

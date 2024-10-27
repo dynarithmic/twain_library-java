@@ -30,6 +30,9 @@ public class ChooseTWAINVersion2DSMDemo
 {
     public void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+        
         DSMType dsmToTest [] = { DSMType.LEGACY, DSMType.VERSION2 };
 
         TwainSession twainSession = new TwainSession(SessionStartupMode.NONE);

@@ -26,6 +26,8 @@ import java.util.Map;
 
 import org.javatuples.Triplet;
 
+import com.dynarithmic.twain.DTwainConstants.JNIVersion;
+import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.TwainCharacteristics;
@@ -39,6 +41,9 @@ public class TwainLowLevelDSMTestDemo
     private Map<Triplet<Long, Integer, Integer>, TwainLowLevel> sMap = null;
     void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         // Get the map of the triplet information
         sMap = TwainTriplet.getTripletMap();
 

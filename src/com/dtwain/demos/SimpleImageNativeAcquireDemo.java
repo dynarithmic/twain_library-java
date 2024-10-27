@@ -24,7 +24,6 @@ package com.dtwain.demos;
 import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.ImageHandler;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -35,8 +34,8 @@ public class SimpleImageNativeAcquireDemo
     // Simple acquire to a file
     public void run() throws Exception
     {
-        // Set the JNI version
-        DTwainGlobalOptions.setJNIVersion(5); //jniToUse - 1);
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
 
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();

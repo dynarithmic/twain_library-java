@@ -33,6 +33,9 @@ public class GetResolutionValuesDemo
 {
     public void run()
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         TwainSource twainSource = null;
         try
         {
