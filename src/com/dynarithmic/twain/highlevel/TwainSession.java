@@ -122,7 +122,7 @@ public class TwainSession
     public static int getJNIVersionAsInt(String sVersion) throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException //throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException
     {
         if ( sVersion == null || sVersion.isEmpty() )
-            return s_map.toInt("jni_32u");
+            return DTwainGlobalOptions.defaultJNIVersion;
         return s_map.toInt(sVersion);
     }
 

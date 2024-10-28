@@ -65,40 +65,48 @@ public class ConsoleJNISelector
         System.out.println("");
         boolean choiceOk = false;
         Scanner input = new Scanner(System.in);
-        int nChoice = 1;
         while (!choiceOk)
         {
-            System.out.println("Please choose the JNI to use for " + appName);
-            for (int i = 0; i < 5; ++i)
+            int nChoice = 1;
+            try
             {
-                System.out.println("  " + nChoice + ". " + arrList.get(i).message);
-                ++nChoice;
-            }
-            System.out.println("  6. Exit application " + appName);
-            System.out.print("Press Enter for default or enter 1 - 6: ");
-            String inputLine = input.nextLine();
-            if ( inputLine.equals("") )
-            {
-                DTwainGlobalOptions.setJNIVersion(arrList.get(0).jniVersion);
-                break;
-            }
-            try 
-            {
-                int jniToUse = Integer.parseInt(inputLine);
-                if ( jniToUse < 1 || jniToUse > 6)
-                    System.out.println("Invalid choice");
-                else
-                if ( jniToUse == 6)
-                    System.exit(0);
-                else
+                System.out.println("Please choose the JNI to use for " + appName);
+                for (int i = 0; i < 5; ++i)
                 {
-                    DTwainGlobalOptions.setJNIVersion(arrList.get(jniToUse - 1).jniVersion);
+                    System.out.println("  " + nChoice + ". " + arrList.get(i).message);
+                    ++nChoice;
+                }
+                System.out.println("  6. Exit application " + appName);
+                System.out.print("Press Enter for default or enter 1 - 6: ");
+                String inputLine = input.nextLine();
+                if ( inputLine.equals("") )
+                {
+                    DTwainGlobalOptions.setJNIVersion(arrList.get(0).jniVersion);
                     break;
                 }
+                try 
+                {
+                    int jniToUse = Integer.parseInt(inputLine);
+                    if ( jniToUse < 1 || jniToUse > 6)
+                        System.out.println("Invalid choice");
+                    else
+                    if ( jniToUse == 6)
+                        System.exit(0);
+                    else
+                    {
+                        DTwainGlobalOptions.setJNIVersion(arrList.get(jniToUse - 1).jniVersion);
+                        break;
+                    }
+                }
+                catch( NumberFormatException e)
+                {
+                    System.out.println("Invalid choice");
+                }
             }
-            catch( NumberFormatException e)
+            catch (Exception e)
             {
-                System.out.println("Invalid choice");
+                System.out.println(e);
+                System.exit(0);;
             }
         }
         input.close();

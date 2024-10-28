@@ -21,12 +21,39 @@
  */
 package com.dynarithmic.twain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.dynarithmic.twain.DTwainConstants.JNIVersion;
+import com.dynarithmic.twain.exceptions.DTwainIncompatibleJNIException;
+import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.TwainSession;
 
 public class DTwainGlobalOptions
 {
     static private int jniVersion = Is64BitArchitecture()?JNIVersion.JNI_64U:JNIVersion.JNI_32U;
+    static public int defaultJNIVersion = jniVersion;
+    static private boolean is64Bit = Is64BitArchitecture();
+    
+    static List<Integer> JNI64List = new ArrayList<Integer>() 
+    { 
+        {add(DTwainConstants.JNIVersion.JNI_64);  
+         add(DTwainConstants.JNIVersion.JNI_64U);  
+         add(DTwainConstants.JNIVersion.JNI_64D);  
+         add(DTwainConstants.JNIVersion.JNI_64UD);  
+         }
+    };
+
+    static List<Integer> JNI32List = new ArrayList<Integer>() 
+    { 
+        {add(DTwainConstants.JNIVersion.JNI_32);  
+         add(DTwainConstants.JNIVersion.JNI_32U);  
+         add(DTwainConstants.JNIVersion.JNI_32D);  
+         add(DTwainConstants.JNIVersion.JNI_32UD);  
+         }
+    };
+
     public static int getJNIVersion() { return jniVersion; }
     public static String getJNIVersionAsString()
     {
@@ -44,33 +71,33 @@ public class DTwainGlobalOptions
         }
     }
 
-    public static void setJNIVersion(int version)
+    public static void setJNIVersion(int version) throws DTwainIncompatibleJNIException, IllegalArgumentException, IllegalAccessException
     {
         String s;
-        try
+        s = TwainSession.getJNIVersionAsString(version);
+        if ( s == null || s.isEmpty() )
+            jniVersion = defaultJNIVersion;
+        else
+        if ( is64Bit )    
         {
-            s = TwainSession.getJNIVersionAsString(version);
-            if ( s == null || s.isEmpty() )
-                jniVersion = JNIVersion.JNI_32U;
-            else
+            if ( JNI64List.contains(version))
                 jniVersion = version;
+            else
+                throw new DTwainIncompatibleJNIException();
         }
-        catch (Exception e)
+        else
         {
-            jniVersion = JNIVersion.JNI_32U;
+            if ( JNI32List.contains(version))
+                jniVersion = version;
+            else
+                throw new DTwainIncompatibleJNIException();
         }
     }
 
-    public static void setJNIVersion(String version)
+    public static void setJNIVersion(String version) throws IllegalArgumentException, IllegalAccessException, DTwainJavaAPIException
     {
-        try
-        {
-            jniVersion = TwainSession.getJNIVersionAsInt(version);
-        }
-        catch (Exception e)
-        {
-            jniVersion = JNIVersion.JNI_32U;
-        }
+        int versionToSet = TwainSession.getJNIVersionAsInt(version);
+        setJNIVersion(versionToSet);
     }
     
     public static boolean Is64BitArchitecture() 

@@ -174,9 +174,9 @@ There are other examples of error checking, whether a session is successfully op
 
 ## Setting the JNI version to use
 
-By default, the 32-bit Unicode version of the JNI DLL's are used.  This means that by default, the Java application will be using the 32-bit TWAIN system (meaning that you can access 32-bit TWAIN devices).
+By default, if the Java runtime being used is 32-bit, the 32-bit Unicode version of the JNI DLL's are used.  Similarly, if the Java runtime being used is 64-bit, the 64-bit Unicode version of the JNI DLL's will be used.
 
-If you require access to 64-bit TWAIN devices, on startup your application must use the 64-bit JNI DLLs.  To do this, the **DTWAINGlobalOptions** class has two static methods named *setJNIVersion* that must be called before a TWAIN session has been started (an instantiation of a **TwainSession** object).  One static method uses an integer, the other uses a string, to set the JNIVersion.
+If you want to change the JNI version to be used at runtime, the **DTWAINGlobalOptions** class has two static methods named *setJNIVersion* that must be called before a TWAIN session has been started (an instantiation of a **TwainSession** object).  One static method uses an integer, the other uses a string, to set the JNIVersion.
 
 The various settings for the JNI Version are as follows:
 
@@ -204,20 +204,22 @@ import com.dynarithmic.twain.DTwainGlobalOptions;
 //...
 public static void main(String [] args)
 {
-    // sets the JNI Version to use to be the 32-bit Unicode version
-    DTwainGlobalOptions.setJNIVersion(JNIVersion.JNI_32U); // This is equivalent to 1
+    // sets the JNI Version to use to be the 32-bit ANSI version
+    DTwainGlobalOptions.setJNIVersion(JNIVersion.JNI_32); // This is equivalent to 0
     
     // Does exactly the same thing as the line above
-    DTwainGlobalOptions.setJNIVersion("jni_32u"); 
+    DTwainGlobalOptions.setJNIVersion("jni_32"); 
     
-    // should print "1" to the console
+    // should print "0" to the console
     System.out.println("JNI Version used: " + DTwainGlobalOptions.getJNIVersion()); 
     
     // The rest of the program ...
     //...
 }
 ```
-Note that the **setJNIVersion** will default to using the 32-bit Unicode JNI DLL's if the integer value or the string passed to **setJNIVersion** is unknown or invalid.  
+Note that the **setJNIVersion** will default to using the Unicode JNI DLL if the integer value or the string passed to **setJNIVersion** is unknown or invalid.  
+
+A **DTwainIncompatibleJNIException** is thrown if **setJNIVersion** is called with a JNI version that does not match the bit-ness of the JVM being run.  For example, if the application is running the 64-bit JVM, and either **JNIVersion.JNI_32** or **JNIVersion.JNI_32U** is used in setJNIVersion, the **DTwainIncompatibleJNIException** is thrown.  The bit-ness of the JVM being run for the application must match one of the JNI types.
 
 Given this, the application is free to use whatever means it deems appropriate if it requires the JNI version to be set at run time.  For example, an application may want to use a resource file or property file to retrieve the JNI version, or in another scenario, the Java application may want to take a command-line argument, denoting the JNI version to use, and use it in the call to **DTwainGlobalOptions**.
 

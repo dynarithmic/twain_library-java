@@ -20,9 +20,7 @@
 
  */
 package com.dtwain.demos;
-
-import com.dynarithmic.twain.highlevel.TwainSession;
-import com.dynarithmic.twain.highlevel.TwainSource;
+import com.dynarithmic.twain.highlevel.*;
 
 public class TinyApplication
 {
@@ -30,13 +28,10 @@ public class TinyApplication
     {
         try
         {
-            // Allows runtime choice of choosing which JNI DLL is loaded.
-            ConsoleJNISelector.setJNIVersion("Tiny Application");
-            
             // Open a session
             TwainSession session = new TwainSession();
 
-            // Session will start
+            // Select a TWAIN Source
             TwainSource source = session.selectSource();
             if ( source.isOpened() )
                 // acquire to a BMP file to the current working directory, with name "temp.bmp"
