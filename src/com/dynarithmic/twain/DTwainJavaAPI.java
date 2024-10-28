@@ -110,11 +110,11 @@ public class DTwainJavaAPI
     {
         try
         {
-        // Load the JNI DLL
-        System.loadLibrary(s_DLLMap.get(m_DLLName).s_DTwainJNIName);
-
-        // Have the JNI DLL start the internal DTWAIN DLL's
-        DTWAIN_LoadLibrary(s_DLLMap.get(m_DLLName).s_DTwainDLLName, "");
+            // Load the JNI DLL
+            System.loadLibrary(s_DLLMap.get(m_DLLName).s_DTwainJNIName);
+    
+            // Have the JNI DLL start the internal DTWAIN DLL's
+            DTWAIN_LoadLibrary(s_DLLMap.get(m_DLLName).s_DTwainDLLName, "");
         }
         catch (UnsatisfiedLinkError e) 
         {
@@ -140,9 +140,9 @@ public class DTwainJavaAPI
             return true;
         try
         {
-        InitialLoadLibrary();
-        return EndLoadLibrary();
-    }
+            InitialLoadLibrary();
+            return EndLoadLibrary();
+        }
         catch (Exception e) 
         {
             System.out.println(e);
