@@ -22,6 +22,9 @@
     <ClCompile Include="ExtendedImageInfo.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
+    <ClCompile Include="CRCCheck.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DSMCaller.h">
@@ -76,6 +79,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExtendedImageInfo_Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CRCCheck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

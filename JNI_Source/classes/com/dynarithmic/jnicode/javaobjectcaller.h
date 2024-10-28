@@ -91,7 +91,12 @@ struct JavaExceptionThrower
 
     static jint ThrowFileNotFoundError(JNIEnv *env, const std::string& exceptionMessage)
     {
-        return ThrowJavaExceptionImpl(env, "java/lang/io.FileNotFoundException", exceptionMessage);
+        return ThrowJavaExceptionImpl(env, "java/io/FileNotFoundException", exceptionMessage);
+    }
+
+    static jint ThrowResourceFileInvalidError(JNIEnv* env, const std::string& exceptionMessage)
+    {
+        return ThrowJavaExceptionImpl(env, "java/io/StreamCorruptedException", exceptionMessage);
     }
 
     static jint ThrowGeneralException(JNIEnv *env, const std::string& exceptionMessage)

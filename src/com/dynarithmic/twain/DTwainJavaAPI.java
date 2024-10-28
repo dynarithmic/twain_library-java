@@ -21,6 +21,7 @@
  */
 package com.dynarithmic.twain;
 
+import java.io.StreamCorruptedException;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -121,6 +122,10 @@ public class DTwainJavaAPI
             System.out.println("Conflict in 32/64 bit versions between the Java runtime and DTWAIN JNI layer (bitness does not match)\nEither set the proper runtime environment (32-bit, 64-bit) in your Java runtime or");
             System.out.println("call com.dynarithmic.twain.DTwainGlobalOptions.setJNIVersion() to set the proper JNI version to use (32-bit, 64-bit) to match the Java runtime being used");
         }
+        catch (StreamCorruptedException e)
+        {
+            System.out.println(e);    
+        }
     }
 
     private boolean EndLoadLibrary() throws DTwainJavaAPIException
@@ -133,11 +138,19 @@ public class DTwainJavaAPI
     {
         if ( m_LibraryHandle != 0 )
             return true;
+        try
+        {
         InitialLoadLibrary();
         return EndLoadLibrary();
     }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+            return false;
+        }
+    }
 
-    public boolean DTWAIN_JavaSysInitialize(TwainStartupOptions startOpts) throws DTwainJavaAPIException
+    public boolean DTWAIN_JavaSysInitialize(TwainStartupOptions startOpts) throws DTwainJavaAPIException, StreamCorruptedException
     {
         if ( m_LibraryHandle != 0 )
             return true;
@@ -240,7 +253,7 @@ public class DTwainJavaAPI
     }
 
     // dynamically load/unload DTWAIN DLL
-    public native int DTWAIN_LoadLibrary(String s, String resPath) throws DTwainJavaAPIException;
+    public native int DTWAIN_LoadLibrary(String s, String resPath) throws DTwainJavaAPIException, StreamCorruptedException;
     public native int DTWAIN_FreeLibrary() throws DTwainJavaAPIException;
 
     // No argument functions

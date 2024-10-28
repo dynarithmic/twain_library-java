@@ -29,6 +29,7 @@
 #include <tchar.h>
 #include <vector>
 #include <windows.h>
+#include "CRCCheck.h"
 
 #ifdef USING_DTWAIN_LOADLIBRARY
     #include "dtwainx2.h"
@@ -266,51 +267,64 @@ void InitializeCallbacks(JNIEnv *env)
         g_pDTwainAPICallback = JavaCallbackPtr(new JavaCallback(env));
 }
 
-void InitializeFunctionCallerInfo(JNIEnv *pEnv)
+bool InitializeFunctionCallerInfo(JNIEnv* pEnv)
 {
     using JavaFunctionNameMap = std::map<std::string, JavaFunctionClassInfo>;
 
     std::array<std::string, 2> headerInfo;
     int numFuncs = 0;
     std::string line;
-
-    std::ifstream txtRes(g_JNIGlobals.GetResourceFileName());
-    if (!txtRes)
     {
-        std::string sMsg = std::string(DTWAINJNI_INFOFILE) + " does not exist or could not be opened";
-        JavaExceptionThrower::ThrowFileNotFoundError(pEnv, sMsg.c_str());
-        return;
-    }
-
-    while (getline(txtRes, line))
-    {
-        if (stringjniutils::isAllBlank(line))
-            continue;
-        if (line.front() == ';') // This is a comment
-            continue;
-        // Get the header info
-        std::istringstream strm(line);
-        strm >> headerInfo[0] >> headerInfo[1] >> numFuncs;
-        auto& globFuncMap = JavaFunctionNameMapInstance::getFunctionMap();
-        auto iter = globFuncMap.insert({headerInfo[0],{headerInfo[1],{},{}}}).first;
-        auto& funcMap = iter->second;
-        int i = 0;
-        while (i < numFuncs )
+        std::ifstream txtRes(g_JNIGlobals.GetResourceFileName());
+        if (!txtRes)
         {
-            getline(txtRes, line);
-            if ( stringjniutils::isAllBlank(line) )
+            std::string sMsg = std::string(DTWAINJNI_INFOFILE) + " does not exist or could not be opened";
+            JavaExceptionThrower::ThrowFileNotFoundError(pEnv, sMsg.c_str());
+            return false;
+        }
+
+        while (getline(txtRes, line))
+        {
+            if (stringjniutils::isAllBlank(line))
                 continue;
             if (line.front() == ';') // This is a comment
                 continue;
-            std::istringstream strm2(line);
-            std::string category, funcname, funcsig;
-            strm2 >> category >> funcname >> funcsig;
-            funcMap.m_mapFunctions.insert({category,{funcname, funcsig}});
-            ++i;
+            if (line.front() == '%') // This is an end-of-file indicator
+                break;
+            // Get the header info
+            std::istringstream strm(line);
+            strm >> headerInfo[0] >> headerInfo[1] >> numFuncs;
+            auto& globFuncMap = JavaFunctionNameMapInstance::getFunctionMap();
+            auto iter = globFuncMap.insert({ headerInfo[0],{headerInfo[1],{},{}} }).first;
+            auto& funcMap = iter->second;
+            int i = 0;
+            while (i < numFuncs)
+            {
+                getline(txtRes, line);
+                if (stringjniutils::isAllBlank(line))
+                    continue;
+                if (line.front() == ';') // This is a comment
+                    continue;
+                std::istringstream strm2(line);
+                std::string category, funcname, funcsig;
+                strm2 >> category >> funcname >> funcsig;
+                funcMap.m_mapFunctions.insert({ category,{funcname, funcsig} });
+                ++i;
+            }
+            funcMap.m_ObjectCallerTemplate = std::make_shared<JavaObjectCaller>(globFuncMap);
+            DTWAINJNIGlobals::RegisterJavaFunctionInterface(funcMap.m_ObjectCallerTemplate.get(), funcMap.m_mapFunctions, DTWAINJNIGlobals::DEFINE_METHODS);
         }
-        funcMap.m_ObjectCallerTemplate = std::make_shared<JavaObjectCaller>(globFuncMap);
-        DTWAINJNIGlobals::RegisterJavaFunctionInterface(funcMap.m_ObjectCallerTemplate.get(), funcMap.m_mapFunctions, DTWAINJNIGlobals::DEFINE_METHODS);
     }
+
+    // Check the CRC
+    std::ifstream txtRes(g_JNIGlobals.GetResourceFileName());
+    auto retValue = GetDataCRC(txtRes, 1);
+    if (!retValue)
+    {
+        JavaExceptionThrower::ThrowResourceFileInvalidError(pEnv, "dtwainjni.info is invalid or corrupted.");
+        return 0;
+    }
+    return 1;
 }
 
 std::string GetDirectory(const std::string& path)
@@ -377,7 +391,9 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
     }
     txtRes.close();
 
-    InitializeFunctionCallerInfo(env);
+    bool bRet = InitializeFunctionCallerInfo(env);
+    if (!bRet)
+        return 0;
     InitializeCallbacks(env);
     GetStringCharsHandler handler(env, dllToLoad);
     const auto s = reinterpret_cast<LPCTSTR>(handler.GetStringChars());
@@ -1639,11 +1655,11 @@ JNIEXPORT jlongArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1En
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    #ifdef _WIN64
+#ifdef _WIN64
     return CallFnReturnArray<JavaLong64ArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumSources, &arr);
-    #else
+#else
     return CallFnReturnArray<JavaLongArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumSources, &arr);
-    #endif
+#endif
     DO_DTWAIN_CATCH(env)
 }
 
@@ -5772,8 +5788,8 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableAu
 (JNIEnv *env, jobject, jint latency, jboolean enable)
 {
     DO_DTWAIN_TRY
-    DO_DTWAIN_CHECK_MODULE_LOAD
-    auto ret = 1; // API_INSTANCE DTWAIN_EnableAutoFeedNotify(latency, static_cast<LONG>(enable));
+        DO_DTWAIN_CHECK_MODULE_LOAD
+        auto ret = 1; // API_INSTANCE DTWAIN_EnableAutoFeedNotify(latency, static_cast<LONG>(enable));
     return ret;
     DO_DTWAIN_CATCH(env)
 }

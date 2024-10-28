@@ -21,6 +21,7 @@
  */
 package com.dynarithmic.twain.highlevel;
 
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -74,7 +75,14 @@ public class TwainSession
     {
         postInitSession();
         if ( twainCharacteristics.isAutoStartSession() )
+        try
+        {
             start();
+        }
+        catch (StreamCorruptedException e)
+        {
+            System.out.println(e);
+        }
     }
 
     public TwainSession(TwainCharacteristics tc) throws DTwainJavaAPIException
@@ -83,7 +91,16 @@ public class TwainSession
         postInitSession();
         secondaryInit();
         if ( tc.isAutoStartSession() )
-            start();
+        {
+            try
+            {
+                start();
+            }
+            catch (StreamCorruptedException e)
+            {
+                System.out.println(e);
+            }
+        }
     }
 
     public TwainSession(SessionStartupMode sMode) throws DTwainJavaAPIException
@@ -167,7 +184,7 @@ public class TwainSession
         return this.enableLogging;
     }
 
-    public void start() throws DTwainJavaAPIException 
+    public void start() throws DTwainJavaAPIException, StreamCorruptedException 
     {
         if (started)
             return;
@@ -288,7 +305,17 @@ public class TwainSession
     public TwainSource selectSource() throws DTwainJavaAPIException 
     {
         if ( !isStarted() )
-            start();
+        {
+            try
+            {
+                start();
+            }
+            catch (StreamCorruptedException e)
+            {
+                System.out.println(e);
+                return null;
+            }
+        }
         if ( dtwainAPI != null )
         {
             long sourceHandle = TwainSourceSelector.selectSource(dtwainAPI, new TwainSourceDialog().enableEnhancedDialog(false));
@@ -300,7 +327,17 @@ public class TwainSession
     public TwainSource selectSource(TwainSourceDialog sourceSelectorOptions) throws DTwainJavaAPIException 
     {
         if ( !isStarted() )
-            start();
+        {
+            try
+            {
+                start();
+            }
+            catch (StreamCorruptedException e)
+            {
+                System.out.println(e);
+                return null;
+            }
+        }
         if ( dtwainAPI != null)
         {
             long sourceHandle = TwainSourceSelector.selectSource(dtwainAPI, sourceSelectorOptions);
@@ -312,7 +349,17 @@ public class TwainSession
     public TwainSource selectSource(String sourceName) throws DTwainJavaAPIException
     {
         if ( !isStarted() )
-            start();
+        {
+            try
+            {
+                start();
+            }
+            catch (StreamCorruptedException e)
+            {
+                System.out.println(e);
+                return null;
+            }
+        }
         if ( dtwainAPI != null)
         {
             long sourceHandle = TwainSourceSelector.selectSource(dtwainAPI,
@@ -325,7 +372,17 @@ public class TwainSession
     public TwainSource selectDefaultSource() throws DTwainJavaAPIException 
     {
         if ( !isStarted() )
-            start();
+        {
+            try
+            {
+                start();
+            }
+            catch (StreamCorruptedException e)
+            {
+                System.out.println(e);
+                return null;
+            }
+        }
         if ( dtwainAPI != null)
         {
             long sourceHandle = TwainSourceSelector.selectSource(dtwainAPI, 0);

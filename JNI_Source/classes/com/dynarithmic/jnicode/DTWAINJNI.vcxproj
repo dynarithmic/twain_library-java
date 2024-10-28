@@ -570,6 +570,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CRCCheck.cpp" />
     <ClCompile Include="DTWAINJavaAPI.cpp" />
     <ClCompile Include="DTWAINJNIGlobals.cpp" />
     <ClCompile Include="dtwimpl.cpp" />
@@ -579,6 +580,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClCompile Include="javaobjectcaller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CRCCheck.h" />
     <ClInclude Include="DSMCaller.h" />
     <ClInclude Include="DTWAINFunctionCaller.h" />
     <ClInclude Include="DTwainJavaAPI.h" />

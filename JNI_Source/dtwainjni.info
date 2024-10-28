@@ -921,4 +921,4 @@ GetExtendedImageInfo22                 getExtendedImageInfo22              ()Lco
 GetExtendedImageInfo23                 getExtendedImageInfo23              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
 GetExtendedImageInfo24                 getExtendedImageInfo24              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
 GetExtendedImageInfo25                 getExtendedImageInfo25              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-
+%1275689165
