@@ -714,20 +714,20 @@ Constructor                             <>                                 (D)V
 DoubleValue                             doubleValue                        ()D
 
 TextRenderMode                          com/dynarithmic/twain/DTwainConstants/TextRenderMode      2
-Constructor                             <>                                 (I)V
+Constructor				<>                                 (I)V
 GetValue                                value                              ()I
 
 TextPageDisplayOptions                  com/dynarithmic/twain/DTwainConstants/TextPageDisplayOptions    2
-Constructor                             <>                                 (I)V
+Constructor				<>                                 (I)V
 GetValue                                value                              ()I
 
-RGBColor                                com/dynarithmic/twain/highlevel/RGBColor                   4
+RGBColor				com/dynarithmic/twain/highlevel/RGBColor                   4
 DefaultConstructor                      <>                                 ()V
 GetR                                    getR                               ()I
 GetG                                    getG                               ()I
 GetB                                    getB                               ()I
 
-PDFTextElement                          com/dynarithmic/twain/highlevel/PDFTextElement          13
+PDFTextElement				com/dynarithmic/twain/highlevel/PDFTextElement		    13
 DefaultConstructor                      <>                                 ()V
 GetFontName                             getFontName                        ()Ljava/lang/String;
 GetText                                 getText                            ()Ljava/lang/String;
@@ -847,7 +847,7 @@ ExtendedImageInfo_ExtendedImageInfo20  com/dynarithmic/twain/highlevel/ExtendedI
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
 SetMagType                             setMagType                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20;
 
-ExtendedImageInfo_ExtendedImageInfo21  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21      6
+ExtendedImageInfo_ExtendedImageInfo21  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21	  6
 Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
 SetFileSystemSource                    setFileSystemSource                 (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
 SetMagData                             setMagData                          ([B)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
@@ -921,4 +921,4 @@ GetExtendedImageInfo22                 getExtendedImageInfo22              ()Lco
 GetExtendedImageInfo23                 getExtendedImageInfo23              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
 GetExtendedImageInfo24                 getExtendedImageInfo24              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
 GetExtendedImageInfo25                 getExtendedImageInfo25              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-%1275689165
+%699200873
