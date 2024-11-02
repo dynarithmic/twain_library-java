@@ -30,6 +30,7 @@
 #include <vector>
 #include <windows.h>
 #include "CRCCheck.h"
+#include "dtwainjni_config.h"
 
 #ifdef USING_DTWAIN_LOADLIBRARY
     #include "dtwainx2.h"
@@ -317,6 +318,10 @@ bool InitializeFunctionCallerInfo(JNIEnv* pEnv)
     }
 
     // Check the CRC
+#if CONFIG_CHECKCRC == 1
+    #ifdef _MSC_VER
+        #pragma message ("Building JNI with CRC check")
+    #endif
     std::ifstream txtRes(g_JNIGlobals.GetResourceFileName());
     auto retValue = GetDataCRC(txtRes, 1);
     if (!retValue)
@@ -324,6 +329,11 @@ bool InitializeFunctionCallerInfo(JNIEnv* pEnv)
         JavaExceptionThrower::ThrowResourceFileInvalidError(pEnv, "dtwainjni.info is invalid or corrupted.");
         return 0;
     }
+#else
+    #ifdef _MSC_VER
+        #pragma message ("Building JNI with no CRC check")
+    #endif
+#endif
     return 1;
 }
 

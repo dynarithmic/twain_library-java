@@ -84,6 +84,9 @@
     <ClInclude Include="CRCCheck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dtwainjni_config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

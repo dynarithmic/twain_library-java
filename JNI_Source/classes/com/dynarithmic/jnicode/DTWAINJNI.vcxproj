@@ -450,6 +450,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -484,6 +485,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -586,6 +588,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClInclude Include="DTwainJavaAPI.h" />
     <ClInclude Include="DTWAINJNIGlobalNames.h" />
     <ClInclude Include="DTWAINJNIGlobals.h" />
+    <ClInclude Include="dtwainjni_config.h" />
     <ClInclude Include="DTWAINJNI_VerInfo.h" />
     <ClInclude Include="DTWAINJNI_Version.h" />
     <ClInclude Include="DTWAINRAII.h" />
