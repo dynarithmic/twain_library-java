@@ -121,7 +121,7 @@ DTWAINJNIGlobals::DTWAINJNIGlobals() : g_DTWAINModule(nullptr)
     CREATE_TRIPLET_TRANSLATOR(TW_USERINTERFACE)
     CREATE_TRIPLET_TRANSLATOR(TW_MEMORY)
 
-    void DTWAINJNIGlobals::InitializeDSMCallerMap(JNIEnv *pEnv, const std::string& javaLowLevelDirectory)
+    void DTWAINJNIGlobals::InitializeDSMCallerMap(const std::string& javaLowLevelDirectory)
     {
         g_DSMCallerMap.clear();
         {

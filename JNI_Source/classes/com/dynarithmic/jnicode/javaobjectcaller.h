@@ -250,7 +250,7 @@ public:
     JavaObjectCaller(const JavaFunctionNameMap& pNameMap) :
                         m_jClass{},
                         m_jObject{},
-                        m_nDefaultConstructorPos(-1),
+                        m_nDefaultConstructorPos(0),
                         m_pJavaEnv{},
                         m_pFunctionMap(pNameMap) {}
 
@@ -259,7 +259,7 @@ public:
                     m_jClass(nullptr),
                     m_jObject(nullptr),
                     m_jObjectName(objectName),
-                    m_nDefaultConstructorPos(-1),
+                    m_nDefaultConstructorPos(0),
                     m_pJavaEnv(pEnv),
                     m_pFunctionMap(pNameMap)
     {
@@ -528,7 +528,7 @@ public:
 
 struct JavaArrayTraitsInt
 {
-    static jintArray Construct(JNIEnv* env, JavaObjectCaller* parent, int nCount)
+    static jintArray Construct(JNIEnv* env, JavaObjectCaller* /*parent*/, int nCount)
     {
         return env->NewIntArray(nCount);
     }
@@ -611,7 +611,7 @@ struct JavaArrayInterface : JavaObjectCaller
     array_type NativeToJava(std::vector<NativeArrayClass>& nativeArray)
     {
         setObject(createDefaultObject());
-        m_traits.SetArrayRegion(getEnvironment(), static_cast<array_type>(getObject()), nativeArray.size(), nativeArray.data());
+        m_traits.SetArrayRegion(getEnvironment(), static_cast<array_type>(getObject()), static_cast<int>(nativeArray.size()), nativeArray.data());
         return static_cast<array_type>(getObject());
     }
 };
@@ -647,7 +647,7 @@ struct MemoryHandleJavaInterface : JavaObjectCaller
         return defaultConstructObject();
     }
 
-    jobject createFullObject(int var1)
+    jobject createFullObject()
     {
         return createDefaultObject();
     }
@@ -939,13 +939,13 @@ class JavaAcquirerInfo
         JavaAcquirerInfo(JNIEnv *pEnv) : m_jAcquisitionArray(pEnv), m_jAcquisitionData(pEnv), m_jImageData(pEnv)
         {}
 
-        jobject CreateJavaImageDataObject(JNIEnv *env)
+        jobject CreateJavaImageDataObject()
         { return m_jImageData.defaultConstructObject(); }
 
-        jobject CreateJavaAcquisitionDataObject(JNIEnv *env)
+        jobject CreateJavaAcquisitionDataObject()
         { return m_jAcquisitionData.defaultConstructObject(); }
 
-        jobject CreateJavaAcquisitionArrayObject(JNIEnv *env)
+        jobject CreateJavaAcquisitionArrayObject()
         { return m_jAcquisitionArray.defaultConstructObject(); }
 
         void addAcquisitionToArray(jobject jAcquisitionArrayObject, jobject jAcquisitionDataObject)
@@ -1281,7 +1281,7 @@ public:
     JavaDTwainLowLevel_TW_VERSION(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getMajorNum();
     TW_UINT16 getMinorNum();
@@ -1382,7 +1382,7 @@ public:
     JavaDTwainLowLevel_TW_AUDIOINFO(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getReserved();
     StringType getName();
@@ -1423,7 +1423,7 @@ public:
     JavaDTwainLowLevel_TW_CAPABILITY(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getCap();
     TW_UINT16 getConType();
@@ -1450,7 +1450,7 @@ public:
     JavaDTwainLowLevel_TW_CUSTOMDSDATA(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getInfoLength();
     TW_HANDLE gethData();
@@ -1503,7 +1503,7 @@ public:
     JavaDTwainLowLevel_TW_DEVICEEVENT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getEvent();
     TW_UINT32 getBatteryMinutes();
@@ -1547,7 +1547,7 @@ public:
     JavaDTwainLowLevel_TW_PENDINGXFERS(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getCount();
     TW_UINT32 getEOJ();
@@ -1581,7 +1581,7 @@ public:
     JavaDTwainLowLevel_TW_SETUPFILEXFER(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     StringType getFileName();
     TW_UINT16 getFormat();
@@ -1611,7 +1611,7 @@ public:
     JavaDTwainLowLevel_TW_SETUPMEMXFER(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getMinBufSize();
     TW_UINT32 getMaxBufSize();
@@ -1641,7 +1641,7 @@ public:
     JavaDTwainLowLevel_TW_EVENT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_MEMREF getpEvent();
     TW_UINT16 getTWMessage();
@@ -1702,7 +1702,7 @@ public:
 
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     StringType getInputName();
     StringType getOutputName();
@@ -1757,7 +1757,7 @@ public:
     JavaDTwainLowLevel_TW_METRICS(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getSizeOf();
     TW_UINT32 getImageCount();
@@ -1794,7 +1794,7 @@ public:
     JavaDTwainLowLevel_TW_PASSTHRU(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_MEMREF getpCommand();
     TW_MEMREF getpData();
@@ -1831,7 +1831,7 @@ public:
     JavaDTwainLowLevel_TW_STATUS(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getConditonCode();
     TW_UINT16 getData();
@@ -1865,7 +1865,7 @@ public:
     JavaDTwainLowLevel_TW_STATUSUTF8(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_STATUS getStatus();
     TW_UINT32 getSize();
@@ -1895,7 +1895,7 @@ public:
     JavaDTwainLowLevel_TW_CIEPOINT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getX();
     TW_FIX32 getY();
@@ -1935,7 +1935,7 @@ public:
     JavaDTwainLowLevel_TW_DECODEFUNCTION(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getStartIn();
     TW_FIX32 getBreakIn();
@@ -1975,7 +1975,7 @@ public:
     JavaDTwainLowLevel_TW_TRANSFORMSTAGE(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_DECODEFUNCTION getDecodeValue(int value);
     TW_FIX32 getMixValue(int val1, int val2);
@@ -2030,7 +2030,7 @@ public:
     static constexpr const char * SetSample = "SetSample";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_INT32 getNumSamples();
     TW_UINT16 getColorSpace();
@@ -2084,7 +2084,7 @@ public:
     static constexpr const char * SetItem = "SetItem";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getInfoID();
     TW_UINT16 getItemType();
@@ -2117,7 +2117,7 @@ public:
     static constexpr const char * SetOneInfo = "SetOneInfo";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getNumInfos();
     TW_INFO getOneInfo(int i);
@@ -2149,7 +2149,7 @@ public:
     static constexpr const char* SethDescriptors = "SethDescriptors";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getSize();
     TW_UINT32 getDescriptorCount();
@@ -2189,7 +2189,7 @@ public:
     JavaDTwainLowLevel_TW_ELEMENT8(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT8 getIndex();
     TW_UINT8 getChannel1();
@@ -2240,7 +2240,7 @@ public:
     JavaDTwainLowLevel_TW_IMAGEINFO(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getXResolution();
     TW_FIX32 getYResolution();
@@ -2287,7 +2287,7 @@ public:
     JavaDTwainLowLevel_TW_FRAME(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getLeft();
     TW_FIX32 getTop();
@@ -2321,7 +2321,7 @@ public:
 
     JavaDTwainLowLevel_TW_MEMORY(JNIEnv* env);
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getFlags();
     TW_UINT32 getLength();
@@ -2355,7 +2355,7 @@ public:
     JavaDTwainLowLevel_TW_IMAGELAYOUT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FRAME getFrame();
     TW_UINT32 getDocumentNumber();
@@ -2402,7 +2402,7 @@ public:
     JavaDTwainLowLevel_TW_IMAGEMEMXFER(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16   getCompression();
     TW_UINT32   getBytesPerRow();
@@ -2457,7 +2457,7 @@ public:
      JavaDTwainLowLevel_TW_JPEGCOMPRESSION(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16   getColorSpace();
     TW_UINT32   getSubSampling();
@@ -2501,7 +2501,7 @@ public:
     JavaDTwainLowLevel_TW_PALETTE8(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16   getNumColors();
     TW_UINT16   getPaletteType();
@@ -2540,7 +2540,7 @@ public:
     JavaDTwainLowLevel_TW_TWAINDIRECT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32   getSizeOf();
     TW_UINT16   getCommunicationManager();
@@ -2578,7 +2578,7 @@ public:
     JavaDTwainLowLevel_TW_USERINTERFACE(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_BOOL getShowUI();
     TW_BOOL getModalUI();
@@ -2601,7 +2601,7 @@ public:
     JavaDTwainLowLevel_TW_NULL(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_NULL JavaToNative();
     TW_NULL getValue();
@@ -2621,7 +2621,7 @@ public:
     JavaDTwainLowLevel_TW_RESPONSETYPE(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     int32_t getNumItems();
     TW_ELEMENT8 getResponseValue(int32_t which);
@@ -2642,7 +2642,7 @@ class JavaDTwainLowLevel_TwainLowLevel : public JavaObjectCaller
         JavaDTwainLowLevel_TwainLowLevel(JNIEnv* env);
 
         jobject createDefaultObject();
-        jobject createFullObject(int var1);
+        jobject createFullObject();
         jobject getTwainObject();
 
         TwainLowLevel JavaToNative();

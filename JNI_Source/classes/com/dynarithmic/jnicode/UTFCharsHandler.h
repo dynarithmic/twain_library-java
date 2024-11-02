@@ -99,7 +99,7 @@ struct UnicodeCharTraits
     static jstring GetNewJString(JNIEnv *pEnv, const CharType* str)
     {
         const std::basic_string<jchar> strT(str);
-        return pEnv->NewString(str, strT.size());
+        return pEnv->NewString(str, static_cast<jsize>(strT.size()));
     }
 };
 

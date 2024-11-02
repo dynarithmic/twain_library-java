@@ -41,8 +41,8 @@ struct JNITripletTranslatorBase
 {
     std::string m_JavaClassInfo;
     std::string m_TwainClassName;
-    virtual void* TranslateRaw(JNIEnv* pEnv, jobject jobj, std::string sTwainClassName) { return nullptr; }
-    virtual void DestroyRaw(void *pRaw) {}
+    virtual void* TranslateRaw(JNIEnv* /*pEnv*/, jobject /*jobj*/, std::string sTwainClassName) { return nullptr; }
+    virtual void DestroyRaw(void */*pRaw*/) {}
     virtual void* GetRaw() { return nullptr; }
     void SetTwainClassName(std::string sName) { m_TwainClassName = sName; }
     virtual ~JNITripletTranslatorBase() {}

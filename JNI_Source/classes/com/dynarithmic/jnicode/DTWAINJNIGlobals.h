@@ -63,7 +63,7 @@ struct DTWAINJNIGlobals
             std::string m_expectedType;
         };
 
-        void InitializeDSMCallerMap(JNIEnv* pEnv, const std::string& javaLowLevelDir);
+        void InitializeDSMCallerMap(const std::string& javaLowLevelDir);
         DSMObjectChecker CheckCallDSMObject(JNIEnv* pEnv, TW_UINT32 DG, TW_UINT16 DAT, TW_UINT16 MSG, jobject jobj);
         std::pair<jobject, bool> CreateObjectFromTriplet(JNIEnv* pEnv, TW_UINT32 DG, TW_UINT16 DAT, TW_UINT16 TMSG);
         enum { DEFINE_METHODS = 1, INIT_METHODS = 2, DEFINE_INIT_METHODS = 4 };

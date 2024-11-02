@@ -37,6 +37,7 @@
         #pragma warning (push)
         #pragma warning (disable:4113)
         #pragma warning (disable:4047)
+        #pragma warning (disable:4706)
     #endif
     #ifdef __GNUC__
         #pragma GCC diagnostic push

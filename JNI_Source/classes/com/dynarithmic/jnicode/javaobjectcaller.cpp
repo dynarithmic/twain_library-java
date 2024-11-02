@@ -70,7 +70,7 @@ jobject JavaDTwainLowLevel_TW_IMAGEINFO::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_IMAGEINFO::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_IMAGEINFO::createFullObject()
 {
     return createDefaultObject();
 }
@@ -234,7 +234,7 @@ jobject JavaDTwainLowLevel_TW_ELEMENT8::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_ELEMENT8::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_ELEMENT8::createFullObject()
 {
     return createDefaultObject();
 }
@@ -317,7 +317,7 @@ jobject JavaDTwainLowLevel_TW_FILTER::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_FILTER::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_FILTER::createFullObject()
 {
     return createDefaultObject();
 }
@@ -419,7 +419,7 @@ jobject JavaDTwainLowLevel_TW_VERSION::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_VERSION::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_VERSION::createFullObject()
 {
     return createDefaultObject();
 }
@@ -671,7 +671,7 @@ jobject JavaDTwainLowLevel_TW_DEVICEEVENT::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_DEVICEEVENT::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_DEVICEEVENT::createFullObject()
 {
     return createDefaultObject();
 }
@@ -838,7 +838,7 @@ jobject JavaDTwainLowLevel_TW_PENDINGXFERS::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_PENDINGXFERS::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_PENDINGXFERS::createFullObject()
 {
     return createDefaultObject();
 }
@@ -893,7 +893,7 @@ jobject JavaDTwainLowLevel_TW_SETUPFILEXFER::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_SETUPFILEXFER::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_SETUPFILEXFER::createFullObject()
 {
     return createDefaultObject();
 }
@@ -966,7 +966,7 @@ jobject JavaDTwainLowLevel_TW_SETUPMEMXFER::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_SETUPMEMXFER::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_SETUPMEMXFER::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1037,7 +1037,7 @@ jobject JavaDTwainLowLevel_TW_FILESYSTEM::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_FILESYSTEM::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_FILESYSTEM::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1283,7 +1283,7 @@ jobject JavaDTwainLowLevel_TW_METRICS::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_METRICS::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_METRICS::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1352,7 +1352,7 @@ jobject JavaDTwainLowLevel_TW_PASSTHRU::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_PASSTHRU::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_PASSTHRU::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1455,7 +1455,7 @@ jobject JavaDTwainLowLevel_TW_EXTIMAGEINFO::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_EXTIMAGEINFO::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_EXTIMAGEINFO::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1485,7 +1485,7 @@ TW_EXTIMAGEINFO JavaDTwainLowLevel_TW_EXTIMAGEINFO::JavaToNative()
     TW_EXTIMAGEINFO twinfo{};
     const auto numInfos = getNumInfos();
     for (size_t i = 0; i < numInfos; ++i)
-        twinfo.Info[i] = getOneInfo(i);
+        twinfo.Info[i] = getOneInfo(static_cast<int>(i));
     twinfo.NumInfos = numInfos;
     return twinfo;
 }
@@ -1495,7 +1495,7 @@ jobject JavaDTwainLowLevel_TW_EXTIMAGEINFO::NativeToJava(const TW_EXTIMAGEINFO& 
     setObject(createDefaultObject());
     setNumInfos(twextimageinfo.NumInfos);
     for ( size_t i = 0; i < twextimageinfo.NumInfos; ++i)
-        setOneInfo(twextimageinfo.Info[i], i);
+        setOneInfo(twextimageinfo.Info[i], static_cast<int>(i));
     return getObject();
 }
 
@@ -1519,7 +1519,7 @@ jobject JavaDTwainLowLevel_TW_INFO::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_INFO::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_INFO::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1623,7 +1623,7 @@ jobject JavaDTwainLowLevel_TW_CIECOLOR::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_CIECOLOR::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_CIECOLOR::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1816,7 +1816,7 @@ jobject JavaDTwainLowLevel_TW_DECODEFUNCTION::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_DECODEFUNCTION::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_DECODEFUNCTION::createFullObject()
 {
     return createDefaultObject();
 }
@@ -1946,7 +1946,7 @@ jobject JavaDTwainLowLevel_TW_CUSTOMDSDATA::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_CUSTOMDSDATA::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_CUSTOMDSDATA::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2002,7 +2002,7 @@ jobject JavaDTwainLowLevel_TW_CAPABILITY::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_CAPABILITY::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_CAPABILITY::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2070,7 +2070,7 @@ jobject JavaDTwainLowLevel_TW_AUDIOINFO::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_AUDIOINFO::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_AUDIOINFO::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2128,7 +2128,7 @@ jobject JavaDTwainLowLevel_TW_TRANSFORMSTAGE::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_TRANSFORMSTAGE::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_TRANSFORMSTAGE::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2195,7 +2195,7 @@ jobject JavaDTwainLowLevel_TW_CIEPOINT::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_CIEPOINT::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_CIEPOINT::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2265,7 +2265,7 @@ jobject JavaDTwainLowLevel_TW_STATUSUTF8::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_STATUSUTF8::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_STATUSUTF8::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2338,7 +2338,7 @@ jobject JavaDTwainLowLevel_TW_STATUS::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_STATUS::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_STATUS::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2403,7 +2403,7 @@ jobject JavaDTwainLowLevel_TW_EVENT::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_EVENT::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_EVENT::createFullObject()
 {
     return createDefaultObject();
 }
@@ -2964,7 +2964,6 @@ void JavaBufferedStripInfo::setBufferStripInfo(LONG columns, LONG rows, LONG xOf
 {
     const LONG vals[] = { columns, rows, xOffset, yOffset, bytesWritten, BytesPerRow };
     const char* fnNames[] = {SetColumns, SetRows, SetXOff, SetYOff, SetBytesWritten, SetBytesPerRow};
-    int j = 0;
     for (size_t i = 0; i < std::size(fnNames); ++i)
         callVoidMethod(getFunctionName(fnNames[i]), vals[i]);
 }
@@ -3269,13 +3268,13 @@ JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
 void JavaExtendedImageInfo::setExtendedImageInfoTypes(std::vector<LONG>& vInfos)
 {
     // Create a java object array of items from the buffer
-    auto jArray = CreateJArrayFromCArray<JavaIntArrayTraits>(m_pJavaEnv, &vInfos[0], vInfos.size());
+    auto jArray = CreateJArrayFromCArray<JavaIntArrayTraits>(m_pJavaEnv, &vInfos[0], static_cast<unsigned long>(vInfos.size()));
     callVoidMethod(getFunctionName(SetSupportedExtendedImageInfo), jArray);
 }
 
 void JavaExtendedImageInfo::setAllBarcodeInfo(ExtendedImageInfo_BarcodeNative& info)
 {
-    setBarcodeInfoCount(info.m_vBarInfos.size());
+    setBarcodeInfoCount(static_cast<TW_UINT32>(info.m_vBarInfos.size()));
     int i = 0;
     for (auto& oneBarInfo : info.m_vBarInfos)
     {
@@ -3336,7 +3335,7 @@ void JavaExtendedImageInfo::setAllExtendedImageInfo21(ExtendedImageInfo_Extended
     proxy_extendedimageinfo21.setMagData(
         CreateJArrayFromCArray<JavaByteArrayTraits<char>>(m_pJavaEnv, 
                                                           reinterpret_cast<char*>(info.m_magData.data()), 
-                                                          info.m_magData.size()));
+                                                          static_cast<unsigned long>(info.m_magData.size())));
 }
 
 void JavaExtendedImageInfo::setAllExtendedImageInfo22(ExtendedImageInfo_ExtendedImageInfo22Native& info)
@@ -3478,7 +3477,7 @@ void JavaExtendedImageInfo::setAllLineInfo(const ExtendedImageInfo_LineDetection
 {
     jobject sObject = callObjectMethod(fn);
     proxy_linedetectioninfo.setObject(sObject);
-    proxy_linedetectioninfo.setCount(sInfo.m_vLineInfo.size());
+    proxy_linedetectioninfo.setCount(static_cast<TW_UINT32>(sInfo.m_vLineInfo.size()));
     int i = 0;
     for (auto& oneInfo : sInfo.m_vLineInfo)
     {
@@ -4172,7 +4171,7 @@ jobject JavaDTwainLowLevel_TW_FRAME::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_FRAME::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_FRAME::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -4254,7 +4253,7 @@ jobject JavaDTwainLowLevel_TW_IMAGELAYOUT::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_IMAGELAYOUT::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_IMAGELAYOUT::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -4343,7 +4342,7 @@ jobject JavaDTwainLowLevel_TW_MEMORY::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_MEMORY::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_MEMORY::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -4423,7 +4422,7 @@ jobject JavaDTwainLowLevel_TW_IMAGEMEMXFER::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_IMAGEMEMXFER::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_IMAGEMEMXFER::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -4564,7 +4563,7 @@ jobject JavaDTwainLowLevel_TW_JPEGCOMPRESSION::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_JPEGCOMPRESSION::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_JPEGCOMPRESSION::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -4726,7 +4725,7 @@ jobject JavaDTwainLowLevel_TW_PALETTE8::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_PALETTE8::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_PALETTE8::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -4808,7 +4807,7 @@ jobject JavaDTwainLowLevel_TW_TWAINDIRECT::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_TWAINDIRECT::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_TWAINDIRECT::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -4957,7 +4956,7 @@ jobject JavaDTwainLowLevel_TW_USERINTERFACE::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_USERINTERFACE::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_USERINTERFACE::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -5033,7 +5032,7 @@ jobject JavaDTwainLowLevel_TW_RESPONSETYPE::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_RESPONSETYPE::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_RESPONSETYPE::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -5093,7 +5092,7 @@ jobject JavaDTwainLowLevel_TW_NULL::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TW_NULL::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TW_NULL::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -5108,7 +5107,7 @@ TW_NULL JavaDTwainLowLevel_TW_NULL::getValue()
     return JavaToNative();
 }
 
-void JavaDTwainLowLevel_TW_NULL::setValue(const TW_NULL& twnull)
+void JavaDTwainLowLevel_TW_NULL::setValue(const TW_NULL& /*twnull*/)
 {
     return;
 }
@@ -5126,7 +5125,7 @@ jobject JavaDTwainLowLevel_TwainLowLevel::createDefaultObject()
     return defaultConstructObject();
 }
 
-jobject JavaDTwainLowLevel_TwainLowLevel::createFullObject(int var1)
+jobject JavaDTwainLowLevel_TwainLowLevel::createFullObject()
 {
     return defaultConstructObject();
 }
@@ -5148,7 +5147,7 @@ TwainLowLevel JavaDTwainLowLevel_TwainLowLevel::getValue()
     return JavaToNative();
 }
 
-void JavaDTwainLowLevel_TwainLowLevel::setValue(const TwainLowLevel& twlowlevel)
+void JavaDTwainLowLevel_TwainLowLevel::setValue(const TwainLowLevel& /*twlowlevel*/)
 {
     return;
 }

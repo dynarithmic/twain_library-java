@@ -150,7 +150,7 @@ bool ExtendedImageInformation::FillPageSourceInfo()
 
     for (size_t i = 0; i < stringItems.size(); ++i)
     {
-        auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, stringItems[i], &aValues);
+        API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, stringItems[i], &aValues);
         int nItems = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         if (nItems > 0)
         {
@@ -166,7 +166,7 @@ bool ExtendedImageInformation::FillPageSourceInfo()
 
         for (size_t i = 0; i < intItems.size(); ++i)
         {
-            auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
+            API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
             int nItems = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
             if (nItems > 0)
                 API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, (LONG*)refInts[i]);
@@ -179,7 +179,7 @@ bool ExtendedImageInformation::FillPageSourceInfo()
 
         for (size_t i = 0; i < intItems.size(); ++i)
         {
-            auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
+            API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
             int nItems = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
             if (nItems > 0)
             {
@@ -239,7 +239,7 @@ bool ExtendedImageInformation::FillSkewInfo()
 
     for (size_t i = 0; i < intItems.size(); ++i)
     {
-        auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
+        API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
         int nItems = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         if (nItems > 0)
             API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, (LONG *)refInts[i]);
@@ -298,7 +298,7 @@ bool ExtendedImageInformation::FillShadedAreaInfo()
                                                         &m_shadedInfo.whiteRLAvgV };
     for (size_t i = 0; i < intItems.size(); ++i)
     {
-        auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
+        API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
         auto count = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         for (LONG j = 0; j < count; ++j)
         {
@@ -327,7 +327,7 @@ bool ExtendedImageInformation::FillSpeckleRemovalInfo()
                                           &m_speckleRemoval.whiteSpecklesRemoved };
     for (size_t i = 0; i < intItems.size(); ++i)
     {
-        auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
+        API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
         auto count = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         if (count > 0)
         {
@@ -365,7 +365,7 @@ bool ExtendedImageInformation::GenericFillLineInfo(ExtendedImageInfo_LineDetecti
     std::array<LONG, 4> allCounts{};
     for (size_t i = 0; i < intItems.size(); ++i)
     {
-        auto Ret = API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aAllValues[i]);
+        API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aAllValues[i]);
         allCounts[i] = API_INSTANCE DTWAIN_ArrayGetCount(aAllValues[i]);
     }
     LONG maxCount = *std::min_element(allCounts.begin(), allCounts.end());
@@ -429,7 +429,7 @@ bool ExtendedImageInformation::FillFormsRecognitionInfo()
     for (size_t i = 0; i < intTypes.size(); ++i)
     {
         API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intTypes[i], &aValues);
-        LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
+        nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         if (nCount > 0)
         {
             LONG* pBuffer = (LONG*)API_INSTANCE DTWAIN_ArrayGetBuffer(aValues, 0);
@@ -528,7 +528,7 @@ bool ExtendedImageInformation::FillExtendedImageInfo21()
 
         // Get the mag data
         API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_MAGDATA, &aValues);
-        LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
+        nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         DTWAIN_HANDLE sHandle = NULL;
         if (nCount > 0)
         {
@@ -545,8 +545,8 @@ bool ExtendedImageInformation::FillExtendedImageInfo21()
             {
                 // The data is a handle, so maybe GlobalLock it?
                 API_INSTANCE DTWAIN_ArrayGetAt(aValues, 0, &sHandle);
-                HandleRAII raii(sHandle);
-                char* pText = (char*)raii.getData();
+                HandleRAII raii2(sHandle);
+                char* pText = (char*)raii2.getData();
                 if (pText)
                     m_extendedImageInfo21.m_magData = std::vector<char>(pText, pText + magDataLength);
             }
@@ -633,8 +633,8 @@ bool ExtendedImageInformation::FillExtendedImageInfo24()
         API_INSTANCE DTWAIN_ArrayGetAt(aValues, 0, &sHandle);
         if (sHandle)
         {
-            HandleRAII raii(sHandle);
-            char* pData = (char*)raii.getData();
+            HandleRAII raii2(sHandle);
+            char* pData = (char*)raii2.getData();
             m_extendedImageInfo24.m_twainDirectMetaData = pData;
         }
     }

@@ -36,7 +36,8 @@ typename JavaTraits::array_type CallFnReturnArray(JNIEnv* env, LPDTWAIN_ARRAY ar
 {
     if (!IsModuleInitialized())
         throw "DTwain Module not loaded";
-    BOOL bRet = fn(std::forward<Params>(params)...);
+    bool bRet = false;
+    bRet = fn(std::forward<Params>(params)...);
     if constexpr (std::is_same_v<JavaTraits, JavaStringTraits>)
     {
         if (arr && *arr)

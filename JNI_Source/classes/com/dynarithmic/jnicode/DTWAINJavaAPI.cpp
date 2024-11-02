@@ -148,8 +148,8 @@ class JavaCallback : public JavaAdapter
             std::string m_jClassName;
             std::string m_jFunctionName;
             std::string m_jFunctionSig;
-            jclass m_jCallbackClass;
-            jmethodID m_jCallbackMethodID;
+            jclass m_jCallbackClass {};
+            jmethodID m_jCallbackMethodID {};
         };
 
         enum { TWAINLISTENERFN, LOGGERFN, LASTJAVAFN };
@@ -183,7 +183,7 @@ struct JavaCallbackWrapper
     }
 };
 
-LRESULT CALLBACK JavaCallback::DTWAINCallback(WPARAM w, LPARAM l, JavaCallback::callback_type This)
+LRESULT CALLBACK JavaCallback::DTWAINCallback(WPARAM w, LPARAM l, JavaCallback::callback_type /*This*/)
 {
     static std::set<WPARAM> sGeneralErrors = {DTWAIN_TN_GENERALERROR};
 
@@ -246,7 +246,7 @@ void JavaCallback::InitInfo(JNIEnv* pEnv)
         auto& callback_info = iter->second;
         auto& callback_fn = iter->second.m_mapFunctions;
         auto& namesig = (*callback_fn.begin()).second;
-        auto& jcallback = m_jCallbackInfo.insert({ s, {callback_info.m_className, namesig.funcName, namesig.funcSig} }).first;
+        auto jcallback = m_jCallbackInfo.insert({ s, {callback_info.m_className, namesig.funcName, namesig.funcSig} }).first;
 
         // Get the java class class
         jclass tempLocalClassRef = pEnv->FindClass(jcallback->second.m_jClassName.c_str());
@@ -412,7 +412,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
         g_JNIGlobals.g_DTWAINModule = GetModuleHandle(s);
         if (g_JNIGlobals.g_DTWAINModule)
         {
-            g_JNIGlobals.InitializeDSMCallerMap(env, JavaFunctionNameMapInstance::getFunctionMap()["LowLevelDirectory"].m_className);
+            g_JNIGlobals.InitializeDSMCallerMap(JavaFunctionNameMapInstance::getFunctionMap()["LowLevelDirectory"].m_className);
         }
     }
     return g_JNIGlobals.g_DTWAINModule?1:0;
@@ -3533,7 +3533,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
             {
                 JavaArrayListHandler<ArrayBooleanList> aHandler(env);
                 auto vect = aHandler.JavaToNative(values);
-                API_INSTANCE DTWAIN_ArrayResize(aTmp, vect.size());
+                API_INSTANCE DTWAIN_ArrayResize(aTmp, static_cast<LONG>(vect.size()));
                 auto buffer = static_cast<LONG*>(API_INSTANCE DTWAIN_ArrayGetBuffer(aTmp, 0));
                 std::copy(vect.begin(), vect.end(), buffer);
                 return API_INSTANCE DTWAIN_SetCapValues(DTWAIN_SOURCE(source), cap, setType, aTmp);
@@ -3542,7 +3542,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
             {
                 JavaArrayListHandler<ArrayIntegerList> aHandler(env);
                 auto vect = aHandler.JavaToNative(values);
-                API_INSTANCE DTWAIN_ArrayResize(aTmp, vect.size());
+                API_INSTANCE DTWAIN_ArrayResize(aTmp, static_cast<LONG>(vect.size()));
                 auto buffer = static_cast<LONG*>(API_INSTANCE DTWAIN_ArrayGetBuffer(aTmp, 0));
                 std::copy(vect.begin(), vect.end(), buffer);
                 return API_INSTANCE DTWAIN_SetCapValues(DTWAIN_SOURCE(source),cap,setType,aTmp);
@@ -3553,7 +3553,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
         {
             JavaArrayListHandler<ArrayDoubleList> aHandler(env);
             auto vect = aHandler.JavaToNative(values);
-            API_INSTANCE DTWAIN_ArrayResize(aTmp, vect.size());
+            API_INSTANCE DTWAIN_ArrayResize(aTmp, static_cast<LONG>(vect.size()));
             auto buffer = static_cast<double*>(API_INSTANCE DTWAIN_ArrayGetBuffer(aTmp, 0));
             std::copy(vect.begin(), vect.end(), buffer);
             return API_INSTANCE DTWAIN_SetCapValues(DTWAIN_SOURCE(source), cap, setType, aTmp);
@@ -3563,18 +3563,18 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
         {
             JavaArrayListHandler<ArrayStringList<ArrayStringCharTraitsA>> aHandler(env);
             auto vect = aHandler.JavaToNative(values);
-            API_INSTANCE DTWAIN_ArrayResize(aTmp, vect.size());
+            API_INSTANCE DTWAIN_ArrayResize(aTmp, static_cast<LONG>(vect.size()));
             for (size_t i = 0; i < vect.size(); ++i)
-                API_INSTANCE DTWAIN_ArraySetAtANSIString(aTmp,i,vect[i].c_str());
+                API_INSTANCE DTWAIN_ArraySetAtANSIString(aTmp, static_cast<LONG>(i), vect[i].c_str());
             return API_INSTANCE DTWAIN_SetCapValues(DTWAIN_SOURCE(source), cap, setType, aTmp);
         }
         if (arrayType == DTWAIN_ARRAYFRAME)
         {
             JavaArrayListHandler<ArrayFrameList> aHandler(env);
             auto vect = aHandler.JavaToNative(values);
-            API_INSTANCE DTWAIN_ArrayResize(aTmp, vect.size());
+            API_INSTANCE DTWAIN_ArrayResize(aTmp, static_cast<LONG>(vect.size()));
             for (size_t i = 0; i < vect.size(); ++i)
-                API_INSTANCE DTWAIN_ArrayFrameSetAt(aTmp, i, vect[i].left, vect[i].top, vect[i].right, vect[i].bottom);
+                API_INSTANCE DTWAIN_ArrayFrameSetAt(aTmp, static_cast<LONG>(i), vect[i].left, vect[i].top, vect[i].right, vect[i].bottom);
             return API_INSTANCE DTWAIN_SetCapValues(DTWAIN_SOURCE(source), cap, setType, aTmp);
         }
     }
@@ -3641,7 +3641,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetC
             for (LONG i = 0; i < sz; ++i)
                 allValues[i] = API_INSTANCE DTWAIN_ArrayGetAtANSIStringPtr(aTmp, i);
             JavaArrayListHandler<ArrayStringList<ArrayStringCharTraitsA>> aHandler(env);
-            jobject jReturn = aHandler.NativeToJava(retList, allValues);
+            aHandler.NativeToJava(retList, allValues);
             return JNI_TRUE;
         }
         else
@@ -3652,7 +3652,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetC
             for (LONG i = 0; i < sz; ++i)
                 API_INSTANCE DTWAIN_ArrayFrameGetAt(aTmp, i, &allValues[i].left, &allValues[i].top, &allValues[i].right, &allValues[i].bottom );
             JavaArrayListHandler<ArrayFrameList> aHandler(env);
-            jobject jReturn = aHandler.NativeToJava(retList, allValues);
+            aHandler.NativeToJava(retList, allValues);
             return JNI_TRUE;
         }
     }
@@ -3905,7 +3905,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetAc
   {
       // Get the current unit of measure
       LONG unit = DTWAIN_INCHES;
-      BOOL bRet2 = API_INSTANCE DTWAIN_GetSourceUnit(reinterpret_cast<DTWAIN_SOURCE>(arg1), &unit);
+      API_INSTANCE DTWAIN_GetSourceUnit(reinterpret_cast<DTWAIN_SOURCE>(arg1), &unit);
       // Call Java function to declare and init a new acquire area object
       auto pFloat = static_cast<DTWAIN_FLOAT*>(API_INSTANCE DTWAIN_ArrayGetBuffer(dArray, 0));
       return vArea.createFullObject(*pFloat, *(pFloat + 1), *(pFloat + 2), *(pFloat + 3), unit);
@@ -3938,7 +3938,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetAc
     DTWAIN_ARRAY dReturnArray = API_INSTANCE DTWAIN_ArrayCreate(DTWAIN_ARRAYFLOAT, 4);
     DTWAINArray_RAII raii1(dSetArray);
     DTWAINArray_RAII raii2(dReturnArray);
-    LONG srcUnit;
+    LONG srcUnit = TWUN_INCHES;
     if ( dSetArray && dReturnArray )
     {
         auto pBuf = static_cast<DTWAIN_FLOAT*>(API_INSTANCE DTWAIN_ArrayGetBuffer(dSetArray, 0));
@@ -3954,7 +3954,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetAc
         }
 
         // Set the source unit first
-        BOOL bRet2 = API_INSTANCE DTWAIN_SetSourceUnit(reinterpret_cast<DTWAIN_SOURCE>(arg1), srcUnit);
+        API_INSTANCE DTWAIN_SetSourceUnit(reinterpret_cast<DTWAIN_SOURCE>(arg1), srcUnit);
 
         pBuf = static_cast<DTWAIN_FLOAT*>(API_INSTANCE DTWAIN_ArrayGetBuffer(dReturnArray, 0));
 
@@ -4050,7 +4050,7 @@ static jobject getFullImageBMPData(HANDLE hDib, JavaAcquirerInfo& jacqInfo, JNIE
 {
     HandleRAII raii(hDib);
     LPBYTE pDibData = raii.getData();
-    jobject imgObject = jacqInfo.CreateJavaImageDataObject(env);
+    jobject imgObject = jacqInfo.CreateJavaImageDataObject();
 
     // attach file header if this is a DIB
     if ( isBMP )
@@ -4098,13 +4098,13 @@ jobject AcquireHandler(DTWAIN_AcquireFn fn, JNIEnv *env, jlong src, jint pixelTy
         ret.first->second = isBMP;
     acq = fn(reinterpret_cast<DTWAIN_SOURCE>(src), pixelType, maxPages, showUI, closeSource, &nStatus);
     JavaAcquirerInfo jacqInfo(env);
-    jobject arrayObject = jacqInfo.CreateJavaAcquisitionArrayObject(env);
+    jobject arrayObject = jacqInfo.CreateJavaAcquisitionArrayObject();
     if ( acq )
     {
         LONG nAcquisitions = API_INSTANCE DTWAIN_GetNumAcquisitions(acq);
         for (LONG i = 0; i < nAcquisitions; ++i)
         {
-            jobject acquisitionObject = jacqInfo.CreateJavaAcquisitionDataObject(env);
+            jobject acquisitionObject = jacqInfo.CreateJavaAcquisitionDataObject();
             LONG nDibs = API_INSTANCE DTWAIN_GetNumAcquiredImages(acq, i);
             for ( LONG j = 0; j < nDibs; ++j )
             {
@@ -4200,7 +4200,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Ge
         // create a vector of the correct size
         std::vector<BYTE> vBytes(actualSize);
         API_INSTANCE DTWAIN_GetCustomDSData(reinterpret_cast<DTWAIN_SOURCE>(src), &vBytes[0], actualSize, &actualSize, DTWAINGCD_COPYDATA);
-        return CreateJArrayFromCArray<JavaByteArrayTraits<char> >(env, (JavaByteArrayTraits<char>::api_base_type*)&vBytes[0], vBytes.size());
+        return CreateJArrayFromCArray<JavaByteArrayTraits<char> >(env, (JavaByteArrayTraits<char>::api_base_type*)&vBytes[0], static_cast<unsigned long>(vBytes.size()));
     }
     BYTE b;
     return CreateJArrayFromCArray<JavaByteArrayTraits<char> >(env, (JavaByteArrayTraits<char> ::api_base_type*)&b, 0);
@@ -4220,7 +4220,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCusto
     std::vector<char> dArray = CreateCArrayFromJArray<JavaByteArrayTraits<char> >(env, customData);
     if ( dArray.empty() )
         return 1;
-    return API_INSTANCE DTWAIN_SetCustomDSData(reinterpret_cast<DTWAIN_SOURCE>(src), nullptr, (LPBYTE)&dArray[0], dArray.size(), DTWAINSCD_USEDATA);
+    return API_INSTANCE DTWAIN_SetCustomDSData(reinterpret_cast<DTWAIN_SOURCE>(src), nullptr, (LPBYTE)&dArray[0], static_cast<LONG>(dArray.size()), DTWAINSCD_USEDATA);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -4693,7 +4693,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AcquireF
     LONG nStatus;
     DTWAIN_ARRAY dArray = CreateDTWAINArrayFromJStringArray(env, strArray);
     DTWAINArray_RAII raii(dArray);
-    BOOL bRet = API_INSTANCE DTWAIN_AcquireFileEx(reinterpret_cast<DTWAIN_SOURCE>(src), dArray, filetype, fileflags, pixeltype, numpages, showUI, closeSource, &nStatus);
+    API_INSTANCE DTWAIN_AcquireFileEx(reinterpret_cast<DTWAIN_SOURCE>(src), dArray, filetype, fileflags, pixeltype, numpages, showUI, closeSource, &nStatus);
     return nStatus;
     DO_DTWAIN_CATCH(env)
 }
@@ -4835,7 +4835,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetAcqui
     // Call the DTWAIN function to set the area information
     DTWAIN_ARRAY dSetArray = API_INSTANCE DTWAIN_ArrayCreate(DTWAIN_ARRAYFLOAT, 4);
     DTWAINArray_RAII raii1(dSetArray);
-    LONG srcUnit;
+    LONG srcUnit = TWUN_INCHES;
     if ( dSetArray )
     {
         const char* fnName[] = {"getLeft", "getTop", "getRight", "getBottom", "getUnitOfMeasure"};
@@ -5106,8 +5106,8 @@ JNIEXPORT jbyteArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Ge
     if (hReturn)
     {
         std::vector<TCHAR> ts(actualSize);
-        API_INSTANCE DTWAIN_GetOCRText(reinterpret_cast<DTWAIN_OCRENGINE>(ocr), pageNum, &ts[0], ts.size(), &actualSize, DTWAINOCR_COPYDATA);
-        return CreateJArrayFromCArray<JavaByteArrayTraits<TCHAR> >(env, &ts[0], ts.size()*sizeof(TCHAR));
+        API_INSTANCE DTWAIN_GetOCRText(reinterpret_cast<DTWAIN_OCRENGINE>(ocr), pageNum, &ts[0], static_cast<LONG>(ts.size()), &actualSize, DTWAINOCR_COPYDATA);
+        return CreateJArrayFromCArray<JavaByteArrayTraits<TCHAR> >(env, &ts[0], static_cast<LONG>(ts.size())*sizeof(TCHAR));
     }
     return CreateJArrayFromCArray<JavaByteArrayTraits<TCHAR> >(env, nullptr,0);
     DO_DTWAIN_CATCH(env)
@@ -5187,16 +5187,20 @@ static TW_IMAGEMEMXFER GetBufferedMemXFerData(DTWAIN_SOURCE source)
 {
     TW_IMAGEMEMXFER memxferInfo{};
     DWORD allVals[9] = {};
-    std::array<pTW_UINT32, 8> xferVals = { &memxferInfo.BytesPerRow, &memxferInfo.Columns, &memxferInfo.Rows,
-                                          &memxferInfo.XOffset, &memxferInfo.YOffset, &memxferInfo.BytesWritten, &memxferInfo.Memory.Flags,
-                                          &memxferInfo.Memory.Length };
 
     HANDLE bRetHandle = API_INSTANCE DTWAIN_GetBufferedTransferInfo(reinterpret_cast<DTWAIN_SOURCE>(source), &allVals[0], &allVals[1], &allVals[2],
-        &allVals[3], &allVals[4], &allVals[5], &allVals[6], &allVals[7], &allVals[8]);
+                                                                    &allVals[3], &allVals[4], &allVals[5], &allVals[6], &allVals[7], &allVals[8]);
     memxferInfo.Compression = allVals[0];
     memxferInfo.Memory.TheMem = bRetHandle;
-    for (int i = 0; i < 8; ++i)
-        *(xferVals[i]) = allVals[i + 1];
+    memxferInfo.BytesPerRow = allVals[1];
+    memxferInfo.Columns = allVals[2];
+    memxferInfo.Rows = allVals[3];
+    memxferInfo.XOffset = allVals[4];
+    memxferInfo.YOffset = allVals[5];
+    memxferInfo.BytesWritten = allVals[6];
+    memxferInfo.Memory.Flags = allVals[7];
+    memxferInfo.Memory.Length = allVals[8];
+
     return memxferInfo;
 }
 
@@ -5273,7 +5277,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetBuffe
  * Signature: (JLcom/dynarithmic/twain/highlevel/BufferedStripInfo;)I
  */
 JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EndBufferedTransfer
-  (JNIEnv *env, jobject, jlong src, jobject jBufferedTransfer)
+  (JNIEnv *env, jobject, jlong /*src*/, jobject jBufferedTransfer)
 {
     DO_DTWAIN_TRY
     DO_DTWAIN_CHECK_MODULE_LOAD
@@ -5309,7 +5313,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetLi
     if (retLength > 0)
     {
         std::vector<TCHAR> arg(retLength + 1);
-        API_INSTANCE DTWAIN_GetLibraryPath(arg.data(), arg.size());
+        API_INSTANCE DTWAIN_GetLibraryPath(arg.data(), static_cast<LONG>(arg.size()));
         return CreateJStringFromCString(env, arg.data());
     }
     TCHAR szNothing[] = { 0 };
@@ -5330,7 +5334,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVe
     if (retLength > 0)
     {
         std::vector<TCHAR> arg(retLength + 1);
-        API_INSTANCE DTWAIN_GetVersionString(arg.data(), arg.size());
+        API_INSTANCE DTWAIN_GetVersionString(arg.data(), static_cast<LONG>(arg.size()));
         return CreateJStringFromCString(env, arg.data());
     }
     const TCHAR szNothing[] = { 0 };
@@ -5351,7 +5355,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSh
     if (retLength > 0)
     {
         std::vector<TCHAR> arg(retLength + 1);
-        API_INSTANCE DTWAIN_GetShortVersionString(arg.data(), arg.size());
+        API_INSTANCE DTWAIN_GetShortVersionString(arg.data(), static_cast<LONG>(arg.size()));
         return CreateJStringFromCString(env, arg.data());
     }
     TCHAR szNothing[] = { 0 };
@@ -5387,7 +5391,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTw
     DO_DTWAIN_TRY
     DO_DTWAIN_CHECK_MODULE_LOAD
     TW_IDENTITY twIdentity = {};
-    auto tId = API_INSTANCE DTWAIN_GetTwainAppIDEx(&twIdentity);
+    API_INSTANCE DTWAIN_GetTwainAppIDEx(&twIdentity);
     JavaDTwainLowLevel_TW_IDENTITY testClass(env);
     testClass.NativeToJava(twIdentity);
     return testClass.getObject();
@@ -5405,7 +5409,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSo
     DO_DTWAIN_TRY
     TW_IDENTITY twIdentity = {};
     DO_DTWAIN_CHECK_MODULE_LOAD
-    auto tId = API_INSTANCE DTWAIN_GetSourceIDEx(reinterpret_cast<DTWAIN_SOURCE>(theSource), &twIdentity);
+    API_INSTANCE DTWAIN_GetSourceIDEx(reinterpret_cast<DTWAIN_SOURCE>(theSource), &twIdentity);
     JavaDTwainLowLevel_TW_IDENTITY testClass(env);
     jobject jobj = testClass.defaultConstructObject();
     testClass.setObject(jobj);
@@ -5566,7 +5570,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTw
     if (nLen >= 0)
     {
         name.resize((std::max)(static_cast<int>(nLen),1));
-        API_INSTANCE DTWAIN_GetTwainStringName(category, twainID, name.data(), name.size());
+        API_INSTANCE DTWAIN_GetTwainStringName(category, twainID, name.data(), static_cast<LONG>(name.size()));
         return static_cast<jstring>(CreateJStringFromCString(env, name.data()));
     }
     DO_DTWAIN_CATCH(env)
@@ -5612,7 +5616,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetAc
     if (nLen >= 0)
     {
         name.resize((std::max)(static_cast<int>(nLen), 1));
-        API_INSTANCE DTWAIN_GetActiveDSMPath(name.data(), name.size());
+        API_INSTANCE DTWAIN_GetActiveDSMPath(name.data(), static_cast<LONG>(name.size()));
         return static_cast<jstring>(CreateJStringFromCString(env, name.data()));
     }
     DO_DTWAIN_CATCH(env)
@@ -5795,7 +5799,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetA
 * Signature: (IZ)I
 */
 JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EnableAutoFeedNotify
-(JNIEnv *env, jobject, jint latency, jboolean enable)
+(JNIEnv *env, jobject, jint /*latency*/, jboolean /*enable*/)
 {
     DO_DTWAIN_TRY
         DO_DTWAIN_CHECK_MODULE_LOAD
@@ -5947,19 +5951,19 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AddPDFTe
     auto strokeWidth = pdfElement.getStrokeWidth();
     auto displayFlags = pdfElement.getDisplayOptions();
     auto text = pdfElement.getText();
-    auto ret = API_INSTANCE DTWAIN_AddPDFText(reinterpret_cast<DTWAIN_SOURCE>(source),
-                                           text.c_str(),
-                                           xpos,
-                                           ypos,
-                                           fontName.c_str(),
-                                           fontheight,
-                                           RGB(rgb.getR(), rgb.getG(), rgb.getB()),
-                                           opts,
-                                           scaling,
-                                           charSpacing,
-                                           wordSpacing,
-                                           strokeWidth,
-                                           displayFlags);
+    API_INSTANCE DTWAIN_AddPDFText(reinterpret_cast<DTWAIN_SOURCE>(source),
+                                    text.c_str(),
+                                    xpos,
+                                    ypos,
+                                    fontName.c_str(),
+                                    fontheight,
+                                    RGB(rgb.getR(), rgb.getG(), rgb.getB()),
+                                    opts,
+                                    scaling,
+                                    charSpacing,
+                                    wordSpacing,
+                                    strokeWidth,
+                                    displayFlags);
     return JNI_TRUE;
     DO_DTWAIN_CATCH(env)
 }
@@ -6047,7 +6051,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVe
     if (retLength > 0)
     {
         std::vector<TCHAR> arg(retLength + 1);
-        API_INSTANCE DTWAIN_GetVersionCopyright(arg.data(), arg.size());
+        API_INSTANCE DTWAIN_GetVersionCopyright(arg.data(), static_cast<LONG>(arg.size()));
         return CreateJStringFromCString(env, arg.data());
     }
     TCHAR szNothing[] = { 0 };
@@ -6068,7 +6072,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSe
     if (retLength > 0)
     {
         std::vector<TCHAR> arg(retLength + 1);
-        API_INSTANCE DTWAIN_GetSessionDetails(arg.data(), arg.size(), indentValue, FALSE);
+        API_INSTANCE DTWAIN_GetSessionDetails(arg.data(), static_cast<LONG>(arg.size()), indentValue, FALSE);
         return CreateJStringFromCString(env, arg.data());
     }
     TCHAR szNothing[] = { 0 };
@@ -6102,7 +6106,7 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSo
             ++nSources;
     #endif
     std::vector<TCHAR> vChars(100000 * nSources + 1, 0);
-    LONG retLength = API_INSTANCE DTWAIN_GetSourceDetails(reinterpret_cast<LPCTSTR>(str.GetStringChars()), vChars.data(), vChars.size(), indentValue, bRefresh);
+    LONG retLength = API_INSTANCE DTWAIN_GetSourceDetails(reinterpret_cast<LPCTSTR>(str.GetStringChars()), vChars.data(), static_cast<LONG>(vChars.size()), indentValue, bRefresh);
     if (retLength > 0)
         return CreateJStringFromCString(env, vChars.data());
     TCHAR szNothing[] = { 0 };
