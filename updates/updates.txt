@@ -12,8 +12,9 @@ Version 1.4
   acquired page.  Note that your device must support barcode retrieval, and support extended image
   information that will report barcode information (see update above).
 
-- The dtwainjni.info file has been updated.  You must use this updated file with version 1.4 of
-  DTWAIN_Java, as any earlier versions of dtwainjni.info will not work with this version.
+- The dtwainjni.info file has been updated.  You must use this updated dtwainjni.info file with 
+  version 1.4 of DTWAIN-Java, as any earlier versions of dtwainjni.info will not work (an 
+  exception will be thrown back to Java if the file is not valid).  
 
 - You must use the DTWAIN DLL's (dtwain32u.dll, dtwain64u.dll, etc.) that are of version 5.5.4 or higher.  
   Earlier versions of DTWAIN will not work correctly with version 1.4 of DTWAIN_Java.
