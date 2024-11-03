@@ -9,6 +9,9 @@ From the DTWAIN library, you will need one or more of the dynamic link libraries
 2. The JNI dynamic link libraries in the  32bit and 64bit directories found <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_DLL" target="_blank">here</a>.
 5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.4.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
 1. The <a href="https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source" target="_blank">dtwainjni.info</a> file must be accessible by the DLL's mentioned in the previous step.  The **dtwainjni.info** file basically is a bridge between the Java function and class signatures and the C++ translation of those function and class signatures to C++.  Without this file, usage of any of the Java functions that communicate to the JNI layer will throw a Java exception.  The **dtwainjni.info** file must be placed in the same directory as the JNI DLL that will be loaded at runtime.
+
+Make sure you always use the latest version of **dtwainjni.info**.  Since this file can undergo changes between different versions of this library, it is important that you are running the **dtwainjni.info** that matches the version of the Java interface to DTWAIN.
+
 ----
 ## Very simple Java application using DTWAIN
 
@@ -266,6 +269,24 @@ SET JDK_INCLUDE_DIR=c:\java\jdk1.8\include
 SET DTWAIN_INCLUDE_DIR=c:\dtwain\c_cpp_includes
 ```
 should be issued on the command-line before starting Visual Studio and building your project.
+
+
+#### <u>Turning on/off dtwainjni.info corruption checking:</u>
+
+By default, the JNI DLL's will always check for the **dtwainjni.info** file being changed or corrupted.
+The only way to turn this checking off is to edit **dtwainjni_config.h** and set the **CONFIG_CHECKCRC**  macro to 1:
+
+`#define CONFIG_CHECKCRC 1`
+
+Once this is set, the JNI DLL's must be rebuilt.
+
+If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  To do this, you must the the `CONFIG_REFRESHCRC` macro to 1:
+
+`#define CONFIG_REFRESHCRC 1`
+
+After rebuilding the JNI DLL's, you must run your Java application to allow the **dtwainjni.info** file to be rebuilt.  An exception will be thrown to Java, indicating that the current dtwainjni.info file is invalid, and a new file, **dtwainjni_new.info**, was created (it should be created in the same directory where **dtwainjni.info** resides).  You would then rename the **dtwainjni_new.info** to **dtwainjni.info** so that the Java application no longer throws an exception.
+
+Caution:  If you are using JNI DLL's that have the dtwainjni.info checks turned off, or you edit the **dtwainjni.info** file, there is a large risk that the Java code may not work correctly could arise.  It is highly important that you know *exactly* what you are doing in terms of editing the dtwainjni.info file, as this file defines all the method signatures and functions to allow the JNI layer to communicate with Java.
 
 Please note that if you have never built a JNI DLL, I highly recommend that you build a simple one first (Oracle has examples of using JNI) **before** you embark on attempting to build the DTWAIN JNI layer yourself.   There are a few things required (for example, the Oracle JNI header files) before a build can be successful
 
