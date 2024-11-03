@@ -323,10 +323,19 @@ bool InitializeFunctionCallerInfo(JNIEnv* pEnv)
         #pragma message ("Building JNI with CRC check")
     #endif
     std::ifstream txtRes(g_JNIGlobals.GetResourceFileName());
-    auto retValue = GetDataCRC(txtRes, 1);
+    auto retValue = GetDataCRC(txtRes, 1).first;
+    bool bRecreatedCRC = false;
+    #if CONFIG_REFRESHCRC == 1
+    {
+        bRecreatedCRC = RecomputeCRC(g_JNIGlobals.GetResourceFileName(), 1);
+    }
+    #endif
     if (!retValue)
     {
-        JavaExceptionThrower::ThrowResourceFileInvalidError(pEnv, "dtwainjni.info is invalid or corrupted.");
+        std::string sExtra;
+        if (bRecreatedCRC)
+            sExtra = "\ndtwainjni.info file regenerated (dtwainjni_new.info)";
+        JavaExceptionThrower::ThrowResourceFileInvalidError(pEnv, "dtwainjni.info is invalid or corrupted." + sExtra);
         return 0;
     }
 #else
@@ -335,12 +344,6 @@ bool InitializeFunctionCallerInfo(JNIEnv* pEnv)
     #endif
 #endif
     return 1;
-}
-
-std::string GetDirectory(const std::string& path)
-{
-    size_t found = path.find_last_of("/\\");
-    return(path.substr(0, found));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -3393,7 +3396,6 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
     DTWAIN_ARRAY aTmp = CreateDTWAINArrayFromJArray<JavaDoubleArrayTraits>(env, arg6);
     DTWAINArray_RAII raii(aTmp);
     return API_INSTANCE DTWAIN_SetCapValuesEx2(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, arg3, arg4, arg5, aTmp);
-    return 0;
     DO_DTWAIN_CATCH(env)
 }
 

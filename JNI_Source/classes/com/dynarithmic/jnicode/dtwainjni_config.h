@@ -22,5 +22,6 @@
 #define DTWAINJNI_CONFIG_H
 
 #define CONFIG_CHECKCRC 1
+#define CONFIG_REFRESHCRC 0
 
 #endif

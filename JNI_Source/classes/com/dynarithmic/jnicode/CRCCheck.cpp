@@ -23,6 +23,8 @@
 #include <fstream>
 #include <algorithm>
 #include <cctype>
+#include <filesystem>
+
 #include "StringDefs.h"
 
 static unsigned long crc_table[] = {
@@ -105,7 +107,87 @@ static unsigned long crc32_aux(unsigned long crc, unsigned char* buf, unsigned i
         return crc ^ 0xffffffffL;
 }
 
-bool GetDataCRC(std::ifstream& ifs, int numTrailers)
+std::string GetDirectory(const std::string& path)
+{
+    size_t found = path.find_last_of("/\\");
+    return(path.substr(0, found));
+}
+
+template <typename StreamType>
+struct CloseAndRemoveFileRAII
+{
+    static constexpr int CloseFile = 1;
+    static constexpr int RemoveFile = 2;
+
+    std::filesystem::path temporary_file;
+    StreamType* ptrStream;
+    int nOptions = 0;
+    void SetOptions(int options) { nOptions = options; }
+    CloseAndRemoveFileRAII(std::filesystem::path thePath, StreamType* theStream, int options) : 
+        temporary_file(thePath), ptrStream(theStream),nOptions(options) {}
+    ~CloseAndRemoveFileRAII()
+    {
+        if ( nOptions & CloseFile)
+            ptrStream->close();
+        if ( nOptions & RemoveFile)
+            std::filesystem::remove(temporary_file);
+    }
+};
+
+bool RecomputeCRC(std::string origInfoFile, int numTrailers)
+{
+    std::filesystem::path orig_file = origInfoFile;
+    std::filesystem::path temp_dir = std::filesystem::temp_directory_path();
+    std::filesystem::path temp_file = temp_dir / "__dtwainjniinfo__.tmp";
+
+    std::ofstream outfile(temp_file);
+    if (!outfile)
+        return false;
+    CloseAndRemoveFileRAII<std::ofstream> raii(temp_file, &outfile,
+        CloseAndRemoveFileRAII<std::ofstream>::CloseFile | CloseAndRemoveFileRAII<std::ofstream>::RemoveFile);
+    {
+        std::ifstream ifs(orig_file);
+        if (!ifs)
+            return false;
+
+        std::queue<std::string> lineQueue;
+        std::string line;
+        std::string totalBuf;
+        for (int i = 0; i < numTrailers; ++i)
+        {
+            std::getline(ifs, line);
+            stringjniutils::rtrim(line);
+            lineQueue.push(line);
+        }
+        while (std::getline(ifs, line))
+        {
+            outfile << lineQueue.front() << "\n";
+            stringjniutils::rtrim(line);
+            totalBuf += lineQueue.front();
+            lineQueue.pop();
+            lineQueue.push(line);
+        }
+        auto crcVal = crc32_aux(0, (unsigned char*)totalBuf.data(), static_cast<unsigned int>(totalBuf.size()));
+        outfile << "%" << std::to_string(crcVal);
+    }
+    outfile.close();
+    raii.SetOptions(CloseAndRemoveFileRAII<std::ifstream>::RemoveFile);
+    std::filesystem::path new_file = GetDirectory(origInfoFile) + "\\dtwainjni_new.info";
+    try
+    {
+        if (std::filesystem::exists(new_file))
+            std::filesystem::remove(new_file);
+        std::filesystem::copy(temp_file, new_file,std::filesystem::copy_options::overwrite_existing);
+        return true;
+    }
+    catch (const std::filesystem::filesystem_error& e)
+    {
+        OutputDebugStringA(e.what());
+    }
+    return false;
+}
+
+std::pair<bool, unsigned long> GetDataCRC(std::ifstream& ifs, int numTrailers)
 {
     std::queue<std::string> lineQueue;
     std::string line;
@@ -127,18 +209,18 @@ bool GetDataCRC(std::ifstream& ifs, int numTrailers)
     try
     {
         if (lineQueue.front().empty())
-            return false;
+            return { false, crcVal };
         auto& str = lineQueue.front();
         if (str.front() != '%')
-            return false;
+            return { false, crcVal };
         str = str.substr(1);
         uint64_t crc = std::stoul(str);
         if (crc != crcVal)
-            return false;
+            return { false, crcVal };
     }
     catch (...)
     {
-        return false;
+        return { false, 0 };
     }
-    return true;
+    return { true, crcVal };
 }

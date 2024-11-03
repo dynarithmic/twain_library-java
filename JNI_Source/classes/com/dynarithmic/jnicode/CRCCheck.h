@@ -21,5 +21,8 @@
 #ifndef CRCCHECK_H
 #define CRCCHECK_H
 #include <fstream>
-bool GetDataCRC(std::ifstream& ifs, int numTrailers);
+#include <utility>
+std::pair<bool, unsigned long> GetDataCRC(std::ifstream& ifs, int numTrailers);
+bool RecomputeCRC(std::string origInfoFile, int numTrailers);
+std::string GetDirectory(const std::string& path);
 #endif
