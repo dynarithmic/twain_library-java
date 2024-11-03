@@ -286,7 +286,7 @@ If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  T
 
 After rebuilding the JNI DLL's, you must run your Java application to allow the **dtwainjni.info** file to be rebuilt.  An exception will be thrown to Java, indicating that the current dtwainjni.info file is invalid, and a new file, **dtwainjni_new.info**, was created (it should be created in the same directory where **dtwainjni.info** resides).  You would then rename the **dtwainjni_new.info** to **dtwainjni.info** so that the Java application no longer throws an exception.
 
-Caution:  If you are using JNI DLL's that have the dtwainjni.info checks turned off, or you edit the **dtwainjni.info** file, there is a large risk that the Java code may not work correctly could arise.  It is highly important that you know *exactly* what you are doing in terms of editing the dtwainjni.info file, as this file defines all the method signatures and functions to allow the JNI layer to communicate with Java.
+Caution:  If you are using JNI DLL's that have the dtwainjni.info checks turned off, or you edit the **dtwainjni.info** file, there is a large risk that the Java code may not work correctly.  It is highly important that you know *exactly* what you are doing in terms of editing the dtwainjni.info file, as this file defines all the method signatures and functions to allow the JNI layer to communicate with Java.
 
 Please note that if you have never built a JNI DLL, I highly recommend that you build a simple one first (Oracle has examples of using JNI) **before** you embark on attempting to build the DTWAIN JNI layer yourself.   There are a few things required (for example, the Oracle JNI header files) before a build can be successful
 
