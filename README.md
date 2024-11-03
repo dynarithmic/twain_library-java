@@ -12,6 +12,8 @@ From the DTWAIN library, you will need one or more of the dynamic link libraries
 
 Make sure you always use the latest version of **dtwainjni.info**.  Since this file can undergo changes between different versions of this library, it is important that you are running the **dtwainjni.info** that matches the version of the Java interface to DTWAIN.
 
+[Description of the latest updates to the Java interface](https://github.com/dynarithmic/twain_library-java/blob/master/updates/updates.txt).
+
 ----
 ## Very simple Java application using DTWAIN
 
