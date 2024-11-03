@@ -83,6 +83,10 @@ public class TwainCallback
         s_mapData.put(NotificationCode.BLANKPAGEDETECTED3, "onBlankPageDetectedEvent3()");
         s_mapData.put(NotificationCode.BLANKPAGEDISCARDED1, "onBlankPageDiscardedEvent1()");
         s_mapData.put(NotificationCode.BLANKPAGEDISCARDED2, "onBlankPageDiscardedEvent2()");
+        s_mapData.put(NotificationCode.TRANSFERTILEREADY, "onTransferTileReady()");
+        s_mapData.put(NotificationCode.TRANSFERTILEDONE, "onTransferTileDone()");
+        s_mapData.put(NotificationCode.CLOSEDIBFAILED, "OnClosedDIBFailed()");
+        s_mapData.put(NotificationCode.INVALID_TWAINDSM2_BITMAP, "OnInvalidTwainDSM2Bitmap()");
     }
 
     public TwainCallback() 
@@ -496,6 +500,18 @@ public class TwainCallback
                         break;
                     case TWAINTRIPLETEND:
                         returner = theCallback.onTwainTripletEnd(sourceHandle);
+                        break;
+                    case TRANSFERTILEREADY:
+                        returner = theCallback.onTransferTileReady(sourceHandle);
+                        break;
+                    case TRANSFERTILEDONE:
+                        returner = theCallback.onTransferTileDone(sourceHandle);
+                        break;
+                    case CLOSEDIBFAILED:
+                        returner = theCallback.onClosedDIBFailed(sourceHandle);
+                        break;
+                    case INVALID_TWAINDSM2_BITMAP:
+                        returner = theCallback.onInvalidTwainDSM2Bitmap(sourceHandle);
                         break;
                     default:
                         break;
@@ -924,6 +940,27 @@ public class TwainCallback
     {
         return defaultImpl(sourceHandle);
     }
+
+    public int onTransferTileReady(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onTransferTileDone(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+
+    public int onClosedDIBFailed(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onInvalidTwainDSM2Bitmap(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
 
     public int catchUnknown(int event, TwainSource sourceHandle)
     {

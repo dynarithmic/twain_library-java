@@ -17,30 +17,11 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     DYNARITHMIC SOFTWARE. DYNARITHMIC SOFTWARE DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS.
-
  */
-package com.dtwain.demos;
-import com.dynarithmic.twain.highlevel.*;
+#ifndef DTWAINJNI_CONFIG_H
+#define DTWAINJNI_CONFIG_H
 
-public class TinyApplication
-{
-    public static void main(String[] args)
-    {
-        try
-        {
-            // Open a session
-            TwainSession session = new TwainSession();
+#define CONFIG_CHECKCRC 1
+#define CONFIG_REFRESHCRC 0
 
-            // Select a TWAIN Source
-            TwainSource source = session.selectSource();
-            if ( source.isOpened() )
-                // acquire to a BMP file to the current working directory, with name "temp.bmp"
-                // To set the name, see the SimpleFileAcquireBMPDemo.java demo
-                source.acquire();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-}
+#endif

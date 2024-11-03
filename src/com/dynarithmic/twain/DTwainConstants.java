@@ -63,6 +63,83 @@ public class DTwainConstants
         public static final int DTWAIN_UNICODE_VERSION = 0x00800000;
     }
 
+    public static class DTwainConstantToString
+    {
+        public static final int DTWAIN_CONSTANT_TWPT     = 0 ;
+        public static final int DTWAIN_CONSTANT_TWUN     = 1 ;
+        public static final int DTWAIN_CONSTANT_TWCY     = 2 ;
+        public static final int DTWAIN_CONSTANT_TWAL     = 3 ;
+        public static final int DTWAIN_CONSTANT_TWAS     = 4 ;
+        public static final int DTWAIN_CONSTANT_TWBCOR   = 5 ;
+        public static final int DTWAIN_CONSTANT_TWBD     = 6 ;
+        public static final int DTWAIN_CONSTANT_TWBO     = 7 ;
+        public static final int DTWAIN_CONSTANT_TWBP     = 8 ;
+        public static final int DTWAIN_CONSTANT_TWBR     = 9 ;
+        public static final int DTWAIN_CONSTANT_TWBT     = 10;
+        public static final int DTWAIN_CONSTANT_TWCP     = 11;
+        public static final int DTWAIN_CONSTANT_TWCS     = 12;
+        public static final int DTWAIN_CONSTANT_TWDE     = 13;
+        public static final int DTWAIN_CONSTANT_TWDR     = 14;
+        public static final int DTWAIN_CONSTANT_TWDSK    = 15;
+        public static final int DTWAIN_CONSTANT_TWDX     = 16;
+        public static final int DTWAIN_CONSTANT_TWFA     = 17;   
+        public static final int DTWAIN_CONSTANT_TWFE     = 18;   
+        public static final int DTWAIN_CONSTANT_TWFF     = 19;
+        public static final int DTWAIN_CONSTANT_TWFL     = 20;   
+        public static final int DTWAIN_CONSTANT_TWFO     = 21;  
+        public static final int DTWAIN_CONSTANT_TWFP     = 22;   
+        public static final int DTWAIN_CONSTANT_TWFR     = 23;   
+        public static final int DTWAIN_CONSTANT_TWFT     = 24;   
+        public static final int DTWAIN_CONSTANT_TWFY     = 22;   
+        public static final int DTWAIN_CONSTANT_TWIA     = 23;   
+        public static final int DTWAIN_CONSTANT_TWIC     = 27;   
+        public static final int DTWAIN_CONSTANT_TWIF     = 28;   
+        public static final int DTWAIN_CONSTANT_TWIM     = 29;   
+        public static final int DTWAIN_CONSTANT_TWJC     = 30;   
+        public static final int DTWAIN_CONSTANT_TWJQ     = 31;   
+        public static final int DTWAIN_CONSTANT_TWLP     = 32;   
+        public static final int DTWAIN_CONSTANT_TWLS     = 33;   
+        public static final int DTWAIN_CONSTANT_TWMD     = 34;  
+        public static final int DTWAIN_CONSTANT_TWNF     = 35;  
+        public static final int DTWAIN_CONSTANT_TWOR     = 36;  
+        public static final int DTWAIN_CONSTANT_TWOV     = 37;  
+        public static final int DTWAIN_CONSTANT_TWPA     = 38;  
+        public static final int DTWAIN_CONSTANT_TWPC     = 39;  
+        public static final int DTWAIN_CONSTANT_TWPCH    = 40;  
+        public static final int DTWAIN_CONSTANT_TWPF     = 41;  
+        public static final int DTWAIN_CONSTANT_TWPM     = 42;  
+        public static final int DTWAIN_CONSTANT_TWPR     = 43;  
+        public static final int DTWAIN_CONSTANT_TWPF2    = 44;  
+        public static final int DTWAIN_CONSTANT_TWCT     = 45;  
+        public static final int DTWAIN_CONSTANT_TWPS     = 46;  
+        public static final int DTWAIN_CONSTANT_TWSS     = 47;  
+        public static final int DTWAIN_CONSTANT_TWPH     = 48;
+        public static final int DTWAIN_CONSTANT_TWCI     = 49;
+        public static final int DTWAIN_CONSTANT_FONTNAME = 50;
+        public static final int DTWAIN_CONSTANT_TWEI     = 51;
+        public static final int DTWAIN_CONSTANT_TWEJ     = 52;
+        public static final int DTWAIN_CONSTANT_TWCC     = 53;
+        public static final int DTWAIN_CONSTANT_TWQC     = 54;
+        public static final int DTWAIN_CONSTANT_TWRC     = 55;
+        public static final int DTWAIN_CONSTANT_MSG      = 56;
+        public static final int DTWAIN_CONSTANT_TWLG     = 57;
+        public static final int DTWAIN_CONSTANT_DLLINFO  = 58;
+        public static final int DTWAIN_CONSTANT_DG       = 59;
+        public static final int DTWAIN_CONSTANT_DAT      = 60;
+        public static final int DTWAIN_CONSTANT_DF       = 61;
+        public static final int DTWAIN_CONSTANT_TWTY     = 62;
+        public static final int DTWAIN_CONSTANT_TWCB     = 63;
+        public static final int DTWAIN_CONSTANT_TWAF     = 64;
+        public static final int DTWAIN_CONSTANT_TWFS     = 65;
+        public static final int DTWAIN_CONSTANT_TWJS     = 66;
+        public static final int DTWAIN_CONSTANT_TWMR     = 67;
+        public static final int DTWAIN_CONSTANT_TWDP     = 68;
+        public static final int DTWAIN_CONSTANT_TWUS     = 69;
+        public static final int DTWAIN_CONSTANT_TWDF     = 70;
+        public static final int DTWAIN_CONSTANT_TWFM     = 71;
+        public static final int DTWAIN_CONSTANT_TWSG     = 72;
+    }
+
     public enum SessionStartupMode
     {
         NONE,
@@ -296,20 +373,20 @@ public class DTwainConstants
         WBMP_RESIZED(11000),
         TGA_RLE(11001),
         BMP_RLE(11002),
-        BIGTIFFLZW          (1003),
-        BIGTIFFLZWMULTI     (1004),
-        BIGTIFFNONE         (1005),
-        BIGTIFFNONEMULTI    (1006),
-        BIGTIFFPACKBITS     (1007),
-        BIGTIFFPACKBITSMULTI(1008),
-        BIGTIFFDEFLATE      (1009),
-        BIGTIFFDEFLATEMULTI (1010),
-        BIGTIFFG3           (1011),
-        BIGTIFFG3MULTI      (1012),
-        BIGTIFFG4           (1013),
-        BIGTIFFG4MULTI      (1014),
-        BIGTIFFJPEG         (1015),
-        BIGTIFFJPEGMULTI    (1016),
+        BIGTIFFLZW          (11003),
+        BIGTIFFLZWMULTI     (11004),
+        BIGTIFFNONE         (11005),
+        BIGTIFFNONEMULTI    (11006),
+        BIGTIFFPACKBITS     (11007),
+        BIGTIFFPACKBITSMULTI(11008),
+        BIGTIFFDEFLATE      (11009),
+        BIGTIFFDEFLATEMULTI (11010),
+        BIGTIFFG3           (11011),
+        BIGTIFFG3MULTI      (11012),
+        BIGTIFFG4           (11013),
+        BIGTIFFG4MULTI      (11014),
+        BIGTIFFJPEG         (11015),
+        BIGTIFFJPEGMULTI    (11016),
         
         BMP_SOURCE_MODE(2),
         TIFF_SOURCE_MODE(0),
@@ -471,6 +548,8 @@ public class DTwainConstants
         PAGEDISCARDED (1054),
         PROCESSDIBACCEPTED (1055),
         PROCESSDIBFINALACCEPTED (1056),
+        CLOSEDIBFAILED  (1057),
+        INVALID_TWAINDSM2_BITMAP (1058),
         DEVICEEVENT (1100),
         TWAINPAGECANCELLED (1105),
         TWAINPAGEFAILED (1106),
@@ -499,7 +578,9 @@ public class DTwainConstants
         PROCESSEDAUDIOFILE  (1182),
         TWAINTRIPLETBEGIN (1183),
         TWAINTRIPLETEND (1184),
-        FEEDERNOTLOADED (1200);
+        FEEDERNOTLOADED (1200),
+        TRANSFERTILEREADY (1300),
+        TRANSFERTILEDONE (1301);
 
         private final int enumValue;
         NotificationCode(int i)
@@ -600,6 +681,16 @@ public class DTwainConstants
         ERROR_AREA_ARRAY_TOO_SMALL  (-1056),
         ERROR_LOG_CREATE_ERROR  (-1057),
         ERROR_FILESYSTEM_NOT_SUPPORTED (-1058),
+        ERROR_TILEMODE_NOTSET (-1059),
+        ERROR_INI32_NOT_FOUND (-1060),
+        ERROR_INI64_NOT_FOUND (-1061),
+        ERROR_CRC_CHECK (-1062),
+        ERROR_RESOURCES_BAD_VERSION (-1063),
+        ERROR_WIN32_ERROR (-1064),
+        ERROR_STRINGID_NOTFOUND (-1065),
+        ERROR_RESOURCES_DUPLICATEID_FOUND (-1066),
+        ERROR_UNAVAILABLE_EXTINFO (-1067),
+
         TWAIN_ERROR_LOW_MEMORY (-1100),
         TWAIN_ERROR_FALSE_ALARM (-1101),
         TWAIN_ERROR_BUMMER (-1102),

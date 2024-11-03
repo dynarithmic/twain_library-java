@@ -19,9 +19,12 @@
     OF THIRD PARTY RIGHTS.
 
  */
-package com.dynarithmic.twain.highlevel;
+package com.dtwain.demos;
 
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.highlevel.TwainSource;
+import com.dynarithmic.twain.highlevel.TwainSourceDialog;
 
 public class EnhancedSourceSelector 
 {

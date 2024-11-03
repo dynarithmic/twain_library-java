@@ -21,10 +21,8 @@
  */
 package com.dtwain.demos;
 
-import com.dynarithmic.twain.DTwainGlobalOptions;
 import com.dynarithmic.twain.DTwainConstants.AcquireType;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.ImageHandler;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -35,8 +33,8 @@ public class SimpleImageNativeAcquireDemo
     // Simple acquire to a file
     public void run() throws Exception
     {
-        // Set the JNI version
-        DTwainGlobalOptions.setJNIVersion(5); //jniToUse - 1);
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
 
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
@@ -78,8 +76,10 @@ public class SimpleImageNativeAcquireDemo
 
                     // Now get the image data.
                     // This for loop only shows how to get the image data.
-                    // After the loop, we will send iHandler's information to a
-                    // dialog that displays the image.
+                    // After the loop, we could send iHandler's information to a
+                    // dialog that displays the image.  For more details see 
+                    // the com.dtwain.demos.fulldemo.DTwainFullDemo.java and the 
+                    // call to the private function AcquireHelper() to see this in action.
                     for (int j = 0; j < numImages; ++j)
                     {
                         // imageData is the actual raw bytes of the image.

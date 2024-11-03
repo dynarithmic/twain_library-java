@@ -21,6 +21,7 @@
  */
 package com.dynarithmic.twain;
 
+import java.io.StreamCorruptedException;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -34,6 +35,7 @@ import com.dynarithmic.twain.highlevel.TwainAcquireArea;
 import com.dynarithmic.twain.highlevel.TwainAcquisitionArray;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.BufferedStripInfo;
+import com.dynarithmic.twain.highlevel.BufferedTileInfo;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo;
 import com.dynarithmic.twain.highlevel.JNITwainAcquireOptions;
 import com.dynarithmic.twain.highlevel.PDFTextElement;
@@ -42,6 +44,7 @@ import com.dynarithmic.twain.highlevel.TwainImageData;
 import com.dynarithmic.twain.highlevel.TwainSourceInfo;
 import com.dynarithmic.twain.highlevel.TwainStartupOptions;
 import com.dynarithmic.twain.lowlevel.TW_IDENTITY;
+import com.dynarithmic.twain.lowlevel.TW_IMAGEMEMXFER;
 import com.dynarithmic.twain.lowlevel.TW_UINT16;
 import com.dynarithmic.twain.lowlevel.TW_UINT32;
 import com.dynarithmic.twain.lowlevel.TwainTriplet;
@@ -66,13 +69,13 @@ public class DTwainJavaAPI
      * JNI layer.  This function must be called before calling any other
      * DTwain API Java function.
      * <p>
-     * The underlying JNI layer that will be used will be based on a 32-bit, Unicode-based
-     * system.  If 64-bit Unicode is desired, see DTwainJavaAPI(int)
+     * The underlying JNI layer that will be used will be based on whether the JVM is running
+     * 64-bit or 32-bit.  If either 32 or 64-bit the Unicode based version of DTWAIN will be utilized.
      */
     public DTwainJavaAPI()
     {
         m_LibraryHandle = 0;
-        m_DLLName = JNIVersion.JNI_32U;
+        m_DLLName = DTwainGlobalOptions.Is64BitArchitecture()?JNIVersion.JNI_64U:JNIVersion.JNI_32U;
     }
 
     /**
@@ -105,11 +108,24 @@ public class DTwainJavaAPI
 
     private void InitialLoadLibrary() throws DTwainJavaAPIException 
     {
-        // Load the JNI DLL
-        System.loadLibrary(s_DLLMap.get(m_DLLName).s_DTwainJNIName);
-
-        // Have the JNI DLL start the internal DTWAIN DLL's
-        DTWAIN_LoadLibrary(s_DLLMap.get(m_DLLName).s_DTwainDLLName, "");
+        try
+        {
+            // Load the JNI DLL
+            System.loadLibrary(s_DLLMap.get(m_DLLName).s_DTwainJNIName);
+    
+            // Have the JNI DLL start the internal DTWAIN DLL's
+            DTWAIN_LoadLibrary(s_DLLMap.get(m_DLLName).s_DTwainDLLName, "");
+        }
+        catch (UnsatisfiedLinkError e) 
+        {
+            System.out.println(e);
+            System.out.println("Conflict in 32/64 bit versions between the Java runtime and DTWAIN JNI layer (bitness does not match)\nEither set the proper runtime environment (32-bit, 64-bit) in your Java runtime or");
+            System.out.println("call com.dynarithmic.twain.DTwainGlobalOptions.setJNIVersion() to set the proper JNI version to use (32-bit, 64-bit) to match the Java runtime being used");
+        }
+        catch (StreamCorruptedException e)
+        {
+            System.out.println(e);    
+        }
     }
 
     private boolean EndLoadLibrary() throws DTwainJavaAPIException
@@ -122,11 +138,19 @@ public class DTwainJavaAPI
     {
         if ( m_LibraryHandle != 0 )
             return true;
-        InitialLoadLibrary();
-        return EndLoadLibrary();
+        try
+        {
+            InitialLoadLibrary();
+            return EndLoadLibrary();
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e);
+            return false;
+        }
     }
 
-    public boolean DTWAIN_JavaSysInitialize(TwainStartupOptions startOpts) throws DTwainJavaAPIException
+    public boolean DTWAIN_JavaSysInitialize(TwainStartupOptions startOpts) throws DTwainJavaAPIException, StreamCorruptedException
     {
         if ( m_LibraryHandle != 0 )
             return true;
@@ -229,7 +253,7 @@ public class DTwainJavaAPI
     }
 
     // dynamically load/unload DTWAIN DLL
-    public native int DTWAIN_LoadLibrary(String s, String resPath) throws DTwainJavaAPIException;
+    public native int DTWAIN_LoadLibrary(String s, String resPath) throws DTwainJavaAPIException, StreamCorruptedException;
     public native int DTWAIN_FreeLibrary() throws DTwainJavaAPIException;
 
     // No argument functions
@@ -365,6 +389,7 @@ public class DTwainJavaAPI
     public native String[] DTWAIN_EnumTopCameras(long Source) throws DTwainJavaAPIException;
     public native String[] DTWAIN_EnumBottomCameras(long Source) throws DTwainJavaAPIException;
     public native String[] DTWAIN_EnumCameras(long Source) throws DTwainJavaAPIException;
+    public native String[] DTWAIN_EnumCamerasEx(long Source, int whichCamera) throws DTwainJavaAPIException;
 
     // 2 argument functions
     public native boolean DTWAIN_IsCapSupported(long Source, int capValue) throws DTwainJavaAPIException;
@@ -496,6 +521,7 @@ public class DTwainJavaAPI
     public native TwainAcquireArea DTWAIN_SetAcquireArea(long Source, int setType, TwainAcquireArea aArea) throws DTwainJavaAPIException;
 
     public native TwainImageInfo DTWAIN_GetImageInfo(long Source) throws DTwainJavaAPIException;
+    public native BufferedTileInfo DTWAIN_GetAcquiredTileInfo(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_SetTwainLog(int nFlags, String szFile) throws DTwainJavaAPIException;
 
     // acquisitions
@@ -521,6 +547,7 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetNameFromCap(int capability) throws DTwainJavaAPIException;
     public native int DTWAIN_GetCapFromName(String capName) throws DTwainJavaAPIException;
     public native int DTWAIN_TwainSave(String sCmd) throws DTwainJavaAPIException;
+    public native String DTWAIN_GetTwainNameFromConstant(int constantType, int constant) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFAuthor(long Source, String sAuthor) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFCreator(long Source, String sCreator) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFTitle(long Source, String sTitle) throws DTwainJavaAPIException;
@@ -562,7 +589,10 @@ public class DTwainJavaAPI
 
     public native BufferedStripInfo DTWAIN_CreateBufferedStripInfo(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_SetBufferedTransferInfo(long Source, BufferedStripInfo info) throws DTwainJavaAPIException;
+    public native int DTWAIN_SetBufferedTransferInfo(long Source, BufferedTileInfo info) throws DTwainJavaAPIException;
     public native int DTWAIN_GetBufferedStripData(long Source, BufferedStripInfo info) throws DTwainJavaAPIException;
+    public native BufferedTileInfo DTWAIN_GetBufferedTileInfo(long Source) throws DTwainJavaAPIException;
+    public native TW_IMAGEMEMXFER DTWAIN_GetBufferedTransferInfo(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_EndBufferedTransfer(long Source, BufferedStripInfo info) throws DTwainJavaAPIException;
 
     public native int DTWAIN_ResetCapValues(long Source, int nCapValue) throws DTwainJavaAPIException;

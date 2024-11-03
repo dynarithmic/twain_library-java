@@ -23,6 +23,7 @@
 
 #include "jni.h"
 #include <string>
+#include <algorithm>
 #include "StringDefs.h"
 #include <windows.h>
 struct ANSICharTraits
@@ -40,8 +41,42 @@ struct ANSICharTraits
         return ptr;
     }
 
+    static std::string utf8String(const char *ansiString)
+    {
+        // Get the required buffer size for the UTF-8 string
+        int utf8Length = MultiByteToWideChar(CP_ACP, 0, ansiString, -1, NULL, 0);
+
+        // Allocate a buffer for the wide character string
+        std::wstring wideString(utf8Length, 0);
+
+        // Convert ANSI to wide character string
+        MultiByteToWideChar(CP_ACP, 0, ansiString, -1, wideString.data(), utf8Length);
+
+        // Get the required buffer size for the UTF-8 string
+        int utf8Length2 = WideCharToMultiByte(CP_UTF8, 0, wideString.c_str(), -1, NULL, 0, NULL, NULL);
+
+        // Allocate a buffer for the UTF-8 string
+        std::string utf8String(utf8Length2, 0);
+
+        // Convert wide character string to UTF-8
+        WideCharToMultiByte(CP_UTF8, 0, wideString.c_str(), -1, utf8String.data(), utf8Length2, NULL, NULL);
+
+        return utf8String;
+    }
+
     static jstring GetNewJString(JNIEnv *pEnv, const CharType* str)
-    { return pEnv->NewStringUTF(str); }
+    { 
+        // Need to check if any characters should be UTF-8, since we need a UTF-8 encoded string.
+        // ASCII characters are UTF-8.  If any of the characters fall outside the ASCII range,
+        // then the character needs to be converted to UTF-8 before NewStringUTF() can be used.
+        bool allAnsi = std::all_of(str, str + strlen(str), [&](char ch) { return ch >= 0 && ch < 128; });
+        if ( allAnsi )
+            return pEnv->NewStringUTF(str); // All characters are ANSI/ASCII
+
+        // Not all are ANSI/ASCII, so one or more characters need to be converted to UTF-8.  
+        auto utf8 = utf8String(str);
+        return pEnv->NewStringUTF(utf8.c_str()); 
+    }
 };
 
 struct UnicodeCharTraits
@@ -64,7 +99,7 @@ struct UnicodeCharTraits
     static jstring GetNewJString(JNIEnv *pEnv, const CharType* str)
     {
         const std::basic_string<jchar> strT(str);
-        return pEnv->NewString(str, strT.size());
+        return pEnv->NewString(str, static_cast<jsize>(strT.size()));
     }
 };
 

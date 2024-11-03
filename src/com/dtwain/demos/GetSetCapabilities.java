@@ -39,6 +39,9 @@ public class GetSetCapabilities
 
     public void run() throws DTwainJavaAPIException
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 
@@ -59,9 +62,9 @@ public class GetSetCapabilities
             List<Integer> allPaperSizes = ci.getSupportedSizes(ci.get());
 
             // Get all the paper sizes, but use the ICAP_SUPPORTEDSIZES directly.
-            // Note that we can use the general get_cap_values function if we want
-            // to provide the capability to set as an explicit argument instead of
-            // calling the specific capability setting function.
+            // Note that we can use the general getCapValues() function if we want
+            // to provide the capability to set as an explicit function argument instead of
+            // calling the specific capability setting function (as we did with getSupportedSizes()).
             List<Object> allPaperSizes2 = ci.getCapValues( TwainConstants.CAPS.ICAP_SUPPORTEDSIZES, ci.get());
 
             boolean allTheSame = true;

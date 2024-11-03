@@ -77,7 +77,7 @@ jmethodID GetJavaClassConstructor(JNIEnv *env, const char* javaClass, const char
 }
 
 
-jobjectArray CreateJStringArrayFromDTWAIN(JNIEnv *env, DTWAIN_ARRAY arr)
+jobjectArray CreateJStringArrayFromDTWAINArray(JNIEnv *env, DTWAIN_ARRAY arr)
 {
     const LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(arr);
     jobjectArray ret;
@@ -89,7 +89,7 @@ jobjectArray CreateJStringArrayFromDTWAIN(JNIEnv *env, DTWAIN_ARRAY arr)
         std::vector<char> Val(maxChars + 1, 0);
         for ( LONG i = 0; i < nCount; i++ )
         {
-            API_INSTANCE DTWAIN_ArrayGetAtStringA(arr, i, &Val[0]);
+            API_INSTANCE DTWAIN_ArrayGetAtANSIString(arr, i, &Val[0]);
             env->SetObjectArrayElement(ret, i, env->NewStringUTF(&Val[0]));
         }
     }

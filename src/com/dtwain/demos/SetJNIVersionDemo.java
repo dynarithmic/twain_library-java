@@ -24,13 +24,11 @@ package com.dtwain.demos;
 import java.util.Scanner;
 
 import com.dynarithmic.twain.DTwainGlobalOptions;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 
 public class SetJNIVersionDemo
 {
-    // Simple acquire to a file
     public void run() throws Exception
     {
         System.out.println("Please choose the JNI to use for your application:\n");

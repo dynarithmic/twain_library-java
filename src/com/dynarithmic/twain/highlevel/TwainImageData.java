@@ -31,7 +31,7 @@ import com.dynarithmic.twain.exceptions.DTwainRuntimeException;
 
 public class TwainImageData
 {
-   private byte[] dibdata = new byte [0];;
+   private byte[] dibdata = new byte [0];
    private long origDibHandle = 0;
 
     public TwainImageData()

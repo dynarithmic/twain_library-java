@@ -3,12 +3,17 @@ This repositiory contains the new version of the Java Native Interface (JNI) bri
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
-1. <a href="https://github.com/dynarithmic/twain_library/tree/master/binaries" target="_blank">Version 5.5 or higher of the DTWAIN library</a>.  
+1. <a href="https://github.com/dynarithmic/twain_library/tree/master/binaries" target="_blank">Version 5.5.4 or higher of the DTWAIN library</a>.  
 From the DTWAIN library, you will need one or more of the dynamic link libraries (dtwain32.dll, dtwain32u.dll, dtwain64.dll, or dtwain64u.dll) available, plus the <a href="https://github.com/dynarithmic/twain_library/tree/master/text_resources" target="_blank">text resources</a> should reside in the same folder as the dtwain DLL.
 
 2. The JNI dynamic link libraries in the  32bit and 64bit directories found <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_DLL" target="_blank">here</a>.
-5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.3.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
+5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.4.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
 1. The <a href="https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source" target="_blank">dtwainjni.info</a> file must be accessible by the DLL's mentioned in the previous step.  The **dtwainjni.info** file basically is a bridge between the Java function and class signatures and the C++ translation of those function and class signatures to C++.  Without this file, usage of any of the Java functions that communicate to the JNI layer will throw a Java exception.  The **dtwainjni.info** file must be placed in the same directory as the JNI DLL that will be loaded at runtime.
+
+Make sure you always use the latest version of **dtwainjni.info**.  Since this file can undergo changes between different versions of this library, it is important that you are running the **dtwainjni.info** that matches the version of the Java interface to DTWAIN.
+
+[Description of the latest updates to the Java interface](https://github.com/dynarithmic/twain_library-java/blob/master/updates/updates.txt).
+
 ----
 ## Very simple Java application using DTWAIN
 
@@ -174,9 +179,9 @@ There are other examples of error checking, whether a session is successfully op
 
 ## Setting the JNI version to use
 
-By default, the 32-bit Unicode version of the JNI DLL's are used.  This means that by default, the Java application will be using the 32-bit TWAIN system (meaning that you can access 32-bit TWAIN devices).
+By default, if the Java runtime being used is 32-bit, the 32-bit Unicode version of the JNI DLL's are used.  Similarly, if the Java runtime being used is 64-bit, the 64-bit Unicode version of the JNI DLL's will be used.
 
-If you require access to 64-bit TWAIN devices, on startup your application must use the 64-bit JNI DLLs.  To do this, the **DTWAINGlobalOptions** class has two static methods named *setJNIVersion* that must be called before a TWAIN session has been started (an instantiation of a **TwainSession** object).  One static method uses an integer, the other uses a string, to set the JNIVersion.
+If you want to change the JNI version to be used at runtime, the **DTWAINGlobalOptions** class has two static methods named *setJNIVersion* that must be called before a TWAIN session has been started (an instantiation of a **TwainSession** object).  One static method uses an integer, the other uses a string, to set the JNIVersion.
 
 The various settings for the JNI Version are as follows:
 
@@ -204,20 +209,22 @@ import com.dynarithmic.twain.DTwainGlobalOptions;
 //...
 public static void main(String [] args)
 {
-    // sets the JNI Version to use to be the 32-bit Unicode version
-    DTwainGlobalOptions.setJNIVersion(JNIVersion.JNI_32U); // This is equivalent to 1
+    // sets the JNI Version to use to be the 32-bit ANSI version
+    DTwainGlobalOptions.setJNIVersion(JNIVersion.JNI_32); // This is equivalent to 0
     
     // Does exactly the same thing as the line above
-    DTwainGlobalOptions.setJNIVersion("jni_32u"); 
+    DTwainGlobalOptions.setJNIVersion("jni_32"); 
     
-    // should print "1" to the console
+    // should print "0" to the console
     System.out.println("JNI Version used: " + DTwainGlobalOptions.getJNIVersion()); 
     
     // The rest of the program ...
     //...
 }
 ```
-Note that the **setJNIVersion** will default to using the 32-bit Unicode JNI DLL's if the integer value or the string passed to **setJNIVersion** is unknown or invalid.  
+Note that the **setJNIVersion** will default to using the Unicode JNI DLL if the integer value or the string passed to **setJNIVersion** is unknown or invalid.  
+
+A **DTwainIncompatibleJNIException** is thrown if **setJNIVersion** is called with a JNI version that does not match the bit-ness of the JVM being run.  For example, if the application is running the 64-bit JVM, and either **JNIVersion.JNI_32** or **JNIVersion.JNI_32U** is used in setJNIVersion, the **DTwainIncompatibleJNIException** is thrown.  The bit-ness of the JVM being run for the application must match one of the JNI types.
 
 Given this, the application is free to use whatever means it deems appropriate if it requires the JNI version to be set at run time.  For example, an application may want to use a resource file or property file to retrieve the JNI version, or in another scenario, the Java application may want to take a command-line argument, denoting the JNI version to use, and use it in the call to **DTwainGlobalOptions**.
 
@@ -246,11 +253,11 @@ There is very little documentation, so the way to learn to use the library at th
 However the code present in the demos and in the library itself is almost full-featured.  Selecting a TWAIN source, getting, setting, querying the capability information, acquiring to files, image buffers, callbacks, logging, etc.  are all supported.  
 
 ----
-### Rebuilding the JNI layer
+## Rebuilding the JNI layer
 
 The JNI layer (i.e. the **dtwainjnixx.dll** files) is built using **Microsoft Visual Studio 2019**.  The minimum Visual Studio platform used is **Visual Studio 2019**.  The Visual Studio solution file is called **DTWAINJNI_Solution.sln**, and is located <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_Source/classes/com/dynarithmic/jnicode" target="_blank">here</a>.
 
-If you are daring to do a build of the JNI layer yourself, make sure your C++ compiler setup is able to access the various header files provided by JNI, such as **jni.h**.  
+If you want to build the JNI layer yourself, make sure your C++ compiler setup is able to access the various header files provided by JNI, such as **jni.h**.  
 
 In addition, the following environment variables must be set before building the JNI DLLs:
 
@@ -265,6 +272,24 @@ SET DTWAIN_INCLUDE_DIR=c:\dtwain\c_cpp_includes
 ```
 should be issued on the command-line before starting Visual Studio and building your project.
 
+
+#### <u>Turning on/off dtwainjni.info corruption checking:</u>
+
+By default, the JNI DLL's will always check for the **dtwainjni.info** file being changed or corrupted.
+The only way to turn this checking off is to edit **dtwainjni_config.h** and set the **CONFIG_CHECKCRC**  macro to 1:
+
+`#define CONFIG_CHECKCRC 1`
+
+Once this is set, the JNI DLL's must be rebuilt.
+
+If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  To do this, you must the the `CONFIG_REFRESHCRC` macro to 1:
+
+`#define CONFIG_REFRESHCRC 1`
+
+After rebuilding the JNI DLL's, you must run your Java application to allow the **dtwainjni.info** file to be rebuilt.  An exception will be thrown to Java, indicating that the current dtwainjni.info file is invalid, and a new file, **dtwainjni_new.info**, was created (it should be created in the same directory where **dtwainjni.info** resides).  You would then rename the **dtwainjni_new.info** to **dtwainjni.info** so that the Java application no longer throws an exception.
+
+Caution:  If you are using JNI DLL's that have the dtwainjni.info checks turned off, or you edit the **dtwainjni.info** file, there is a large risk that the Java code may not work correctly.  It is highly important that you know *exactly* what you are doing in terms of editing the dtwainjni.info file, as this file defines all the method signatures and functions to allow the JNI layer to communicate with Java.
+
 Please note that if you have never built a JNI DLL, I highly recommend that you build a simple one first (Oracle has examples of using JNI) **before** you embark on attempting to build the DTWAIN JNI layer yourself.   There are a few things required (for example, the Oracle JNI header files) before a build can be successful
 
 Having said this, assistance in building the JNI DLL will be minimal, at best.  I suggest you **not** change the C++ code if you are not confident or not familiar with how to interface C++ to Java using JNI.
@@ -274,7 +299,5 @@ Having said this, assistance in building the JNI DLL will be minimal, at best.  
 
 ### To do:
 
-1. Fully implement DTWAIN_GetExtendedImageInfo in the Java layer.  This will allow devices that support this operation to query more information once the scanned page has been obtained.  Currently this functionality is partially done using the com.dynarithmic.highlevel.ExtendedImageInfo class, but usage of this is stubbed out in the C++ JNI layer.
-2. Implement more robust buffer transfer.  Currently, the com.dynarithmic.twain.highlevel class **BufferedTransferInfo.java**, does basic buffer transfers (compressionless transfers, and compressed transfers), but the implementation may lack certain features available for buffer transfer (such as file transfers using a memory buffer), and transferring using tiles instead of strips.
-3. There is very little DAT_FILESYSTEM support, other than identifying the "cameras" used when obtaining images (in **com.dynarithmic.twain.highlevel.DeviceCameraInfo**)
-4. As mentioned in 1., add the extended image capabilities to com.dynarithmic.twain.highlevel.capabilityinterface
+1. Implement more robust buffer transfer.  Currently, the com.dynarithmic.twain.highlevel class **BufferedTransferInfo.java**, does basic buffer transfers (compressionless transfers, and compressed transfers), but the implementation may lack certain features available for buffer transfer (such as file transfers using a memory buffer), and transferring using tiles instead of strips.
+2. There is very little DAT_FILESYSTEM support, other than identifying the "cameras" used when obtaining images (in **com.dynarithmic.twain.highlevel.DeviceCameraInfo**)

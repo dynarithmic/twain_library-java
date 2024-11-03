@@ -46,6 +46,9 @@ public class SelectSourceDemo
 
     public SelectSourceDemo() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         twainSession = new TwainSession();
     }
 
@@ -92,20 +95,24 @@ public class SelectSourceDemo
         showResults(ts, " (TWAIN Source selected by name) ");
     }
 
+    public void run(String [] args) throws Exception
+    {
+        selectSourceDemo1();
+        selectSourceDemo2("Custom Title");
+        selectSourceDemo3();
+        selectSourceDemo4();
+        if ( args.length > 0)
+            selectSourceDemo5(args[0]);
+    }
+    
     public static void main(String [] args)
     {
-        SelectSourceDemo s;
-        try
+        try 
         {
-            s = new SelectSourceDemo();
-            s.selectSourceDemo1();
-            s.selectSourceDemo2("Custom Title");
-            s.selectSourceDemo3();
-            s.selectSourceDemo4();
-            if ( args.length > 0)
-                s.selectSourceDemo5(args[0]);
-        }
-        catch (Exception e)
+            SelectSourceDemo s = new SelectSourceDemo();
+            s.run(args);
+        } 
+        catch (Exception e) 
         {
             e.printStackTrace();
         }

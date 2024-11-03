@@ -116,26 +116,26 @@ public final class TwainConstants
         public static final int  CAP_PRINTERSTRINGPREVIEW    = 0x104E;
         public static final int  CAP_SHEETCOUNT              = 0x104F;
         public static final int  CAP_IMAGEADDRESSENABLED     = 0x1050;
-        public static final int  CAP_IAFIELDA_LEVEL          = 0x1051;
-        public static final int  CAP_IAFIELDB_LEVEL          = 0x1052;
-        public static final int  CAP_IAFIELDC_LEVEL          = 0x1053;
-        public static final int  CAP_IAFIELDD_LEVEL          = 0x1054;
-        public static final int  CAP_IAFIELDE_LEVEL          = 0x1055;
-        public static final int  CAP_IAFIELDA_PRINTFORMAT    = 0x1056;
-        public static final int  CAP_IAFIELDB_PRINTFORMAT    = 0x1057;
-        public static final int  CAP_IAFIELDC_PRINTFORMAT    = 0x1058;
-        public static final int  CAP_IAFIELDD_PRINTFORMAT    = 0x1059;
-        public static final int  CAP_IAFIELDE_PRINTFORMAT    = 0x105A;
-        public static final int  CAP_IAFIELDA_VALUE          = 0x105B;
-        public static final int  CAP_IAFIELDB_VALUE          = 0x105C;
-        public static final int  CAP_IAFIELDC_VALUE          = 0x105D;
-        public static final int  CAP_IAFIELDD_VALUE          = 0x105E;
-        public static final int  CAP_IAFIELDE_VALUE          = 0x105F;
-        public static final int  CAP_IAFIELDA_LASTPAGE       = 0x1060;
-        public static final int  CAP_IAFIELDB_LASTPAGE       = 0x1061;
-        public static final int  CAP_IAFIELDC_LASTPAGE       = 0x1062;
-        public static final int  CAP_IAFIELDD_LASTPAGE       = 0x1063;
-        public static final int  CAP_IAFIELDE_LASTPAGE       = 0x1064;
+        public static final int  CAP_IAFIELDALEVEL          = 0x1051;
+        public static final int  CAP_IAFIELDBLEVEL          = 0x1052;
+        public static final int  CAP_IAFIELDCLEVEL          = 0x1053;
+        public static final int  CAP_IAFIELDDLEVEL          = 0x1054;
+        public static final int  CAP_IAFIELDELEVEL          = 0x1055;
+        public static final int  CAP_IAFIELDAPRINTFORMAT    = 0x1056;
+        public static final int  CAP_IAFIELDBPRINTFORMAT    = 0x1057;
+        public static final int  CAP_IAFIELDCPRINTFORMAT    = 0x1058;
+        public static final int  CAP_IAFIELDDPRINTFORMAT    = 0x1059;
+        public static final int  CAP_IAFIELDEPRINTFORMAT    = 0x105A;
+        public static final int  CAP_IAFIELDAVALUE          = 0x105B;
+        public static final int  CAP_IAFIELDBVALUE          = 0x105C;
+        public static final int  CAP_IAFIELDCVALUE          = 0x105D;
+        public static final int  CAP_IAFIELDDVALUE          = 0x105E;
+        public static final int  CAP_IAFIELDEVALUE          = 0x105F;
+        public static final int  CAP_IAFIELDALASTPAGE       = 0x1060;
+        public static final int  CAP_IAFIELDBLASTPAGE       = 0x1061;
+        public static final int  CAP_IAFIELDCLASTPAGE       = 0x1062;
+        public static final int  CAP_IAFIELDDLASTPAGE       = 0x1063;
+        public static final int  CAP_IAFIELDELASTPAGE       = 0x1064;
 
         /* image data sources MAY support these caps */
         public static final int  ICAP_AUTOBRIGHT                   = 0x1100;
@@ -583,19 +583,19 @@ public final class TwainConstants
         TWFT_DEFAULT
     }
 
-    public enum TW_FILESYSTEM
+    public static class TW_FILESYSTEM
     {
         // TW_FILESYSTEM.FileType values 
-        TWFY_CAMERA            ,
-        TWFY_CAMERATOP         ,
-        TWFY_CAMERABOTTOM      ,
-        TWFY_CAMERAPREVIEW     ,
-        TWFY_DOMAIN            ,
-        TWFY_HOST              ,
-        TWFY_DIRECTORY         ,
-        TWFY_IMAGE             ,
-        TWFY_UNKNOWN           ,
-        TWFY_DEFAULT
+        public static final int TWFY_CAMERA            = 0;
+        public static final int TWFY_CAMERATOP         = 1;
+        public static final int TWFY_CAMERABOTTOM      = 2;
+        public static final int TWFY_CAMERAPREVIEW     = 3;
+        public static final int TWFY_DOMAIN            = 4;
+        public static final int TWFY_HOST              = 5;
+        public static final int TWFY_DIRECTORY         = 6;
+        public static final int TWFY_IMAGE             = 7;
+        public static final int TWFY_UNKNOWN           = 8;
+        public static final int TWFY_DEFAULT           = 9999; 
     }
 
     public enum CAP_IAFIELD_LEVEL

@@ -35,6 +35,7 @@
 #include "JavaArrayList.h"
 #include "JavaArrayTraits.h"
 #include "UTFCharsHandler.h"
+#include "ExtendedImageInfo_Types.h"
 
 struct JavaFunctionInfo
 {
@@ -90,7 +91,12 @@ struct JavaExceptionThrower
 
     static jint ThrowFileNotFoundError(JNIEnv *env, const std::string& exceptionMessage)
     {
-        return ThrowJavaExceptionImpl(env, "java/lang/io.FileNotFoundException", exceptionMessage);
+        return ThrowJavaExceptionImpl(env, "java/io/FileNotFoundException", exceptionMessage);
+    }
+
+    static jint ThrowResourceFileInvalidError(JNIEnv* env, const std::string& exceptionMessage)
+    {
+        return ThrowJavaExceptionImpl(env, "java/io/StreamCorruptedException", exceptionMessage);
     }
 
     static jint ThrowGeneralException(JNIEnv *env, const std::string& exceptionMessage)
@@ -244,7 +250,7 @@ public:
     JavaObjectCaller(const JavaFunctionNameMap& pNameMap) :
                         m_jClass{},
                         m_jObject{},
-                        m_nDefaultConstructorPos(-1),
+                        m_nDefaultConstructorPos(0),
                         m_pJavaEnv{},
                         m_pFunctionMap(pNameMap) {}
 
@@ -253,7 +259,7 @@ public:
                     m_jClass(nullptr),
                     m_jObject(nullptr),
                     m_jObjectName(objectName),
-                    m_nDefaultConstructorPos(-1),
+                    m_nDefaultConstructorPos(0),
                     m_pJavaEnv(pEnv),
                     m_pFunctionMap(pNameMap)
     {
@@ -522,7 +528,7 @@ public:
 
 struct JavaArrayTraitsInt
 {
-    static jintArray Construct(JNIEnv* env, JavaObjectCaller* parent, int nCount)
+    static jintArray Construct(JNIEnv* env, JavaObjectCaller* /*parent*/, int nCount)
     {
         return env->NewIntArray(nCount);
     }
@@ -605,7 +611,7 @@ struct JavaArrayInterface : JavaObjectCaller
     array_type NativeToJava(std::vector<NativeArrayClass>& nativeArray)
     {
         setObject(createDefaultObject());
-        m_traits.SetArrayRegion(getEnvironment(), static_cast<array_type>(getObject()), nativeArray.size(), nativeArray.data());
+        m_traits.SetArrayRegion(getEnvironment(), static_cast<array_type>(getObject()), static_cast<int>(nativeArray.size()), nativeArray.data());
         return static_cast<array_type>(getObject());
     }
 };
@@ -641,7 +647,7 @@ struct MemoryHandleJavaInterface : JavaObjectCaller
         return defaultConstructObject();
     }
 
-    jobject createFullObject(int var1)
+    jobject createFullObject()
     {
         return createDefaultObject();
     }
@@ -794,6 +800,17 @@ public:
     jobject createFullObject(LONG prefSize, LONG minimumSiz, LONG maximumSiz);
 };
 
+class JavaBufferedTileInfo : public JavaObjectCaller
+{
+    static constexpr const char* SetInfo = "SetInfo";
+    static constexpr const char* SetTileData = "SetTileData";
+
+public:
+    JavaBufferedTileInfo(JNIEnv* env);
+
+    jobject createFullObject(TW_IMAGEMEMXFER memXFer);
+};
+
 struct FrameStruct;
 
 class JavaFrameInfo : public JavaObjectCaller
@@ -922,13 +939,13 @@ class JavaAcquirerInfo
         JavaAcquirerInfo(JNIEnv *pEnv) : m_jAcquisitionArray(pEnv), m_jAcquisitionData(pEnv), m_jImageData(pEnv)
         {}
 
-        jobject CreateJavaImageDataObject(JNIEnv *env)
+        jobject CreateJavaImageDataObject()
         { return m_jImageData.defaultConstructObject(); }
 
-        jobject CreateJavaAcquisitionDataObject(JNIEnv *env)
+        jobject CreateJavaAcquisitionDataObject()
         { return m_jAcquisitionData.defaultConstructObject(); }
 
-        jobject CreateJavaAcquisitionArrayObject(JNIEnv *env)
+        jobject CreateJavaAcquisitionArrayObject()
         { return m_jAcquisitionArray.defaultConstructObject(); }
 
         void addAcquisitionToArray(jobject jAcquisitionArrayObject, jobject jAcquisitionDataObject)
@@ -1264,7 +1281,7 @@ public:
     JavaDTwainLowLevel_TW_VERSION(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getMajorNum();
     TW_UINT16 getMinorNum();
@@ -1365,7 +1382,7 @@ public:
     JavaDTwainLowLevel_TW_AUDIOINFO(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getReserved();
     StringType getName();
@@ -1406,7 +1423,7 @@ public:
     JavaDTwainLowLevel_TW_CAPABILITY(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getCap();
     TW_UINT16 getConType();
@@ -1433,7 +1450,7 @@ public:
     JavaDTwainLowLevel_TW_CUSTOMDSDATA(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getInfoLength();
     TW_HANDLE gethData();
@@ -1486,7 +1503,7 @@ public:
     JavaDTwainLowLevel_TW_DEVICEEVENT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getEvent();
     TW_UINT32 getBatteryMinutes();
@@ -1530,7 +1547,7 @@ public:
     JavaDTwainLowLevel_TW_PENDINGXFERS(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getCount();
     TW_UINT32 getEOJ();
@@ -1564,7 +1581,7 @@ public:
     JavaDTwainLowLevel_TW_SETUPFILEXFER(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     StringType getFileName();
     TW_UINT16 getFormat();
@@ -1594,7 +1611,7 @@ public:
     JavaDTwainLowLevel_TW_SETUPMEMXFER(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getMinBufSize();
     TW_UINT32 getMaxBufSize();
@@ -1624,7 +1641,7 @@ public:
     JavaDTwainLowLevel_TW_EVENT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_MEMREF getpEvent();
     TW_UINT16 getTWMessage();
@@ -1685,7 +1702,7 @@ public:
 
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     StringType getInputName();
     StringType getOutputName();
@@ -1740,7 +1757,7 @@ public:
     JavaDTwainLowLevel_TW_METRICS(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getSizeOf();
     TW_UINT32 getImageCount();
@@ -1777,7 +1794,7 @@ public:
     JavaDTwainLowLevel_TW_PASSTHRU(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_MEMREF getpCommand();
     TW_MEMREF getpData();
@@ -1814,7 +1831,7 @@ public:
     JavaDTwainLowLevel_TW_STATUS(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getConditonCode();
     TW_UINT16 getData();
@@ -1848,7 +1865,7 @@ public:
     JavaDTwainLowLevel_TW_STATUSUTF8(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_STATUS getStatus();
     TW_UINT32 getSize();
@@ -1878,7 +1895,7 @@ public:
     JavaDTwainLowLevel_TW_CIEPOINT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getX();
     TW_FIX32 getY();
@@ -1918,7 +1935,7 @@ public:
     JavaDTwainLowLevel_TW_DECODEFUNCTION(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getStartIn();
     TW_FIX32 getBreakIn();
@@ -1958,7 +1975,7 @@ public:
     JavaDTwainLowLevel_TW_TRANSFORMSTAGE(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_DECODEFUNCTION getDecodeValue(int value);
     TW_FIX32 getMixValue(int val1, int val2);
@@ -2013,7 +2030,7 @@ public:
     static constexpr const char * SetSample = "SetSample";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_INT32 getNumSamples();
     TW_UINT16 getColorSpace();
@@ -2067,7 +2084,7 @@ public:
     static constexpr const char * SetItem = "SetItem";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16 getInfoID();
     TW_UINT16 getItemType();
@@ -2100,7 +2117,7 @@ public:
     static constexpr const char * SetOneInfo = "SetOneInfo";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getNumInfos();
     TW_INFO getOneInfo(int i);
@@ -2132,7 +2149,7 @@ public:
     static constexpr const char* SethDescriptors = "SethDescriptors";
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getSize();
     TW_UINT32 getDescriptorCount();
@@ -2172,7 +2189,7 @@ public:
     JavaDTwainLowLevel_TW_ELEMENT8(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT8 getIndex();
     TW_UINT8 getChannel1();
@@ -2223,7 +2240,7 @@ public:
     JavaDTwainLowLevel_TW_IMAGEINFO(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getXResolution();
     TW_FIX32 getYResolution();
@@ -2270,7 +2287,7 @@ public:
     JavaDTwainLowLevel_TW_FRAME(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FIX32 getLeft();
     TW_FIX32 getTop();
@@ -2304,7 +2321,7 @@ public:
 
     JavaDTwainLowLevel_TW_MEMORY(JNIEnv* env);
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32 getFlags();
     TW_UINT32 getLength();
@@ -2338,7 +2355,7 @@ public:
     JavaDTwainLowLevel_TW_IMAGELAYOUT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_FRAME getFrame();
     TW_UINT32 getDocumentNumber();
@@ -2385,7 +2402,7 @@ public:
     JavaDTwainLowLevel_TW_IMAGEMEMXFER(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16   getCompression();
     TW_UINT32   getBytesPerRow();
@@ -2440,7 +2457,7 @@ public:
      JavaDTwainLowLevel_TW_JPEGCOMPRESSION(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16   getColorSpace();
     TW_UINT32   getSubSampling();
@@ -2484,7 +2501,7 @@ public:
     JavaDTwainLowLevel_TW_PALETTE8(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT16   getNumColors();
     TW_UINT16   getPaletteType();
@@ -2523,7 +2540,7 @@ public:
     JavaDTwainLowLevel_TW_TWAINDIRECT(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_UINT32   getSizeOf();
     TW_UINT16   getCommunicationManager();
@@ -2561,7 +2578,7 @@ public:
     JavaDTwainLowLevel_TW_USERINTERFACE(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_BOOL getShowUI();
     TW_BOOL getModalUI();
@@ -2584,7 +2601,7 @@ public:
     JavaDTwainLowLevel_TW_NULL(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     TW_NULL JavaToNative();
     TW_NULL getValue();
@@ -2604,7 +2621,7 @@ public:
     JavaDTwainLowLevel_TW_RESPONSETYPE(JNIEnv* env);
 
     jobject createDefaultObject();
-    jobject createFullObject(int var1);
+    jobject createFullObject();
 
     int32_t getNumItems();
     TW_ELEMENT8 getResponseValue(int32_t which);
@@ -2625,7 +2642,7 @@ class JavaDTwainLowLevel_TwainLowLevel : public JavaObjectCaller
         JavaDTwainLowLevel_TwainLowLevel(JNIEnv* env);
 
         jobject createDefaultObject();
-        jobject createFullObject(int var1);
+        jobject createFullObject();
         jobject getTwainObject();
 
         TwainLowLevel JavaToNative();
@@ -2821,17 +2838,6 @@ class JavaExtendedImageInfo_ParentClass : public JavaObjectCaller
     void setExtendedObject(JavaClass* ptr) { m_ptrExtendedImageInfo = ptr; }
 };
 
-struct ExtendedImageInfo_BarcodeInfoNative
-{
-    TW_UINT32 confidence  = 0;
-    TW_UINT32 rotation = 0;
-    TW_UINT32 length = 0;
-    TW_UINT32 xCoordinate = 0;
-    TW_UINT32 yCoordinate = 0;
-    TW_UINT32 type = 0;
-    TW_STR255 text {};
-};
-
 class JavaExtendedImageInfo_BarcodeInfo;
 
 class JavaExtendedImageInfo_BarcodeInfo_SingleInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo_BarcodeInfo>
@@ -2839,27 +2845,18 @@ class JavaExtendedImageInfo_BarcodeInfo_SingleInfo : public JavaExtendedImageInf
     static constexpr const char * SetConfidence = "SetConfidence";
     static constexpr const char * SetRotation = "SetRotation";
     static constexpr const char * SetTextLength = "SetTextLength";
-    static constexpr const char * SetString = "SetString";
+    static constexpr const char * SetText = "SetText";
     static constexpr const char * SetX = "SetX";
     static constexpr const char * SetY = "SetY";
     static constexpr const char * SetType = "SetType";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-
 public:
-#ifdef UNICODE
-    using value_type = std::wstring;
-#else
-    using value_type = std::string;
-#endif
-    using StringType = value_type;
-
     JavaExtendedImageInfo_BarcodeInfo_SingleInfo(JNIEnv* env);
 
     void setConfidence(TW_UINT32);
     void setRotation(TW_UINT32);
     void setTextLength(TW_UINT32);
-    void setString(StringType s);
+    void setText(std::string s);
     void setX(TW_UINT32);
     void setY(TW_UINT32);
     void setType(TW_UINT32);
@@ -2872,7 +2869,6 @@ class JavaExtendedImageInfo_BarcodeInfo : public JavaExtendedImageInfo_ParentCla
     static constexpr const char * SetCount = "SetCount";
     static constexpr const char * SetSingleInfo = "SetSingleInfo";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
     JavaExtendedImageInfo_BarcodeInfo_SingleInfo proxy_singleinfo;
 
 public:
@@ -2882,26 +2878,7 @@ public:
     void setCount(TW_UINT32);
     void setSingleInfo(jobject objParent, ExtendedImageInfo_BarcodeInfoNative&, int);
 };
-
-struct ExtendedImageInfo_ShadedAreaDetectionInfoNative
-{
-    TW_UINT32 count = 0;
-    TW_UINT32 top = 0;
-    TW_UINT32 left = 0;
-    TW_UINT32 height = 0;
-    TW_UINT32 width = 0;
-    TW_UINT32 size = 0;
-    TW_UINT32 blackCountOld = 0;
-    TW_UINT32 blackCountNew = 0;
-    TW_UINT32 blackRLMin = 0;
-    TW_UINT32 blackRLMax = 0;
-    TW_UINT32 whiteCountOld = 0;
-    TW_UINT32 whiteCountNew = 0;
-    TW_UINT32 whiteRLMin = 0;
-    TW_UINT32 whiteRLMax = 0;
-    TW_UINT32 whiteRLAvg = 0;
-};
-
+///////////////////////////////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_ShadedAreaDetectionInfo;
 
 class JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo_ShadedAreaDetectionInfo>
@@ -2920,8 +2897,6 @@ class JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo : public JavaExte
     static constexpr const char * SetWhiteRLMin = "SetWhiteRLMin";
     static constexpr const char * SetWhiteRLMax = "SetWhiteRLMax";
     static constexpr const char * SetWhiteRLAvg = "SetWhiteRLAvg";
-
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
 
 public:
     JavaExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo(JNIEnv* env);
@@ -2958,20 +2933,11 @@ public:
     void setSingleInfo(jobject objParent, ExtendedImageInfo_ShadedAreaDetectionInfoNative&, int);
 };
 //////////////////////////////////////////////////////////////////////////////////////
-struct ExtendedImageInfo_SpeckleRemovalInfoNative
-{
-    TW_UINT32 specklesRemoved = 0;
-    TW_UINT32 whiteSpecklesRemoved = 0;
-    TW_UINT32 blackSpecklesRemoved = 0;
-};
-
 class JavaExtendedImageInfo_SpeckleRemovalInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetSpecklesRemoved = "SetSpecklesRemoved";
     static constexpr const char * SetWhiteSpecklesRemoved = "SetWhiteSpecklesRemoved";
     static constexpr const char * SetBlackSpecklesRemoved = "SetBlackSpecklesRemoved";
-
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
 
 public:
     JavaExtendedImageInfo_SpeckleRemovalInfo(JNIEnv* env);
@@ -2981,44 +2947,42 @@ public:
     void setBlackSpecklesRemoved(TW_UINT32);
     void NativeToJava(const ExtendedImageInfo_SpeckleRemovalInfoNative& val);
 };
-
-class JavaExtendedImageInfo_LineDetectionInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+//////////////////////////////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_LineSingleInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
-    static constexpr const char * SetCount = "SetCount";
-    static constexpr const char * SetXCoordinate = "SetXCoordinate";
-    static constexpr const char * SetYCoordinate = "SetYCoordinate";
-    static constexpr const char * SetLength ="SetLength";
-    static constexpr const char * SetThickness = "SetThickness";
-
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
+    static constexpr const char* SetXCoordinate = "SetXCoordinate";
+    static constexpr const char* SetYCoordinate = "SetYCoordinate";
+    static constexpr const char* SetLength = "SetLength";
+    static constexpr const char* SetThickness = "SetThickness";
 
 public:
-    JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env, std::string sOrientation);
+    JavaExtendedImageInfo_LineSingleInfo(JNIEnv* env);
 
-    void setCount(TW_UINT32);
     void setXCoordinate(TW_UINT32);
     void setYCoordinate(TW_UINT32);
     void setLength(TW_UINT32);
     void setThickness(TW_UINT32);
+    void NativeToJava(const ExtendedImageInfo_LineDetectionInfoNative& info);
 };
 
-class JavaExtendedImageInfo_HorizontalLineDetectionInfo : public JavaExtendedImageInfo_LineDetectionInfo
+class JavaExtendedImageInfo_LineDetectionInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
-    public:
-        JavaExtendedImageInfo_HorizontalLineDetectionInfo(JNIEnv* env);
+    static constexpr const char * SetCount = "SetCount";
+    static constexpr const char * SetSingleInfo = "SetSingleInfo";
+
+    JavaExtendedImageInfo_LineSingleInfo proxy_lineInfo;
+
+public:
+    JavaExtendedImageInfo_LineDetectionInfo(JNIEnv* env);
+
+    void setCount(TW_UINT32);
+    void setSingleInfo(jobject objParent, const ExtendedImageInfo_LineDetectionInfoNative&, int);
 };
 
-class JavaExtendedImageInfo_VerticalLineDetectionInfo : public JavaExtendedImageInfo_LineDetectionInfo
-{
-    public:
-        JavaExtendedImageInfo_VerticalLineDetectionInfo(JNIEnv* env);
-};
 /////////////////////////////////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_PatchcodeDetectionInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetPatchcode= "SetPatchcode";
-
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
 
 public:
     JavaExtendedImageInfo_PatchcodeDetectionInfo(JNIEnv* env);
@@ -3041,8 +3005,6 @@ class JavaExtendedImageInfo_SkewDetectionInfo: public JavaExtendedImageInfo_Pare
     static constexpr const char * SetWindowY3      = "SetWindowY3";
     static constexpr const char * SetWindowY4      = "SetWindowY4";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-
 public:
     JavaExtendedImageInfo_SkewDetectionInfo(JNIEnv* env);
 
@@ -3064,11 +3026,10 @@ public:
 class JavaExtendedImageInfo_EndorsedTextInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetText = "SetText";
-    JavaDTwainLowLevel_TW_STR255 strproxy;
 
     public:
         JavaExtendedImageInfo_EndorsedTextInfo(JNIEnv* env);
-        void setText(const TW_STR255);
+        void setText(std::string val);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_FormsRecognitionInfo: public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
@@ -3094,8 +3055,10 @@ public:
     void setTemplatePageMatch(std::vector<TW_UINT32>& val);
     void setHorizontalDocOffset(std::vector<TW_UINT32>& val);
     void setVerticalDocOffset(std::vector<TW_UINT32>& val);
+    void setAllValues(ExtendedImageInfo_FormsRecognitionNative& info);
 };
 ///////////////////////////////////////////////////////////////////////////////////
+
 class JavaExtendedImageInfo_PageSourceInfo: public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetBookname = "SetBookname";
@@ -3106,22 +3069,21 @@ class JavaExtendedImageInfo_PageSourceInfo: public JavaExtendedImageInfo_ParentC
     static constexpr const char * SetFrameNumber = "SetFrameNumber";
     static constexpr const char * SetFrame = "SetFrame";
     static constexpr const char * SetPixelFlavor = "SetPixelFlavor";
+    static constexpr const char*  SetPageSide = "SetPageSide";
 
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-    JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
-    JavaDTwainLowLevel_TW_STR255 proxy_str255;
     JavaDTwainLowLevel_TW_FRAME  proxy_frame;
 
 public:
     JavaExtendedImageInfo_PageSourceInfo(JNIEnv* env);
-    void setBookname(TW_STR255);
+    void setBookname(std::string val);
     void setChapterNumber(TW_UINT32);
     void setDocumentNumber(TW_UINT32);
     void setPageNumber(TW_UINT32);
-    void setCamera(TW_STR255);
+    void setCamera(std::string val);
     void setFrameNumber(TW_UINT32);
     void setFrame(TW_FRAME);
     void setPixelFlavor(TW_UINT16);
+    void setPageSide(TW_UINT16);
 };
 /////////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo_ImageSegmentationInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
@@ -3130,27 +3092,91 @@ class JavaExtendedImageInfo_ImageSegmentationInfo : public JavaExtendedImageInfo
     static constexpr const char * SetLastSegment ="SetLastSegment";
     static constexpr const char * SetSegmentNumber = "SetSegmentNumber";
 
-    JavaDTwainLowLevel_TW_BOOL   proxy_bool;
-    JavaDTwainLowLevel_TW_UINT32 proxy_uint32;
-    JavaDTwainLowLevel_TW_STR255 proxy_str255;
-
 public:
     JavaExtendedImageInfo_ImageSegmentationInfo(JNIEnv* env);
-    void setICCProfile(TW_STR255);
+    void setICCProfile(std::string);
     void setLastSegment(TW_BOOL);
     void setSegmentNumber(TW_UINT32);
 };
 /////////////////////////////////////////////////////////////////
-class JavaExtendedImageInfo_MICRInfo : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+class JavaExtendedImageInfo_ExtendedImageInfo20 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
 {
     static constexpr const char * SetMagType = "SetMagType";
 
     JavaDTwainLowLevel_TW_UINT16 proxy_uint16;
 
 public:
-    JavaExtendedImageInfo_MICRInfo(JNIEnv* env);
+    JavaExtendedImageInfo_ExtendedImageInfo20(JNIEnv* env);
     void setMagType(TW_UINT16);
 };
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo21: public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetFileSystemSource = "SetFileSystemSource";
+    static constexpr const char* SetMagData = "SetMagData";
+    static constexpr const char* SetImageMerged = "SetImageMerged";
+    static constexpr const char* SetMagDataLength = "SetMagDataLength";
+    static constexpr const char* SetPageSide = "SetPageSide";
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo21(JNIEnv* env);
+    void setFileSystemSource(std::string);
+    void setImageMerged(TW_BOOL);
+    void setMagDataLength(TW_UINT32);
+    void setPageSide(TW_UINT16);
+    void setMagData(jbyteArray imageData);
+};
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo22 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetPaperCount = "SetPaperCount";
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo22(JNIEnv* env);
+    void setPaperCount(TW_UINT32);
+};
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo23 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetPrinterText= "SetPrinterText";
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo23(JNIEnv* env);
+    void setPrinterText(std::string);
+};
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo24 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetTwainDirectMetaData = "SetTwainDirectMetaData";
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo24(JNIEnv* env);
+    void setTwainDirectMetaData(std::string sMetaData);
+};
+/////////////////////////////////////////////////////////////////
+class JavaExtendedImageInfo_ExtendedImageInfo25 : public JavaExtendedImageInfo_ParentClass<JavaExtendedImageInfo>
+{
+    static constexpr const char* SetIAFieldA = "SetIAFieldA";
+    static constexpr const char* SetIAFieldB = "SetIAFieldB";
+    static constexpr const char* SetIAFieldC = "SetIAFieldC";
+    static constexpr const char* SetIAFieldD = "SetIAFieldD";
+    static constexpr const char* SetIAFieldE = "SetIAFieldE";
+    static constexpr const char* SetIALevel  = "SetIALevel";
+    static constexpr const char* SetPrinter =  "SetPrinter";
+    static constexpr const char* AddBarcodeText = "AddBarcodeText";
+
+public:
+    JavaExtendedImageInfo_ExtendedImageInfo25(JNIEnv* env);
+    void setIAFieldA(std::string val);
+    void setIAFieldB(std::string val);
+    void setIAFieldC(std::string val);
+    void setIAFieldD(std::string val);
+    void setIAFieldE(std::string val);
+    void setIALevel(TW_UINT16 val);
+    void setPrinter(TW_UINT16 val);
+    void addBarcodeText(std::string val);
+};
+
 ////////////////////////////////////////////////////////////
 class JavaExtendedImageInfo : public JavaObjectCaller
 {
@@ -3166,7 +3192,9 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         static constexpr const char * SetFormsRecognitionInfo          = "SetFormsRecognitionInfo";
         static constexpr const char * SetPageSourceInfo                = "SetPageSourceInfo";
         static constexpr const char * SetImageSegmentationInfo         = "SetImageSegmentationInfo";
-        static constexpr const char * SetMicrInfo                      = "SetMicrInfo";
+        static constexpr const char * SetExtendedImageInfo20           = "SetExtendedImageInfo20";
+        static constexpr const char * SetExtendedImageInfo21           = "SetExtendedImageInfo21";
+        static constexpr const char * SetSupportedExtendedImageInfo    = "SetSupportedExtendedImageInfo";
 
         static constexpr const char * GetBarcodeInfo = "GetBarcodeInfo";
         static constexpr const char * GetShadedAreaDetectionInfo = "GetShadedAreaDetectionInfo";
@@ -3179,31 +3207,57 @@ class JavaExtendedImageInfo : public JavaObjectCaller
         static constexpr const char * GetFormsRecognitionInfo = "GetFormsRecognitionInfo";
         static constexpr const char * GetPageSourceInfo = "GetPageSourceInfo";
         static constexpr const char * GetImageSegmentationInfo = "GetImageSegmentationInfo";
-        static constexpr const char * GetMicrInfo = "GetMicrInfo";
+        static constexpr const char * GetExtendedImageInfo20 = "GetExtendedImageInfo20";
+        static constexpr const char * GetExtendedImageInfo21 = "GetExtendedImageInfo21";
+        static constexpr const char * GetExtendedImageInfo22 = "GetExtendedImageInfo22";
+        static constexpr const char * GetExtendedImageInfo23 = "GetExtendedImageInfo23";
+        static constexpr const char * GetExtendedImageInfo24 = "GetExtendedImageInfo24";
+        static constexpr const char * GetExtendedImageInfo25 = "GetExtendedImageInfo25";
 
     private:
         JavaExtendedImageInfo_BarcodeInfo proxy_barcodeinfo;
         JavaExtendedImageInfo_ShadedAreaDetectionInfo proxy_shadedareainfo;
         JavaExtendedImageInfo_SpeckleRemovalInfo proxy_speckleremovalinfo;
-        JavaExtendedImageInfo_HorizontalLineDetectionInfo proxy_hlinedetectioninfo;
-        JavaExtendedImageInfo_VerticalLineDetectionInfo proxy_vlinedetectioninfo;
+        JavaExtendedImageInfo_LineDetectionInfo proxy_linedetectioninfo;
         JavaExtendedImageInfo_PatchcodeDetectionInfo proxy_patchcodedetioninfo;
-        JavaExtendedImageInfo_SkewDetectionInfo proxy_detectioninfo;
+        JavaExtendedImageInfo_SkewDetectionInfo proxy_skewdetectioninfo;
         JavaExtendedImageInfo_EndorsedTextInfo proxy_endorsedtextinfo;
         JavaExtendedImageInfo_FormsRecognitionInfo proxy_formsdefinitioninfo;
         JavaExtendedImageInfo_PageSourceInfo proxy_pagesourceinfo;
         JavaExtendedImageInfo_ImageSegmentationInfo proxy_imagesegmentationinfo;
+        JavaExtendedImageInfo_ExtendedImageInfo20 proxy_extendedimageinfo20;
+        JavaExtendedImageInfo_ExtendedImageInfo21 proxy_extendedimageinfo21;
+        JavaExtendedImageInfo_ExtendedImageInfo22 proxy_extendedimageinfo22;
+        JavaExtendedImageInfo_ExtendedImageInfo23 proxy_extendedimageinfo23;
+        JavaExtendedImageInfo_ExtendedImageInfo24 proxy_extendedimageinfo24;
+        JavaExtendedImageInfo_ExtendedImageInfo25 proxy_extendedimageinfo25;
 
-    public:
+        void setAllLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo, const char* fn);
+public:
         JavaExtendedImageInfo(JNIEnv* env);
+        void setExtendedImageInfoTypes(std::vector<LONG>& vInfos);
+        void setAllBarcodeInfo(ExtendedImageInfo_BarcodeNative& info);
         void setBarcodeInfo(ExtendedImageInfo_BarcodeInfoNative&, int nWhich);
         void setBarcodeInfoCount(TW_UINT32 count);
-        void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNative&, int nWhich);
-        void setShadedAreaInfoCount(TW_UINT32 count);
-
-        void setSpeckleRemovalInfo(const ExtendedImageInfo_SpeckleRemovalInfoNative&);
-
-/*
+        void setPageSourceInfo(ExtendedImageInfo_PageSourceInfoNative& info);
+        void setSkewDetectionInfo(ExtendedImageInfo_SkewDetectionInfoNative& info);
+        void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNative&, int nWhich, jobject thisObject);
+        void setShadedAreaDetectionInfo(ExtendedImageInfo_ShadedAreaDetectionInfoNativeV& info);
+        void setShadedAreaInfoCount(TW_UINT32 count, jobject thisObject);
+        void setSpeckleRemovalInfo(const ExtendedImageInfo_SpeckleRemovalInfoNative& sInfo);
+        void setAllHorizontalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo);
+        void setAllVerticalLineInfo(const ExtendedImageInfo_LineDetectionNative& sInfo);
+        void setAllFormsRecognitionInfo(ExtendedImageInfo_FormsRecognitionNative& info);
+        void setAllImageSegmentationInfo(ExtendedImageInfo_ImageSegmentationInfoNative& info);
+        void setAllEndorsedInfo(ExtendedImageInfo_EndorsedTextInfoNative& info);
+        void setAllExtendedImageInfo20(ExtendedImageInfo_ExtendedImageInfo20Native& info);
+        void setAllExtendedImageInfo21(ExtendedImageInfo_ExtendedImageInfo21Native& info);
+        void setAllExtendedImageInfo22(ExtendedImageInfo_ExtendedImageInfo22Native& info);
+        void setAllExtendedImageInfo23(ExtendedImageInfo_ExtendedImageInfo23Native& info);
+        void setAllExtendedImageInfo24(ExtendedImageInfo_ExtendedImageInfo24Native& info);
+        void setAllExtendedImageInfo25(ExtendedImageInfo_ExtendedImageInfo25Native& info);
+        void setAllPatchCodeInfo(ExtendedImageInfo_PatchCodeNative& info);
+        /*
     void setSpeckleRemoveInfo
     void setHorizontalLineDetectionInfo
     void setVerticalLineDetectionInfo

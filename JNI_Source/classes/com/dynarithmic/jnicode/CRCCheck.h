@@ -17,30 +17,12 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     DYNARITHMIC SOFTWARE. DYNARITHMIC SOFTWARE DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS.
-
  */
-package com.dtwain.demos;
-import com.dynarithmic.twain.highlevel.*;
-
-public class TinyApplication
-{
-    public static void main(String[] args)
-    {
-        try
-        {
-            // Open a session
-            TwainSession session = new TwainSession();
-
-            // Select a TWAIN Source
-            TwainSource source = session.selectSource();
-            if ( source.isOpened() )
-                // acquire to a BMP file to the current working directory, with name "temp.bmp"
-                // To set the name, see the SimpleFileAcquireBMPDemo.java demo
-                source.acquire();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-}
+#ifndef CRCCHECK_H
+#define CRCCHECK_H
+#include <fstream>
+#include <utility>
+std::pair<bool, unsigned long> GetDataCRC(std::ifstream& ifs, int numTrailers);
+bool RecomputeCRC(std::string origInfoFile, int numTrailers);
+std::string GetDirectory(const std::string& path);
+#endif

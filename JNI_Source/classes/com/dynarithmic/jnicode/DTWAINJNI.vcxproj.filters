@@ -19,15 +19,18 @@
     <ClCompile Include="javaobjectcaller.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExtendedImageInfo.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRCCheck.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DSMCaller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DTWAINFunctionCaller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DTWAINGlobalFn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DTWAINJNI_VerInfo.h">
@@ -70,6 +73,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dtwainx2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedImageInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedImageInfo_Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CRCCheck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dtwainjni_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

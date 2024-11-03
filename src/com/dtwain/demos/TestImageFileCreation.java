@@ -24,7 +24,6 @@ package com.dtwain.demos;
 import java.util.List;
 
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.SupportedFileTypeInfo;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.TwainSession;
@@ -95,6 +94,9 @@ class TestImageFileCreation
 
     public void run(String[] args) throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         if ( args.length < 2)
         {
             System.out.println("Usage: TestImageFileCreation test-to-run[1,2,3] output-directory");

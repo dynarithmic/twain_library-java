@@ -2,7 +2,6 @@ package com.dtwain.demos;
 import java.util.logging.Logger;
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.SessionStartupMode;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainLogger;
 import com.dynarithmic.twain.highlevel.TwainLoggerProc;
 import com.dynarithmic.twain.highlevel.TwainSession;
@@ -26,6 +25,9 @@ public class LoggingDemo2
     // Simple acquire to a file
     public void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         // Create a TWAIN Session without starting it.  We want to log 
         // what happens when TWAIN starts up
         TwainSession twainSession = new TwainSession(SessionStartupMode.NONE);

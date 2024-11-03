@@ -112,6 +112,9 @@ struct JavaShortArrayTraits
     static void SetJArrayRegion(JNIEnv* env, array_type ret, int nCount, const std::vector<base_type>& vj)
     { env->SetIntArrayRegion(ret, 0, nCount, vj.data()); }
 
+    static void SetJArrayRegion(JNIEnv* env, array_type ret, int nCount, const base_type* vj)
+    { env->SetIntArrayRegion(ret, 0, nCount, vj); }
+
     static base_type* GetJArrayElements(JNIEnv *env, array_type arr)
     { return env->GetIntArrayElements(arr, nullptr); }
 };
@@ -129,6 +132,9 @@ struct JavaDoubleArrayTraits
     static void SetJArrayRegion(JNIEnv* env, jdoubleArray ret, int nCount,
         const std::vector<jdouble>& vj)
     { env->SetDoubleArrayRegion(ret, 0, nCount, vj.data()); }
+
+    static void SetJArrayRegion(JNIEnv* env, array_type ret, int nCount, const base_type* vj)
+    { env->SetDoubleArrayRegion(ret, 0, nCount, vj); }
 
     static base_type* GetJArrayElements(JNIEnv *env, array_type arr)
     { return env->GetDoubleArrayElements(arr, nullptr); }
@@ -232,7 +238,7 @@ jstring CreateJStringFromCStringW(JNIEnv *env, LPCSTR str);
 jstring CreateJStringFromCStringW(JNIEnv *env, LPCWSTR str);
 jclass GetJavaClassID(JNIEnv* env, const char* javaClass);
 jmethodID GetJavaClassConstructor(JNIEnv *env, const char* javaClass, const char* constructorSig);
-jobjectArray CreateJStringArrayFromDTWAIN(JNIEnv *env, DTWAIN_ARRAY arr);
+jobjectArray CreateJStringArrayFromDTWAINArray(JNIEnv *env, DTWAIN_ARRAY arr);
 DTWAIN_ARRAY CreateDTWAINArrayFromJStringArray(JNIEnv *env, jobjectArray strArray);
 DTWAIN_ARRAY CreateDTWAINArrayFromJIntArray(JNIEnv *env, jintArray arr);
 DTWAIN_ARRAY CreateDTWAINArrayFromJFrameArray(JNIEnv *env, jobjectArray frameArray);

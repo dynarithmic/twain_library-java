@@ -39,13 +39,18 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.ICAP_COMPRESSION;
 
 public class BufferedTransferInfo
 {
+    // There are two types of buffered transfer:
+    // 1) Strips.  Either the user has a buffer, or let DTWAIN set up the buffer
+    // 2) Tiles.   The user needs no setup, only to set up the TwainCallback to handle
+    //    the tiles.
     private byte [] compressedStrip = null;
     private TwainSource mSource = null;
     private List<Integer> supportedCompressionTypes = new ArrayList<>();
     private CompressionType compressionType = DTwainConstants.CompressionType.NONE;
     private BufferedStripInfo m_StripInfo = new BufferedStripInfo();
     private boolean handleStrips = false;
-
+    private boolean tileModeSupported = false;
+    private boolean handleTiles = false;
     private class BestCompression
     {
         private CompressionType compressionType;
@@ -89,6 +94,11 @@ public class BufferedTransferInfo
         attach(theSource);
     }
 
+    public boolean isTileModeSupported()
+    {
+        return tileModeSupported;
+    }
+
     private DTwainConstants.CompressionType getCompressionTypeFromMap(DTwainConstants.DSFileType ft)
     {
         List<BestCompression> best = bestCompressionMap.get(ft);
@@ -116,12 +126,23 @@ public class BufferedTransferInfo
         return this;
     }
 
+    public BufferedTransferInfo setHandleTiles(boolean handleTiles)
+    {
+        if ( tileModeSupported )
+            this.handleTiles = handleTiles;
+        return this;
+    }
+    
+    public boolean isUsingStripTransfer() { return !this.handleTiles; }
+    public boolean isUsingTileTransfer() { return this.handleTiles; }
+    
     public BufferedTransferInfo attach(TwainSource theSource) throws DTwainJavaAPIException
     {
         mSource = theSource;
         CapabilityInterface ci = mSource.getCapabilityInterface();
         GetCapOperation gc = ci.get();
         supportedCompressionTypes = ci.getCompression(gc);
+        tileModeSupported = ci.isTilesSupported();
         Collections.sort(supportedCompressionTypes);
         try
         {
@@ -310,19 +331,30 @@ public class BufferedTransferInfo
     {
         if (mSource == null)
             return false;
-        int bufferSize = m_StripInfo.getBufferSize();
-        if ( bufferSize > 0)
-        {
-            if ( bufferSize < m_StripInfo.getMinimumSize() || bufferSize > this.m_StripInfo.getMaximumSize())
-                return false;
-        }
+        DTwainJavaAPI handle = mSource.getTwainSession().getAPIHandle();
 
+        // Test to see if the compression is supported
         CapabilityInterface ci = mSource.getCapabilityInterface();
         if (!ci.isCompressionValueSupported(compression.value()))
             return false;
-        DTwainJavaAPI handle = mSource.getTwainSession().getAPIHandle();
-        m_StripInfo.setAppAllocatesBuffer(handleStrips);
-        handle.DTWAIN_SetBufferedTransferInfo(mSource.getSourceHandle(), m_StripInfo);
+        
+        // If this is tiled, we need to call with a BufferedTileInfo to tell DTWAIN
+        // to setup this transfer for tiles
+        if ( this.handleTiles )
+            handle.DTWAIN_SetBufferedTransferInfo(mSource.getSourceHandle(), new BufferedTileInfo());
+        else
+        {
+            // This is a stripped transfer
+            int bufferSize = m_StripInfo.getBufferSize();
+            if ( bufferSize > 0)
+            {
+                if ( bufferSize < m_StripInfo.getMinimumSize() || bufferSize > this.m_StripInfo.getMaximumSize())
+                    return false;
+            }
+            m_StripInfo.setAppAllocatesBuffer(handleStrips);
+            handle.DTWAIN_SetBufferedTransferInfo(mSource.getSourceHandle(), m_StripInfo);
+        }
+        
         return true;
     }
 

@@ -23,14 +23,12 @@ package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.FileTransferOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.PaperHandlingOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.PaperHandlingOptions.FeederMode;
-import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
 
 public class WaitForFeederLoadedDemo {
 
@@ -38,12 +36,14 @@ public class WaitForFeederLoadedDemo {
     {
         try 
         {
+            // Allows runtime choice of choosing which JNI DLL is loaded.
+            ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+            
             TwainSession session = new TwainSession();
             TwainSource source = EnhancedSourceSelector.selectSource(session);
             if ( source.isOpened())
             {
-                CapabilityInterface ci = source.getCapabilityInterface();
-                if (!ci.isPaperDetectableSupported())
+                if (!source.isFeederWaitSupported())
                 {
                     session.stop();
                     return;
@@ -65,6 +65,9 @@ public class WaitForFeederLoadedDemo {
                 // Set to a TIFF-LZW file
                 FileTransferOptions ftOpts = ac.getFileTransferOptions();
                 ftOpts.setName("tif_from_wrapper.tif").setType(FileType.TIFFLZWMULTI);
+                
+                // Turn off the user interface
+                ac.getUserInterfaceOptions().showUI(false);
                 
                 // We will only acquire 2 pages
                 ac.getGeneralOptions().setMaxPageCount(2);

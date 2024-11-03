@@ -70,6 +70,8 @@ public class TwainTriplet
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_FILESYSTEM, TwainConstants.MSG.MSG_RENAME), new TW_FILESYSTEM());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_EVENT, TwainConstants.MSG.MSG_PROCESSEVENT), new TW_EVENT());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_METRICS, TwainConstants.MSG.MSG_GET), new TW_METRICS());
+        TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_PARENT, TwainConstants.MSG.MSG_CLOSEDSM), new TW_HANDLE());
+        TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_PARENT, TwainConstants.MSG.MSG_OPENDSM), new TW_HANDLE());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_PASSTHRU, TwainConstants.MSG.MSG_PASSTHRU), new TW_PASSTHRU());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_PENDINGXFERS, TwainConstants.MSG.MSG_ENDXFER), new TW_PENDINGXFERS());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_PENDINGXFERS, TwainConstants.MSG.MSG_GET), new TW_PENDINGXFERS());
@@ -94,6 +96,7 @@ public class TwainTriplet
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_IDENTITY, TwainConstants.MSG.MSG_GETNEXT), new TW_IDENTITY());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_IDENTITY, TwainConstants.MSG.MSG_OPENDS), new TW_IDENTITY());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_IDENTITY, TwainConstants.MSG.MSG_SET), new TW_IDENTITY());
+        TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_IDENTITY, TwainConstants.MSG.MSG_USERSELECT), new TW_IDENTITY());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_NULL, TwainConstants.MSG.MSG_CLOSEDSOK), new TW_NULL());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_NULL, TwainConstants.MSG.MSG_CLOSEDSREQ), new TW_NULL());
         TripletMap.put(new Triplet<>((long) TwainConstants.DG.DG_CONTROL, TwainConstants.DAT.DAT_NULL, TwainConstants.MSG.MSG_DEVICEEVENT), new TW_NULL());

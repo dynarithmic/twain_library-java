@@ -39,6 +39,9 @@ public class TwainLowLevelDSMTestDemo
     private Map<Triplet<Long, Integer, Integer>, TwainLowLevel> sMap = null;
     void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+
         // Get the map of the triplet information
         sMap = TwainTriplet.getTripletMap();
 

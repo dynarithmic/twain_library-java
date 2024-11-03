@@ -37,7 +37,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5E81073C-53DD-4684-96A4-60E2E3027100}</ProjectGuid>
     <RootNamespace>DTWAINJNI</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>DTWAINJNI</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -157,6 +157,8 @@
     <IntDir>.\$(Configuration)$(PlatformArchitecture)/</IntDir>
     <TargetName>dtwainjni64u</TargetName>
     <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugU|x64'">
     <GenerateManifest>false</GenerateManifest>
@@ -183,7 +185,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -193,13 +195,14 @@
       <ObjectFileName>.\$(Configuration)$(PlatformArchitecture)/</ObjectFileName>
       <ProgramDataBaseFileName>.\$(Configuration)$(PlatformArchitecture)/dtwainjni$(PlatformArchitecture)d.pdb</ProgramDataBaseFileName>
       <BrowseInformation>false</BrowseInformation>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -244,7 +247,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>UNICODE;_UNICODE;_DEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;_DEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -254,14 +257,15 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <ObjectFileName>.\$(Configuration)$(PlatformArchitecture)/</ObjectFileName>
       <ProgramDataBaseFileName>.\$(Configuration)$(PlatformArchitecture)/dtwainjni$(PlatformArchitecture)ud.pdb</ProgramDataBaseFileName>
       <BrowseInformation>false</BrowseInformation>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4244</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;DTWAIN_OPENSOURCE_DISTRIBUTION;UNICODE;DTWAIN_UNLICENSED_DISTRIBUTION_SPECIAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -310,10 +314,10 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <HeaderFileName />
     </Midl>
     <ClCompile>
-      <Optimization>Full</Optimization>
+      <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -322,11 +326,12 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <AssemblerListingLocation>.\$(Configuration)$(PlatformArchitecture)/</AssemblerListingLocation>
       <ObjectFileName>.\$(Configuration)$(PlatformArchitecture)/</ObjectFileName>
       <ProgramDataBaseFileName>.\$(Configuration)$(PlatformArchitecture)/dtwainjni$(PlatformArchitecture).pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ExceptionHandling>Async</ExceptionHandling>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -374,10 +379,10 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       </HeaderFileName>
     </Midl>
     <ClCompile>
-      <Optimization>Full</Optimization>
+      <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>UNICODE;_UNICODE;NDEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;NDEBUG;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -386,11 +391,12 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <AssemblerListingLocation>.\$(Configuration)$(PlatformArchitecture)/</AssemblerListingLocation>
       <ObjectFileName>.\$(Configuration)$(PlatformArchitecture)/</ObjectFileName>
       <ProgramDataBaseFileName>.\$(Configuration)$(PlatformArchitecture)/dtwainjni$(PlatformArchitecture)u.pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ExceptionHandling>Async</ExceptionHandling>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -402,8 +408,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ProgramDatabaseFile>.\$(Configuration)$(PlatformArchitecture)/dtwainjni.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
       <ImportLibrary>.\$(Configuration)$(PlatformArchitecture)/dtwainjni.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>
@@ -437,14 +442,17 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClCompile>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
-      <Optimization>Full</Optimization>
-      <PreprocessorDefinitions>_WIN64;WIN32;_WINDOWS;;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <Optimization>MinSpace</Optimization>
+      <PreprocessorDefinitions>_WIN64;WIN32;_WINDOWS;;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <AssemblerListingLocation>.\$(Configuration)$(PlatformArchitecture)/</AssemblerListingLocation>
       <ObjectFileName>.\$(Configuration)$(PlatformArchitecture)/</ObjectFileName>
       <ProgramDataBaseFileName>.\$(Configuration)$(PlatformArchitecture)/dtwainjni$(PlatformArchitecture).pdb</ProgramDataBaseFileName>
       <PrecompiledHeaderOutputFile />
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -465,19 +473,27 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <OutputFile>.\$(Configuration)$(PlatformArchitecture)/\$(TargetName).dll</OutputFile>
       <ProgramDatabaseFile>.\$(Configuration)$(PlatformArchitecture)/dtwainjni.pdb</ProgramDatabaseFile>
       <ImportLibrary>.\$(Configuration)$(PlatformArchitecture)/dtwainjni.lib</ImportLibrary>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>UNICODE;_UNICODE;NDEBUG;WIN64;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;NDEBUG;WIN64;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <AssemblerListingLocation>.\$(Configuration)$(PlatformArchitecture)/</AssemblerListingLocation>
       <ObjectFileName>.\$(Configuration)$(PlatformArchitecture)/</ObjectFileName>
       <ProgramDataBaseFileName>.\$(Configuration)$(PlatformArchitecture)/dtwainjni$(PlatformArchitecture)u.pdb</ProgramDataBaseFileName>
-      <Optimization>Full</Optimization>
+      <Optimization>MinSpace</Optimization>
       <PrecompiledHeaderOutputFile />
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <StringPooling>true</StringPooling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>false</OmitFramePointers>
+      <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -502,7 +518,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>UNICODE;_UNICODE;_DEBUG;_WIN64;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;_DEBUG;_WIN64;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <Optimization>Disabled</Optimization>
       <OmitFramePointers>false</OmitFramePointers>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -514,7 +530,9 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -540,7 +558,7 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     <ClCompile>
       <AdditionalIncludeDirectories>$(JDK_INCLUDE_DIR);$(JDK_INCLUDE_DIR)\win32;$(DTWAIN_INCLUDE_DIR);$(ProjectDir);</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WIN64;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WIN64;WIN32;_WINDOWS;_USRDLL;DTWAINJNI_EXPORTS;DTWAIN_USEDYNDTWAIN;DTWAIN_JAVA_DEMO_DISTRIBUTION;%(PreprocessorDefinitions);_SCL_SECURE_NO_WARNINGS;USING_DTWAIN_LOADLIBRARY;DTWAIN_NOIMPORTLIB;USING_DTWAIN_LOADLIBRARY</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>Async</ExceptionHandling>
       <AssemblerListingLocation>.\$(Configuration)$(PlatformArchitecture)/</AssemblerListingLocation>
@@ -550,7 +568,9 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <UndefinePreprocessorDefinitions>DTWAIN_NOIMPORTLIB</UndefinePreprocessorDefinitions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -562,24 +582,29 @@ copy  $(TargetDir)$(TargetName).pdb $(SolutionDir)jni_dlls</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CRCCheck.cpp" />
     <ClCompile Include="DTWAINJavaAPI.cpp" />
     <ClCompile Include="DTWAINJNIGlobals.cpp" />
     <ClCompile Include="dtwimpl.cpp" />
+    <ClCompile Include="ExtendedImageInfo.cpp" />
     <ClCompile Include="JavaAdapter.cpp" />
     <ClCompile Include="JavaArrayTraits.cpp" />
     <ClCompile Include="javaobjectcaller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CRCCheck.h" />
     <ClInclude Include="DSMCaller.h" />
     <ClInclude Include="DTWAINFunctionCaller.h" />
-    <ClInclude Include="DTWAINGlobalFn.h" />
     <ClInclude Include="DTwainJavaAPI.h" />
     <ClInclude Include="DTWAINJNIGlobalNames.h" />
     <ClInclude Include="DTWAINJNIGlobals.h" />
+    <ClInclude Include="dtwainjni_config.h" />
     <ClInclude Include="DTWAINJNI_VerInfo.h" />
     <ClInclude Include="DTWAINJNI_Version.h" />
     <ClInclude Include="DTWAINRAII.h" />
     <ClInclude Include="dtwainx2.h" />
+    <ClInclude Include="ExtendedImageInfo.h" />
+    <ClInclude Include="ExtendedImageInfo_Types.h" />
     <ClInclude Include="JavaAdapter.h" />
     <ClInclude Include="JavaArrayList.h" />
     <ClInclude Include="JavaArrayTraits.h" />

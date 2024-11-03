@@ -126,5 +126,14 @@ struct stringjniutils
     {
         return str;
     }
+
+    static std::string& rtrim(std::string& str)
+    {
+        auto it = std::find_if(str.rbegin(), str.rend(), [](char ch) { return !std::isspace(ch); });
+        str.erase(it.base(), str.end());
+        return str;
+    }
+
+
 };
 #endif

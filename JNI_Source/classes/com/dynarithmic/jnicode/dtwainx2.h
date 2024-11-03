@@ -31,9 +31,12 @@
 #include <dtwaindefs.h>
 #include <dtwain_version.h>
 #include <dtwpdft.h>
+#ifndef DTWAIN_NOIMPORTLIB
 #define DTWAIN_NOIMPORTLIB
+#endif
 #include <dtwain_library_selector.h>
 #ifdef __cplusplus
+#include <string>
 extern "C" {
 #endif
 
@@ -73,8 +76,8 @@ typedef LONG (DLLENTRY_DEF * D_ARRAYFINDFUNC)                                   
 typedef LONG (DLLENTRY_DEF * D_ARRAYFINDFLOATFUNC)                              (DTWAIN_ARRAY, DTWAIN_FLOAT, DTWAIN_FLOAT);
 typedef LONG (DLLENTRY_DEF * D_ARRAYFINDLONGFUNC)                               (DTWAIN_ARRAY, LONG);
 typedef LONG (DLLENTRY_DEF * D_ARRAYFINDLONG64FUNC)                             (DTWAIN_ARRAY);
-typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYFIX32GETATFUNC)                      (DTWAIN_ARRAY, LPLONG, LPLONG);
-typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYFIX32SETATFUNC)                      (DTWAIN_ARRAY);
+typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYFIX32GETATFUNC)                      (DTWAIN_ARRAY, LONG, LPLONG, LPLONG);
+typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYFIX32SETATFUNC)                      (DTWAIN_ARRAY, LONG, LONG, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYFRAMEGETATFUNC)                      (DTWAIN_ARRAY, LONG, LPDTWAIN_FLOAT, LPDTWAIN_FLOAT, LPDTWAIN_FLOAT, LPDTWAIN_FLOAT);
 typedef DTWAIN_FRAME (DLLENTRY_DEF * D_ARRAYFRAMEGETFRAMEATFUNC)                (DTWAIN_ARRAY, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYFRAMESETATFUNC)                      (DTWAIN_ARRAY, LONG, DTWAIN_FLOAT, DTWAIN_FLOAT, DTWAIN_FLOAT, DTWAIN_FLOAT);
@@ -89,6 +92,7 @@ typedef LPVOID (DLLENTRY_DEF * D_ARRAYGETBUFFERFUNC)                            
 typedef LONG (DLLENTRY_DEF * D_ARRAYGETCOUNTFUNC)                               (DTWAIN_ARRAY);
 typedef LONG (DLLENTRY_DEF * D_ARRAYGETMAXSTRINGLENGTHFUNC)                     (DTWAIN_ARRAY);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYGETSOURCEATFUNC)                     (DTWAIN_ARRAY, LONG, DTWAIN_SOURCE*);
+typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ARRAYGETATSOURCEFUNC)                     (DTWAIN_ARRAY, LONG, DTWAIN_SOURCE*);
 typedef LONG (DLLENTRY_DEF * D_ARRAYGETSTRINGLENGTHFUNC)                        (DTWAIN_ARRAY, LONG);
 typedef LONG (DLLENTRY_DEF * D_ARRAYGETTYPEFUNC)                                (DTWAIN_ARRAY);
 typedef DTWAIN_ARRAY (DLLENTRY_DEF * D_ARRAYINITFUNC)                           (VOID_PROTOTYPE);
@@ -427,6 +431,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISROTATIONSUPPORTEDFUNC)                  
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISSESSIONENABLEDFUNC)                     (VOID_PROTOTYPE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISSKIPIMAGEINFOERRORFUNC)                 (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISSOURCEACQUIRINGFUNC)                    (DTWAIN_SOURCE);
+typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISSOURCEINUIONLYMODEFUNC)                 (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISSOURCEOPENFUNC)                         (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISSOURCESELECTEDFUNC)                     (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_ISTIFFSUPPORTEDFUNC)                      (VOID_PROTOTYPE);
@@ -1023,6 +1028,27 @@ typedef LONG          (DLLENTRY_DEF*  D_GETACTIVEDSMPATHFUNC)                   
 typedef LONG          (DLLENTRY_DEF*  D_GETACTIVEDSMPATHAFUNC)                   (LPSTR, LONG);
 typedef LONG          (DLLENTRY_DEF*  D_GETACTIVEDSMPATHWFUNC)                   (LPWSTR, LONG);
 typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                       (DTWAIN_SOURCE, LONG, LPDTWAIN_ARRAY);
+typedef DTWAIN_BOOL   (DLLENTRY_DEF*  D_SETBUFFEREDTILEMODEFUNC)                 (DTWAIN_SOURCE, DTWAIN_BOOL);
+typedef DTWAIN_BOOL   (DLLENTRY_DEF*  D_ISBUFFEREDTILEMODEONFUNC)                (DTWAIN_SOURCE);
+typedef DTWAIN_BOOL   (DLLENTRY_DEF*  D_ISBUFFEREDTILEMODESUPPORTEDFUNC)         (DTWAIN_SOURCE);
+typedef HANDLE        (DLLENTRY_DEF*  D_GETBUFFEREDTRANSFERINFOFUNC)             (DTWAIN_SOURCE, LPDWORD, LPDWORD, LPDWORD, LPDWORD, LPDWORD, LPDWORD, LPDWORD, LPDWORD, LPDWORD);
+typedef HANDLE        (DLLENTRY_DEF*  D_CONVERTTOAPISTRINGFUNC)                  (LPCTSTR);
+typedef HANDLE        (DLLENTRY_DEF*  D_CONVERTTOAPISTRINGAFUNC)                 (LPCSTR);
+typedef HANDLE        (DLLENTRY_DEF*  D_CONVERTTOAPISTRINGWFUNC)                 (LPCWSTR);
+typedef DTWAIN_OCRENGINE (DLLENTRY_DEF* D_SELECTOCRENGINE2FUNC)                  (HWND, LPCTSTR,LONG, LONG, LONG);
+typedef DTWAIN_OCRENGINE (DLLENTRY_DEF* D_SELECTOCRENGINE2AFUNC)                 (HWND, LPCSTR,LONG, LONG, LONG);
+typedef DTWAIN_OCRENGINE (DLLENTRY_DEF* D_SELECTOCRENGINE2WFUNC)                 (HWND, LPCWSTR,LONG, LONG, LONG);
+typedef DTWAIN_OCRENGINE (DLLENTRY_DEF* D_SELECTOCRENGINE2EXFUNC)                (HWND, LPCTSTR, LONG, LONG, LPCTSTR, LPCTSTR, LPCTSTR, LONG);
+typedef DTWAIN_OCRENGINE (DLLENTRY_DEF* D_SELECTOCRENGINE2EXAFUNC)               (HWND, LPCSTR, LONG, LONG, LPCSTR, LPCSTR, LPCSTR, LONG);
+typedef DTWAIN_OCRENGINE (DLLENTRY_DEF* D_SELECTOCRENGINE2EXWFUNC)               (HWND, LPCWSTR, LONG, LONG, LPCWSTR, LPCWSTR, LPCWSTR, LONG);
+typedef DTWAIN_BOOL (DLLENTRY_DEF* D_SETTEMPFILEDIRECTORYEXFUNC)                 (LPCTSTR, LONG);
+typedef DTWAIN_BOOL (DLLENTRY_DEF* D_SETTEMPFILEDIRECTORYEXAFUNC)                (LPCSTR, LONG);
+typedef DTWAIN_BOOL (DLLENTRY_DEF* D_SETTEMPFILEDIRECTORYEXWFUNC)                (LPCWSTR, LONG);
+typedef DTWAIN_BOOL (DLLENTRY_DEF* D_GETOCRMAJORMINORVERSIONFUNC)                (DTWAIN_OCRENGINE, LPLONG, LPLONG);
+typedef LONG        (DLLENTRY_DEF* D_GETSAVEDFILESCOUNTFUNC)                     (DTWAIN_SOURCE);
+typedef LONG        (DLLENTRY_DEF* D_GETACTIVEDSMVERSIONINFOFUNC)                (LPTSTR, LONG);
+typedef LONG        (DLLENTRY_DEF* D_GETACTIVEDSMVERSIONINFOAFUNC)               (LPSTR, LONG);
+typedef LONG        (DLLENTRY_DEF* D_GETACTIVEDSMVERSIONINFOWFUNC)               (LPWSTR, LONG);
 #ifdef __cplusplus
 }
 #endif
@@ -1107,6 +1133,7 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_ARRAYGETATFUNC                                 DTWAIN_ArrayGetAt;
     STATIC D_ARRAYGETATLONG64FUNC                           DTWAIN_ArrayGetAtLong64;
     STATIC D_ARRAYGETATLONGFUNC                             DTWAIN_ArrayGetAtLong;
+    STATIC D_ARRAYGETATSOURCEFUNC                           DTWAIN_ArrayGetAtSource;
     STATIC D_ARRAYGETATSTRINGAFUNC                          DTWAIN_ArrayGetAtStringA;
     STATIC D_ARRAYGETATSTRINGFUNC                           DTWAIN_ArrayGetAtString;
     STATIC D_ARRAYGETATSTRINGPTRFUNC                        DTWAIN_ArrayGetAtStringPtr;
@@ -1163,6 +1190,9 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_CLOSESOURCEFUNC                                DTWAIN_CloseSource;
     STATIC D_CLOSESOURCEUIFUNC                              DTWAIN_CloseSourceUI;
     STATIC D_CONVERTDIBTOBITMAPFUNC                         DTWAIN_ConvertDIBToBitmap;
+    STATIC D_CONVERTTOAPISTRINGAFUNC                        DTWAIN_ConvertToAPIStringA;
+    STATIC D_CONVERTTOAPISTRINGFUNC                         DTWAIN_ConvertToAPIString;
+    STATIC D_CONVERTTOAPISTRINGWFUNC                        DTWAIN_ConvertToAPIStringW;
     STATIC D_CREATEACQUISITIONARRAYFUNC                     DTWAIN_CreateAcquisitionArray;
     STATIC D_CREATEPDFTEXTELEMENTFUNC                       DTWAIN_CreatePDFTextElement;
     STATIC D_DESTROYACQUISITIONARRAYFUNC                    DTWAIN_DestroyAcquisitionArray;
@@ -1206,8 +1236,8 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_ENUMBOTTOMCAMERASFUNC                          DTWAIN_EnumBottomCameras;
     STATIC D_ENUMBRIGHTNESSVALUESEXFUNC                     DTWAIN_EnumBrightnessValuesEx;
     STATIC D_ENUMBRIGHTNESSVALUESFUNC                       DTWAIN_EnumBrightnessValues;
-    STATIC D_ENUMCAMERASFUNC                                DTWAIN_EnumCameras;
     STATIC D_ENUMCAMERASEXFUNC                              DTWAIN_EnumCamerasEx;
+    STATIC D_ENUMCAMERASFUNC                                DTWAIN_EnumCameras;
     STATIC D_ENUMCOMPRESSIONTYPESEXFUNC                     DTWAIN_EnumCompressionTypesEx;
     STATIC D_ENUMCOMPRESSIONTYPESFUNC                       DTWAIN_EnumCompressionTypes;
     STATIC D_ENUMCONTRASTVALUESEXFUNC                       DTWAIN_EnumContrastValuesEx;
@@ -1276,8 +1306,8 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_ENUMSUPPORTEDCAPSEX2FUNC                       DTWAIN_EnumSupportedCapsEx2;
     STATIC D_ENUMSUPPORTEDCAPSEXFUNC                        DTWAIN_EnumSupportedCapsEx;
     STATIC D_ENUMSUPPORTEDCAPSFUNC                          DTWAIN_EnumSupportedCaps;
-    STATIC D_ENUMSUPPORTEDSINGLEPAGEFILETYPES               DTWAIN_EnumSupportedSinglePageFileTypes;
     STATIC D_ENUMSUPPORTEDMULTIPAGEFILETYPES                DTWAIN_EnumSupportedMultiPageFileTypes;
+    STATIC D_ENUMSUPPORTEDSINGLEPAGEFILETYPES               DTWAIN_EnumSupportedSinglePageFileTypes;
     STATIC D_ENUMTHRESHOLDVALUESEXFUNC                      DTWAIN_EnumThresholdValuesEx;
     STATIC D_ENUMTHRESHOLDVALUESFUNC                        DTWAIN_EnumThresholdValues;
     STATIC D_ENUMTOPCAMERASFUNC                             DTWAIN_EnumTopCameras;
@@ -1329,17 +1359,17 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETACQUIRESTRIPBUFFERFUNC                      DTWAIN_GetAcquireStripBuffer;
     STATIC D_GETACQUIRESTRIPDATAFUNC                        DTWAIN_GetAcquireStripData;
     STATIC D_GETACQUIRESTRIPSIZESFUNC                       DTWAIN_GetAcquireStripSizes;
-    STATIC D_GETACTIVEDSMPATHFUNC                     DTWAIN_GetActiveDSMPath;
     STATIC D_GETACTIVEDSMPATHAFUNC                    DTWAIN_GetActiveDSMPathA;
+    STATIC D_GETACTIVEDSMPATHFUNC                           DTWAIN_GetActiveDSMPath;
     STATIC D_GETACTIVEDSMPATHWFUNC                    DTWAIN_GetActiveDSMPathW;
+    STATIC D_GETACTIVEDSMVERSIONINFOAFUNC                   DTWAIN_GetActiveDSMVersionInfoA;
+    STATIC D_GETACTIVEDSMVERSIONINFOFUNC                    DTWAIN_GetActiveDSMVersionInfo;
+    STATIC D_GETACTIVEDSMVERSIONINFOWFUNC                   DTWAIN_GetActiveDSMVersionInfoW;
     STATIC D_GETALARMVOLUMEFUNC                             DTWAIN_GetAlarmVolume;
     STATIC D_GETAPIHANDLESTATUS                             DTWAIN_GetAPIHandleStatus;
     STATIC D_GETAPPINFOAFUNC                                DTWAIN_GetAppInfoA;
     STATIC D_GETAPPINFOFUNC                                 DTWAIN_GetAppInfo;
     STATIC D_GETAPPINFOWFUNC                                DTWAIN_GetAppInfoW;
-    STATIC D_GETVERSIONCOPYRIGHTFUNC                        DTWAIN_GetVersionCopyright;  
-    STATIC D_GETVERSIONCOPYRIGHTAFUNC                       DTWAIN_GetVersionCopyrightA;
-    STATIC D_GETVERSIONCOPYRIGHTWFUNC                       DTWAIN_GetVersionCopyrightW;
     STATIC D_GETAUTHORAFUNC                                 DTWAIN_GetAuthorA;
     STATIC D_GETAUTHORFUNC                                  DTWAIN_GetAuthor;
     STATIC D_GETAUTHORWFUNC                                 DTWAIN_GetAuthorW;
@@ -1351,6 +1381,7 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETBRIGHTNESSSTRINGAFUNC                       DTWAIN_GetBrightnessStringA;
     STATIC D_GETBRIGHTNESSSTRINGFUNC                        DTWAIN_GetBrightnessString;
     STATIC D_GETBRIGHTNESSSTRINGWFUNC                       DTWAIN_GetBrightnessStringW;
+    STATIC D_GETBUFFEREDTRANSFERINFOFUNC                    DTWAIN_GetBufferedTransferInfo;
     STATIC D_GETCALLBACK64FUNC                              DTWAIN_GetCallback64;
     STATIC D_GETCALLBACKFUNC                                DTWAIN_GetCallback;
     STATIC D_GETCAPARRAYTYPEFUNC                            DTWAIN_GetCapArrayType;
@@ -1408,9 +1439,6 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETERRORSTRINGAFUNC                            DTWAIN_GetErrorStringA;
     STATIC D_GETERRORSTRINGFUNC                             DTWAIN_GetErrorString;
     STATIC D_GETERRORSTRINGWFUNC                            DTWAIN_GetErrorStringW;
-    STATIC D_GETRESOURCESTRINGAFUNC                         DTWAIN_GetResourceStringA;
-    STATIC D_GETRESOURCESTRINGFUNC                          DTWAIN_GetResourceString;
-    STATIC D_GETRESOURCESTRINGWFUNC                         DTWAIN_GetResourceStringW;
     STATIC D_GETEXTCAPFROMNAMEAFUNC                         DTWAIN_GetExtCapFromNameA;
     STATIC D_GETEXTCAPFROMNAMEFUNC                          DTWAIN_GetExtCapFromName;
     STATIC D_GETEXTCAPFROMNAMEWFUNC                         DTWAIN_GetExtCapFromNameW;
@@ -1423,12 +1451,12 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETFEEDERALIGNMENTFUNC                         DTWAIN_GetFeederAlignment;
     STATIC D_GETFEEDERFUNCSFUNC                             DTWAIN_GetFeederFuncs;
     STATIC D_GETFEEDERORDERFUNC                             DTWAIN_GetFeederOrder;
-    STATIC D_GETFILETYPENAME                                DTWAIN_GetFileTypeName;
-    STATIC D_GETFILETYPENAMEA                               DTWAIN_GetFileTypeNameA;
-    STATIC D_GETFILETYPENAMEW                               DTWAIN_GetFileTypeNameW;
     STATIC D_GETFILETYPEEXTENSIONS                          DTWAIN_GetFileTypeExtensions;
     STATIC D_GETFILETYPEEXTENSIONSA                         DTWAIN_GetFileTypeExtensionsA;
     STATIC D_GETFILETYPEEXTENSIONSW                         DTWAIN_GetFileTypeExtensionsW;
+    STATIC D_GETFILETYPENAME                                DTWAIN_GetFileTypeName;
+    STATIC D_GETFILETYPENAMEA                               DTWAIN_GetFileTypeNameA;
+    STATIC D_GETFILETYPENAMEW                               DTWAIN_GetFileTypeNameW;
     STATIC D_GETHALFTONEAFUNC                               DTWAIN_GetHalftoneA;
     STATIC D_GETHALFTONEFUNC                                DTWAIN_GetHalftone;
     STATIC D_GETHALFTONEWFUNC                               DTWAIN_GetHalftoneW;
@@ -1470,6 +1498,7 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETOCRERRORSTRINGFUNC                          DTWAIN_GetOCRErrorString;
     STATIC D_GETOCRERRORSTRINGWFUNC                         DTWAIN_GetOCRErrorStringW;
     STATIC D_GETOCRLASTERRORFUNC                            DTWAIN_GetOCRLastError;
+    STATIC D_GETOCRMAJORMINORVERSIONFUNC                    DTWAIN_GetOCRMajorMinorVersion;
     STATIC D_GETOCRMANUFACTURERAFUNC                        DTWAIN_GetOCRManufacturerA;
     STATIC D_GETOCRMANUFACTURERFUNC                         DTWAIN_GetOCRManufacturer;
     STATIC D_GETOCRMANUFACTURERWFUNC                        DTWAIN_GetOCRManufacturerW;
@@ -1520,15 +1549,19 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETRESOLUTIONSTRINGAFUNC                       DTWAIN_GetResolutionStringA;
     STATIC D_GETRESOLUTIONSTRINGFUNC                        DTWAIN_GetResolutionString;
     STATIC D_GETRESOLUTIONSTRINGWFUNC                       DTWAIN_GetResolutionStringW;
+    STATIC D_GETRESOURCESTRINGAFUNC                         DTWAIN_GetResourceStringA;
+    STATIC D_GETRESOURCESTRINGFUNC                          DTWAIN_GetResourceString;
+    STATIC D_GETRESOURCESTRINGWFUNC                         DTWAIN_GetResourceStringW;
     STATIC D_GETROTATIONFUNC                                DTWAIN_GetRotation;
     STATIC D_GETROTATIONSTRINGAFUNC                         DTWAIN_GetRotationStringA;
     STATIC D_GETROTATIONSTRINGFUNC                          DTWAIN_GetRotationString;
     STATIC D_GETROTATIONSTRINGWFUNC                         DTWAIN_GetRotationStringW;
+    STATIC D_GETSAVEDFILESCOUNTFUNC                         DTWAIN_GetSavedFilesCount;
     STATIC D_GETSAVEFILENAMEAFUNC                           DTWAIN_GetSaveFileNameA;
     STATIC D_GETSAVEFILENAMEFUNC                            DTWAIN_GetSaveFileName;
     STATIC D_GETSAVEFILENAMEWFUNC                           DTWAIN_GetSaveFileNameW;
-    STATIC D_GETSESSIONDETAILSFUNC                          DTWAIN_GetSessionDetails;
     STATIC D_GETSESSIONDETAILSAFUNC                         DTWAIN_GetSessionDetailsA;
+    STATIC D_GETSESSIONDETAILSFUNC                          DTWAIN_GetSessionDetails;
     STATIC D_GETSESSIONDETAILSWFUNC                         DTWAIN_GetSessionDetailsW;
     STATIC D_GETSHADOWFUNC                                  DTWAIN_GetShadow;
     STATIC D_GETSHADOWSTRINGAFUNC                           DTWAIN_GetShadowStringA;
@@ -1538,8 +1571,8 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETSHORTVERSIONSTRINGFUNC                      DTWAIN_GetShortVersionString;
     STATIC D_GETSHORTVERSIONSTRINGWFUNC                     DTWAIN_GetShortVersionStringW;
     STATIC D_GETSOURCEACQUISITIONSFUNC                      DTWAIN_GetSourceAcquisitions;
-    STATIC D_GETSOURCEDETAILSFUNC                           DTWAIN_GetSourceDetails;
     STATIC D_GETSOURCEDETAILSAFUNC                          DTWAIN_GetSourceDetailsA;
+    STATIC D_GETSOURCEDETAILSFUNC                           DTWAIN_GetSourceDetails;
     STATIC D_GETSOURCEDETAILSWFUNC                          DTWAIN_GetSourceDetailsW;
     STATIC D_GETSOURCEIDEXFUNC                              DTWAIN_GetSourceIDEx;
     STATIC D_GETSOURCEIDFUNC                                DTWAIN_GetSourceID;
@@ -1570,10 +1603,10 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETTIMEDATEWFUNC                               DTWAIN_GetTimeDateW;
     STATIC D_GETTWAINAPPIDEXFUNC                            DTWAIN_GetTwainAppIDEx;
     STATIC D_GETTWAINAPPIDFUNC                              DTWAIN_GetTwainAppID;
-    STATIC D_GETTWAINAVAILABILITYFUNC                       DTWAIN_GetTwainAvailability;
-    STATIC D_GETTWAINAVAILABILITYEXFUNC                     DTWAIN_GetTwainAvailabilityEx;
     STATIC D_GETTWAINAVAILABILITYEXAFUNC                    DTWAIN_GetTwainAvailabilityExA;
+    STATIC D_GETTWAINAVAILABILITYEXFUNC                     DTWAIN_GetTwainAvailabilityEx;
     STATIC D_GETTWAINAVAILABILITYEXWFUNC                    DTWAIN_GetTwainAvailabilityExW;
+    STATIC D_GETTWAINAVAILABILITYFUNC                       DTWAIN_GetTwainAvailability;
     STATIC D_GETTWAINCOUNTRYNAMEAFUNC                       DTWAIN_GetTwainCountryNameA;
     STATIC D_GETTWAINCOUNTRYNAMEFUNC                        DTWAIN_GetTwainCountryName;
     STATIC D_GETTWAINCOUNTRYNAMEWFUNC                       DTWAIN_GetTwainCountryNameW;
@@ -1591,10 +1624,13 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_GETTWAINNAMEFROMCONSTANT                       DTWAIN_GetTwainNameFromConstant;
     STATIC D_GETTWAINNAMEFROMCONSTANTA                      DTWAIN_GetTwainNameFromConstantA;
     STATIC D_GETTWAINNAMEFROMCONSTANTW                      DTWAIN_GetTwainNameFromConstantW;
-    STATIC D_GETTWAINSTRINGNAMEFUNC                         DTWAIN_GetTwainStringName;
     STATIC D_GETTWAINSTRINGNAMEAFUNC                        DTWAIN_GetTwainStringNameA;
+    STATIC D_GETTWAINSTRINGNAMEFUNC                         DTWAIN_GetTwainStringName;
     STATIC D_GETTWAINSTRINGNAMEWFUNC                        DTWAIN_GetTwainStringNameW;
     STATIC D_GETTWAINTIMEOUTFUNC                            DTWAIN_GetTwainTimeout;
+    STATIC D_GETVERSIONCOPYRIGHTAFUNC                       DTWAIN_GetVersionCopyrightA;
+    STATIC D_GETVERSIONCOPYRIGHTFUNC                        DTWAIN_GetVersionCopyright;  
+    STATIC D_GETVERSIONCOPYRIGHTWFUNC                       DTWAIN_GetVersionCopyrightW;
     STATIC D_GETVERSIONEXFUNC                               DTWAIN_GetVersionEx;
     STATIC D_GETVERSIONFUNC                                 DTWAIN_GetVersion;
     STATIC D_GETVERSIONINFOAFUNC                            DTWAIN_GetVersionInfoA;
@@ -1631,6 +1667,8 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_ISAUTOROTATESUPPORTEDFUNC                      DTWAIN_IsAutoRotateSupported;
     STATIC D_ISAUTOSCANENABLEDFUNC                          DTWAIN_IsAutoScanEnabled;
     STATIC D_ISBLANKPAGEDETECTIONONFUNC                     DTWAIN_IsBlankPageDetectionOn;
+    STATIC D_ISBUFFEREDTILEMODEONFUNC                       DTWAIN_IsBufferedTileModeOn;
+    STATIC D_ISBUFFEREDTILEMODESUPPORTEDFUNC                DTWAIN_IsBufferedTileModeSupported;
     STATIC D_ISCAPSUPPORTEDFUNC                             DTWAIN_IsCapSupported;
     STATIC D_ISCOMPRESSIONSUPPORTEDFUNC                     DTWAIN_IsCompressionSupported;
     STATIC D_ISCUSTOMDSDATASUPPORTEDFUNC                    DTWAIN_IsCustomDSDataSupported;
@@ -1680,26 +1718,27 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_ISSESSIONENABLEDFUNC                           DTWAIN_IsSessionEnabled;
     STATIC D_ISSKIPIMAGEINFOERRORFUNC                       DTWAIN_IsSkipImageInfoError;
     STATIC D_ISSOURCEACQUIRINGFUNC                          DTWAIN_IsSourceAcquiring;
+    STATIC D_ISSOURCEINUIONLYMODEFUNC                       DTWAIN_IsSourceInUIOnlyMode;
     STATIC D_ISSOURCEOPENFUNC                               DTWAIN_IsSourceOpen;
     STATIC D_ISSOURCESELECTEDFUNC                           DTWAIN_IsSourceSelected;
     STATIC D_ISSOURCEVALIDFUNC                              DTWAIN_IsSourceValid;
     STATIC D_ISTHUMBNAILENABLEDFUNC                         DTWAIN_IsThumbnailEnabled;
     STATIC D_ISTHUMBNAILSUPPORTEDFUNC                       DTWAIN_IsThumbnailSupported;
     STATIC D_ISTIFFSUPPORTEDFUNC                            DTWAIN_IsTIFFSupported;
-    STATIC D_ISTWAINAVAILABLEFUNC                           DTWAIN_IsTwainAvailable;
-    STATIC D_ISTWAINAVAILABLEEXFUNC                         DTWAIN_IsTwainAvailableEx;
     STATIC D_ISTWAINAVAILABLEEXAFUNC                        DTWAIN_IsTwainAvailableExA;
+    STATIC D_ISTWAINAVAILABLEEXFUNC                         DTWAIN_IsTwainAvailableEx;
     STATIC D_ISTWAINAVAILABLEEXWFUNC                        DTWAIN_IsTwainAvailableExW;
+    STATIC D_ISTWAINAVAILABLEFUNC                           DTWAIN_IsTwainAvailable;
     STATIC D_ISTWAINMSGFUNC                                 DTWAIN_IsTwainMsg;
     STATIC D_ISUICONTROLLABLEFUNC                           DTWAIN_IsUIControllable;
     STATIC D_ISUIENABLEDFUNC                                DTWAIN_IsUIEnabled;
     STATIC D_ISUIONLYSUPPORTEDFUNC                          DTWAIN_IsUIOnlySupported;
     STATIC D_LOADCUSTOMSTRINGRESOURCESAFUNC                 DTWAIN_LoadCustomStringResourcesA;
     STATIC D_LOADCUSTOMSTRINGRESOURCESEXAFUNC               DTWAIN_LoadCustomStringResourcesExA;
-    STATIC D_LOADCUSTOMSTRINGRESOURCESFUNC                  DTWAIN_LoadCustomStringResources;
     STATIC D_LOADCUSTOMSTRINGRESOURCESEXFUNC                DTWAIN_LoadCustomStringResourcesEx;
-    STATIC D_LOADCUSTOMSTRINGRESOURCESWFUNC                 DTWAIN_LoadCustomStringResourcesW;
     STATIC D_LOADCUSTOMSTRINGRESOURCESEXWFUNC               DTWAIN_LoadCustomStringResourcesExW;
+    STATIC D_LOADCUSTOMSTRINGRESOURCESFUNC                  DTWAIN_LoadCustomStringResources;
+    STATIC D_LOADCUSTOMSTRINGRESOURCESWFUNC                 DTWAIN_LoadCustomStringResourcesW;
     STATIC D_LOADLANGUAGERESOURCEFUNC                       DTWAIN_LoadLanguageResource;
     STATIC D_LOCKMEMORYEXFUNC                               DTWAIN_LockMemoryEx;
     STATIC D_LOCKMEMORYFUNC                                 DTWAIN_LockMemory;
@@ -1761,6 +1800,13 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_REWINDPAGEFUNC                                 DTWAIN_RewindPage;
     STATIC D_SELECTDEFAULTOCRENGINEFUNC                     DTWAIN_SelectDefaultOCREngine;
     STATIC D_SELECTDEFAULTSOURCEFUNC                        DTWAIN_SelectDefaultSource;
+    STATIC D_SELECTDEFAULTSOURCEWITHOPENFUNC                DTWAIN_SelectDefaultSourceWithOpen;
+    STATIC D_SELECTOCRENGINE2AFUNC                          DTWAIN_SelectOCREngine2A;
+    STATIC D_SELECTOCRENGINE2EXAFUNC                        DTWAIN_SelectOCREngine2ExA;
+    STATIC D_SELECTOCRENGINE2EXFUNC                         DTWAIN_SelectOCREngine2Ex;
+    STATIC D_SELECTOCRENGINE2EXWFUNC                        DTWAIN_SelectOCREngine2ExW;
+    STATIC D_SELECTOCRENGINE2FUNC                           DTWAIN_SelectOCREngine2;
+    STATIC D_SELECTOCRENGINE2WFUNC                          DTWAIN_SelectOCREngine2W;
     STATIC D_SELECTOCRENGINEBYNAMEAFUNC                     DTWAIN_SelectOCREngineByNameA;
     STATIC D_SELECTOCRENGINEBYNAMEFUNC                      DTWAIN_SelectOCREngineByName;
     STATIC D_SELECTOCRENGINEBYNAMEWFUNC                     DTWAIN_SelectOCREngineByNameW;
@@ -1774,12 +1820,11 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_SELECTSOURCEBYNAMEAFUNC                        DTWAIN_SelectSourceByNameA;
     STATIC D_SELECTSOURCEBYNAMEFUNC                         DTWAIN_SelectSourceByName;
     STATIC D_SELECTSOURCEBYNAMEWFUNC                        DTWAIN_SelectSourceByNameW;
-    STATIC D_SELECTSOURCEFUNC                               DTWAIN_SelectSource;
-    STATIC D_SELECTSOURCEBYNAMEWITHOPENFUNC                 DTWAIN_SelectSourceByNameWithOpen;
     STATIC D_SELECTSOURCEBYNAMEWITHOPENAFUNC                DTWAIN_SelectSourceByNameWithOpenA;
+    STATIC D_SELECTSOURCEBYNAMEWITHOPENFUNC                 DTWAIN_SelectSourceByNameWithOpen;
     STATIC D_SELECTSOURCEBYNAMEWITHOPENWFUNC                DTWAIN_SelectSourceByNameWithOpenW;
+    STATIC D_SELECTSOURCEFUNC                               DTWAIN_SelectSource;
     STATIC D_SELECTSOURCEWITHOPENFUNC                       DTWAIN_SelectSourceWithOpen;
-    STATIC D_SELECTDEFAULTSOURCEWITHOPENFUNC                DTWAIN_SelectDefaultSourceWithOpen;
     STATIC D_SETACQUIREAREA2FUNC                            DTWAIN_SetAcquireArea2;
     STATIC D_SETACQUIREAREA2STRINGAFUNC                     DTWAIN_SetAcquireArea2StringA;
     STATIC D_SETACQUIREAREA2STRINGFUNC                      DTWAIN_SetAcquireArea2String;
@@ -1804,18 +1849,19 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_SETAVAILABLEPRINTERSARRAYFUNC                  DTWAIN_SetAvailablePrintersArray;
     STATIC D_SETAVAILABLEPRINTERSFUNC                       DTWAIN_SetAvailablePrinters;
     STATIC D_SETBITDEPTHFUNC                                DTWAIN_SetBitDepth;
-    STATIC D_SETBLANKPAGEDETECTIONFUNC                      DTWAIN_SetBlankPageDetection;
-    STATIC D_SETBLANKPAGEDETECTIONSTRINGAFUNC               DTWAIN_SetBlankPageDetectionStringA;
-    STATIC D_SETBLANKPAGEDETECTIONSTRINGFUNC                DTWAIN_SetBlankPageDetectionString;
-    STATIC D_SETBLANKPAGEDETECTIONSTRINGWFUNC               DTWAIN_SetBlankPageDetectionStringW;
     STATIC D_SETBLANKPAGEDETECTIONEX                        DTWAIN_SetBlankPageDetectionEx;
     STATIC D_SETBLANKPAGEDETECTIONEXSTRING                  DTWAIN_SetBlankPageDetectionExString;
     STATIC D_SETBLANKPAGEDETECTIONEXSTRINGA                 DTWAIN_SetBlankPageDetectionExStringA;
     STATIC D_SETBLANKPAGEDETECTIONEXSTRINGW                 DTWAIN_SetBlankPageDetectionExStringW;
+    STATIC D_SETBLANKPAGEDETECTIONFUNC                      DTWAIN_SetBlankPageDetection;
+    STATIC D_SETBLANKPAGEDETECTIONSTRINGAFUNC               DTWAIN_SetBlankPageDetectionStringA;
+    STATIC D_SETBLANKPAGEDETECTIONSTRINGFUNC                DTWAIN_SetBlankPageDetectionString;
+    STATIC D_SETBLANKPAGEDETECTIONSTRINGWFUNC               DTWAIN_SetBlankPageDetectionStringW;
     STATIC D_SETBRIGHTNESSFUNC                              DTWAIN_SetBrightness;
     STATIC D_SETBRIGHTNESSSTRINGAFUNC                       DTWAIN_SetBrightnessStringA;
     STATIC D_SETBRIGHTNESSSTRINGFUNC                        DTWAIN_SetBrightnessString;
     STATIC D_SETBRIGHTNESSSTRINGWFUNC                       DTWAIN_SetBrightnessStringW;
+    STATIC D_SETBUFFEREDTILEMODEFUNC                        DTWAIN_SetBufferedTileMode;
     STATIC D_SETCALLBACK64FUNC                              DTWAIN_SetCallback64;
     STATIC D_SETCALLBACKFUNC                                DTWAIN_SetCallback;
     STATIC D_SETCAMERAAFUNC                                 DTWAIN_SetCameraA;
@@ -1970,6 +2016,9 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
     STATIC D_SETSHADOWSTRINGWFUNC                           DTWAIN_SetShadowStringW;
     STATIC D_SETSOURCEUNITFUNC                              DTWAIN_SetSourceUnit;
     STATIC D_SETTEMPFILEDIRECTORYAFUNC                      DTWAIN_SetTempFileDirectoryA;
+    STATIC D_SETTEMPFILEDIRECTORYEXAFUNC                    DTWAIN_SetTempFileDirectoryExA;
+    STATIC D_SETTEMPFILEDIRECTORYEXFUNC                     DTWAIN_SetTempFileDirectoryEx;
+    STATIC D_SETTEMPFILEDIRECTORYEXWFUNC                    DTWAIN_SetTempFileDirectoryExW;
     STATIC D_SETTEMPFILEDIRECTORYFUNC                       DTWAIN_SetTempFileDirectory;
     STATIC D_SETTEMPFILEDIRECTORYWFUNC                      DTWAIN_SetTempFileDirectoryW;
     STATIC D_SETTHRESHOLDFUNC                               DTWAIN_SetThreshold;
@@ -2024,6 +2073,57 @@ typedef DTWAIN_BOOL   (DLLENTRY_DEF * D_ENUMCAMERASEXFUNC)                      
 #ifdef __cplusplus
         static int InitDTWAINInterface(DYNDTWAIN_API*, HMODULE h);
         static int InitDTWAINInterface(HMODULE h);
+};
+
+class DYNDTWAIN_API_Scoped
+{
+    HMODULE m_hModule;
+    std::string m_sModuleName;
+private:
+    void tryDLL_Load()
+    {
+        m_hModule = ::LoadLibraryA(m_sModuleName.c_str());
+        if (m_hModule)
+        {
+            int ret = DYNDTWAIN_API::InitDTWAINInterface(m_hModule);
+            if (!ret)
+                throw "DTWAIN Module failed to load";
+        }
+    }
+
+public:
+    DYNDTWAIN_API_Scoped(std::string moduleName = "") : m_hModule(NULL), m_sModuleName(moduleName)
+    {
+        if (!moduleName.empty())
+            tryDLL_Load();
+    }
+
+    DYNDTWAIN_API_Scoped(DYNDTWAIN_API_Scoped&);
+    DYNDTWAIN_API_Scoped& operator=(DYNDTWAIN_API_Scoped&);
+
+    void LoadDLL(std::string moduleName)
+    {
+        ::FreeLibrary(m_hModule);
+        m_sModuleName = moduleName;
+        tryDLL_Load();
+    }
+
+    HMODULE GetHandle() const
+    {
+        return m_hModule;
+    }
+
+    void FreeDLL()
+    {
+        if (m_hModule)
+            ::FreeLibrary(m_hModule);
+        m_hModule = NULL;
+    }
+
+    ~DYNDTWAIN_API_Scoped()
+    {
+        FreeDLL();
+    }
 };
 #else
 } DYNDTWAIN_API;

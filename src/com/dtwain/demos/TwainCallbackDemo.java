@@ -22,7 +22,6 @@
 package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.highlevel.EnhancedSourceSelector;
 import com.dynarithmic.twain.highlevel.TwainCallback;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -68,6 +67,13 @@ public class TwainCallbackDemo
         }
 
         @Override
+        public int onUIOpening(TwainSource sourceHandle)
+        {
+            printInfo(sourceHandle, " UI is opening ");
+            return 1;
+        }
+        
+        @Override
         public int onUIClosing(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " UI is closing ");
@@ -85,6 +91,9 @@ public class TwainCallbackDemo
     // Simple acquire to a file
     public void run() throws Exception
     {
+        // Allows runtime choice of choosing which JNI DLL is loaded.
+        ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
+        
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
 
