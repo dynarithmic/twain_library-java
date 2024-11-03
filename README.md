@@ -251,7 +251,7 @@ There is very little documentation, so the way to learn to use the library at th
 However the code present in the demos and in the library itself is almost full-featured.  Selecting a TWAIN source, getting, setting, querying the capability information, acquiring to files, image buffers, callbacks, logging, etc.  are all supported.  
 
 ----
-### Rebuilding the JNI layer
+## Rebuilding the JNI layer
 
 The JNI layer (i.e. the **dtwainjnixx.dll** files) is built using **Microsoft Visual Studio 2019**.  The minimum Visual Studio platform used is **Visual Studio 2019**.  The Visual Studio solution file is called **DTWAINJNI_Solution.sln**, and is located <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_Source/classes/com/dynarithmic/jnicode" target="_blank">here</a>.
 
