@@ -285,7 +285,7 @@ The only way to turn this checking off is to edit **dtwainjni_config.h** and set
 
 Once this is set, the JNI DLL's must be rebuilt.
 
-If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  To do this, you must the the `CONFIG_REFRESHCRC` macro to 1:
+If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  To do this, you must set the `CONFIG_REFRESHCRC` macro to 1:
 
 `#define CONFIG_REFRESHCRC 1`
 
