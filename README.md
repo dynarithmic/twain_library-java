@@ -14,6 +14,9 @@ Make sure you always use the latest version of **dtwainjni.info**.  Since this f
 
 [Description of the latest updates to the Java interface](https://github.com/dynarithmic/twain_library-java/blob/master/updates/updates.txt).
 
+Please note that the DTWAIN DLL's and the JNI DLL's should reside in a location specified by a directory in your system's **PATH** or in a location that can be found by the [Windows search rules](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order).  Unless your JVM's class path is specified as a path in your **PATH** environment variable, do not place the DLL's in your JVM's class path, as Windows will not find them.
+
+
 ----
 ## Very simple Java application using DTWAIN
 
