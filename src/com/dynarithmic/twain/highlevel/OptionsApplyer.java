@@ -28,6 +28,7 @@ import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AudibleAlarmsOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoAdjustOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoCaptureOptions;
+import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoScanningOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.BarcodeDetectionOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.CapNegotiationOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.ColorOptions;
@@ -839,4 +840,21 @@ public class OptionsApplyer
         else
             ci.setTimefill(null, op);
     }
+    
+    public static void apply(TwainSource source, AutoScanningOptions ao) throws DTwainJavaAPIException
+    {
+        CapabilityInterface ci = source.getCapabilityInterface();
+        CapabilityInterface.SetCapOperation op = ci.set();
+        
+        boolean autoscanEnabled = ao.isAutoScanEnabled();
+        ci.setAutoscan(Arrays.asList(autoscanEnabled), op);
+        
+        if ( ao.getMaxBatchBuffers() != AutoScanningOptions.defaultMaxBatchBuffers )
+        {
+            List<Integer> intList = Arrays.asList(0);
+            intList.set(0,  ao.getMaxBatchBuffers());
+            ci.setMaxBatchBuffers(intList, op);
+        }
+    }        
+    
 }

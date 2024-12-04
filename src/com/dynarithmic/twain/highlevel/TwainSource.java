@@ -293,6 +293,7 @@ public class TwainSource
         OptionsApplyer.apply(this, this.acquireCharacteristics.getCapNegotiationOptions());
         OptionsApplyer.apply(this, this.acquireCharacteristics.getMICRSupportOptions());
         OptionsApplyer.apply(this, this.acquireCharacteristics.getImprinterSupportOptions());
+        OptionsApplyer.apply(this, this.acquireCharacteristics.getAutoScanningOptions());
     }
 
     private void prepareAcquisitions() throws DTwainJavaAPIException
