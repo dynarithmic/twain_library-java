@@ -1,5 +1,5 @@
 # Dynarithmic TWAIN Library Java interface
-This repositiory contains the new version of the Java Native Interface (JNI) bridge to the Dynarithmic TWAIN Library.  This Java/JNI bridge will eventually replace the old version that is currently available in the main <a href="https://github.com/dynarithmic/twain_library/tree/master/language_bindings_and_examples/Java" target="_blank">twain_library repository.</a>
+This repositiory contains the new version of the Java Native Interface (JNI) bridge to the Dynarithmic TWAIN Library.  
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
@@ -13,6 +13,9 @@ From the DTWAIN library, you will need one or more of the dynamic link libraries
 Make sure you always use the latest version of **dtwainjni.info**.  Since this file can undergo changes between different versions of this library, it is important that you are running the **dtwainjni.info** that matches the version of the Java interface to DTWAIN.
 
 [Description of the latest updates to the Java interface](https://github.com/dynarithmic/twain_library-java/blob/master/updates/updates.txt).
+
+Please note that the DTWAIN DLL's and the JNI DLL's should reside in a location specified by a directory in your system's **PATH** or in a location that can be found by the [Windows search rules](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order).  Unless your JVM's class path is specified as a path in your **PATH** environment variable, do not place the DLL's in your JVM's class path, as Windows will not find them.
+
 
 ----
 ## Very simple Java application using DTWAIN
@@ -275,14 +278,14 @@ should be issued on the command-line before starting Visual Studio and building 
 
 #### <u>Turning on/off dtwainjni.info corruption checking:</u>
 
-By default, the JNI DLL's will always check for the **dtwainjni.info** file being changed or corrupted.
+By default, the Java native call to the JNI function **DTWAIN_LoadLibrary** will always check for the **dtwainjni.info** file being changed or corrupted.
 The only way to turn this checking off is to edit **dtwainjni_config.h** and set the **CONFIG_CHECKCRC**  macro to 1:
 
 `#define CONFIG_CHECKCRC 1`
 
-Once this is set, the JNI DLL's must be rebuilt.
+Once this is set, the JNI DLL's must be rebuilt and then utilized by the Java application.
 
-If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  To do this, you must the the `CONFIG_REFRESHCRC` macro to 1:
+If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  To do this, you must set the `CONFIG_REFRESHCRC` macro to 1:
 
 `#define CONFIG_REFRESHCRC 1`
 
