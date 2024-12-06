@@ -37,8 +37,8 @@ public class AutoCaptureOptions
     private int timeBetweenCaptures = defaultTimeBetweenCaptures;
 
     static public final int defaultNumImages = Integer.MAX_VALUE;
-    static public final int defaultTimeBeforeFirstCapture = Integer.MAX_VALUE;
-    static public final int defaultTimeBetweenCaptures = Integer.MAX_VALUE;
+    static public final int defaultTimeBeforeFirstCapture = 0;
+    static public final int defaultTimeBetweenCaptures = 0;
 
     /**
      * @param numImages The number of images to automatically capture

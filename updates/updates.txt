@@ -7,6 +7,10 @@ Version 1.5
 
 - Add AutoScanningOptions() to OptionsApplyer.
 
+- Add missing flip-rotation and other options to OptionApplyer.
+
+- Set certain AcquireCharacteristics values to proper TWAIN default values.
+
 
 Version 1.4
 

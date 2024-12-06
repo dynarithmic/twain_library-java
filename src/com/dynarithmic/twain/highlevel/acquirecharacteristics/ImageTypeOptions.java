@@ -43,7 +43,7 @@ public class ImageTypeOptions
     public static final int defaultBitDepth = 0;
     public static final ICAP_PIXELTYPE defaultPixelType = ICAP_PIXELTYPE.TWPT_DEFAULT;
     public static final ICAP_BITDEPTHREDUCTION defaultBitDepthReduction = ICAP_BITDEPTHREDUCTION.TWBR_DEFAULT;
-    public static final ICAP_BITORDER defaultBitOrder = ICAP_BITORDER.TWBO_DEFAULT;
+    public static final ICAP_BITORDER defaultBitOrder = ICAP_BITORDER.TWBO_MSBFIRST;
     public static final ICAP_PIXELFLAVOR defaultPixelFlavor = ICAP_PIXELFLAVOR.TWPF_DEFAULT;
     public static final double defaultThreshold = Double.MIN_VALUE;
     public static final String defaultHalftone = "";

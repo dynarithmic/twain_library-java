@@ -34,8 +34,8 @@ public class CompressionOptions
     private int timeFill = defaultTimeFill;
 
     public static final ICAP_BITORDER defaultBitOrderValue = ICAP_BITORDER.TWBO_LSBFIRST;
-    public static final int defaultCCITTKFactor = Integer.MAX_VALUE;
-    public static final ICAP_COMPRESSION defaultCompression = ICAP_COMPRESSION.TWCP_DEFAULT;
+    public static final int defaultCCITTKFactor = 4;
+    public static final ICAP_COMPRESSION defaultCompression = ICAP_COMPRESSION.TWCP_NONE;
     public static final ICAP_JPEGPIXELTYPE defaultJPEGPixelType = ICAP_JPEGPIXELTYPE.TWPT_DEFAULT;
     public static final int defaultJPEGQuality = Integer.MAX_VALUE;
     public static final ICAP_JPEGSUBSAMPLING defaultJPEGSubSampling = ICAP_JPEGSUBSAMPLING.TWJS_DEFAULT;

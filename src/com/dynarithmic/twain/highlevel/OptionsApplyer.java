@@ -21,10 +21,13 @@
  */
 package com.dynarithmic.twain.highlevel;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AudibleAlarmsOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoAdjustOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoCaptureOptions;
@@ -487,7 +490,17 @@ public class OptionsApplyer
         ICAP_AUTOSIZE autoSize = ao.getAutoSize();
         singleListInt.set(0, autoSize.ordinal());
         ci.setAutoSize(singleListInt, op);
-
+        
+        singleListInt.set(0, ao.getFlipRotation().ordinal());
+        ci.setFlipRotation(singleListInt, op);
+        
+        singleListInt.set(0, ao.getImageMerge().ordinal());
+        ci.setImageMerge(singleListInt, op);
+        
+        List<Double> singleListDouble = Arrays.asList(0.0);
+        singleListDouble.set(0, ao.getMergeHeightThreshold());
+        ci.setImageMergeHeightThreshold(singleListDouble, op);
+        
     }
 
     public static void apply(TwainSource source, BarcodeDetectionOptions bo) throws DTwainJavaAPIException
@@ -776,6 +789,13 @@ public class OptionsApplyer
         boolList.set(0, io.isAutoBrightEnabled());
         ci.setAutoBright(boolList, op);
         ci.setImageDataSet(io.getImageDataSets(), op);
+        
+        List<Integer> intList = Arrays.asList(0);
+        intList.set(0, io.getMirror().ordinal());
+        ci.setMirror(intList, op);
+        
+        intList.set(0, io.getOrientation().ordinal());
+        ci.setOrientation(intList, op);
     }
 
     public static void apply(TwainSource source, AudibleAlarmsOptions aa) throws DTwainJavaAPIException

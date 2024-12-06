@@ -48,7 +48,7 @@ public class AutoAdjustOptions
     public static final TwainConstants.ICAP_PIXELTYPE defaultcolorNonColorPixelType = TwainConstants.ICAP_PIXELTYPE.TWPT_BW;
     public static final TwainConstants.ICAP_FLIPROTATION defaultFlipRotation = TwainConstants.ICAP_FLIPROTATION.TWFR_BOOK;
     public static final TwainConstants.ICAP_IMAGEMERGE defaultImageMerge = TwainConstants.ICAP_IMAGEMERGE.TWIM_NONE;
-    public static final double defaultMergeHeightThreshold = Double.MAX_VALUE;
+    public static final double defaultMergeHeightThreshold = 0.0;
     public static final int defaultAutoDiscardBlankPages = ICAP_AUTODISCARDBLANKPAGES.TWBP_DISABLE;
     public static final TwainConstants.ICAP_AUTOSIZE defaultAutoSize = TwainConstants.ICAP_AUTOSIZE.TWAS_NONE;
 

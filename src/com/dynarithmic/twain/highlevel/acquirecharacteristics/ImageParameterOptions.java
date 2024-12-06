@@ -43,15 +43,15 @@ public class ImageParameterOptions
     private ICAP_MIRROR mirror = defaultMirror;
     private ICAP_ORIENTATION orientation = defaultOrientation;
 
-    public static final double defaultBrightness = Double.MIN_VALUE;
-    public static final double defaultContrast = Double.MIN_VALUE;
-    public static final double defaultHighlight = Double.MIN_VALUE;
+    public static final double defaultBrightness = 0;
+    public static final double defaultContrast = 0;
+    public static final double defaultHighlight = 255;
     public static final double defaultShadow = Double.MIN_VALUE;
     public static final double defaultXScaling = Double.MIN_VALUE;
     public static final double defaultYScaling = Double.MIN_VALUE;
     public static final double defaultRotation = Double.MIN_VALUE;
-    public static final ICAP_MIRROR defaultMirror = ICAP_MIRROR.TWMR_DEFAULT;
-    public static final ICAP_ORIENTATION defaultOrientation = ICAP_ORIENTATION.TWOR_DEFAULT;
+    public static final ICAP_MIRROR defaultMirror = ICAP_MIRROR.TWMR_NONE;
+    public static final ICAP_ORIENTATION defaultOrientation = ICAP_ORIENTATION.TWOR_PORTRAIT;
 
     public boolean isThumbnailsEnabled()
     {

@@ -44,15 +44,21 @@ public class ImprinterOptions
     private double verticalOffset = defaultVerticalOffset;
 
     public static final String defaultSuffixString = "";
-    public static final int defaultIndex = Integer.MAX_VALUE;
-    public static final int defaultMaxIndex = Integer.MIN_VALUE;
-    public static final int defaultCharRotation = Integer.MAX_VALUE;
-    public static final int defaultNumDigits = Integer.MIN_VALUE;
-    public static final int defaultIndexStep = Integer.MIN_VALUE;
+    public static final int defaultIndex = 1;
+    public static final int defaultMaxIndex = 0;
+    public static final int defaultCharRotation = 0;
+    public static final int defaultNumDigits = 0;
+    public static final int defaultIndexStep = 1;
     public static final String defaultLeadChar = "";
     public static final CAP_PRINTERMODE defaultStringMode = CAP_PRINTERMODE.TWPM_DEFAULT;
     public static final double defaultVerticalOffset = Double.MAX_VALUE;
 
+    public ImprinterOptions()
+    {
+        fontStyles.add(CAP_PRINTERFONTSTYLE.TWPF_NORMAL);
+        indexTriggers.add(CAP_PRINTERINDEXTRIGGER.TWCT_PAGE);
+    }
+    
     public ImprinterOptions enable(boolean enabled)
     {
         this.enabled = enabled;

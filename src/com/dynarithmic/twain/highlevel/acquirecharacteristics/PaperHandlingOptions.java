@@ -44,7 +44,7 @@ public class PaperHandlingOptions
     }
 
     private boolean enableDuplexMode = false;
-    private boolean enableAutoFeedMode = false;
+    private boolean enableAutoFeedMode = true;
     private boolean enableFeederPrepMode = false;
     private boolean enableFeederMode = false;
     private boolean enableAutoFeedNotify = false;

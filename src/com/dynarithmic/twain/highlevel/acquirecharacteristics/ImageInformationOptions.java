@@ -27,8 +27,8 @@ public class ImageInformationOptions
 {
     private String author = "";
     private String caption = "";
-    private boolean extendedImageInfoAvailable = false;
-
+    private boolean extendedImageInfoAvailable = true;
+    
     public ImageInformationOptions setAuthor(String author)
     {
         this.author = author;
