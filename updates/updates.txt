@@ -1,5 +1,13 @@
 DTWAIN-Java Version changes
 
+Version 1.5
+
+- Allow application to prioritize and enable/disable scanning options and capabilities in the 
+  OptionsApplyer class.
+
+- Add AutoScanningOptions() to OptionsApplyer.
+
+
 Version 1.4
 
 - Add ExtendedImageInfo.java to allow retrieval of extended image information such as barcode text
