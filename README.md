@@ -279,9 +279,9 @@ should be issued on the command-line before starting Visual Studio and building 
 #### <u>Turning on/off dtwainjni.info corruption checking:</u>
 
 By default, the Java native call to the JNI function **DTWAIN_LoadLibrary** will always check for the **dtwainjni.info** file being changed or corrupted.
-The only way to turn this checking off is to edit **dtwainjni_config.h** and set the **CONFIG_CHECKCRC**  macro to 1:
+The only way to turn this checking off is to edit **dtwainjni_config.h** and set the **CONFIG_CHECKCRC**  macro to 0:
 
-`#define CONFIG_CHECKCRC 1`
+`#define CONFIG_CHECKCRC 0`
 
 Once this is set, the JNI DLL's must be rebuilt and then utilized by the Java application.
 
