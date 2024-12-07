@@ -98,7 +98,7 @@ public class AcquireCharacteristics
     /**
      * @return The AutoScanningOptions (see "Automatic Scanning", Chapter 10-3 of the TWAIN 2.4 specification)
      */
-    public AutoScanningOptions getAutoScanning()
+    public AutoScanningOptions getAutoScanningOptions()
     {
         return autoScanning;
     }

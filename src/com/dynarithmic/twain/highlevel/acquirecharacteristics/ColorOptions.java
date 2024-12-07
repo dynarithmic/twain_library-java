@@ -28,7 +28,7 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.*;
 
 public class ColorOptions
 {
-    private boolean enabled = false;
+    private boolean enabled = true;
     private double gamma = defaultGamma;
     private ICAP_ICCPROFILE iccProfile = defaultICCProfile;
     private List<ICAP_FILTER> filterValues = new ArrayList<>();

@@ -43,8 +43,8 @@ public class DeviceParamsOptions
     public static final ICAP_FILMTYPE   defaultFilmType = ICAP_FILMTYPE.TWFM_POSITIVE;
     public static final ICAP_LIGHTSOURCE defaultLightSource = ICAP_LIGHTSOURCE.TWLS_DEFAULT;
     public static final ICAP_NOISEFILTER defaultNoiseFilter = ICAP_NOISEFILTER.TWNF_DEFAULT;
-    public static final ICAP_OVERSCAN defaultOverscan = ICAP_OVERSCAN.TWOV_DEFAULT;
-    public static final ICAP_UNITS defaultUnit = ICAP_UNITS.TWUN_DEFAULT;
+    public static final ICAP_OVERSCAN defaultOverscan = ICAP_OVERSCAN.TWOV_NONE;
+    public static final ICAP_UNITS defaultUnit = ICAP_UNITS.TWUN_INCHES;
     public static final int defaultZoomFactor = 0;
 
     public DeviceParamsOptions setExposureTime(double exposureTime)

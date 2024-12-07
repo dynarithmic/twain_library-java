@@ -22,7 +22,7 @@ public class LoggingDemo2
     
     // Change this to the output directory that fits your environment
     static public String outDir = "c:\\dtwain_javatest\\";
-    // Simple acquire to a file
+     
     public void run() throws Exception
     {
         // Allows runtime choice of choosing which JNI DLL is loaded.

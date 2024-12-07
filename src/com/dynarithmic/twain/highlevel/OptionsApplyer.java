@@ -21,13 +21,17 @@
  */
 package com.dynarithmic.twain.highlevel;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.acquirecharacteristics.AcquireCharacteristics;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AudibleAlarmsOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoAdjustOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoCaptureOptions;
+import com.dynarithmic.twain.highlevel.acquirecharacteristics.AutoScanningOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.BarcodeDetectionOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.CapNegotiationOptions;
 import com.dynarithmic.twain.highlevel.acquirecharacteristics.ColorOptions;
@@ -53,8 +57,204 @@ import com.dynarithmic.twain.lowlevel.TwainConstants.*;
 
 public class OptionsApplyer
 {
-    private OptionsApplyer()
-    {}
+    public enum OptionsApplyerFunction
+    {
+        LANGUAGESUPPORTOPTIONS,
+        DEVICEPARAMSOPTIONS,
+        PAGESSUPPORTOPTIONS,
+        POWERMONITOROPTIONS,
+        DOUBLEFEEDDETECTIONOPTIONS,
+        AUTOADJUSTOPTIONS,
+        BARCODEDETECTIONOPTIONS,
+        PATCHCODEDETECTIONOPTIONS,
+        AUTOCAPTUREOPTIONS,
+        IMAGETYPEOPTIONS,
+        IMAGEINFORMATIONOPTIONS,
+        USERINTERFACEOPTIONS,
+        IMAGEPARAMETEROPTIONS,
+        AUDIBLEALARMSOPTIONS,
+        DEVICEEVENTSOPTIONS,
+        RESOLUTIONOPTIONS,
+        PAPERHANDLINGOPTIONS,
+        COLORSUPPORTOPTIONS,
+        CAPNEGOTIATIONOPTIONS,
+        MICRSUPPORTOPTIONS,
+        IMPRINTERSUPPORTOPTIONS,
+        AUTOSCANNINGOPTIONS
+    }
+
+    public class OptionsApplyerInfo
+    {
+        public OptionsApplyerFunction applyerFunction;
+        public int priority;
+        public boolean enabled;
+        public OptionsApplyerInfo(OptionsApplyerFunction func, int priority, boolean enabled)
+        {
+            applyerFunction = func;
+            this.priority = priority;
+            this.enabled = enabled;
+        }
+    }
+    
+    public List<OptionsApplyerInfo> applyerInfoList = new ArrayList<>();
+    
+    public OptionsApplyer()
+    {
+        resetAllOptions();
+    }
+    
+    public List<OptionsApplyerInfo> getOptionsApplyerList() 
+    {
+        return new ArrayList<>(applyerInfoList);        
+    }
+    
+    public void setOptionPriority(OptionsApplyerFunction func, int priority, boolean enable) throws IllegalArgumentException
+    {
+        if ( priority < -1 || priority >= OptionsApplyerFunction.values().length)
+            throw new IllegalArgumentException();
+        
+        // Find the function
+        Iterator<OptionsApplyerInfo> myItr = this.applyerInfoList.iterator();
+
+        while (myItr.hasNext()) 
+        {
+            OptionsApplyerInfo curInfo = myItr.next();
+            if (curInfo.applyerFunction == func)
+            {
+                int priorityToUse = curInfo.priority;
+                if ( priority != -1 )
+                    priorityToUse = priority;
+                else
+                {
+                    curInfo.enabled = enable;
+                    break;
+                }
+                OptionsApplyerInfo copyInfo = new OptionsApplyerInfo(curInfo.applyerFunction, 
+                        priorityToUse, enable);
+                this.applyerInfoList.remove(curInfo);
+                this.applyerInfoList.add(priority, copyInfo);
+                break;
+            }
+        }        
+    }
+
+    public OptionsApplyerInfo getOptionApplyerInfo(OptionsApplyerFunction func)
+    {
+        // Find the function
+        Iterator<OptionsApplyerInfo> myItr = this.applyerInfoList.iterator();
+
+        while (myItr.hasNext()) 
+        {
+            OptionsApplyerInfo curInfo = myItr.next();
+            if (curInfo.applyerFunction == func)
+                return new OptionsApplyerInfo(curInfo.applyerFunction, curInfo.priority, curInfo.enabled);
+        }
+        return null;
+    }
+    
+    public void enableAllOptions(boolean enable)
+    {
+        Iterator<OptionsApplyerInfo> myItr = this.applyerInfoList.iterator();
+
+        while (myItr.hasNext()) 
+        {
+            OptionsApplyerInfo curInfo = myItr.next();
+            curInfo.enabled = enable;
+        }
+    }
+    
+    public void resetAllOptions()
+    {
+        int curPriority = 0;
+        for (OptionsApplyerFunction value : OptionsApplyerFunction.values()) 
+        { 
+            applyerInfoList.add(new OptionsApplyerInfo(value, curPriority, true));
+            ++curPriority;
+        }
+    }
+    
+    public static void applyAll(TwainSource source) throws DTwainJavaAPIException
+    {
+        List<OptionsApplyerInfo> optionsApplyerList = 
+                source.getOptionsApplyer().getOptionsApplyerList();
+        Iterator<OptionsApplyerInfo> myItr = optionsApplyerList.iterator();
+        AcquireCharacteristics ac = source.getAcquireCharacteristics();
+        while (myItr.hasNext()) 
+        {
+            OptionsApplyerInfo curInfo = myItr.next();
+            if ( !curInfo.enabled )
+                continue;
+            switch(curInfo.applyerFunction)
+            {
+                case LANGUAGESUPPORTOPTIONS:
+                    apply(source, ac.getLanguageSupportOptions());
+                break;
+                case DEVICEPARAMSOPTIONS:
+                    apply(source, ac.getDeviceParamsOptions());
+                break;
+                case PAGESSUPPORTOPTIONS:
+                    apply(source, ac.getPagesSupportOptions());
+                break;
+                case POWERMONITOROPTIONS:
+                    apply(source, ac.getPowerMonitorOptions());
+                break;
+                case DOUBLEFEEDDETECTIONOPTIONS:
+                    apply(source, ac.getDoublefeedDetectionOptions());
+                break;
+                case AUTOADJUSTOPTIONS:
+                    apply(source, ac.getAutoAdjustOptions());
+                break;
+                case BARCODEDETECTIONOPTIONS:
+                    apply(source, ac.getBarcodeDetectionOptions());
+                break;
+                case PATCHCODEDETECTIONOPTIONS:
+                    apply(source, ac.getPatchcodeDetectionOptions());
+                break;
+                case AUTOCAPTUREOPTIONS:
+                    apply(source, ac.getAutoCaptureOptions());
+                break;
+                case IMAGETYPEOPTIONS:
+                    apply(source, ac.getImageTypeOptions());
+                break;
+                case IMAGEINFORMATIONOPTIONS:
+                    apply(source, ac.getImageInformationOptions());
+                break;
+                case USERINTERFACEOPTIONS:
+                    apply(source, ac.getUserInterfaceOptions());
+                break;
+                case IMAGEPARAMETEROPTIONS:
+                    apply(source, ac.getImageParameterOptions());
+                break;
+                case AUDIBLEALARMSOPTIONS:
+                    apply(source, ac.getAudibleAlarmsOptions());
+                break;
+                case DEVICEEVENTSOPTIONS:
+                    apply(source, ac.getDeviceEventsOptions());
+                break;
+                case RESOLUTIONOPTIONS:
+                    apply(source, ac.getResolutionSupportOptions());
+                break;
+                case PAPERHANDLINGOPTIONS:
+                    apply(source, ac.getPaperHandlingOptions());
+                break;
+                case COLORSUPPORTOPTIONS:
+                    apply(source, ac.getColorSupportOptions());
+                break;
+                case CAPNEGOTIATIONOPTIONS:
+                    apply(source, ac.getCapNegotiationOptions());
+                break;
+                case MICRSUPPORTOPTIONS:
+                    apply(source, ac.getMICRSupportOptions());
+                break;
+                case IMPRINTERSUPPORTOPTIONS:
+                    apply(source, ac.getImprinterSupportOptions());
+                break;
+                case AUTOSCANNINGOPTIONS:
+                    apply(source, ac.getAutoScanningOptions());
+                break;
+            }
+        }
+    }
 
     public static void apply(TwainSource source, PagesOptions po ) throws DTwainJavaAPIException
     {
@@ -290,7 +490,17 @@ public class OptionsApplyer
         ICAP_AUTOSIZE autoSize = ao.getAutoSize();
         singleListInt.set(0, autoSize.ordinal());
         ci.setAutoSize(singleListInt, op);
-
+        
+        singleListInt.set(0, ao.getFlipRotation().ordinal());
+        ci.setFlipRotation(singleListInt, op);
+        
+        singleListInt.set(0, ao.getImageMerge().ordinal());
+        ci.setImageMerge(singleListInt, op);
+        
+        List<Double> singleListDouble = Arrays.asList(0.0);
+        singleListDouble.set(0, ao.getMergeHeightThreshold());
+        ci.setImageMergeHeightThreshold(singleListDouble, op);
+        
     }
 
     public static void apply(TwainSource source, BarcodeDetectionOptions bo) throws DTwainJavaAPIException
@@ -579,6 +789,13 @@ public class OptionsApplyer
         boolList.set(0, io.isAutoBrightEnabled());
         ci.setAutoBright(boolList, op);
         ci.setImageDataSet(io.getImageDataSets(), op);
+        
+        List<Integer> intList = Arrays.asList(0);
+        intList.set(0, io.getMirror().ordinal());
+        ci.setMirror(intList, op);
+        
+        intList.set(0, io.getOrientation().ordinal());
+        ci.setOrientation(intList, op);
     }
 
     public static void apply(TwainSource source, AudibleAlarmsOptions aa) throws DTwainJavaAPIException
@@ -839,4 +1056,20 @@ public class OptionsApplyer
         else
             ci.setTimefill(null, op);
     }
+    
+    public static void apply(TwainSource source, AutoScanningOptions ao) throws DTwainJavaAPIException
+    {
+        CapabilityInterface ci = source.getCapabilityInterface();
+        CapabilityInterface.SetCapOperation op = ci.set();
+        
+        boolean autoscanEnabled = ao.isAutoScanEnabled();
+        ci.setAutoscan(Arrays.asList(autoscanEnabled), op);
+        
+        if ( ao.getMaxBatchBuffers() != AutoScanningOptions.defaultMaxBatchBuffers )
+        {
+            List<Integer> intList = Arrays.asList(0);
+            intList.set(0,  ao.getMaxBatchBuffers());
+            ci.setMaxBatchBuffers(intList, op);
+        }
+    }        
 }

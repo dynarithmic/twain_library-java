@@ -93,6 +93,7 @@ public class TwainSource
     private TwainCallback messageCallback = new TwainCallback();
     private byte [] customDSData = new byte[0];
     private TW_IDENTITY m_SourceID = new TW_IDENTITY();
+    private OptionsApplyer m_OptionsApplyer = new OptionsApplyer();
 
     public TwainSource()
     {}
@@ -272,27 +273,7 @@ public class TwainSource
     //////////////////////
     void startApply() throws DTwainJavaAPIException
     {
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getLanguageSupportOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getDeviceParamsOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getPagesSupportOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getPowerMonitorOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getDoublefeedDetectionOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getAutoAdjustOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getBarcodeDetectionOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getPatchcodeDetectionOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getAutoCaptureOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getImageTypeOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getImageInformationOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getUserInterfaceOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getImageParameterOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getAudibleAlarmsOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getDeviceEventsOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getResolutionSupportOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getPaperHandlingOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getColorSupportOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getCapNegotiationOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getMICRSupportOptions());
-        OptionsApplyer.apply(this, this.acquireCharacteristics.getImprinterSupportOptions());
+        OptionsApplyer.applyAll(this);
     }
 
     private void prepareAcquisitions() throws DTwainJavaAPIException
@@ -751,5 +732,10 @@ public class TwainSource
         if ( sourceHandle != 0 && twainSession != null && isOpened)
             return twainSession.getAPIHandle().DTWAIN_GetExtendedImageInfo(sourceHandle);
     	return new ExtendedImageInfo();
+    }
+    
+    public OptionsApplyer getOptionsApplyer()
+    {
+        return this.m_OptionsApplyer;
     }
 }

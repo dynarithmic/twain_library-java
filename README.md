@@ -7,7 +7,7 @@ Note that there is very little documentation to the new Java/JNI bridge.  If you
 From the DTWAIN library, you will need one or more of the dynamic link libraries (dtwain32.dll, dtwain32u.dll, dtwain64.dll, or dtwain64u.dll) available, plus the <a href="https://github.com/dynarithmic/twain_library/tree/master/text_resources" target="_blank">text resources</a> should reside in the same folder as the dtwain DLL.
 
 2. The JNI dynamic link libraries in the  32bit and 64bit directories found <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_DLL" target="_blank">here</a>.
-5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.4.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
+5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.5.jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
 1. The <a href="https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source" target="_blank">dtwainjni.info</a> file must be accessible by the DLL's mentioned in the previous step.  The **dtwainjni.info** file basically is a bridge between the Java function and class signatures and the C++ translation of those function and class signatures to C++.  Without this file, usage of any of the Java functions that communicate to the JNI layer will throw a Java exception.  The **dtwainjni.info** file must be placed in the same directory as the JNI DLL that will be loaded at runtime.
 
 Make sure you always use the latest version of **dtwainjni.info**.  Since this file can undergo changes between different versions of this library, it is important that you are running the **dtwainjni.info** that matches the version of the Java interface to DTWAIN.
@@ -279,7 +279,7 @@ should be issued on the command-line before starting Visual Studio and building 
 #### <u>Turning on/off dtwainjni.info corruption checking:</u>
 
 By default, the Java native call to the JNI function **DTWAIN_LoadLibrary** will always check for the **dtwainjni.info** file being changed or corrupted.
-The only way to turn this checking off is to edit **dtwainjni_config.h** and set the **CONFIG_CHECKCRC**  macro to 0:
+The only way to turn this checking off is to edit [dtwainjni_config.h](https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source/classes/com/dynarithmic/jnicode/dtwainjni_config.h) and set the **CONFIG_CHECKCRC**  macro to 0:
 
 `#define CONFIG_CHECKCRC 0`
 

@@ -30,7 +30,7 @@ import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
 
 public class SimpleImageNativeAcquireDemo
 {
-    // Simple acquire to a file
+     
     public void run() throws Exception
     {
         // Allows runtime choice of choosing which JNI DLL is loaded.

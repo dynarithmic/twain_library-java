@@ -31,7 +31,7 @@ public class PagesOptions
     private ICAP_SUPPORTEDSIZES pageSize = defaultPageSize;
     private TW_FRAME frame = new TW_FRAME();
 
-    public static final CAP_SEGMENTED defaultSegmentedValue = CAP_SEGMENTED.TWSG_DEFAULT;
+    public static final CAP_SEGMENTED defaultSegmentedValue = CAP_SEGMENTED.TWSG_NONE;
     public static final int defaultMaxFrames = Integer.MIN_VALUE;
     public static final ICAP_SUPPORTEDSIZES defaultPageSize = ICAP_SUPPORTEDSIZES.TWSS_DEFAULT;
     public static final TW_FRAME defaultFrame = new TW_FRAME();
