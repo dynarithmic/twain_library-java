@@ -303,4 +303,5 @@ Having said this, assistance in building the JNI DLL will be minimal, at best.  
 ### To do:
 
 1. Implement more robust buffer transfer.  Currently, the com.dynarithmic.twain.highlevel class **BufferedTransferInfo.java**, does basic buffer transfers (compressionless transfers, and compressed transfers), but the implementation may lack certain features available for buffer transfer (such as file transfers using a memory buffer), and transferring using tiles instead of strips.
+
 2. There is very little DAT_FILESYSTEM support, other than identifying the "cameras" used when obtaining images (in **com.dynarithmic.twain.highlevel.DeviceCameraInfo**)
