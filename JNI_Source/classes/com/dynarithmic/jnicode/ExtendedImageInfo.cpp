@@ -132,7 +132,7 @@ bool ExtendedImageInformation::FillBarcodeInfo()
         m_barcodeInfo.m_vBarInfos[i].rotation = pRotation[i];
 
     LONG* pConfidence = (LONG*)API_INSTANCE DTWAIN_ArrayGetBuffer(aConfidence, 0);
-    for (int i = 0; i < aCounts[3]; ++i)
+    for (int i = 0; i < aCounts[4]; ++i)
         m_barcodeInfo.m_vBarInfos[i].confidence = pConfidence[i];
 
     return true;
