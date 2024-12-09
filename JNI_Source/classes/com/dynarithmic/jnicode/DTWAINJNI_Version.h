@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2024 Dynarithmic Software.
+    Copyright (c) 2002-2025 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
 
 #define DTWAINJNI_BUILDVERSION_TOP 0
 #define DTWAINJNI_BUILDVERSION_MIDDLE 0
-#define DTWAINJNI_BUILDVERSION_BOTTOM 4
+#define DTWAINJNI_BUILDVERSION_BOTTOM 5
 #define DTWAINJNI_BUILDVERSION DTWAINJNI_STRINGER_(DTWAINJNI_BUILDVERSION_TOP) DTWAINJNI_STRINGER_(DTWAINJNI_BUILDVERSION_MIDDLE) DTWAINJNI_STRINGER_(DTWAINJNI_BUILDVERSION_BOTTOM)
 
 #ifdef _MSC_VER

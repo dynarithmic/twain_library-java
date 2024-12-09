@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2024 Dynarithmic Software.
+    Copyright (c) 2002-2025 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -132,7 +132,7 @@ bool ExtendedImageInformation::FillBarcodeInfo()
         m_barcodeInfo.m_vBarInfos[i].rotation = pRotation[i];
 
     LONG* pConfidence = (LONG*)API_INSTANCE DTWAIN_ArrayGetBuffer(aConfidence, 0);
-    for (int i = 0; i < aCounts[4]; ++i)
+    for (int i = 0; i < aCounts[3]; ++i)
         m_barcodeInfo.m_vBarInfos[i].confidence = pConfidence[i];
 
     return true;

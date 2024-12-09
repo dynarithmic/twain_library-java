@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2024 Dynarithmic Software.
+    Copyright (c) 2002-2025 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -224,7 +224,7 @@ public class ExtendedImageInfoDemo
             // callback to get detailed barcode information
             twainSession.registerCallback(ts, new ExtendedImageInfoCallback());
 
-            // See if the device supports barcod/es
+            // See if the device supports barcodes
             CapabilityInterface ci = ts.getCapabilityInterface();
             if ( !ci.isBarcodeDetectionEnabledSupported() )
                 System.out.println("The device named \"" + ts.getInfo().getProductName() + "\" does not support barcodes");
