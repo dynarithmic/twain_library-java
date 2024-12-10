@@ -3561,7 +3561,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
             return API_INSTANCE DTWAIN_SetCapValues(DTWAIN_SOURCE(source), cap, setType, aTmp);
         }
         else
-        if (arrayType == DTWAIN_ARRAYSTRING)
+        if (arrayType == DTWAIN_ARRAYANSISTRING)
         {
             JavaArrayListHandler<ArrayStringList<ArrayStringCharTraitsA>> aHandler(env);
             auto vect = aHandler.JavaToNative(values);
