@@ -480,6 +480,7 @@ public class DTwainJavaAPI
     public native int DTWAIN_SetCapValuesFrame(long Source, int capValue, int setType, TwainFrameDouble[] frames) throws DTwainJavaAPIException;
     public native int DTWAIN_SetCapValuesString(long Source, int capValue, int setType, String[] vals) throws DTwainJavaAPIException;
     public native int DTWAIN_SetCapValues(long Source, int capValue, int setType, List<Object> vals) throws DTwainJavaAPIException;
+    public native int DTWAIN_SetCapValuesEx2(long Source, int capValue, int setType, int containerType, int nDataType, List<Object> vals) throws DTwainJavaAPIException;
 
     public native int DTWAIN_SetCapValuesIntEx(long Source, int capValue, int setType, int containerType, int[] vals) throws DTwainJavaAPIException;
     public native int DTWAIN_SetCapValuesDoubleEx(long Source, int capValue, int setType, int containerType, double[] vals) throws DTwainJavaAPIException;

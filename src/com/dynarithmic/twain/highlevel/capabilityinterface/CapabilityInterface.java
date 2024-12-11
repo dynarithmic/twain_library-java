@@ -563,6 +563,8 @@ public class CapabilityInterface
         if ( scType == null )
             throw new DTwainJavaAPIException("SetCapOperation cannot be null");
         int setOpToUse = scType.getOperation();
+        int containerToUse = scType.getContainerType();
+        int typeToUse = scType.getDataType();
         List<T> valuesToUse = values;
         if(values == null || values.isEmpty())
         {
@@ -572,7 +574,8 @@ public class CapabilityInterface
         }
 
         @SuppressWarnings("unchecked")
-        int retValue = apiHandle.DTWAIN_SetCapValues(twainSource.getSourceHandle(),cap,setOpToUse, (List<Object>) valuesToUse);
+        int retValue = apiHandle.DTWAIN_SetCapValuesEx2(twainSource.getSourceHandle(),cap,setOpToUse, 
+                                                        containerToUse, typeToUse, (List<Object>) valuesToUse);
         int lastError = DTwainConstants.ErrorCode.ERROR_NONE.value();
         if (retValue == 0)
             lastError = apiHandle.DTWAIN_GetLastError();
