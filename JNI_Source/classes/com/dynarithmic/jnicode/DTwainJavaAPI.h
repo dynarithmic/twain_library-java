@@ -1881,6 +1881,14 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapVa
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetCapValuesEx2
+ * Signature: (JIIIILjava/util/List;)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetCapValuesEx2
+  (JNIEnv *, jobject, jlong, jint, jint, jint, jint, jobject);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_SetCapValuesIntEx
  * Signature: (JIII[I)I
  */
