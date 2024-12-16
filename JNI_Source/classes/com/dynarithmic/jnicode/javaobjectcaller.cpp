@@ -2949,7 +2949,7 @@ bool JavaBufferedStripInfo::isAppAllocatesBuffer()
     return callBooleanMethod(getFunctionName(IsAppAllocatesBuffer));
 }
 
-void JavaBufferedStripInfo::setBufferedStripData(LPBYTE pBytes, LONG size)
+void JavaBufferedStripInfo::setBufferedStripData(LPBYTE pBytes, DWORD size)
 {
     callVoidMethod(getFunctionName(SetBufferedStripData),
                     CreateJArrayFromCArray<JavaByteArrayTraits<char> >(m_pJavaEnv, reinterpret_cast<char*>(pBytes), size));
@@ -2960,20 +2960,20 @@ void JavaBufferedStripInfo::setImageInfo(jobject jImageInfo)
     callVoidMethod(getFunctionName(SetImageInfo), jImageInfo);
 }
 
-void JavaBufferedStripInfo::setBufferStripInfo(LONG columns, LONG rows, LONG xOffset, LONG yOffset, LONG bytesWritten, LONG BytesPerRow)
+void JavaBufferedStripInfo::setBufferStripInfo(DWORD columns, DWORD rows, DWORD xOffset, DWORD yOffset, DWORD bytesWritten, DWORD BytesPerRow)
 {
-    const LONG vals[] = { columns, rows, xOffset, yOffset, bytesWritten, BytesPerRow };
+    const DWORD vals[] = { columns, rows, xOffset, yOffset, bytesWritten, BytesPerRow };
     const char* fnNames[] = {SetColumns, SetRows, SetXOff, SetYOff, SetBytesWritten, SetBytesPerRow};
     for (size_t i = 0; i < std::size(fnNames); ++i)
         callVoidMethod(getFunctionName(fnNames[i]), vals[i]);
 }
 
-void JavaBufferedStripInfo::setBufferSize(LONG size)
+void JavaBufferedStripInfo::setBufferSize(DWORD size)
 {
     callVoidMethod(getFunctionName(SetBufferSize), size);
 }
 
-jobject JavaBufferedStripInfo::createFullObject(LONG prefSize, LONG minimumSiz, LONG maximumSiz)
+jobject JavaBufferedStripInfo::createFullObject(DWORD prefSize, DWORD minimumSiz, DWORD maximumSiz)
 {
     return constructObject(1, prefSize, minimumSiz, maximumSiz);
 }

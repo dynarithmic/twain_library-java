@@ -3275,10 +3275,10 @@ DTWAIN_ARRAY CreateDTWAINStringArrayFromJArray(JNIEnv* env, jobjectArray arg, in
             switch (arrayType)
             {
                 case DTWAIN_ARRAYSTRING:
-            if ( !cString )
-                API_INSTANCE DTWAIN_ArraySetAtString(aTmp, i, _T(""));
-            else
-                API_INSTANCE DTWAIN_ArraySetAtString(aTmp, i, cString);
+                    if ( !cString )
+                        API_INSTANCE DTWAIN_ArraySetAtString(aTmp, i, _T(""));
+                    else
+                        API_INSTANCE DTWAIN_ArraySetAtString(aTmp, i, cString);
                 break;
                 case DTWAIN_ARRAYANSISTRING:
                 {
@@ -4227,7 +4227,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Ge
 {
     DO_DTWAIN_TRY
     DO_DTWAIN_CHECK_MODULE_LOAD
-    LONG actualSize;
+    DWORD actualSize;
     HANDLE h = API_INSTANCE DTWAIN_GetCustomDSData(reinterpret_cast<DTWAIN_SOURCE>(src), nullptr, 0, &actualSize, DTWAINGCD_COPYDATA);
     if ( h && actualSize > 0 )
     {
@@ -5159,7 +5159,7 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Creat
     DO_DTWAIN_CHECK_MODULE_LOAD
     JavaBufferedStripInfo sInfo(env);
 
-    LONG minSize, maxSize, prefSize;
+    DWORD minSize, maxSize, prefSize;
     BOOL bRet = API_INSTANCE DTWAIN_GetAcquireStripSizes(reinterpret_cast<DTWAIN_SOURCE>(src), &minSize, &maxSize, &prefSize);
     if ( bRet )
     {
@@ -5289,7 +5289,8 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetBuffe
     JavaBufferedStripInfo jInfo(env);
     jInfo.setObject(jBufferedStripInfo);
     jInfo.setImageInfo(imginfo);
-    LONG Compression, BytesPerRow, Columns, Rows, XOffset, YOffset, BytesWritten;
+    LONG Compression;
+    DWORD BytesPerRow, Columns, Rows, XOffset, YOffset, BytesWritten;
     BOOL bRet = API_INSTANCE DTWAIN_GetAcquireStripData(reinterpret_cast<DTWAIN_SOURCE>(src), &Compression, &BytesPerRow, &Columns,
                                             &Rows, &XOffset, &YOffset, &BytesWritten);
     if ( bRet )
