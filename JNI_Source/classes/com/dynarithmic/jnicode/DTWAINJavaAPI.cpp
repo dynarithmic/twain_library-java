@@ -4755,6 +4755,21 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCu
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetCurrentAcquiredRawImage
+ * Signature: (J)J
+ */
+JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCurrentAcquiredRawImage
+(JNIEnv* env, jobject, jlong src)
+{
+    DO_DTWAIN_TRY
+    DO_DTWAIN_CHECK_MODULE_LOAD
+    HANDLE hDib = API_INSTANCE DTWAIN_GetCurrentAcquiredImage(reinterpret_cast<DTWAIN_SOURCE>(src));
+    return reinterpret_cast<jlong>(hDib);
+    DO_DTWAIN_CATCH(env)
+}
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_SetCapValuesFrame
  * Signature: (JII[Lcom/dynarithmic/twain/highlevel/TwainFrameDouble;)I
  */
