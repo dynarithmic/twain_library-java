@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2024 Dynarithmic Software.
+    Copyright (c) 2002-2025 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@
 
 #define DTWAINJNI_VERINFO_COMMENTS             "Dynarithmic Software\0"
 #define DTWAINJNI_VERINFO_COMPANYNAME          "Dynarithmic Software\0"
-#define DTWAINJNI_VERINFO_LEGALCOPYRIGHT       "Copyright © 2020-2024\0"
+#define DTWAINJNI_VERINFO_LEGALCOPYRIGHT       "Copyright © 2020-2025\0"
 #define DTWAINJNI_VERINFO_PRODUCTNAME          "Dynarithmic Software DTWAIN JNI Layer" UNICODEJNI_VERSION "\0"
 #define DTWAINJNI_VERINFO_INTERNALNAME         DTWAINJNI_DLLNAME
 #define DTWAINJNI_VERINFO_ORIGINALFILENAME     DTWAINJNI_DLLNAME

@@ -1,5 +1,12 @@
 DTWAIN-Java Version changes
 
+Version 1.6
+
+- Ensure proper handling of ANSI strings when calling capability functions that require strings.
+
+- Fix issue with capabilityInterface.setCapValues() ignoring the capability and data type settings.
+
+
 Version 1.5
 
 - Allow application to prioritize and enable/disable scanning options and capabilities in the 

@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2024 Dynarithmic Software.
+    Copyright (c) 2002-2025 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -103,7 +103,7 @@ public class TwainConstantMapper<T>
         });
         return ret;
     }
-
+    
     public String toString(int nName) throws IllegalArgumentException, IllegalAccessException
     {
         if (!isInitialized)
