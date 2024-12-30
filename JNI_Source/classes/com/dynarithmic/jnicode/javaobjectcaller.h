@@ -793,11 +793,11 @@ public:
     int getBufferSize();
     int getPreferredSize();
     bool isAppAllocatesBuffer();
-    void setBufferedStripData(LPBYTE pBytes, LONG size);
+    void setBufferedStripData(LPBYTE pBytes, DWORD size);
     void setImageInfo(jobject jImageInfo);
-    void setBufferStripInfo(LONG columns, LONG rows, LONG xOffset, LONG yOffset, LONG bytesWritten, LONG BytesPerRow);
-    void setBufferSize(LONG size);
-    jobject createFullObject(LONG prefSize, LONG minimumSiz, LONG maximumSiz);
+    void setBufferStripInfo(DWORD columns, DWORD rows, DWORD xOffset, DWORD yOffset, DWORD bytesWritten, DWORD BytesPerRow);
+    void setBufferSize(DWORD size);
+    jobject createFullObject(DWORD prefSize, DWORD minimumSiz, DWORD maximumSiz);
 };
 
 class JavaBufferedTileInfo : public JavaObjectCaller

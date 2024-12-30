@@ -63,13 +63,11 @@ public class MultiPageTIFFCompressionDemo
         }
     }
 
-    // Acquire to a multipage TIFF.  The first page will be compressed
-    // depending on the page's bit-per-pixel
+    // Acquire to a multipage TIFF.  The odd pages (1,3,5, etc.) will be compressed
+    // using LZW, while the even pages (2,4,6, etc.) are compressed using Group4-Fax.
     //
     // This will demonstrate the ability to create multipage TIFF files,
     // where each page can have a different compression type.
-    // For example, if the page will be 1 bpp, a TIFFG3 or TIFFG4 may
-    // be preferred, and for color/grayscale, a TIFF-LZW
     public void run() throws Exception
     {
         // Allows runtime choice of choosing which JNI DLL is loaded.

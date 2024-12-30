@@ -2457,6 +2457,14 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCu
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetCurrentAcquiredRawImage
+ * Signature: (J)J
+ */
+JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCurrentAcquiredRawImage
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_SetBlankPageDetection
  * Signature: (JDIIZ)I
  */

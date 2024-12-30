@@ -565,6 +565,7 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetErrorString(int errorNum) throws DTwainJavaAPIException;
     public native int DTWAIN_AcquireFileEx(long Source, String[] filenames, int fileType, int fileFlags, int pixelType, int maxPages, boolean showUI, boolean closeSource) throws DTwainJavaAPIException;
     public native TwainImageData DTWAIN_GetCurrentAcquiredImage(long Source) throws DTwainJavaAPIException;
+    public native long DTWAIN_GetCurrentAcquiredRawImage(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_SetBlankPageDetection(long Source, double threshold, int autodetect, int detectOptions, boolean bSet) throws DTwainJavaAPIException;
     public native int DTWAIN_SetAcquireArea2(long Source, TwainAcquireArea area, int flags) throws DTwainJavaAPIException;
     public native TwainAcquireArea DTWAIN_GetAcquireArea2(long Source) throws DTwainJavaAPIException;

@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2024 Dynarithmic Software.
+    Copyright (c) 2002-2025 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -596,6 +596,9 @@
     D_GETTWAINCOUNTRYVALUEFUNC                                        DYNDTWAIN_API::DTWAIN_GetTwainCountryValue = nullptr;
     D_GETTWAINCOUNTRYVALUEWFUNC                                       DYNDTWAIN_API::DTWAIN_GetTwainCountryValueW = nullptr;
     D_GETTWAINHWNDFUNC                                                DYNDTWAIN_API::DTWAIN_GetTwainHwnd = nullptr;
+    D_GETTWAINIDFROMNAMEFUNC                                          DYNDTWAIN_API::DTWAIN_GetTwainIDFromName = nullptr;
+    D_GETTWAINIDFROMNAMEAFUNC                                         DYNDTWAIN_API::DTWAIN_GetTwainIDFromNameA = nullptr;
+    D_GETTWAINIDFROMNAMEWFUNC                                         DYNDTWAIN_API::DTWAIN_GetTwainIDFromNameW = nullptr;
     D_GETTWAINLANGUAGENAMEAFUNC                                       DYNDTWAIN_API::DTWAIN_GetTwainLanguageNameA = nullptr;
     D_GETTWAINLANGUAGENAMEFUNC                                        DYNDTWAIN_API::DTWAIN_GetTwainLanguageName = nullptr;
     D_GETTWAINLANGUAGENAMEWFUNC                                       DYNDTWAIN_API::DTWAIN_GetTwainLanguageNameW = nullptr;
@@ -1663,6 +1666,9 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetTwainCountryValueA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainCountryValueW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainHwnd, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetTwainIDFromName, hModule); 
+          LOADFUNCTIONIMPL(DTWAIN_GetTwainIDFromNameA, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetTwainIDFromNameW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainLanguageName, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainLanguageNameA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainLanguageNameW, hModule);
@@ -2122,8 +2128,8 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
     return 1;
 }
 #ifdef _MSC_VER
-    #pragma warning (pop)
+#pragma warning (pop)
 #endif
 #ifdef __GNUC__
-    #pragma GCC diagnostic pop
+#pragma GCC diagnostic pop
 #endif
