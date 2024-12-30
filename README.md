@@ -3,7 +3,7 @@ This repositiory contains the new version of the Java Native Interface (JNI) bri
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
-1. <a href="https://github.com/dynarithmic/twain_library/tree/master/binaries" target="_blank">Version 5.5.5 or higher of the DTWAIN library</a>.  
+1. Version 5.5.5 or higher of the [DTWAIN library](https://github.com/dynarithmic/twain_library).  
 
 Choose either the [full_logging or partial_logging](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#how-do-i-get-set-up-using-dtwain) version of the DTWAIN library.
 
