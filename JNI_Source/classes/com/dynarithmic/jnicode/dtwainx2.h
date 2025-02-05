@@ -504,7 +504,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETCOMPRESSIONTYPEFUNC)                   
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETCONTRASTFUNC)                          (DTWAIN_SOURCE, DTWAIN_FLOAT);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETCOUNTRYFUNC)                           (LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETCURRENTRETRYCOUNTFUNC)                 (DTWAIN_SOURCE, LONG);
-typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETCUSTOMDSDATAFUNC)                      (DTWAIN_SOURCE, HANDLE, LPCBYTE, DWORD, LONG);
+typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETCUSTOMDSDATAFUNC)                      (DTWAIN_SOURCE, HANDLE, const BYTE *, DWORD, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETCUSTOMFILESAVEFUNC)                    (OPENFILENAME*);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETDSMSEARCHORDERFUNC)                    (LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETDEFAULTSOURCEFUNC)                     (DTWAIN_SOURCE);
@@ -1049,9 +1049,15 @@ typedef LONG        (DLLENTRY_DEF* D_GETSAVEDFILESCOUNTFUNC)                    
 typedef LONG        (DLLENTRY_DEF* D_GETACTIVEDSMVERSIONINFOFUNC)                (LPTSTR, LONG);
 typedef LONG        (DLLENTRY_DEF* D_GETACTIVEDSMVERSIONINFOAFUNC)               (LPSTR, LONG);
 typedef LONG        (DLLENTRY_DEF* D_GETACTIVEDSMVERSIONINFOWFUNC)               (LPWSTR, LONG);
-typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEFUNC)                     (LPTSTR);
-typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEAFUNC)                    (LPSTR);
-typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                    (LPWSTR);
+typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEFUNC)                     (LPCTSTR);
+typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEAFUNC)                    (LPCSTR);
+typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                    (LPCWSTR);
+typedef DTWAIN_BOOL (DLLENTRY_DEF* D_ISPEEKMESSAGELOOPENABLEDFUNC)               (DTWAIN_SOURCE);
+typedef DTWAIN_BOOL (DLLENTRY_DEF* D_ENABLEPEEKMESSAGELOOPFUNC)                  (DTWAIN_SOURCE, DTWAIN_BOOL);
+typedef DTWAIN_ARRAY (DLLENTRY_DEF* D_ENUMCOMPRESSIONTYPESEX2FUNC)               (DTWAIN_SOURCE, LONG, DTWAIN_BOOL);  
+typedef LONG        (DLLENTRY_DEF* D_GETFILECOMPRESSIONTYPEFUNC)                 (DTWAIN_SOURCE);
+typedef DTWAIN_BOOL (DLLENTRY_DEF* D_SETFILECOMPRESSIONTYPEFUNC)                 (DTWAIN_SOURCE, LONG);
+
 #ifdef __cplusplus
 }
 #endif
@@ -1215,6 +1221,7 @@ typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                   
     STATIC D_ENABLELAMPFUNC                                 DTWAIN_EnableLamp;
     STATIC D_ENABLEMSGNOTIFYFUNC                            DTWAIN_EnableMsgNotify;
     STATIC D_ENABLEPATCHDETECTFUNC                          DTWAIN_EnablePatchDetect;
+    STATIC D_ENABLEPEEKMESSAGELOOPFUNC                      DTWAIN_EnablePeekMessageLoop;
     STATIC D_ENABLEPRINTERFUNC                              DTWAIN_EnablePrinter;
     STATIC D_ENABLETHUMBNAILFUNC                            DTWAIN_EnableThumbnail;
     STATIC D_ENABLETRIPLETSNOTIFYFUNC                       DTWAIN_EnableTripletsNotify;
@@ -1241,6 +1248,7 @@ typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                   
     STATIC D_ENUMBRIGHTNESSVALUESFUNC                       DTWAIN_EnumBrightnessValues;
     STATIC D_ENUMCAMERASEXFUNC                              DTWAIN_EnumCamerasEx;
     STATIC D_ENUMCAMERASFUNC                                DTWAIN_EnumCameras;
+    STATIC D_ENUMCOMPRESSIONTYPESEX2FUNC                    DTWAIN_EnumCompressionTypesEx2;
     STATIC D_ENUMCOMPRESSIONTYPESEXFUNC                     DTWAIN_EnumCompressionTypesEx;
     STATIC D_ENUMCOMPRESSIONTYPESFUNC                       DTWAIN_EnumCompressionTypes;
     STATIC D_ENUMCONTRASTVALUESEXFUNC                       DTWAIN_EnumContrastValuesEx;
@@ -1454,6 +1462,7 @@ typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                   
     STATIC D_GETFEEDERALIGNMENTFUNC                         DTWAIN_GetFeederAlignment;
     STATIC D_GETFEEDERFUNCSFUNC                             DTWAIN_GetFeederFuncs;
     STATIC D_GETFEEDERORDERFUNC                             DTWAIN_GetFeederOrder;
+    STATIC D_GETFILECOMPRESSIONTYPEFUNC                     DTWAIN_GetFileCompressionType;
     STATIC D_GETFILETYPEEXTENSIONS                          DTWAIN_GetFileTypeExtensions;
     STATIC D_GETFILETYPEEXTENSIONSA                         DTWAIN_GetFileTypeExtensionsA;
     STATIC D_GETFILETYPEEXTENSIONSW                         DTWAIN_GetFileTypeExtensionsW;
@@ -1617,8 +1626,8 @@ typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                   
     STATIC D_GETTWAINCOUNTRYVALUEFUNC                       DTWAIN_GetTwainCountryValue;
     STATIC D_GETTWAINCOUNTRYVALUEWFUNC                      DTWAIN_GetTwainCountryValueW;
     STATIC D_GETTWAINHWNDFUNC                               DTWAIN_GetTwainHwnd;
-    STATIC D_GETTWAINIDFROMNAMEFUNC                         DTWAIN_GetTwainIDFromName;
     STATIC D_GETTWAINIDFROMNAMEAFUNC                        DTWAIN_GetTwainIDFromNameA;
+    STATIC D_GETTWAINIDFROMNAMEFUNC                         DTWAIN_GetTwainIDFromName;
     STATIC D_GETTWAINIDFROMNAMEWFUNC                        DTWAIN_GetTwainIDFromNameW;
     STATIC D_GETTWAINLANGUAGENAMEAFUNC                      DTWAIN_GetTwainLanguageNameA;
     STATIC D_GETTWAINLANGUAGENAMEFUNC                       DTWAIN_GetTwainLanguageName;
@@ -1716,6 +1725,7 @@ typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                   
     STATIC D_ISPATCHDETECTENABLEDFUNC                       DTWAIN_IsPatchDetectEnabled;
     STATIC D_ISPATCHSUPPORTEDFUNC                           DTWAIN_IsPatchSupported;
     STATIC D_ISPDFSUPPORTEDFUNC                             DTWAIN_IsPDFSupported;
+    STATIC D_ISPEEKMESSAGELOOPENABLEDFUNC                   DTWAIN_IsPeekMessageLoopEnabled;
     STATIC D_ISPIXELTYPESUPPORTEDFUNC                       DTWAIN_IsPixelTypeSupported;
     STATIC D_ISPNGSUPPORTEDFUNC                             DTWAIN_IsPNGSupported;
     STATIC D_ISPRINTERENABLEDFUNC                           DTWAIN_IsPrinterEnabled;
@@ -1909,6 +1919,7 @@ typedef LONG        (DLLENTRY_DEF* D_GETTWAINIDFROMNAMEWFUNC)                   
     STATIC D_SETFEEDERALIGNMENTFUNC                         DTWAIN_SetFeederAlignment;
     STATIC D_SETFEEDERORDERFUNC                             DTWAIN_SetFeederOrder;
     STATIC D_SETFILEAUTOINCREMENTFUNC                       DTWAIN_SetFileAutoIncrement;
+    STATIC D_SETFILECOMPRESSIONTYPEFUNC                     DTWAIN_SetFileCompressionType;
     STATIC D_SETFILESAVEPOSAFUNC                            DTWAIN_SetFileSavePosA;
     STATIC D_SETFILESAVEPOSFUNC                             DTWAIN_SetFileSavePos;
     STATIC D_SETFILESAVEPOSWFUNC                            DTWAIN_SetFileSavePosW;
