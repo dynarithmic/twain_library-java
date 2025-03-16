@@ -67,6 +67,7 @@
     D_ADDPDFTEXTEXFUNC                                                DYNDTWAIN_API::DTWAIN_AddPDFTextEx = nullptr;
     D_ADDPDFTEXTFUNC                                                  DYNDTWAIN_API::DTWAIN_AddPDFText = nullptr;
     D_ADDPDFTEXTWFUNC                                                 DYNDTWAIN_API::DTWAIN_AddPDFTextW = nullptr;
+    D_ALLOCATEMEMORY64FUNC                                            DYNDTWAIN_API::DTWAIN_AllocateMemory64 = nullptr;
     D_ALLOCATEMEMORYEXFUNC                                            DYNDTWAIN_API::DTWAIN_AllocateMemoryEx = nullptr;
     D_ALLOCATEMEMORYFUNC                                              DYNDTWAIN_API::DTWAIN_AllocateMemory = nullptr;
     D_APPHANDLESEXCEPTIONSFUNC                                        DYNDTWAIN_API::DTWAIN_AppHandlesExceptions = nullptr;
@@ -74,6 +75,8 @@
     D_ARRAYADDANSISTRINGNFUNC                                         DYNDTWAIN_API::DTWAIN_ArrayAddANSIStringN = nullptr;
     D_ARRAYADDFLOATFUNC                                               DYNDTWAIN_API::DTWAIN_ArrayAddFloat = nullptr;
     D_ARRAYADDFLOATNFUNC                                              DYNDTWAIN_API::DTWAIN_ArrayAddFloatN = nullptr;
+    D_ARRAYADDFRAMEFUNC                                               DYNDTWAIN_API::DTWAIN_ArrayAddFrame = nullptr;
+    D_ARRAYADDFRAMENFUNC                                              DYNDTWAIN_API::DTWAIN_ArrayAddFrameN = nullptr;
     D_ARRAYADDFUNC                                                    DYNDTWAIN_API::DTWAIN_ArrayAdd = nullptr;
     D_ARRAYADDLONG64FUNC                                              DYNDTWAIN_API::DTWAIN_ArrayAddLong64 = nullptr;
     D_ARRAYADDLONG64NFUNC                                             DYNDTWAIN_API::DTWAIN_ArrayAddLong64N = nullptr;
@@ -117,6 +120,7 @@
     D_ARRAYGETATANSISTRINGFUNC                                        DYNDTWAIN_API::DTWAIN_ArrayGetAtANSIString = nullptr;
     D_ARRAYGETATANSISTRINGPTRFUNC                                     DYNDTWAIN_API::DTWAIN_ArrayGetAtANSIStringPtr = nullptr;
     D_ARRAYGETATFLOATFUNC                                             DYNDTWAIN_API::DTWAIN_ArrayGetAtFloat = nullptr;
+    D_ARRAYGETATFRAMEFUNC                                             DYNDTWAIN_API::DTWAIN_ArrayGetAtFrame = nullptr;
     D_ARRAYGETATFUNC                                                  DYNDTWAIN_API::DTWAIN_ArrayGetAt = nullptr;
     D_ARRAYGETATLONG64FUNC                                            DYNDTWAIN_API::DTWAIN_ArrayGetAtLong64 = nullptr;
     D_ARRAYGETATLONGFUNC                                              DYNDTWAIN_API::DTWAIN_ArrayGetAtLong = nullptr;
@@ -138,6 +142,8 @@
     D_ARRAYINSERTATANSISTRINGNFUNC                                    DYNDTWAIN_API::DTWAIN_ArrayInsertAtANSIStringN = nullptr;
     D_ARRAYINSERTATFLOATFUNC                                          DYNDTWAIN_API::DTWAIN_ArrayInsertAtFloat = nullptr;
     D_ARRAYINSERTATFLOATNFUNC                                         DYNDTWAIN_API::DTWAIN_ArrayInsertAtFloatN = nullptr;
+    D_ARRAYINSERTATFRAMEFUNC                                          DYNDTWAIN_API::DTWAIN_ArrayInsertAtFrame = nullptr;
+    D_ARRAYINSERTATFRAMENFUNC                                         DYNDTWAIN_API::DTWAIN_ArrayInsertAtFrameN = nullptr;
     D_ARRAYINSERTATFUNC                                               DYNDTWAIN_API::DTWAIN_ArrayInsertAt = nullptr;
     D_ARRAYINSERTATLONG64FUNC                                         DYNDTWAIN_API::DTWAIN_ArrayInsertAtLong64 = nullptr;
     D_ARRAYINSERTATLONG64NFUNC                                        DYNDTWAIN_API::DTWAIN_ArrayInsertAtLong64N = nullptr;
@@ -158,6 +164,7 @@
     D_ARRAYRESIZEFUNC                                                 DYNDTWAIN_API::DTWAIN_ArrayResize = nullptr;
     D_ARRAYSETATANSISTRINGFUNC                                        DYNDTWAIN_API::DTWAIN_ArraySetAtANSIString = nullptr;
     D_ARRAYSETATFLOATFUNC                                             DYNDTWAIN_API::DTWAIN_ArraySetAtFloat = nullptr;
+    D_ARRAYSETATFRAMEFUNC                                             DYNDTWAIN_API::DTWAIN_ArraySetAtFrame = nullptr;
     D_ARRAYSETATFUNC                                                  DYNDTWAIN_API::DTWAIN_ArraySetAt = nullptr;
     D_ARRAYSETATLONG64FUNC                                            DYNDTWAIN_API::DTWAIN_ArraySetAtLong64 = nullptr;
     D_ARRAYSETATLONGFUNC                                              DYNDTWAIN_API::DTWAIN_ArraySetAtLong = nullptr;
@@ -198,6 +205,7 @@
     D_ENABLELAMPFUNC                                                  DYNDTWAIN_API::DTWAIN_EnableLamp = nullptr;
     D_ENABLEMSGNOTIFYFUNC                                             DYNDTWAIN_API::DTWAIN_EnableMsgNotify = nullptr;
     D_ENABLEPATCHDETECTFUNC                                           DYNDTWAIN_API::DTWAIN_EnablePatchDetect = nullptr;
+    D_ENABLEPEEKMESSAGELOOPFUNC                                       DYNDTWAIN_API::DTWAIN_EnablePeekMessageLoop = nullptr;
     D_ENABLEPRINTERFUNC                                               DYNDTWAIN_API::DTWAIN_EnablePrinter = nullptr;
     D_ENABLETHUMBNAILFUNC                                             DYNDTWAIN_API::DTWAIN_EnableThumbnail = nullptr;
     D_ENABLETRIPLETSNOTIFYFUNC                                        DYNDTWAIN_API::DTWAIN_EnableTripletsNotify = nullptr;
@@ -223,6 +231,7 @@
     D_ENUMBRIGHTNESSVALUESFUNC                                        DYNDTWAIN_API::DTWAIN_EnumBrightnessValues = nullptr;
     D_ENUMCAMERASEXFUNC                                               DYNDTWAIN_API::DTWAIN_EnumCamerasEx = nullptr;
     D_ENUMCAMERASFUNC                                                 DYNDTWAIN_API::DTWAIN_EnumCameras = nullptr;
+    D_ENUMCOMPRESSIONTYPESEX2FUNC                                     DYNDTWAIN_API::DTWAIN_EnumCompressionTypesEx2 = nullptr;
     D_ENUMCOMPRESSIONTYPESEXFUNC                                      DYNDTWAIN_API::DTWAIN_EnumCompressionTypesEx = nullptr;
     D_ENUMCOMPRESSIONTYPESFUNC                                        DYNDTWAIN_API::DTWAIN_EnumCompressionTypes = nullptr;
     D_ENUMCONTRASTVALUESEXFUNC                                        DYNDTWAIN_API::DTWAIN_EnumContrastValuesEx = nullptr;
@@ -291,8 +300,9 @@
     D_ENUMSUPPORTEDCAPSEX2FUNC                                        DYNDTWAIN_API::DTWAIN_EnumSupportedCapsEx2 = nullptr;
     D_ENUMSUPPORTEDCAPSEXFUNC                                         DYNDTWAIN_API::DTWAIN_EnumSupportedCapsEx = nullptr;
     D_ENUMSUPPORTEDCAPSFUNC                                           DYNDTWAIN_API::DTWAIN_EnumSupportedCaps = nullptr;
-    D_ENUMSUPPORTEDMULTIPAGEFILETYPES                                 DYNDTWAIN_API::DTWAIN_EnumSupportedMultiPageFileTypes = nullptr;
-    D_ENUMSUPPORTEDSINGLEPAGEFILETYPES                                DYNDTWAIN_API::DTWAIN_EnumSupportedSinglePageFileTypes = nullptr;
+    D_ENUMSUPPORTEDEXTIMAGEINFOFUNC                                   DYNDTWAIN_API::DTWAIN_EnumSupportedExtImageInfo = nullptr;
+    D_ENUMSUPPORTEDMULTIPAGEFILETYPESFUNC                             DYNDTWAIN_API::DTWAIN_EnumSupportedMultiPageFileTypes = nullptr;
+    D_ENUMSUPPORTEDSINGLEPAGEFILETYPESFUNC                            DYNDTWAIN_API::DTWAIN_EnumSupportedSinglePageFileTypes = nullptr;
     D_ENUMTHRESHOLDVALUESEXFUNC                                       DYNDTWAIN_API::DTWAIN_EnumThresholdValuesEx = nullptr;
     D_ENUMTHRESHOLDVALUESFUNC                                         DYNDTWAIN_API::DTWAIN_EnumThresholdValues = nullptr;
     D_ENUMTOPCAMERASFUNC                                              DYNDTWAIN_API::DTWAIN_EnumTopCameras = nullptr;
@@ -427,6 +437,7 @@
     D_GETEXTCAPFROMNAMEWFUNC                                          DYNDTWAIN_API::DTWAIN_GetExtCapFromNameW = nullptr;
     D_GETEXTIMAGEINFODATAFUNC                                         DYNDTWAIN_API::DTWAIN_GetExtImageInfoData = nullptr;
     D_GETEXTIMAGEINFOFUNC                                             DYNDTWAIN_API::DTWAIN_GetExtImageInfo = nullptr;
+    D_GETEXTIMAGEINFOITEMEXFUNC                                       DYNDTWAIN_API::DTWAIN_GetExtImageInfoItemEx = nullptr;
     D_GETEXTIMAGEINFOITEMFUNC                                         DYNDTWAIN_API::DTWAIN_GetExtImageInfoItem = nullptr;
     D_GETEXTNAMEFROMCAPAFUNC                                          DYNDTWAIN_API::DTWAIN_GetExtNameFromCapA = nullptr;
     D_GETEXTNAMEFROMCAPFUNC                                           DYNDTWAIN_API::DTWAIN_GetExtNameFromCap = nullptr;
@@ -434,6 +445,7 @@
     D_GETFEEDERALIGNMENTFUNC                                          DYNDTWAIN_API::DTWAIN_GetFeederAlignment = nullptr;
     D_GETFEEDERFUNCSFUNC                                              DYNDTWAIN_API::DTWAIN_GetFeederFuncs = nullptr;
     D_GETFEEDERORDERFUNC                                              DYNDTWAIN_API::DTWAIN_GetFeederOrder = nullptr;
+    D_GETFILECOMPRESSIONTYPEFUNC                                      DYNDTWAIN_API::DTWAIN_GetFileCompressionType = nullptr;
     D_GETFILETYPEEXTENSIONS                                           DYNDTWAIN_API::DTWAIN_GetFileTypeExtensions = nullptr;
     D_GETFILETYPEEXTENSIONSA                                          DYNDTWAIN_API::DTWAIN_GetFileTypeExtensionsA = nullptr;
     D_GETFILETYPEEXTENSIONSW                                          DYNDTWAIN_API::DTWAIN_GetFileTypeExtensionsW = nullptr;
@@ -596,8 +608,8 @@
     D_GETTWAINCOUNTRYVALUEFUNC                                        DYNDTWAIN_API::DTWAIN_GetTwainCountryValue = nullptr;
     D_GETTWAINCOUNTRYVALUEWFUNC                                       DYNDTWAIN_API::DTWAIN_GetTwainCountryValueW = nullptr;
     D_GETTWAINHWNDFUNC                                                DYNDTWAIN_API::DTWAIN_GetTwainHwnd = nullptr;
-    D_GETTWAINIDFROMNAMEFUNC                                          DYNDTWAIN_API::DTWAIN_GetTwainIDFromName = nullptr;
     D_GETTWAINIDFROMNAMEAFUNC                                         DYNDTWAIN_API::DTWAIN_GetTwainIDFromNameA = nullptr;
+    D_GETTWAINIDFROMNAMEFUNC                                          DYNDTWAIN_API::DTWAIN_GetTwainIDFromName = nullptr;
     D_GETTWAINIDFROMNAMEWFUNC                                         DYNDTWAIN_API::DTWAIN_GetTwainIDFromNameW = nullptr;
     D_GETTWAINLANGUAGENAMEAFUNC                                       DYNDTWAIN_API::DTWAIN_GetTwainLanguageNameA = nullptr;
     D_GETTWAINLANGUAGENAMEFUNC                                        DYNDTWAIN_API::DTWAIN_GetTwainLanguageName = nullptr;
@@ -695,6 +707,7 @@
     D_ISPATCHDETECTENABLEDFUNC                                        DYNDTWAIN_API::DTWAIN_IsPatchDetectEnabled = nullptr;
     D_ISPATCHSUPPORTEDFUNC                                            DYNDTWAIN_API::DTWAIN_IsPatchSupported = nullptr;
     D_ISPDFSUPPORTEDFUNC                                              DYNDTWAIN_API::DTWAIN_IsPDFSupported = nullptr;
+    D_ISPEEKMESSAGELOOPENABLEDFUNC                                    DYNDTWAIN_API::DTWAIN_IsPeekMessageLoopEnabled = nullptr;
     D_ISPIXELTYPESUPPORTEDFUNC                                        DYNDTWAIN_API::DTWAIN_IsPixelTypeSupported = nullptr;
     D_ISPNGSUPPORTEDFUNC                                              DYNDTWAIN_API::DTWAIN_IsPNGSupported = nullptr;
     D_ISPRINTERENABLEDFUNC                                            DYNDTWAIN_API::DTWAIN_IsPrinterEnabled = nullptr;
@@ -888,6 +901,7 @@
     D_SETFEEDERALIGNMENTFUNC                                          DYNDTWAIN_API::DTWAIN_SetFeederAlignment = nullptr;
     D_SETFEEDERORDERFUNC                                              DYNDTWAIN_API::DTWAIN_SetFeederOrder = nullptr;
     D_SETFILEAUTOINCREMENTFUNC                                        DYNDTWAIN_API::DTWAIN_SetFileAutoIncrement = nullptr;
+    D_SETFILECOMPRESSIONTYPEFUNC                                      DYNDTWAIN_API::DTWAIN_SetFileCompressionType = nullptr;
     D_SETFILESAVEPOSAFUNC                                             DYNDTWAIN_API::DTWAIN_SetFileSavePosA = nullptr;
     D_SETFILESAVEPOSFUNC                                              DYNDTWAIN_API::DTWAIN_SetFileSavePos = nullptr;
     D_SETFILESAVEPOSWFUNC                                             DYNDTWAIN_API::DTWAIN_SetFileSavePosW = nullptr;
@@ -1138,6 +1152,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_AddPDFTextEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AddPDFTextW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AllocateMemory, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_AllocateMemory64, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AllocateMemoryEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AppHandlesExceptions, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayAdd, hModule);
@@ -1145,6 +1160,8 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_ArrayAddANSIStringN, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayAddFloat, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayAddFloatN, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_ArrayAddFrame, hModule); 
+          LOADFUNCTIONIMPL(DTWAIN_ArrayAddFrameN, hModule); 
           LOADFUNCTIONIMPL(DTWAIN_ArrayAddLong, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayAddLong64, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayAddLong64N, hModule);
@@ -1188,6 +1205,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetAtANSIString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetAtANSIStringPtr, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetAtFloat, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_ArrayGetAtFrame, hModule); 
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetAtLong, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetAtLong64, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetAtSource, hModule);
@@ -1209,6 +1227,8 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtANSIStringN, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtFloat, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtFloatN, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtFrame, hModule); 
+          LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtFrameN, hModule); 
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtLong, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtLong64, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtLong64N, hModule);
@@ -1229,6 +1249,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_ArraySetAt, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArraySetAtANSIString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArraySetAtFloat, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_ArraySetAtFrame, hModule); 
           LOADFUNCTIONIMPL(DTWAIN_ArraySetAtLong, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArraySetAtLong64, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArraySetAtString, hModule);
@@ -1268,6 +1289,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_EnableLamp, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnableMsgNotify, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnablePatchDetect, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_EnablePeekMessageLoop, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnablePrinter, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnableThumbnail, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnableTripletsNotify, hModule);
@@ -1295,6 +1317,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_EnumCamerasEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumCompressionTypes, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumCompressionTypesEx, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_EnumCompressionTypesEx2, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumContrastValues, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumContrastValuesEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumCustomCaps, hModule);
@@ -1361,6 +1384,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_EnumSupportedCaps, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumSupportedCapsEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumSupportedCapsEx2, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_EnumSupportedExtImageInfo, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumSupportedMultiPageFileTypes, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumSupportedSinglePageFileTypes, hModule);
           LOADFUNCTIONIMPL(DTWAIN_EnumThresholdValues, hModule);
@@ -1498,12 +1522,14 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfo, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfoData, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfoItem, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfoItemEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtNameFromCap, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtNameFromCapA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtNameFromCapW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetFeederAlignment, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetFeederFuncs, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetFeederOrder, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetFileCompressionType, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetFileTypeExtensions, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetFileTypeExtensionsA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetFileTypeExtensionsW, hModule);
@@ -1765,6 +1791,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_IsPatchDetectEnabled, hModule);
           LOADFUNCTIONIMPL(DTWAIN_IsPatchSupported, hModule);
           LOADFUNCTIONIMPL(DTWAIN_IsPDFSupported, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_IsPeekMessageLoopEnabled, hModule);
           LOADFUNCTIONIMPL(DTWAIN_IsPixelTypeSupported, hModule);
           LOADFUNCTIONIMPL(DTWAIN_IsPNGSupported, hModule);
           LOADFUNCTIONIMPL(DTWAIN_IsPrinterEnabled, hModule);
@@ -1958,6 +1985,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_SetFeederAlignment, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetFeederOrder, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetFileAutoIncrement, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_SetFileCompressionType, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetFileSavePos, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetFileSavePosA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetFileSavePosW, hModule);

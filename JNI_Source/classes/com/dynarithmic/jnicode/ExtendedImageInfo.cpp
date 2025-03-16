@@ -89,22 +89,12 @@ bool ExtendedImageInformation::FillBarcodeInfo()
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_BARCODECONFIDENCE, &aConfidence);
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_BARCODETEXTLENGTH, &aTextLength);
 
-    int lastLen = 0;
-
     // Fill in the barcode texts
     for (int i = 0; i < barCodeCount; ++i)
     {
-        std::string szBarText;
-        DTWAIN_HANDLE sHandle;
-        LONG length = 0;
-        API_INSTANCE DTWAIN_ArrayGetAt(aText, i, &sHandle);
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aTextLength, i, &length);
-        HandleRAII raii(sHandle);
-        char* pText = (char *)raii.getData();
-        if (pText)
-            szBarText = std::string(pText + lastLen, length);
-        lastLen += length;
-        m_barcodeInfo.m_vBarInfos[i].text = szBarText;
+        char pText[256];
+        API_INSTANCE DTWAIN_ArrayGetAtANSIString(aText, i, pText);
+        m_barcodeInfo.m_vBarInfos[i].text = pText;
     }
 
     // Fill in the other information
@@ -132,7 +122,7 @@ bool ExtendedImageInformation::FillBarcodeInfo()
         m_barcodeInfo.m_vBarInfos[i].rotation = pRotation[i];
 
     LONG* pConfidence = (LONG*)API_INSTANCE DTWAIN_ArrayGetBuffer(aConfidence, 0);
-    for (int i = 0; i < aCounts[3]; ++i)
+    for (int i = 0; i < aCounts[4]; ++i)
         m_barcodeInfo.m_vBarInfos[i].confidence = pConfidence[i];
 
     return true;
@@ -154,8 +144,10 @@ bool ExtendedImageInformation::FillPageSourceInfo()
         int nItems = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         if (nItems > 0)
         {
-            TW_STR255 szData = {};
-            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szData);
+            auto nLen  = API_INSTANCE DTWAIN_ArrayGetStringLength(aValues, 0);
+            std::string szData;
+            szData.resize(nLen + 1);
+            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, &szData[0]);
             *(refStrings[i]) = szData;
         }
     }
@@ -259,7 +251,7 @@ bool ExtendedImageInformation::FillShadedAreaInfo()
     LONG shadeCount = 0;
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, TWEI_DESHADECOUNT, &aValues);
     LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
-    if (nCount == 0)
+    if (nCount <= 0)
         return true;
     bool retVal = API_INSTANCE DTWAIN_ArrayGetAtLong(aValues, 0, &shadeCount);
     if (!retVal || shadeCount == 0)
@@ -328,6 +320,8 @@ bool ExtendedImageInformation::FillSpeckleRemovalInfo()
     for (size_t i = 0; i < intItems.size(); ++i)
     {
         API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aValues);
+        if (!aValues)
+            continue;
         auto count = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
         if (count > 0)
         {
@@ -351,6 +345,8 @@ bool ExtendedImageInformation::GenericFillLineInfo(ExtendedImageInfo_LineDetecti
     // Get the count information
     LONG horizCount = 0;
     API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, itemCountType, &aValues);
+    if (!aValues)
+        return true;
     LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValues);
     if (nCount == 0)
         return true;
@@ -366,6 +362,8 @@ bool ExtendedImageInformation::GenericFillLineInfo(ExtendedImageInfo_LineDetecti
     for (size_t i = 0; i < intItems.size(); ++i)
     {
         API_INSTANCE DTWAIN_GetExtImageInfoData(m_theSource, intItems[i], &aAllValues[i]);
+        if (!aAllValues[i])
+            continue;
         allCounts[i] = API_INSTANCE DTWAIN_ArrayGetCount(aAllValues[i]);
     }
     LONG maxCount = *std::min_element(allCounts.begin(), allCounts.end());
@@ -373,14 +371,26 @@ bool ExtendedImageInformation::GenericFillLineInfo(ExtendedImageInfo_LineDetecti
     {
         ExtendedImageInfo_LineDetectionInfoNative oneLine{};
         LONG lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[0], i, &lVal);
-        oneLine.xCoordinate = lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[1], i, &lVal);
-        oneLine.yCoordinate = lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[2], i, &lVal);
-        oneLine.length = lVal;
-        API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[3], i, &lVal);
-        oneLine.thickness = lVal;
+        if (aAllValues[0])
+        {
+            API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[0], i, &lVal);
+            oneLine.xCoordinate = lVal;
+        }
+        if (aAllValues[1])
+        {
+            API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[1], i, &lVal);
+            oneLine.yCoordinate = lVal;
+        }
+        if (aAllValues[2])
+        {
+            API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[2], i, &lVal);
+            oneLine.length = lVal;
+        }
+        if (aAllValues[3])
+        {
+            API_INSTANCE DTWAIN_ArrayGetAtLong(aAllValues[3], i, &lVal);
+            oneLine.thickness = lVal;
+        }
         allInfo.m_vLineInfo.push_back(oneLine);
     }
     return true;
@@ -417,8 +427,10 @@ bool ExtendedImageInformation::FillFormsRecognitionInfo()
     {
         for (LONG i = 0; i < nCount; ++i)
         {
-            char sz[256] = {};
-            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, i, sz);
+            std::string sz;
+            auto nLen = API_INSTANCE DTWAIN_ArrayGetStringLength(aValues, i);
+            sz.resize(nLen + 1);
+            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, i, &sz[0]);
             m_formsRecognitionInfo.m_vTemplateMatch.push_back(sz);
         }
     }
@@ -680,36 +692,15 @@ bool ExtendedImageInformation::FillExtendedImageInfo25()
     LONG nCount = API_INSTANCE DTWAIN_ArrayGetCount(aValue[0]);
     if (nCount > 0)
     {
+
         // The first entry is a handle to either a string or more handles
-        DTWAIN_HANDLE sHandle;
-        API_INSTANCE DTWAIN_ArrayGetAt(aValue[0], 0, &sHandle);
-        if (nCount == 1)
+        for (int i = 0; i < nCount; ++i)
         {
-            HandleRAII raii(sHandle);
-            char* pData = (char*)raii.getData();
-            m_extendedImageInfo25.m_barcodeText.push_back(pData);
-            return true;
-        }
-        else
-        {
-            // The first handle is a handle to nCount number of handles
-            HandleRAII raii(sHandle);
-            char* pData = (char*)raii.getData();
-            for (int i = 0; i < nCount; ++i)
-            {
-                // Get to each handle
-                DTWAIN_HANDLE sHandle2 = ((DTWAIN_HANDLE*)pData)[i];
-                if (sHandle2)
-                {
-                    // Lock handle
-                    HandleRAII raii2(sHandle2);
-                    char* pStrData = (char*)raii2.getData();
-                    if (pStrData)
-                        m_extendedImageInfo25.m_barcodeText.push_back(pStrData);
-                }
-                else
-                    m_extendedImageInfo25.m_barcodeText.push_back({});
-            }
+            std::string sz;
+            auto nLen = API_INSTANCE DTWAIN_ArrayGetStringLength(aValue[0], i);
+            sz.resize(static_cast<LONG>(nLen) + 1);
+            API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValue[0], i, &sz[0]);
+            m_extendedImageInfo25.m_barcodeText.push_back(sz);
         }
     }
     return true;
