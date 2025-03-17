@@ -1,5 +1,10 @@
 DTWAIN-Java Version changes
 
+Version 1.7 (JNI code changes only)
+
+Update JNI DLL's to be compatible with DTWAIN 5.6.2.  No java manifest files were updated.
+
+
 Version 1.6
 
 - Ensure proper handling of ANSI strings when calling capability functions that require strings.

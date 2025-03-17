@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DTWAINJavaAPI.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DTWAINJNIGlobals.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dtwimpl.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JavaAdapter.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JavaArrayTraits.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="javaobjectcaller.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendedImageInfo.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRCCheck.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DSMCaller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DTWAINFunctionCaller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DTWAINJNI_VerInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DTWAINJNI_Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DTWAINJNIGlobalNames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DTWAINJNIGlobals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DTWAINRAII.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JavaAdapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JavaArrayList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JavaArrayTraits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="javaobjectcaller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StringDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DTwainJavaAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UTFCharsHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dtwainx2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedImageInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedImageInfo_Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CRCCheck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dtwainjni_config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{b19e81d6-9c37-47ad-8a00-a2dc5c4c0c6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPP Files">
+      <UniqueIdentifier>{a1f76b63-248e-421d-9388-ef7b37d4c525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource File">
+      <UniqueIdentifier>{662fc194-cd52-4c45-aff1-696541346015}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="dtwainjni.rc">
+      <Filter>Resource File</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,924 @@
+;    This file is part of the Dynarithmic TWAIN Library (DTWAIN).
+;    Copyright (c) 2002-2024 Dynarithmic Software.
+;
+;    Licensed under the Apache License, Version 2.0 (the "License");
+;    you may not use this file except in compliance with the License.
+;    You may obtain a copy of the License at
+;
+;        http://www.apache.org/licenses/LICENSE-2.0
+;
+;    Unless required by applicable law or agreed to in writing, software
+;    distributed under the License is distributed on an "AS IS" BASIS,
+;    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;    See the License for the specific language governing permissions and
+;    limitations under the License.
+;
+;    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+;    DYNARITHMIC SOFTWARE. DYNARITHMIC SOFTWARE DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+;    OF THIRD PARTY RIGHTS.
+;
+; This file allows the Java API to properly communicate the relevant function signatures to the JNI layer.
+; Thus this file should not be edited in any way, unless specified by the author.  Editing this file may
+; or will have adverse effects on how the Java DTWAIN will communicate to the JNI/C++ layer. EDIT AT YOUR OWN RISK!
+;
+
+LowLevelDirectory                       com/dynarithmic/twain/lowlevel/                            0
+
+ExceptionClass                          com/dynarithmic/twain/exceptions/DTwainJavaAPIException    2
+Constructor                             <>                                 (Ljava/lang/String;)V
+DefaultConstructor                      <>                                 ()V
+
+TW_STR32                                com/dynarithmic/twain/lowlevel/TW_STR32                     4
+DefaultConstructor                      <>                                 ()V
+GetValue                                getValue                           ()Ljava/lang/String;
+SetValue1                               setValue                           (Ljava/lang/String;)Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+SetValue2                               setValue                           (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+
+TW_STR64                                com/dynarithmic/twain/lowlevel/TW_STR64                     4
+DefaultConstructor                      <>                                 ()V
+GetValue                                getValue                           ()Ljava/lang/String;
+SetValue1                               setValue                           (Ljava/lang/String;)Lcom/dynarithmic/twain/lowlevel/TW_STR64;
+SetValue2                               setValue                           (Lcom/dynarithmic/twain/lowlevel/TW_STR64;)Lcom/dynarithmic/twain/lowlevel/TW_STR64;
+
+TW_STR128                               com/dynarithmic/twain/lowlevel/TW_STR128                    4
+DefaultConstructor                      <>                                 ()V
+GetValue                                getValue                           ()Ljava/lang/String;
+SetValue1                               setValue                           (Ljava/lang/String;)Lcom/dynarithmic/twain/lowlevel/TW_STR128;
+SetValue2                               setValue                           (Lcom/dynarithmic/twain/lowlevel/TW_STR128;)Lcom/dynarithmic/twain/lowlevel/TW_STR128;
+
+TW_STR255                               com/dynarithmic/twain/lowlevel/TW_STR255                    4
+DefaultConstructor                      <>                                 ()V
+GetValue                                getValue                           ()Ljava/lang/String;
+SetValue1                               setValue                           (Ljava/lang/String;)Lcom/dynarithmic/twain/lowlevel/TW_STR255;
+SetValue2                               setValue                           (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/lowlevel/TW_STR255;
+
+TW_STR1024                              com/dynarithmic/twain/lowlevel/TW_STR1024                   4
+DefaultConstructor                      <>                                 ()V
+GetValue1                               getValue                           ()Ljava/lang/String;
+SetValue1                               setValue                           (Ljava/lang/String;)Lcom/dynarithmic/twain/lowlevel/TW_STR1024;
+SetValue2                               setValue                           (Lcom/dynarithmic/twain/lowlevel/TW_STR1024;)Lcom/dynarithmic/twain/lowlevel/TW_STR1024;
+
+TW_INT32                                com/dynarithmic/twain/lowlevel/TW_INT32                     4
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (I)V
+GetValue                                getValue                           ()I
+SetValue                                setValue                           (I)Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+
+TW_UINT32                               com/dynarithmic/twain/lowlevel/TW_UINT32                    4
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (J)V
+GetValue                                getValue                           ()J
+SetValue                                setValue                           (J)Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+
+TW_UINTPTR                              com/dynarithmic/twain/lowlevel/TW_UINTPTR                   6
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (Ljava/lang/String;)V
+SetValue1                               setValue                           (J)Lcom/dynarithmic/twain/lowlevel/TW_UINTPTR;
+SetValue2                               setValue                           (Ljava/lang/String;);Lcom/dynarithmic/twain/lowlevel/TW_UINTPTR;
+GetValueAsString                        getValueAsString                   ()Ljava/lang/String;
+GetValue                                getValue                           ()J
+
+TW_INT16                                com/dynarithmic/twain/lowlevel/TW_INT16                     4
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (S)V
+GetValue                                getValue                           ()S
+SetValue                                setValue                           (S)Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+
+TW_UINT16                               com/dynarithmic/twain/lowlevel/TW_UINT16                    4
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (I)V
+GetValue                                getValue                           ()I
+SetValue                                setValue                           (I)Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+
+TW_INT8                                 com/dynarithmic/twain/lowlevel/TW_INT8                      4
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (B)V
+GetValue                                getValue                           ()B
+SetValue                                setValue                           (B)Lcom/dynarithmic/twain/lowlevel/TW_INT8;
+
+TW_UINT8                                com/dynarithmic/twain/lowlevel/TW_UINT8                     4
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (I)V
+GetValue                                getValue                           ()I
+SetValue                                setValue                           (I)Lcom/dynarithmic/twain/lowlevel/TW_UINT8;
+
+TwainMessageListener                    com/dynarithmic/twain/highlevel/TwainCallback        1
+TwainEvent                              onTwainEvent                       (IJZ)I
+
+TwainLogger                             com/dynarithmic/twain/highlevel/TwainSession                 1
+TwainLogger                             logEvent                           (Ljava/lang/String;)V
+
+TwainAppInfo                            com/dynarithmic/twain/highlevel/TwainAppInfo                10
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+GetVersionInfo                          getVersionInfo                     ()Ljava/lang/String;
+GetManufacturer                         getManufacturer                    ()Ljava/lang/String;
+GetProductFamily                        getProductFamily                   ()Ljava/lang/String;
+GetProductName                          getProductName                     ()Ljava/lang/String;
+SetVersionInfo                          setVersionInfo                     (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/TwainAppInfo;
+SetManufacturer                         setManufacturer                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/TwainAppInfo;
+SetProductFamily                        setProductFamily                   (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/TwainAppInfo;
+SetProductName                          setProductName                     (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/TwainAppInfo;
+
+TwainFrame                              com/dynarithmic/twain/highlevel/TwainFrameDouble            9
+GetLeft                                 getLeft                            ()D
+GetTop                                  getTop                             ()D
+GetRight                                getRight                           ()D
+GetBottom                               getBottom                          ()D
+SetLeft                                 setLeft                            (D)Lcom/dynarithmic/twain/highlevel/TwainFrameDouble;
+SetTop                                  setTop                             (D)Lcom/dynarithmic/twain/highlevel/TwainFrameDouble;
+SetRight                                setRight                           (D)Lcom/dynarithmic/twain/highlevel/TwainFrameDouble;
+SetBottom                               setBottom                          (D)Lcom/dynarithmic/twain/highlevel/TwainFrameDouble;
+DefaultConstructor                      <>                                 ()V
+
+TwainSourceInfo                         com/dynarithmic/twain/highlevel/TwainSourceInfo             2
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II)V
+
+BufferedStripInfo                       com/dynarithmic/twain/highlevel/BufferedStripInfo               26
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (III)V
+GetBufferHandle                         getBufferHandle                    ()J
+GetBufferedStripData                    getBufferedStripData               ()[B
+GetCompressionType                      getCompressionTypeI                ()I
+GetBufferSize                           getBufferSize                      ()I
+GetImageInfo                            getImageInfo                       ()Lcom/dynarithmic/twain/highlevel/TwainImageInfo;
+GetColumns                              getColumnsInBuffer                 ()I
+GetRows                                 getRowsInBuffer                    ()I
+GetXOff                                 getxOffsetInImage                  ()I
+GetYOff                                 getyOffsetInImage                  ()I
+GetBytesWritten                         getBytesWritten                    ()I
+GetBytesPerRow                          getBytesPerRow                     ()I	
+GetPreferredSize                        getPreferredSize                   ()I
+IsAppAllocatesBuffer                    isAppAllocatesBuffer               ()Z
+SetBufferHandle                         setBufferHandle                    (J)V
+SetBufferedStripData                    setBufferedStripData               ([B)V
+SetCompressionType                      setCompressionType                 (I)V
+SetBufferSize                           setBufferSize                      (I)V
+SetImageInfo                            setImageInfo                       (Lcom/dynarithmic/twain/highlevel/TwainImageInfo;)V
+SetColumns                              setColumnsInBuffer                 (I)V
+SetRows                                 setRowsInBuffer                    (I)V
+SetXOff                                 setxOffsetInImage                  (I)V
+SetYOff                                 setyOffsetInImage                  (I)V
+SetBytesWritten                         setBytesWritten                    (I)V
+SetBytesPerRow                          setBytesPerRow                     (I)V
+
+BufferedTileInfo                        com/dynarithmic/twain/highlevel/BufferedTileInfo           3 
+DefaultConstructor                      <>                                 ()V
+SetInfo                                 setInfo                            (Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;)V
+SetTileData                             setTileData                        ([B)V 
+  
+DTwainVersionInfo                       com/dynarithmic/twain/DTwainVersionInfo                     10
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (IIIILjava/lang/String;)V
+SetMajorVersion                         setMajorVersion                    (I)V
+SetMinorVersion                         setMinorVersion                    (I)V
+SetExePath                              setExecutionPath                   (Ljava/lang/String;)V
+SetLongName                             setLongVersionName                 (Ljava/lang/String;)V
+SetShortName                            setShortVersionName                (Ljava/lang/String;)V
+SetVersionCopyright                     setVersionCopyright                (Ljava/lang/String;)V   
+SetPatchVersion                         setPatchVersion                    (I)V
+SetVersionType                          setVersionType                     (I)V
+
+
+TwainOCRInfo                            com/dynarithmic/twain/highlevel/TwainOCRInfo                      2
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+TwainAcquisitionArray                   com/dynarithmic/twain/highlevel/TwainAcquisitionArray                3
+DefaultConstructor                      <>                                 ()V
+AddData                                 addAcquisitionData                 (Lcom/dynarithmic/twain/highlevel/TwainAcquisitionData;)V
+SetStatus                               setStatus                          (I)V
+
+TwainAcquisitionData                    com/dynarithmic/twain/highlevel/TwainAcquisitionData                 2
+DefaultConstructor                      <>                                 ()V
+AddImageData                            addImageData                       (Lcom/dynarithmic/twain/highlevel/TwainImageData;)V
+
+TwainImageData                          com/dynarithmic/twain/highlevel/TwainImageData                       3
+DefaultConstructor                      <>                                 ()V
+SetImageData                            setImageData                       ([B)V
+SetDibHandle                            setDibHandle                       (J)V
+
+TwainImageInfo                          com/dynarithmic/twain/highlevel/TwainImageInfo              3
+DefaultConstructor                      <>                                 ()V
+GetImageInfo                            getImageInfo                       ()Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetImageInfo                            setImageInfo                       (Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;)Lcom/dynarithmic/twain/highlevel/TwainImageInfo;
+
+TW_IMAGEINFO                            com/dynarithmic/twain/lowlevel/TW_IMAGEINFO                 21
+DefaultConstructor                      <>                                 ()V
+GetXRes                                 getXResolution                     ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetYRes                                 getYResolution                     ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetWidth                                getImageWidth                      ()Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+GetLength                               getImageLength                     ()Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+GetSamples                              getSamplesPerPixel                 ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetBPP                                  getBitsPerPixel                    ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetPlanar                               getPlanar                          ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetPixelType                            getPixelType                       ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetCompression                          getCompression                     ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetBitsPerSample                        getBitsPerSampleValue              (I)Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+SetXRes                                 setXResolution                     (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetYRes                                 setYResolution                     (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetWidth                                setImageWidth                      (Lcom/dynarithmic/twain/lowlevel/TW_INT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetLength                               setImageLength                     (Lcom/dynarithmic/twain/lowlevel/TW_INT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetSamples                              setSamplesPerPixel                 (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetBPP                                  setBitsPerPixel                    (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetPlanar                               setPlanar                          (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetPixelType                            setPixelType                       (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetCompression                          setCompression                     (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+SetBitsPerSample                        setBitsPerSampleValue              (Lcom/dynarithmic/twain/lowlevel/TW_INT16;I)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEINFO;
+
+TW_ELEMENT8                             com/dynarithmic/twain/lowlevel/TW_ELEMENT8                  9
+DefaultConstructor                      <>                                 ()V
+GetIndex                                getIndex                           ()Lcom/dynarithmic/twain/lowlevel/TW_UINT8;
+GetChannel1                             getChannel1                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT8;
+GetChannel2                             getChannel2                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT8;
+GetChannel3                             getChannel3                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT8;
+SetIndex                                setIndex                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT8;)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
+SetChannel1                             setChannel1                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT8;)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
+SetChannel2                             setChannel2                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT8;)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
+SetChannel3                             setChannel3                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT8;)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
+
+TW_MEMREF                               com/dynarithmic/twain/lowlevel/TW_MEMREF                  5
+DefaultConstructor                      <>                                 ()V
+GetHandle                               getHandle                          ()J
+GetValue                                getValue                           ()J
+SetHandle                               setHandle                          (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF; 
+SetValue                                setValue                           (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF; 
+
+TW_FILTER                               com/dynarithmic/twain/lowlevel/TW_FILTER                    11
+DefaultConstructor                      <>                                 ()V
+GetSize                                 getSize                            ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetDescriptorCount                      getDescriptorCount                 ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetMaxDescriptorCount                   getMaxDescriptorCount              ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetCondition                            getCondition                       ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GethDescriptors                         gethDescriptors                    ()Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+SetSize                                 setSize                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILTER;
+SetDescriptorCount                      setDescriptorCount                 (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILTER;
+SetMaxDescriptorCount                   setMaxDescriptorCount              (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILTER;
+SetCondition                            setCondition                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILTER;
+SethDescriptors                         sethDescriptors                    (Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;)Lcom/dynarithmic/twain/lowlevel/TW_FILTER;
+
+TW_VERSION                              com/dynarithmic/twain/lowlevel/TW_VERSION                   11
+DefaultConstructor                      <>                                 ()V
+GetMajor                                getMajorNum                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetMinor                                getMinorNum                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetLanguage                             getLanguage                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetCountry                              getCountry                         ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetInfo                                 getInfo                            ()Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+SetMajor                                setMajorNum                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_VERSION;
+SetMinor                                setMinorNum                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_VERSION;
+SetLanguage                             setLanguage                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_VERSION;
+SetCountry                              setCountry                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_VERSION;
+SetInfo                                 setInfo                            (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/lowlevel/TW_VERSION;
+
+TW_IDENTITY                             com/dynarithmic/twain/lowlevel/TW_IDENTITY                  17
+DefaultConstructor                      <>                                 ()V
+GetId                                   getId                              ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetVersion                              getVersion                         ()Lcom/dynarithmic/twain/lowlevel/TW_VERSION;
+GetProtocolMajor                        getProtocolMajor                   ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetProtocolMinor                        getProtocolMinor                   ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetSupportedGroups                      getSupportedGroups                 ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetManufacturer                         getManufacturer                    ()Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+GetProductFamily                        getProductFamily                   ()Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+GetProductName                          getProductName                     ()Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+SetId                                   setId                              (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+SetVersion                              setVersion                         (Lcom/dynarithmic/twain/lowlevel/TW_VERSION;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+SetProtocolMajor                        setProtocolMajor                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+SetProtocolMinor                        setProtocolMinor                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+SetSupportedGroups                      setSupportedGroups                 (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+SetManufacturer                         setManufacturer                    (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+SetProductFamily                        setProductFamily                   (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+SetProductName                          setProductName                     (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;
+
+TW_DEVICEEVENT                          com/dynarithmic/twain/lowlevel/TW_DEVICEEVENT               23
+DefaultConstructor                      <>                                 ()V
+GetEvent                                getEvent                           ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetBatteryMinutes                       getBatteryMinutes                  ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetFlashUsed2                           getFlashUsed2                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetAutoCapture                          getAutomaticCapture                ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetTimeBefore                           getTimeBeforeFirstCapture          ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetTimeBetween                          getTimeBetweenCaptures             ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetXRes                                 getXResolution                     ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetYRes                                 getYResolution                     ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetDeviceName                           getDeviceName                      ()Lcom/dynarithmic/twain/lowlevel/TW_STR255;
+GetBatteryPct                           getBatteryPercentage               ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetPowerSupply                          getPowerSupply                     ()Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+SetEvent                                setEvent                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetBatteryMinutes                       setBatteryMinutes                  (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetFlashUsed2                           setFlashUsed2                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetAutoCapture                          setAutomaticCapture                (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetTimeBefore                           setTimeBeforeFirstCapture          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetTimeBetween                          setTimeBetweenCaptures             (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetXRes                                 setXResolution                     (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetYRes                                 setYResolution                     (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetDeviceName                           setDeviceName                      (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetBatteryPct                           setBatteryPercentage               (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+SetPowerSupply                          setPowerSupply                     (Lcom/dynarithmic/twain/lowlevel/TW_INT32;)Lcom/dynarithmic/twain/lowlevel/TW_DEVICEEVENT;
+
+TW_PENDINGXFERS                         com/dynarithmic/twain/lowlevel/TW_PENDINGXFERS              5
+DefaultConstructor                      <>                                 ()V
+GetCount                                getCount                           ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetEOJ                                  getEOJ                             ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+SetCount                                setCount                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_PENDINGXFERS;
+SetEOJ                                  setEOJ                             (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_PENDINGXFERS;
+
+TW_SETUPFILEXFER                        com/dynarithmic/twain/lowlevel/TW_SETUPFILEXFER             7
+DefaultConstructor                      <>                                 ()V
+GetFileName                             getFileName                        ()Lcom/dynarithmic/twain/lowlevel/TW_STR255;
+GetFormat                               getFormat                          ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetVRefNum                              getVRefNum                         ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+SetFileName                             setFileName                        (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/lowlevel/TW_SETUPFILEXFER;
+SetFormat                               setFormat                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_SETUPFILEXFER;
+SetVRefNum                              setVRefNum                         (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_SETUPFILEXFER;
+
+TW_SETUPMEMXFER                         com/dynarithmic/twain/lowlevel/TW_SETUPMEMXFER              7
+DefaultConstructor                      <>                                 ()V
+GetMinSize                              getMinBufSize                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetMaxSize                              getMaxBufSize                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetPrefSize                             getPreferred                       ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+SetMinSize                              setMinBufSize                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_SETUPMEMXFER;
+SetMaxSize                              setMaxBufSize                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_SETUPMEMXFER;
+SetPrefSize                             setPreferred                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_SETUPMEMXFER;
+
+TW_FILESYSTEM                           com/dynarithmic/twain/lowlevel/TW_FILESYSTEM                29
+DefaultConstructor                      <>                                 ()V
+GetInputName                            getInputName                       ()Lcom/dynarithmic/twain/lowlevel/TW_STR255;
+GetOutputName                           getOutputName                      ()Lcom/dynarithmic/twain/lowlevel/TW_STR255;
+GetContext                              getContext                         ()Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;
+GetRecursive                            getRecursiveOrSubdirectories       ()Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+GetFileType                             getFileTypeOrFileSystemType        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetSize                                 getSize                            ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetCreateTime                           getCreateTimeDate                  ()Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+GetModifiedTime                         getModifiedTimeDate                ()Lcom/dynarithmic/twain/lowlevel/TW_STR32;
+GetFreeSpace                            getFreeSpace                       ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetImageSize                            getNewImageSize                    ()Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+GetNumFiles                             getNumberOfFiles                   ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetNumSnippets                          getNumberOfSnippets                ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetDeviceMask                           getDeviceGroupMask                 ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetReserved                             getReserved                        ()[Lcom/dynarithmic/twain/lowlevel/TW_INT8;
+SetInputName                            setInputName                       (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetOutputName                           setOutputName                      (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetContext                              setContext                         (Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetRecursive                            setRecursiveOrSubdirectories       (Lcom/dynarithmic/twain/lowlevel/TW_INT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetFileType                             setFileTypeOrFileSystemType        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetSize                                 setSize                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetCreateTime                           setCreateTimeDate                  (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetModifiedTime                         setModifiedTimeDate                (Lcom/dynarithmic/twain/lowlevel/TW_STR32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetFreeSpace                            setFreeSpace                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetImageSize                            setNewImageSize                    (Lcom/dynarithmic/twain/lowlevel/TW_INT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetNumFiles                             setNumberOfFiles                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetNumSnippets                          setNumberOfSnippets                (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetDeviceMask                           setDeviceGroupMask                 (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+SetReserved                             setReserved                        ([Lcom/dynarithmic/twain/lowlevel/TW_INT8;)Lcom/dynarithmic/twain/lowlevel/TW_FILESYSTEM;
+
+TW_METRICS                              com/dynarithmic/twain/lowlevel/TW_METRICS                   7
+DefaultConstructor                      <>                                 ()V
+GetSizeOf                               getSizeOf                          ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetImageCount                           getImageCount                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetSheetCount                           getSheetCount                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+SetSizeOf                               setSizeOf                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_METRICS;
+SetImageCount                           setImageCount                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_METRICS;
+SetSheetCount                           setSheetCount                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_METRICS;
+
+TW_PASSTHRU                             com/dynarithmic/twain/lowlevel/TW_PASSTHRU                  13
+DefaultConstructor                      <>                                 ()V
+GetCommand                              getpCommand                        ()Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;
+GetCommandBytes                         getCommandBytes                    ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetDirection                            getDirection                       ()Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+GetData                                 getpData                           ()Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;
+GetDataBytes                            getDataBytes                       ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetDataBytesXfered                      getDataBytesXfered                 ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+SetCommand                              setpCommand                        (Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;)Lcom/dynarithmic/twain/lowlevel/TW_PASSTHRU;
+SetCommandBytes                         setCommandBytes                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_PASSTHRU;
+SetDirection                            setDirection                       (Lcom/dynarithmic/twain/lowlevel/TW_INT32;)Lcom/dynarithmic/twain/lowlevel/TW_PASSTHRU;
+SetData                                 setpData                           (Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;)Lcom/dynarithmic/twain/lowlevel/TW_PASSTHRU;
+SetDataBytes                            setDataBytes                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_PASSTHRU;
+SetDataBytesXfered                      setDataBytesXfered                 (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_PASSTHRU;
+
+TW_EXTIMAGEINFO                         com/dynarithmic/twain/lowlevel/TW_EXTIMAGEINFO              5
+DefaultConstructor                      <>                                 ()V
+GetNumInfos                             getNumInfos                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetOneInfo                              getOneInfo                         (I)Lcom/dynarithmic/twain/lowlevel/TW_INFO;
+SetNumInfos                             setNumInfos                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_EXTIMAGEINFO;
+SetOneInfo                              setOneInfo                         (Lcom/dynarithmic/twain/lowlevel/TW_INFO;I)Lcom/dynarithmic/twain/lowlevel/TW_EXTIMAGEINFO;
+
+TW_INFO                                 com/dynarithmic/twain/lowlevel/TW_INFO                      11
+DefaultConstructor                      <>                                 ()V
+GetInfoID                               getInfoID                          ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetItemType                             getItemType                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetNumItems                             getNumItems                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetReturnCode                           getReturnCode                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetItem                                 getItem                            ()Lcom/dynarithmic/twain/lowlevel/TW_UINTPTR;
+SetInfoID                               setInfoID                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_INFO;
+SetItemType                             setItemType                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_INFO;
+SetNumItems                             setNumItems                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_INFO;
+SetReturnCode                           setReturnCode                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_INFO;
+SetItem                                 setItem                            (Lcom/dynarithmic/twain/lowlevel/TW_UINTPTR;)Lcom/dynarithmic/twain/lowlevel/TW_INFO;
+
+TW_CIECOLOR                             com/dynarithmic/twain/lowlevel/TW_CIECOLOR                  26
+DefaultConstructor                      <>                                 ()V
+GetNumSamples                           getNumSamples                      ()I
+GetColorSpace                           getColorSpace                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetLowEndian                            getLowEndian                       ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetDeviceDependent                      getDeviceDependent                 ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetVersionNumber                        getVersionNumber                   ()Lcom/dynarithmic/twain/lowlevel/TW_INT32;
+GetStageABC                             getStageABC                        ()Lcom/dynarithmic/twain/lowlevel/TW_TRANSFORMSTAGE;
+GetStageLMN                             getStageLMN                        ()Lcom/dynarithmic/twain/lowlevel/TW_TRANSFORMSTAGE;
+GetWhitePoint                           getWhitePoint                      ()Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;
+GetBlackPoint                           getBlackPoint                      ()Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;
+GetWhitePaper                           getWhitePaper                      ()Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;
+GetBlackInk                             getBlackInk                        ()Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;
+GetSamples                              getSamples                         ()[Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetSample                               getSample                          ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetNumSamples                           setNumSamples                      (I)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetColorSpace                           setColorSpace                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetLowEndian                            setLowEndian                       (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetDeviceDependent                      setDeviceDependent                 (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetVersionNumber                        setVersionNumber                   (Lcom/dynarithmic/twain/lowlevel/TW_INT32;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetStageABC                             setStageABC                        (Lcom/dynarithmic/twain/lowlevel/TW_TRANSFORMSTAGE;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetStageLMN                             setStageLMN                        (Lcom/dynarithmic/twain/lowlevel/TW_TRANSFORMSTAGE;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetWhitePoint                           setWhitePoint                      (Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetBlackPoint                           setBlackPoint                      (Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetWhitePaper                           setWhitePaper                      (Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetBlackInk                             setBlackInk                        (Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+SetSample                               setSample                          (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;I)Lcom/dynarithmic/twain/lowlevel/TW_CIECOLOR;
+
+TW_DECODEFUNCTION                       com/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION            17
+DefaultConstructor                      <>                                 ()V
+GetStartIn                              getStartIn                         ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetBreakIn                              getBreakIn                         ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetEndIn                                getEndIn                           ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetStartOut                             getStartOut                        ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetBreakOut                             getBreakOut                        ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetEndOut                               getEndOut                          ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetGamma                                getGamma                           ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetSampleCount                          getSampleCount                     ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetStartIn                              setStartIn                         (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+SetBreakIn                              setBreakIn                         (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+SetEndIn                                setEndIn                           (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+SetStartOut                             setStartOut                        (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+SetBreakOut                             setBreakOut                        (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+SetEndOut                               setEndOut                          (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+SetGamma                                setGamma                           (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+SetSampleCount                          setSampleCount                     (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+
+TW_CUSTOMDSDATA                         com/dynarithmic/twain/lowlevel/TW_CUSTOMDSDATA              5
+DefaultConstructor                      <>                                 ()V
+GetInfoLength                           getInfoLength                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetData                                 gethData                           ()Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+SetInfoLength                           setInfoLength                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_CUSTOMDSDATA;
+SetData                                 sethData                           (Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;)Lcom/dynarithmic/twain/lowlevel/TW_CUSTOMDSDATA;
+
+TW_AUDIOINFO                            com/dynarithmic/twain/lowlevel/TW_AUDIOINFO                 5
+DefaultConstructor                      <>                                 ()V
+GetName                                 getName                            ()Lcom/dynarithmic/twain/lowlevel/TW_STR255;
+GetReserved                             getReserved                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+SetName                                 setName                            (Lcom/dynarithmic/twain/lowlevel/TW_STR255;)Lcom/dynarithmic/twain/lowlevel/TW_AUDIOINFO;
+SetReserved                             setReserved                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_AUDIOINFO;
+
+TW_TRANSFORMSTAGE                       com/dynarithmic/twain/lowlevel/TW_TRANSFORMSTAGE            5
+DefaultConstructor                      <>                                 ()V
+GetDecodeValue                          getDecodeValue                     (I)Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;
+GetMixValue                             getMixValue                        (II)Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetDecodeValue                          setDecodeValue                     (Lcom/dynarithmic/twain/lowlevel/TW_DECODEFUNCTION;I)Lcom/dynarithmic/twain/lowlevel/TW_TRANSFORMSTAGE;
+SetMixValue                             setMixValue                        (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;II)Lcom/dynarithmic/twain/lowlevel/TW_TRANSFORMSTAGE;
+
+TW_CIEPOINT                             com/dynarithmic/twain/lowlevel/TW_CIEPOINT                  7
+DefaultConstructor                      <>                                 ()V
+GetX                                    getX                               ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetY                                    getY                               ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetZ                                    getZ                               ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetX                                    setX                               (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;
+SetY                                    setY                               (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;
+SetZ                                    setZ                               (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_CIEPOINT;
+
+TW_STATUSUTF8                           com/dynarithmic/twain/lowlevel/TW_STATUSUTF8                7
+DefaultConstructor                      <>                                 ()V
+GetStatus                               getStatus                          ()Lcom/dynarithmic/twain/lowlevel/TW_STATUS;
+GetSize                                 getSize                            ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetUTF8String                           getUTF8string                      Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+SetStatus                               setStatus                          (Lcom/dynarithmic/twain/lowlevel/TW_STATUS;)Lcom/dynarithmic/twain/lowlevel/TW_STATUSUTF8;
+SetSize                                 setSize                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_STATUSUTF8;
+SetUTF8String                           setUTF8string                      (Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;)Lcom/dynarithmic/twain/lowlevel/TW_STATUSUTF8;
+
+TW_STATUS                               com/dynarithmic/twain/lowlevel/TW_STATUS                    7
+DefaultConstructor                      <>                                 ()V
+GetConditionCode                        getConditionCode                   ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetData                                 getData                            ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetReserved                             getReserved                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+SetConditionCode                        setConditionCode                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_STATUS;
+SetData                                 setData                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_STATUS;
+SetReserved                             setReserved                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_STATUS;
+
+TW_EVENT                                com/dynarithmic/twain/lowlevel/TW_EVENT                     5
+DefaultConstructor                      <>                                 ()V
+GetEvent                                getpEvent                          ()Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;
+GetTWMessage                            getTWMessage                       ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+SetEvent                                setpEvent                          (Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;)Lcom/dynarithmic/twain/lowlevel/TW_EVENT;
+SetTWMessage                            setTWMessage                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_EVENT;
+
+TW_STRING                               com/dynarithmic/twain/lowlevel/TW_STRING                    4
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (II)V
+GetValue                                getValue                           ()Ljava/lang/String;
+SetValue                                setValue                           (Ljava/lang/String;)Lcom/dynarithmic/twain/lowlevel/TW_STRING;
+
+TW_FIX32                                com/dynarithmic/twain/lowlevel/TW_FIX32                     8
+DefaultConstructor                      <>                                 ()V
+GetValue                                getValue                           ()D
+GetWhole                                getWhole                           ()Lcom/dynarithmic/twain/lowlevel/TW_INT16;
+GetFrac                                 getFrac                            ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+SetValue1                               setValue                           (D)Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetValue2                               setValue                           (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetWhole                                setWhole                           (Lcom/dynarithmic/twain/lowlevel/TW_INT16;)Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetFrac                                 setFrac                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+
+TW_FRAME                                com/dynarithmic/twain/lowlevel/TW_FRAME                     9
+DefaultConstructor                      <>                                 ()V
+GetLeft                                 getLeft                            ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetTop                                  getTop                             ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetRight                                getRight                           ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+GetBottom                               getBottom                          ()Lcom/dynarithmic/twain/lowlevel/TW_FIX32;
+SetLeft                                 setLeft                            (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_FRAME;
+SetTop                                  setTop                             (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_FRAME;
+SetRight                                setRight                           (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_FRAME;
+SetBottom                               setBottom                          (Lcom/dynarithmic/twain/lowlevel/TW_FIX32;)Lcom/dynarithmic/twain/lowlevel/TW_FRAME;
+
+TW_IMAGELAYOUT                          com/dynarithmic/twain/lowlevel/TW_IMAGELAYOUT               9
+DefaultConstructor                      <>                                 ()V
+GetFrame                                getFrame                           ()Lcom/dynarithmic/twain/lowlevel/TW_FRAME;
+GetDocumentNumber                       getDocumentNumber                  ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetPageNumber                           getPageNumber                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetFrameNumber                          getFrameNumber                     ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+SetFrame                                setFrame                           (Lcom/dynarithmic/twain/lowlevel/TW_FRAME;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGELAYOUT;
+SetDocumentNumber                       setDocumentNumber                  (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGELAYOUT;
+SetPageNumber                           setPageNumber                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGELAYOUT;
+SetFrameNumber                          setFrameNumber                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGELAYOUT;
+
+TW_MEMORY                               com/dynarithmic/twain/lowlevel/TW_MEMORY                    7
+DefaultConstructor                      <>                                 ()V
+GetFlags                                getFlags                           ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetLength                               getLength                          ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetMem                                  getTheMem                          ()Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;
+SetFlags                                setFlags                           (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;
+SetLength                               setLength                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;
+SetMem                                  setTheMem                          (Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;)Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;
+
+TW_IMAGEMEMXFER                         com/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER              17
+DefaultConstructor                      <>                                 ()V
+GetCompression                          getCompression                     ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetBytesPerRow                          getBytesPerRow                     ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetColumns                              getColumns                         ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetRows                                 getRows                            ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetXOffset                              getXOffset                         ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetYOffset                              getYOffset                         ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetBytesWritten                         getBytesWritten                    ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetMemory                               getMemory                          ()Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;
+SetCompression                          setCompression                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+SetBytesPerRow                          setBytesPerRow                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+SetColumns                              setColumns                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+SetRows                                 setRows                            (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+SetXOffset                              setXOffset                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+SetYOffset                              setYOffset                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+SetBytesWritten                         setBytesWritten                    (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+SetMemory                               setMemory                          (Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;)Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;
+
+TW_JPEGCOMPRESSION                      com/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION           19
+DefaultConstructor                      <>                                 ()V
+GetColorSpace                           getColorSpace                      ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetNumComponents                        getNumComponents                   ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetRestartFrequency                     getRestartFrequency                ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetSubSampling                          getSubSampling                     ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetQuantMapValue                        getQuantMapValue                   (I)Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetQuantTableValue                      getQuantTableValue                 (I)Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;
+GetHuffmanMapValue                      getHuffmanMapValue                 (I)Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetHuffmanDCValue                       getHuffmanDCValue                  (I)Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;
+GetHuffmanACValue                       getHuffmanACValue                  (I)Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;
+SetColorSpace                           setColorSpace                      (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetNumComponents                        setNumComponents                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetRestartFrequency                     setRestartFrequency                (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetSubSampling                          setSubSampling                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetQuantMapValue                        setQuantMapValue                   (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;I)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetQuantTableValue                      setQuantTableValue                 (Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;I)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetHuffmanMapValue                      setHuffmanMapValue                 (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;I)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetHuffmanDCValue                       setHuffmanDCValue                  (Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;I)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+SetHuffmanACValue                       setHuffmanACValue                  (Lcom/dynarithmic/twain/lowlevel/TW_MEMORY;I)Lcom/dynarithmic/twain/lowlevel/TW_JPEGCOMPRESSION;
+
+TW_PALETTE8                             com/dynarithmic/twain/lowlevel/TW_PALETTE8                  7
+DefaultConstructor                      <>                                 ()V
+GetNumColors                            getNumColors                       ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetPaletteType                          getPaletteType                     ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetColorValue                           getColorValue                      (I)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
+SetNumColors                            setNumColors                       (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_PALETTE8;
+SetPaletteType                          setPaletteType                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_PALETTE8;
+SetColorValue                           setColorValue                      (Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;I)Lcom/dynarithmic/twain/lowlevel/TW_PALETTE8;
+
+TW_TWAINDIRECT                          com/dynarithmic/twain/lowlevel/TW_TWAINDIRECT               13
+DefaultConstructor                      <>                                 ()V
+GetSizeOf                               getSizeOf                          ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetCommunicationManager                 getCommunicationManager            ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetSend                                 getSend                            ()Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+GetSendSize                             getSendSize                        ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+GetReceive                              getReceive                         ()Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+GetReceiveSize                          getReceiveSize                     ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;
+SetSizeOf                               setSizeOf                          (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_TWAINDIRECT;
+SetCommunicationManager                 setCommunicationManager            (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_TWAINDIRECT;
+SetSend                                 setSend                            (Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;)Lcom/dynarithmic/twain/lowlevel/TW_TWAINDIRECT;
+SetSendSize                             setSendSize                        (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_TWAINDIRECT;
+SetReceive                              setReceive                         (Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;)Lcom/dynarithmic/twain/lowlevel/TW_TWAINDIRECT;
+SetReceiveSize                          setReceiveSize                     (Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)Lcom/dynarithmic/twain/lowlevel/TW_TWAINDIRECT;
+
+TW_BOOL                                 com/dynarithmic/twain/lowlevel/TW_BOOL                      3
+DefaultConstructor                      <>                                 ()V
+GetValue                                getValue                           ()Z
+SetValue                                setValue                           (Z)Lcom/dynarithmic/twain/lowlevel/TW_BOOL;
+
+TW_USERINTERFACE                        com/dynarithmic/twain/lowlevel/TW_USERINTERFACE             7
+DefaultConstructor                      <>                                 ()V
+GetShowUI                               getShowUI                          ()Lcom/dynarithmic/twain/lowlevel/TW_BOOL;
+GetModalUI                              getModalUI                         ()Lcom/dynarithmic/twain/lowlevel/TW_BOOL;
+GetParent                               gethParent                         ()Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+SetShowUI                               setShowUI                          (Lcom/dynarithmic/twain/lowlevel/TW_BOOL;)Lcom/dynarithmic/twain/lowlevel/TW_USERINTERFACE;
+SetModalUI                              setModalUI                         (Lcom/dynarithmic/twain/lowlevel/TW_BOOL;)Lcom/dynarithmic/twain/lowlevel/TW_USERINTERFACE;
+SetParent                               sethParent                         (Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;)Lcom/dynarithmic/twain/lowlevel/TW_USERINTERFACE;
+
+TW_CAPABILITY                           com/dynarithmic/twain/lowlevel/TW_CAPABILITY                7
+DefaultConstructor                      <>                                 ()V
+GetCap                                  getCap                             ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetConType                              getConType                         ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;
+GetContainerHandle                      gethContainer                      ()Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+SetCap                                  setCap                             (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_CAPABILITY;
+SetConType                              setConType                         (Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)Lcom/dynarithmic/twain/lowlevel/TW_CAPABILITY;
+SetContainerHandle                      sethContainer                      (Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;)Lcom/dynarithmic/twain/lowlevel/TW_CAPABILITY;
+
+TW_RESPONSETYPE                         com/dynarithmic/twain/lowlevel/TW_RESPONSETYPE              5
+DefaultConstructor                      <>                                 ()V
+GetNumItems                             getNumItems                        ()I
+GetResponseValue                        getResponseValue                   (I)Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;
+SetNumItems                             setNumItems                        (I)Lcom/dynarithmic/twain/lowlevel/TW_RESPONSETYPE;
+SetResponseValue                        setResponseValue                   (Lcom/dynarithmic/twain/lowlevel/TW_ELEMENT8;I)Lcom/dynarithmic/twain/lowlevel/TW_RESPONSETYPE;
+
+TW_NULL                                 com/dynarithmic/twain/lowlevel/TW_NULL                      1
+DefaultConstructor                      <>                                 ()V
+
+TwainLowLevel                           com/dynarithmic/twain/lowlevel/TwainLowLevel                2
+DefaultConstructor                      <>                                 ()V
+GetTwainObject                          getTwainObject                     ()Ljava/lang/Object;
+
+TwainTriplet                            com/dynarithmic/twain/lowlevel/TwainTriplet                 7
+DefaultConstructor                      <>                                 ()V
+GetOriginID                             getOriginID                        ()Lcom/dynarithmic/twain/lowlevel/TwainTriplet/TW_IDENTITY;)
+GetDestinationID                        getDestinationID                   ()Lcom/dynarithmic/twain/lowlevel/TW_IDENTITY;)
+GetDG                                   getDG                              ()Lcom/dynarithmic/twain/lowlevel/TW_UINT32;)
+GetDAT                                  getDAT                             ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)
+GetMSG                                  getMSG                             ()Lcom/dynarithmic/twain/lowlevel/TW_UINT16;)
+GetData                                 getData                            ()Lcom/dynarithmic/twain/lowlevel/TwainLowLevel;)
+
+TwainAcquireArea                        com/dynarithmic/twain/highlevel/TwainAcquireArea 19
+DefaultConstructor                      <>                                 ()V
+Constructor                             <>                                 (DDDD)V
+Constructor                             <>                                 (DDDDI)V
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;)V
+Constructor                             <>                                 (Lcom/dynarithmic/twain/lowlevel/TW_FRAME;)V
+Constructor                             <>                                 (Lcom/dynarithmic/twain/lowlevel/TW_FRAME;I)V
+Left                                    left                               ()D
+SetLeft                                 setLeft                            (D)Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;
+Top                                     top                                ()D
+SetTop                                  setTop                             (D)Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;
+Right                                   right                              ()D
+SetRight                                setRight                           (D)Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;
+Bottom                                  bottom                             ()D
+SetBottom                               setBottom                          (D)Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;
+SetAll1                                 setAll                             (DDDD)Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;
+SetAll2                                 setAll                             (DDDDI)Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;
+GetUnitMeasure                          getUnitOfMeasure                   ()I
+SetUnitMeasure                          setUnitOfMeasure                   (I)Lcom/dynarithmic/twain/highlevel/TwainAcquireArea;
+IsAcquireAreaUsed                       isAcquireAreaUsed                  ()Z
+
+
+TW_HANDLE                               com/dynarithmic/twain/lowlevel/TW_HANDLE                    3
+DefaultConstructor                      <>                                 ()V
+GetHandle                               getHandle                          ()J
+SetHandle                               setHandle                          (J)Lcom/dynarithmic/twain/lowlevel/TW_HANDLE;
+
+JavaInteger                             Ljava/lang/Integer;                                         2
+Constructor                             <>                                 (I)V
+IntValue                                intValue                           ()I
+
+JavaBoolean                             Ljava/lang/Boolean;                                         2
+Constructor                             <>                                 (Z)V
+BooleanValue                            booleanValue                       ()Z
+
+JavaDouble                              Ljava/lang/Double;                                          2
+Constructor                             <>                                 (D)V
+DoubleValue                             doubleValue                        ()D
+
+TextRenderMode                          com/dynarithmic/twain/DTwainConstants/TextRenderMode      2
+Constructor				<>                                 (I)V
+GetValue                                value                              ()I
+
+TextPageDisplayOptions                  com/dynarithmic/twain/DTwainConstants/TextPageDisplayOptions    2
+Constructor				<>                                 (I)V
+GetValue                                value                              ()I
+
+RGBColor				com/dynarithmic/twain/highlevel/RGBColor                   4
+DefaultConstructor                      <>                                 ()V
+GetR                                    getR                               ()I
+GetG                                    getG                               ()I
+GetB                                    getB                               ()I
+
+PDFTextElement				com/dynarithmic/twain/highlevel/PDFTextElement		    13
+DefaultConstructor                      <>                                 ()V
+GetFontName                             getFontName                        ()Ljava/lang/String;
+GetText                                 getText                            ()Ljava/lang/String;
+GetXPos                                 getXPosition                       ()I 
+GetYPos                                 getYPosition                       ()I 
+GetFontSize                             getFontSize                        ()D 
+GetScaling                              getScaling                         ()D 
+GetCharSpacing                          getCharSpacing                     ()D 
+GetWordSpacing                          getWordSpacing                     ()D 
+GetStrokeWidth                          getStrokeWidth                     ()I 
+GetRGBColor                             getRGBColor                        ()Lcom/dynarithmic/twain/highlevel/RGBColor;
+GetRenderMode                           getRenderModeAsInt                 ()I
+GetDisplayOptions                       getPageDisplayOptionsAsInt         ()I
+;
+; ==================================================
+; ExtendedImageInfo handling signatures
+;===================================================
+ExtendedImageInfo_BarcodeInfo_SingleInfo  com/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo 8
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;)V
+SetConfidence                           setConfidence                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetRotation                             setRotation                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetTextLength                           setTextLength                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetText                                 setText                            (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetX                                    setXCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetY                                    setYCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+SetType                                 setType                            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;
+
+ExtendedImageInfo_BarcodeInfo           com/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo 3
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetCount                                setCount                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
+SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo$BarcodeSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
+
+ExtendedImageInfo_ShadedAreaDetectionInfo_SingleInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo 15
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;)V
+SetTop                                  setTop                             (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetLeft                                 setLeft                            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetHeight                               setHeight                          (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWidth                                setWidth                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetSize                                 setSize                            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackCountOld                        setBlackCountOld                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackCountNew                        setBlackCountNew                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackRLMin                           setBlackRLMin                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetBlackRLMax                           setBlackRLMax                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteCountOld                        setWhiteCountOld                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteCountNew                        setWhiteCountNew                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteRLMin                           setWhiteRLMin                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteRLMax                           setWhiteRLMax                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+SetWhiteRLAvg                           setWhiteRLAverage                  (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;
+
+ExtendedImageInfo_ShadedAreaDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo  3
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetCount                                setCount                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
+SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo$ShadedAreaSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
+
+ExtendedImageInfo_SpeckleRemovalInfo    com/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo  4
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetSpecklesRemoved                      setSpecklesRemoved                 (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+SetWhiteSpecklesRemoved                 setWhiteSpecklesRemoved            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+SetBlackSpecklesRemoved                 setBlackSpecklesRemoved            (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+;------------------------------------------------------------------------------------
+ExtendedImageInfo_LineDetectionInfo_SingleInfo                             com/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo 5
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;)V
+SetXCoordinate                          setXCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+SetYCoordinate                          setYCoordinate                     (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+SetLength                               setLength                          (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+SetThickness                            setThickness                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;
+
+ExtendedImageInfo_LineDetectionInfo                                        com/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo  3
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetCount                                setCount                           (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;
+SetSingleInfo                           setSingleInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo$LineDetectionSingleInfo;I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;
+;------------------------------------------------------------------------------------
+ExtendedImageInfo_PatchcodeDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo  2
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetPatchcode                            setPatchcode                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo;
+
+ExtendedImageInfo_SkewDetectionInfo     com/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo  13
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetDeskewStatus                         setDeskewStatus                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetOriginalAngle                        setOriginalAngle                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetFinalAngle                           setFinalAngle                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetConfidence                           setConfidence                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX1                             setWindowX1                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX2                             setWindowX2                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX3                             setWindowX3                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowX4                             setWindowX4                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY1                             setWindowY1                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY2                             setWindowY2                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY3                             setWindowY3                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+SetWindowY4                             setWindowY4                        (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+
+ExtendedImageInfo_EndorsedTextInfo      com/dynarithmic/twain/highlevel/ExtendedImageInfo$EndorsedTextInfo  2
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetText                                 setText                            (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$EndorsedTextInfo;
+
+ExtendedImageInfo_FormsRecognitionInfo  com/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo  6
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetConfidence                           setConfidence                      (Ljava/util/List;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
+SetTemplateMatch                        setTemplateMatch                   (Ljava/util/List;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
+SetTemplatePageMatch                    setTemplatePageMatch               (Ljava/util/List;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
+SetHorizontalDocOffset                  setHorizontalDocOffset             (Ljava/util/List;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
+SetVerticalDocOffset                    setVerticalDocOffset               (Ljava/util/List;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
+
+ExtendedImageInfo_PageSourceInfo       com/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo  10
+Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetBookname                            setBookname                         (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetChapterNumber                       setChapterNumber                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetDocumentNumber                      setDocumentNumber                   (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetPageNumber                          setPageNumber                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetCamera                              setCamera                           (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetFrameNumber                         setFrameNumber                      (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetFrame                               setFrame                            (Lcom/dynarithmic/twain/lowlevel/TW_FRAME;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetPixelFlavor                         setPixelFlavor                      (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+SetPageSide                            setPageSide                         (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+
+ExtendedImageInfo_ExtendedImageInfo20  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20  2
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetMagType                             setMagType                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20;
+
+ExtendedImageInfo_ExtendedImageInfo21  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21	  6
+Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetFileSystemSource                    setFileSystemSource                 (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetMagData                             setMagData                          ([B)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetImageMerged                         setImageMerged                      (Z)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetMagDataLength                       setMagDataLength                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+SetPageSide                            setPageSide                         (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+
+ExtendedImageInfo_ExtendedImageInfo22  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22      2
+Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetPaperCount                          setPaperCount                       (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22;
+
+ExtendedImageInfo_ExtendedImageInfo23  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23      2
+Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetPrinterText                         setPrinterText                      (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
+
+ExtendedImageInfo_ExtendedImageInfo24  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24      2
+Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetTwainDirectMetaData                 setTwainDirectMetaData              (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
+
+ExtendedImageInfo_ExtendedImageInfo25  com/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25      9
+Constructor                            <>                                  (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetIAFieldA                            setIAFieldValueA                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldB                            setIAFieldValueB                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldC                            setIAFieldValueC                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldD                            setIAFieldValueD                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIAFieldE                            setIAFieldValueE                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetIALevel                             setIALevel                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+SetPrinter                             setPrinter                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+AddBarcodeText                         addBarcodeText                      (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;  
+
+ExtendedImageInfo_ImageSegmentationInfo com/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo  4
+Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
+SetICCProfile                          setICCProfile                       (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
+SetLastSegment                         setLastSegment                      (Z)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
+SetSegmentNumber                       setSegmentNumber                    (J)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
+
+ExtendedImageInfo                      com/dynarithmic/twain/highlevel/ExtendedImageInfo    36
+DefaultConstructor                      <>                                 ()V
+SetBarcodeInfo                         setBarcodeInfo                      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetShadedAreaDetectionInfo             setShadedAreaDetectionInfo          (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetSpeckleRemovalInfo                  setSpeckleRemovalInfo               (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetHorizontalLineDetectionInfo         setHorizontalLineDetectionInfo      (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetVerticalLineDetectionInfo           setVerticalLineDetectionInfo        (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetPatchcodeDetectionInfo              setPatchcodeDetectionInfo           (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetSkewDetectionInfo                   setSkewDetectionInfo                (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetEndorsedTextInfo                    setEndorsedTextInfo                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$EndorsedTextInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetFormsRecognitionInfo                setFormsRecognitionInfo             (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetPageSourceInfo                      setPageSourceInfo                   (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetImageSegmentationInfo               setImageSegmentationInfo            (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetExtendedImageInfo20                 setExtendedImageInfo20              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetExtendedImageInfo21                 setExtendedImageInfo21              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+SetExtendedImageInfo22                 setExtendedImageInfo22              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetExtendedImageInfo23                 setExtendedImageInfo23              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+SetExtendedImageInfo24                 setExtendedImageInfo24              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+SetExtendedImageInfo25                 setExtendedImageInfo25              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+SetSupportedExtendedImageInfo          setSupportedExtendedImageInfo       ([I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+GetBarcodeInfo                         getBarcodeInfo                      ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
+GetShadedAreaDetectionInfo             getShadedAreaDetectionInfo          ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
+GetSpeckleRemovalInfo                  getSpeckleRemovalInfo               ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
+GetHorizontalLineDetectionInfo         getHorizontalLineDetectionInfo      ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;
+GetVerticalLineDetectionInfo           getVerticalLineDetectionInfo        ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$LineDetectionInfo;
+GetPatchcodeDetectionInfo              getPatchcodeDetectionInfo           ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PatchcodeDetectionInfo;
+GetSkewDetectionInfo                   getSkewDetectionInfo                ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SkewDetectionInfo;
+GetEndorsedTextInfo                    getEndorsedTextInfo                 ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$EndorsedTextInfo;
+GetFormsRecognitionInfo                getFormsRecognitionInfo             ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$FormsRecognitionInfo;
+GetPageSourceInfo                      getPageSourceInfo                   ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;
+GetImageSegmentationInfo               getImageSegmentationInfo            ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;
+GetExtendedImageInfo20                 getExtendedImageInfo20              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20;
+GetExtendedImageInfo21                 getExtendedImageInfo21              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;
+GetExtendedImageInfo22                 getExtendedImageInfo22              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22;
+GetExtendedImageInfo23                 getExtendedImageInfo23              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
+GetExtendedImageInfo24                 getExtendedImageInfo24              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
+GetExtendedImageInfo25                 getExtendedImageInfo25              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
+%699200873
