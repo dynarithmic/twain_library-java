@@ -1,2 +1,2 @@
-Manifest-Version: 1.6
+Manifest-Version: 1.7
 

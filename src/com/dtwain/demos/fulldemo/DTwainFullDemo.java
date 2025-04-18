@@ -227,7 +227,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         LogCalls = new javax.swing.JCheckBoxMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("DTWAIN Java Demo Program");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -243,6 +243,20 @@ public class DTwainFullDemo extends javax.swing.JFrame {
             }
         });
 
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                try
+                {
+                    ShutdownTwain(evt);
+                    dispose();
+                }
+                catch (DTwainJavaAPIException | InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
         jMenu1.setText("Source Selection Test");
 
         SelectSource.setText("Select Source...");
