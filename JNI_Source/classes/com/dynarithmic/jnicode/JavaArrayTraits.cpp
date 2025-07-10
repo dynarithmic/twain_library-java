@@ -159,7 +159,7 @@ jobjectArray CreateJFrameArrayFromDTWAINArray(JNIEnv *env, DTWAIN_ARRAY arr)
     double left, top, right, bottom;
     for (int i = 0; i < frameCount; ++i)
     {
-        API_INSTANCE DTWAIN_ArrayFrameGetAt(arr, i, &left, &top, &right, &bottom);
+        API_INSTANCE DTWAIN_ArrayGetAtFrame(arr, i, &left, &top, &right, &bottom);
         const jobject jObj = env->GetObjectArrayElement(jFrameArray, i);
         jInfo.setObject(jObj);
         jInfo.setJFrameDimensions(left, top, right, bottom);
