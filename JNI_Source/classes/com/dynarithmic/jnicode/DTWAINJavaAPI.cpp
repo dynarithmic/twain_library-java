@@ -3584,7 +3584,7 @@ static int GenericCapSetter(JNIEnv * env, jlong source, jint cap, jint setType, 
             auto vect = aHandler.JavaToNative(values);
             API_INSTANCE DTWAIN_ArrayResize(aTmp, static_cast<LONG>(vect.size()));
             for (size_t i = 0; i < vect.size(); ++i)
-                API_INSTANCE DTWAIN_ArrayFrameSetAt(aTmp, static_cast<LONG>(i), vect[i].left, vect[i].top, vect[i].right, vect[i].bottom);
+                API_INSTANCE DTWAIN_ArraySetAtFrame(aTmp, static_cast<LONG>(i), vect[i].left, vect[i].top, vect[i].right, vect[i].bottom);
             return API_INSTANCE DTWAIN_SetCapValuesEx2(DTWAIN_SOURCE(source), cap, setType, containerType, dataType, aTmp);
         }
     }
@@ -3684,7 +3684,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetC
             auto sz = API_INSTANCE DTWAIN_ArrayGetCount(aTmp);
             std::vector<FrameStruct> allValues(sz);
             for (LONG i = 0; i < sz; ++i)
-                API_INSTANCE DTWAIN_ArrayFrameGetAt(aTmp, i, &allValues[i].left, &allValues[i].top, &allValues[i].right, &allValues[i].bottom );
+                API_INSTANCE DTWAIN_ArrayGetAtFrame(aTmp, i, &allValues[i].left, &allValues[i].top, &allValues[i].right, &allValues[i].bottom );
             JavaArrayListHandler<ArrayFrameList> aHandler(env);
             aHandler.NativeToJava(retList, allValues);
             return JNI_TRUE;
