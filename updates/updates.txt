@@ -1,5 +1,12 @@
 DTWAIN-Java Version changes
 
+Version 1.8 (JNI code changes only)
+
+- Update JNI DLL's to be compatible with DTWAIN version 5.6.7.  Note that you must use the
+  text resources for DTWAIN version 5.6.7, as older versions of the text resources will not
+  work for JNI version 1.8 DLL's. 
+
+
 Version 1.7.1 
 
 - Update JNI DLL's to be compatible with DTWAIN 5.6.3.  
