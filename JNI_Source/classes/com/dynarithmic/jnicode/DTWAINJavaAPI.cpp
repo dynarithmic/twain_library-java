@@ -2495,6 +2495,20 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAS
     DO_DTWAIN_CATCH(env)
 }
 
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetPDFAESEncryption
+ * Signature: (JZ)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAESEncryption
+(JNIEnv* env, jobject, jlong arg1, jboolean arg2)
+{
+    DO_DTWAIN_TRY
+    return API_INSTANCE DTWAIN_SetPDFAESEncryption(reinterpret_cast<DTWAIN_SOURCE>(arg1), static_cast<LONG>(arg2));
+    DO_DTWAIN_CATCH(env)
+}
+
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_SetPostScriptType
