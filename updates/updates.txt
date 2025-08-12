@@ -1,5 +1,16 @@
 DTWAIN-Java Version changes
 
+Version 1.8.1 
+
+- Update JNI DLL's to be compatible with DTWAIN version 5.6.8.  
+
+- Update dtwain-java jar file to dtwain-java-1.8.jar.  
+
+- In the Java library code, add AES-128 bit encryption of PDF files.  See 
+  com.dynarithmic.twain.highlevel.acquirecharacteristics.PDFOptions with the new function
+  being enableAESEncryption().
+
+
 Version 1.8 (JNI code changes only)
 
 - Update JNI DLL's to be compatible with DTWAIN version 5.6.7.  Note that you must use the
