@@ -382,6 +382,12 @@ public class TwainSource
                     encrypt_opts.getOwnerPassword(),
                     encrypt_opts.getPermissionsAsInteger(),
                     encrypt_opts.isStrongEncryptionEnabled());
+            handle.DTWAIN_SetPDFAESEncryption(sourceHandle, encrypt_opts.isAESEncryptionEnabled());
+        }
+        else
+        {
+            // Turn off encryption
+            handle.DTWAIN_SetPDFEncryption(sourceHandle, false,"","",0,false);
         }
     }
 

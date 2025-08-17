@@ -417,6 +417,7 @@ public class DTwainJavaAPI
     public native boolean DTWAIN_IsPaperSizeSupported(long Source, int paperSize) throws DTwainJavaAPIException;
     public native boolean DTWAIN_IsPixelTypeSupported(long Source, int pixelType) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFASCIICompression(long Source, boolean enable) throws DTwainJavaAPIException;
+    public native int DTWAIN_SetPDFAESEncryption(long Source, boolean enable) throws DTwainJavaAPIException;    
     public native int DTWAIN_SetPostScriptType(long Source, int setting) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFJpegQuality(long Source, int setting) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFOrientation(long Source, int setting) throws DTwainJavaAPIException;
