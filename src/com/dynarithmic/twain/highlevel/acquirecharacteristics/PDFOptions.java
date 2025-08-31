@@ -38,6 +38,7 @@ public class PDFOptions
         private boolean enabled = false;
         private boolean strongEncryptionEnabled = false;
         private boolean aesEncryptionEnabled = false;
+        private boolean aes256EncryptionEnabled = false;
         private boolean autoPasswordGenerationEnabled = false;
         private int permissions = 0;
         private String range = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&()_+=-{}[];:'\\\",<.>/?`~";
@@ -125,6 +126,11 @@ public class PDFOptions
             return aesEncryptionEnabled;
         }
 
+        public boolean isAES256EncryptionEnabled()
+        {
+            return aes256EncryptionEnabled;
+        }
+        
         public boolean isAutoPasswordGenerationEnabled()
         {
             return autoPasswordGenerationEnabled;
@@ -167,6 +173,12 @@ public class PDFOptions
         public PDFEncryption enableAESEncryption(boolean enableAESEncryption)
         {
             this.aesEncryptionEnabled = enableAESEncryption;
+            return this;
+        }
+
+        public PDFEncryption enableAES256Encryption(boolean enableAES256Encryption)
+        {
+            this.aes256EncryptionEnabled = enableAES256Encryption;
             return this;
         }
     }

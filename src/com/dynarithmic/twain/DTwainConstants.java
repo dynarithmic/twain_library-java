@@ -387,7 +387,8 @@ public class DTwainConstants
         BIGTIFFG4MULTI      (11014),
         BIGTIFFJPEG         (11015),
         BIGTIFFJPEGMULTI    (11016),
-        
+        JPEGXR              (12000),
+                
         BMP_SOURCE_MODE(2),
         TIFF_SOURCE_MODE(0),
         PICT_SOURCE_MODE(1),
