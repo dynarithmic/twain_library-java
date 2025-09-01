@@ -245,6 +245,7 @@ public class FileTransferOptions
             alldevicesupport_set.add(DTwainConstants.FileType.TEXTMULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.BMP_RLE);
             alldevicesupport_set.add(DTwainConstants.FileType.TGA_RLE);
+            alldevicesupport_set.add(DTwainConstants.FileType.JPEGXR);
 
             sourcedevicesupport_set.add(DTwainConstants.FileType.BMP_SOURCE_MODE);
             sourcedevicesupport_set.add(DTwainConstants.FileType.TIFF_SOURCE_MODE);
