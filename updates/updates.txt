@@ -1,12 +1,26 @@
 DTWAIN-Java Version changes
 
+Version 1.9 
+
+- Update JNI DLL's to be compatible with DTWAIN version 5.7.0.  
+
+- Update dtwain-java jar file to dtwain-java-1.9.jar.  
+
+- Add JPEG-XR file format when acquiring to files and update com.dtwain.demos.fulldemo 
+  with acquiring to files using the JPEG-XR format.
+
+- Add AES 256-bit encryption of PDF files.  
+  See com.dynarithmic.twain.highlevel.acquirecharacteristics.PDFOptions 
+  with the new function being enableAES256Encryption().
+
+
 Version 1.8.1 
 
 - Update JNI DLL's to be compatible with DTWAIN version 5.6.8.  
 
 - Update dtwain-java jar file to dtwain-java-1.8.jar.  
 
-- In the Java library code, add AES-128 bit encryption of PDF files.  See 
+- In the Java library code, add AES 128-bit encryption of PDF files.  See 
   com.dynarithmic.twain.highlevel.acquirecharacteristics.PDFOptions with the new function
   being enableAESEncryption().
 
