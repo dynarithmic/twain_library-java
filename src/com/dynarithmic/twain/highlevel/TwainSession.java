@@ -519,7 +519,7 @@ public class TwainSession
         return new ArrayList<>(this.multiPageTypes);
     }
 
-    public String getPageFileTypeName(int fileType)
+    public String getPageFileTypeName(int fileType) throws DTwainJavaAPIException
     {
         if ( dtwainAPI != null )
             return dtwainAPI.DTWAIN_GetFileTypeName(fileType);
@@ -567,7 +567,7 @@ public class TwainSession
         return this;
     }
     
-    public String getSessionDetails(int indentValue, boolean bRefresh)
+    public String getSessionDetails(int indentValue, boolean bRefresh) throws DTwainJavaAPIException
     {
         if ( dtwainAPI != null)
         {
@@ -576,7 +576,7 @@ public class TwainSession
         return "";
     }
     
-    public String getSourceDetails(String sources, int indentValue, boolean bRefresh)
+    public String getSourceDetails(String sources, int indentValue, boolean bRefresh) throws DTwainJavaAPIException
     {
         if ( dtwainAPI != null)
             return dtwainAPI.DTWAIN_GetSourceDetails(sources, indentValue, bRefresh);

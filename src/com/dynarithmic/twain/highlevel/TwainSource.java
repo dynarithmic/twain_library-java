@@ -328,6 +328,9 @@ public class TwainSource
         MultipageSaveOptions multisave_info = ac.getFileTransferOptions().getMultipageSaveOptions();
         handle.DTWAIN_SetMultipageScanMode(sourceHandle, multisave_info.getSaveMode().ordinal());
 
+        // Set the JPEG quality options
+        handle.DTWAIN_SetJpegQuality(sourceHandle, ac.getFileTransferOptions().getJPEGQuality());
+        
         // general options
         GeneralOptions gopts = ac.getGeneralOptions();
         handle.DTWAIN_SetMaxAcquisitions(sourceHandle, gopts.getMaxAcquisitions());
@@ -390,6 +393,9 @@ public class TwainSource
             // Turn off encryption
             handle.DTWAIN_SetPDFEncryption(sourceHandle, false,"","",0,false);
         }
+        
+        // JPEG quality for PDF files
+        handle.DTWAIN_SetPDFJpegQuality(sourceHandle,  po.getJPEGQuality());
     }
 
     private boolean waitForFeeder(PaperHandlingInfo paperInfo) throws DTwainJavaAPIException
@@ -734,7 +740,7 @@ public class TwainSource
         throw new DTwainJavaAPIException("Invalid source or TWAIN session handle");
     }
     
-    public ExtendedImageInfo getExtendedImageInfo()
+    public ExtendedImageInfo getExtendedImageInfo() throws DTwainJavaAPIException
     {
         if ( sourceHandle != 0 && twainSession != null && isOpened)
             return twainSession.getAPIHandle().DTWAIN_GetExtendedImageInfo(sourceHandle);

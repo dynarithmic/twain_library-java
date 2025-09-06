@@ -2535,6 +2535,19 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFJp
     DO_DTWAIN_CATCH(env)
 }
 
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJpegQuality
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJpegQuality
+(JNIEnv* env, jobject, jlong arg1, jint arg2)
+{
+    DO_DTWAIN_TRY
+    API_INSTANCE DTWAIN_SetJpegValues(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, 0);
+    return API_INSTANCE DTWAIN_SetJpegXRValues(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, 0);
+    DO_DTWAIN_CATCH(env)
+}
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
