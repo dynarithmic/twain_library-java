@@ -1477,9 +1477,13 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         {
             DTwainSelectSourceCustomDialog dlg = new DTwainSelectSourceCustomDialog(this, true, mainTwainSession);
             dlg.setVisible(true);
-            long localTwainSource = dlg.getSelectedSource();
-            if ( localTwainSource != 0 )
-                setupNewSource(localTwainSource);
+            TwainSource selectedSource =  dlg.getSelectedSource();
+            if ( selectedSource != null )
+            {
+                CloseCurrentSource();
+                this.m_SourceWrapper = selectedSource;
+                setupNewSource(selectedSource.getSourceHandle());
+            }
         }
     }//GEN-LAST:event_SelectSourceCustomActionPerformed
 
