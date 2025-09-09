@@ -1434,10 +1434,10 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAS
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_SetPDFAESEncryption
- * Signature: (JZ)I
+ * Signature: (JIZ)I
  */
 JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAESEncryption
-  (JNIEnv *, jobject, jlong, jboolean);
+  (JNIEnv *, jobject, jlong, jint, jboolean);
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
@@ -2878,6 +2878,14 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1FreeMemo
  */
 JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetAcquireStripBuffer
   (JNIEnv *, jobject, jlong, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJpegQuality
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJpegQuality
+  (JNIEnv *, jobject, jlong, jint);
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI

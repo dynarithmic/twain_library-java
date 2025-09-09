@@ -2499,13 +2499,13 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAS
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_SetPDFAESEncryption
- * Signature: (JZ)I
+ * Signature: (JIZ)I
  */
 JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAESEncryption
-(JNIEnv* env, jobject, jlong arg1, jboolean arg2)
+(JNIEnv* env, jobject, jlong arg1, jint arg2, jboolean arg3)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_SetPDFAESEncryption(reinterpret_cast<DTWAIN_SOURCE>(arg1), static_cast<LONG>(arg2));
+    return API_INSTANCE DTWAIN_SetPDFAESEncryption(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, static_cast<LONG>(arg3));
     DO_DTWAIN_CATCH(env)
 }
 
@@ -2535,6 +2535,19 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFJp
     DO_DTWAIN_CATCH(env)
 }
 
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJpegQuality
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJpegQuality
+(JNIEnv* env, jobject, jlong arg1, jint arg2)
+{
+    DO_DTWAIN_TRY
+    API_INSTANCE DTWAIN_SetJpegValues(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, 0);
+    return API_INSTANCE DTWAIN_SetJpegXRValues(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, 0);
+    DO_DTWAIN_CATCH(env)
+}
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI

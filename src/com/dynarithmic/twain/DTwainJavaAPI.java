@@ -417,7 +417,7 @@ public class DTwainJavaAPI
     public native boolean DTWAIN_IsPaperSizeSupported(long Source, int paperSize) throws DTwainJavaAPIException;
     public native boolean DTWAIN_IsPixelTypeSupported(long Source, int pixelType) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFASCIICompression(long Source, boolean enable) throws DTwainJavaAPIException;
-    public native int DTWAIN_SetPDFAESEncryption(long Source, boolean enable) throws DTwainJavaAPIException;    
+    public native int DTWAIN_SetPDFAESEncryption(long Source, int encryptionlevel, boolean enable) throws DTwainJavaAPIException;    
     public native int DTWAIN_SetPostScriptType(long Source, int setting) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFJpegQuality(long Source, int setting) throws DTwainJavaAPIException;
     public native int DTWAIN_SetPDFOrientation(long Source, int setting) throws DTwainJavaAPIException;
@@ -623,16 +623,17 @@ public class DTwainJavaAPI
     public native long DTWAIN_AllocateMemory(int memorySize) throws DTwainJavaAPIException;
     public native int DTWAIN_FreeMemory(long memoryHandle) throws DTwainJavaAPIException;
     public native boolean DTWAIN_SetAcquireStripBuffer(long Source, long memoryHandle) throws DTwainJavaAPIException;
-    public native int DTWAIN_EnableAutoFeedNotify(int latency, boolean enable);
-    public native boolean DTWAIN_SetCamera(long Source, String cameraName);
-    public native int [] DTWAIN_EnumSupportedSinglePageFileTypes();
-    public native int [] DTWAIN_EnumSupportedMultiPageFileTypes();
-    public native String DTWAIN_GetFileTypeName(int fileType);
-    public native String DTWAIN_GetFileTypeExtension(int fileType);
-    public native ExtendedImageInfo DTWAIN_GetExtendedImageInfo(long Source);
-    public native String DTWAIN_GetVersionCopyright();
-    public native String DTWAIN_GetSessionDetails(int indentSize, boolean refresh);
-    public native String DTWAIN_GetSourceDetails(String sourceNames, int indentSize, boolean refresh);
+    public native int DTWAIN_SetJpegQuality(long Source, int jpegQuality) throws DTwainJavaAPIException;
+    public native int DTWAIN_EnableAutoFeedNotify(int latency, boolean enable) throws DTwainJavaAPIException;
+    public native boolean DTWAIN_SetCamera(long Source, String cameraName) throws DTwainJavaAPIException;
+    public native int [] DTWAIN_EnumSupportedSinglePageFileTypes() throws DTwainJavaAPIException;
+    public native int [] DTWAIN_EnumSupportedMultiPageFileTypes() throws DTwainJavaAPIException;
+    public native String DTWAIN_GetFileTypeName(int fileType) throws DTwainJavaAPIException;
+    public native String DTWAIN_GetFileTypeExtension(int fileType) throws DTwainJavaAPIException;
+    public native ExtendedImageInfo DTWAIN_GetExtendedImageInfo(long Source) throws DTwainJavaAPIException;
+    public native String DTWAIN_GetVersionCopyright() throws DTwainJavaAPIException;
+    public native String DTWAIN_GetSessionDetails(int indentSize, boolean refresh) throws DTwainJavaAPIException;
+    public native String DTWAIN_GetSourceDetails(String sourceNames, int indentSize, boolean refresh) throws DTwainJavaAPIException;
     static
     {
         s_DLLMap = new TreeMap<>();

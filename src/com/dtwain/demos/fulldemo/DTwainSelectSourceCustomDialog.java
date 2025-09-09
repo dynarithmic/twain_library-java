@@ -23,6 +23,7 @@ package com.dtwain.demos.fulldemo;
 import com.dynarithmic.twain.DTwainJavaAPI;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
 import com.dynarithmic.twain.highlevel.TwainSession;
+import com.dynarithmic.twain.highlevel.TwainSource;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +34,8 @@ import javax.swing.DefaultListModel;
 public class DTwainSelectSourceCustomDialog extends javax.swing.JDialog {
 
     private DTwainJavaAPI m_api;
-    private long SelectedSource = 0;
+    private TwainSource SelectedSource = null;
+    private TwainSession m_twainSession;
     TreeMap<String, Long> m_sourceMap;
 
     /**
@@ -42,6 +44,7 @@ public class DTwainSelectSourceCustomDialog extends javax.swing.JDialog {
     public DTwainSelectSourceCustomDialog(java.awt.Frame parent, boolean modal, TwainSession twainSession) {
         super(parent, modal);
         initComponents();
+        m_twainSession = twainSession;
         m_api = twainSession.getAPIHandle();
         try {
             DefaultListModel listModel = new DefaultListModel();
@@ -63,7 +66,7 @@ public class DTwainSelectSourceCustomDialog extends javax.swing.JDialog {
         }
     }
 
-    public long getSelectedSource() { return SelectedSource; }
+    public TwainSource getSelectedSource() { return SelectedSource; }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,7 +150,7 @@ public class DTwainSelectSourceCustomDialog extends javax.swing.JDialog {
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         try {
-            SelectedSource = m_api.DTWAIN_SelectSourceByName(lstSourceNames.getSelectedValue().toString());
+            SelectedSource = m_twainSession.selectSource( lstSourceNames.getSelectedValue().toString() );
             setVisible(false);
         }
         catch (DTwainJavaAPIException e)
@@ -156,7 +159,7 @@ public class DTwainSelectSourceCustomDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-            SelectedSource = 0;
+            SelectedSource = null;
             setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
