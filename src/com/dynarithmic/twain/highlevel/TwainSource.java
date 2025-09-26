@@ -467,7 +467,7 @@ public class TwainSource
                 if ( !bFstatus && !use_feeder_or_flatbed)
                     return new AcquireReturnInfo(ErrorCode.ERROR_NONE, null);
             }
-            if (!bFstatus && !use_feeder_or_flatbed)
+            if (!bFstatus && use_feeder_or_flatbed)
                 handle.DTWAIN_EnableFeeder(sourceHandle, false);
             bFstatus = true;
         }

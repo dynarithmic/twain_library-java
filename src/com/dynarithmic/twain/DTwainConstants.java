@@ -138,6 +138,14 @@ public class DTwainConstants
         public static final int DTWAIN_CONSTANT_TWDF     = 70;
         public static final int DTWAIN_CONSTANT_TWFM     = 71;
         public static final int DTWAIN_CONSTANT_TWSG     = 72;
+        public static final int DTWAIN_CONSTANT_DTWAIN_TN = 73;
+        public static final int DTWAIN_CONSTANT_TWON     = 74;
+        public static final int DTWAIN_CONSTANT_TWMF     = 75;
+        public static final int DTWAIN_CONSTANT_TWSX     = 76;
+        public static final int DTWAIN_CONSTANT_CAP      = 77;
+        public static final int DTWAIN_CONSTANT_ICAP     = 78;
+        public static final int DTWAIN_CONSTANT_DTWAIN_CONT = 79;
+        public static final int DTWAIN_CONSTANT_CAPCODE_MAP = 80;
     }
 
     public enum SessionStartupMode
@@ -691,7 +699,27 @@ public class DTwainConstants
         ERROR_STRINGID_NOTFOUND (-1065),
         ERROR_RESOURCES_DUPLICATEID_FOUND (-1066),
         ERROR_UNAVAILABLE_EXTINFO (-1067),
-
+        ERROR_TWAINDSM2_BADBITMAP (-1068),
+        ERROR_ACQUISITION_CANCELED (-1069),
+        ERROR_IMAGE_RESAMPLED (-1070),
+        ERROR_UNKNOWN_TWAIN_RC (-1071),
+        ERROR_UNKNOWN_TWAIN_CC (-1072),
+        ERROR_RESOURCES_DATA_EXCEPTION (-1073),
+        ERROR_AUDIO_TRANSFER_NOTSUPPORTED (-1074),
+        ERROR_FEEDER_COMPLIANCY (-1075),
+        ERROR_SUPPORTEDCAPS_COMPLIANCY1 (-1076),
+        ERROR_SUPPORTEDCAPS_COMPLIANCY2 (-1077),
+        ERROR_ICAPPIXELTYPE_COMPLIANCY1 (-1078),
+        ERROR_ICAPPIXELTYPE_COMPLIANCY2 (-1079),
+        ERROR_ICAPBITDEPTH_COMPLIANCY1 (-1080),
+        ERROR_XFERMECH_COMPLIANCY      (-1081),
+        ERROR_STANDARDCAPS_COMPLIANCY  (-1082),
+        ERROR_EXTIMAGEINFO_DATATYPE_MISMATCH (-1083),
+        ERROR_EXTIMAGEINFO_RETRIEVAL (-1084),
+        ERROR_RANGE_OUTOFBOUNDS      (-1085),
+        ERROR_RANGE_STEPISZERO       (-1086),
+        ERROR_BLANKNAMEDETECTED   (-1087),
+        
         TWAIN_ERROR_LOW_MEMORY (-1100),
         TWAIN_ERROR_FALSE_ALARM (-1101),
         TWAIN_ERROR_BUMMER (-1102),
@@ -820,7 +848,12 @@ public class DTwainConstants
         ERROR_OCR_INVALIDPIXELTYPE (-2105),
         ERROR_OCR_INVALIDBITDEPTH (-2106),
         ERROR_OCR_RECOGNITIONERROR (-2107),
-        ERROR_OCR_LAST (-2108);
+        ERROR_OCR_LAST (-2108),
+        ERROR_SOURCE_COULD_NOT_OPEN   (-2500),
+        ERROR_SOURCE_COULD_NOT_CLOSE  (-2501),
+        ERROR_IMAGEINFO_INVALID       (-2502),
+        ERROR_WRITEDATA_TOFILE        (-2503),
+        ERROR_OPERATION_NOTSUPPORTED  (-2504);
 
         private final int enumValue;
         ErrorCode(int i)
