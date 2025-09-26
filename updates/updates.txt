@@ -1,5 +1,12 @@
 DTWAIN-Java Version changes
 
+Version 1.9.1
+
+- Fix issue when enabling feeder on devices with both a feeder and flatbed.
+
+- Add missing DTWAIN constants.
+
+
 Version 1.9 
 
 - Update JNI DLL's to be compatible with DTWAIN version 5.7.0.  
