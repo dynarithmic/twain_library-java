@@ -450,6 +450,7 @@ public class TwainSource
         PaperHandlingInfo paperInfo = new PaperHandlingInfo();
         paperInfo.getInfo(this);
         boolean isFeederOnly = paperInfo.isFeederOnly();
+        handle.DTWAIN_EnableFeeder(sourceHandle, true);
         if ( !isFeederOnly && !this.acquireCharacteristics.getPaperHandlingOptions().isFeederEnabled())
             handle.DTWAIN_EnableFeeder(sourceHandle, false);
         else
@@ -463,10 +464,11 @@ public class TwainSource
             if ( use_wait || use_feeder_or_flatbed )
             {
                 bFstatus = waitForFeeder(paperInfo);
-                if ( !bFstatus )
+                if ( !bFstatus && !use_feeder_or_flatbed)
                     return new AcquireReturnInfo(ErrorCode.ERROR_NONE, null);
             }
-            handle.DTWAIN_EnableFeeder(sourceHandle, false);
+            if (!bFstatus && use_feeder_or_flatbed)
+                handle.DTWAIN_EnableFeeder(sourceHandle, false);
             bFstatus = true;
         }
 
