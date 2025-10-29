@@ -1,5 +1,10 @@
 DTWAIN-Java Version changes
 
+Version 1.9.2
+
+- Fix issue when setting some PDF page size and scale options.
+
+
 Version 1.9.1
 
 - Fix issue when enabling feeder on devices with both a feeder and flatbed.

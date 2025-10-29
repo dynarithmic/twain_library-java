@@ -1,2 +1,2 @@
-Manifest-Version: 1.9.1
+Manifest-Version: 1.9.2
 
