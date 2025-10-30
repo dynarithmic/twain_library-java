@@ -326,7 +326,7 @@ public class TwainSource
 
         // Set the multisave option
         MultipageSaveOptions multisave_info = ac.getFileTransferOptions().getMultipageSaveOptions();
-        handle.DTWAIN_SetMultipageScanMode(sourceHandle, multisave_info.getSaveMode().ordinal());
+        handle.DTWAIN_SetMultipageScanMode(sourceHandle, multisave_info.getSaveMode().value());
 
         // Set the JPEG quality options
         handle.DTWAIN_SetJpegQuality(sourceHandle, ac.getFileTransferOptions().getJPEGQuality());
@@ -349,7 +349,7 @@ public class TwainSource
         handle.DTWAIN_SetPDFSubject(sourceHandle, po.getSubject());
         handle.DTWAIN_SetPDFKeywords(sourceHandle, po.getKeywords());
         handle.DTWAIN_SetPDFASCIICompression(sourceHandle, po.isASCII85Enabled());
-        handle.DTWAIN_SetPDFOrientation(sourceHandle, po.getPDFOrientation().getOrientation().ordinal());
+        handle.DTWAIN_SetPDFOrientation(sourceHandle, po.getPDFOrientation().getOrientation().value());
 
         PDFPaperSizeOptions pagesizeopts = po.getPaperSizeOptions();
         boolean custom_used = pagesizeopts.isCustomSizeEnabled();
@@ -362,7 +362,7 @@ public class TwainSource
         }
 
         handle.DTWAIN_SetPDFPageSize(sourceHandle,
-                                     po.getPaperSizeOptions().getPaperSize().ordinal(),
+                                     po.getPaperSizeOptions().getPaperSize().value(),
                                      (double)width, (double)height);
 
         PDFPageScaleOptions pageScale = po.getPDFPageScaleOptions();
@@ -374,7 +374,7 @@ public class TwainSource
             xscale = pageScale.getCustomScaleX();
             yscale = pageScale.getCustomScaleY();
         }
-        handle.DTWAIN_SetPDFPageScale(sourceHandle, pageScale.getScaling().ordinal(), xscale, yscale);
+        handle.DTWAIN_SetPDFPageScale(sourceHandle, pageScale.getScaling().value(), xscale, yscale);
 
         // Encryption
         PDFEncryption encrypt_opts = po.getPDFEncryption();
