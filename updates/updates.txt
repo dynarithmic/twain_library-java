@@ -1,5 +1,15 @@
 DTWAIN-Java Version changes
 
+Version 1.9.3
+
+- Add getFileSavePageCount() function to the TwainSource class.
+
+- Update additional error constants to DTwainConstants.java.
+
+- Update TwainCallback.java to add new callbacks that were added to 
+  DTWAIN API 5.7.1 and above.
+
+
 Version 1.9.2
 
 - Fix issue when setting some PDF page size and scale options.

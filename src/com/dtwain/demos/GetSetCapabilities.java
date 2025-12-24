@@ -108,12 +108,12 @@ public class GetSetCapabilities
                 System.out.println("Did not set the capability");
 
             // Now for strings.  Test if the CAP_AUTHOR capability is supported
-            if (ci.isAuthorSupported())
+            if (ci.isSerialNumberSupported())
             {
                 // Get the author
-                List<String> author = ci.getAuthor(ci.get());
-                if ( !author.isEmpty() )
-                    System.out.println("The author is \"" + author.get(0) + "\"");
+                List<String> serialNumber = ci.getSerialNumber(ci.get());
+                if ( !serialNumber.isEmpty() )
+                    System.out.println("The serial number is \"" + serialNumber.get(0) + "\"");
             }
 
             // Now for the odd one, frames.  Test the ICAP_FRAMES capability

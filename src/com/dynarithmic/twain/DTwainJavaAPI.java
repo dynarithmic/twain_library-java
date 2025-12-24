@@ -634,6 +634,7 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetVersionCopyright() throws DTwainJavaAPIException;
     public native String DTWAIN_GetSessionDetails(int indentSize, boolean refresh) throws DTwainJavaAPIException;
     public native String DTWAIN_GetSourceDetails(String sourceNames, int indentSize, boolean refresh) throws DTwainJavaAPIException;
+    public native int DTWAIN_GetFileSavePageCount(long Source) throws DTwainJavaAPIException;
     static
     {
         s_DLLMap = new TreeMap<>();

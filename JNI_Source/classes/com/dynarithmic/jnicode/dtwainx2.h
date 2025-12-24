@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -399,6 +399,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETACQUIREAREA2FUNC)                      
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETACQUIREAREA2STRINGFUNC)                (DTWAIN_SOURCE, LPTSTR, LPTSTR, LPTSTR, LPTSTR, LPLONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETACQUIREAREA2STRINGAFUNC)               (DTWAIN_SOURCE, LPSTR, LPSTR, LPSTR, LPSTR, LPLONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETACQUIREAREA2STRINGWFUNC)               (DTWAIN_SOURCE, LPWSTR, LPWSTR, LPWSTR, LPWSTR, LPLONG);
+typedef DTWAIN_ARRAY (DLLENTRY_DEF * D_GETACQUIREAREAEXFUNC)                    (DTWAIN_SOURCE, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETACQUIREMETRICSFUNC)                    (DTWAIN_SOURCE, LPLONG, LPLONG);
 typedef HANDLE (DLLENTRY_DEF * D_GETACQUIRESTRIPBUFFERFUNC)                     (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETACQUIRESTRIPDATAFUNC)                  (DTWAIN_SOURCE, LPLONG, LPDWORD, LPDWORD, LPDWORD, LPDWORD, LPDWORD, LPDWORD);
@@ -412,6 +413,7 @@ typedef LONG (DLLENTRY_DEF * D_GETACTIVEDSMVERSIONINFOFUNC)                     
 typedef LONG (DLLENTRY_DEF * D_GETACTIVEDSMVERSIONINFOAFUNC)                    (LPSTR, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETACTIVEDSMVERSIONINFOWFUNC)                    (LPWSTR, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETALARMVOLUMEFUNC)                       (DTWAIN_SOURCE, LPLONG);
+typedef DTWAIN_ARRAY (DLLENTRY_DEF * D_GETALLSOURCEDIBSFUNC)                    (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETAPPINFOFUNC)                           (LPTSTR, LPTSTR, LPTSTR, LPTSTR);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETAPPINFOAFUNC)                          (LPSTR, LPSTR, LPSTR, LPSTR);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETAPPINFOWFUNC)                          (LPWSTR, LPWSTR, LPWSTR, LPWSTR);
@@ -432,6 +434,7 @@ typedef DTWAIN_CALLBACK_PROC64 (DLLENTRY_DEF * D_GETCALLBACK64FUNC)             
 typedef LONG (DLLENTRY_DEF * D_GETCAPARRAYTYPEFUNC)                             (DTWAIN_SOURCE, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETCAPCONTAINERFUNC)                             (DTWAIN_SOURCE, LONG, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETCAPCONTAINEREXFUNC)                           (LONG, DTWAIN_BOOL, LPDTWAIN_ARRAY);
+typedef DTWAIN_ARRAY (DLLENTRY_DEF * D_GETCAPCONTAINEREX2FUNC)                  (LONG, DTWAIN_BOOL);
 typedef LONG (DLLENTRY_DEF * D_GETCAPDATATYPEFUNC)                              (DTWAIN_SOURCE, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETCAPFROMNAMEFUNC)                              (LPCTSTR);
 typedef LONG (DLLENTRY_DEF * D_GETCAPFROMNAMEAFUNC)                             (LPCSTR);
@@ -488,6 +491,7 @@ typedef LONG (DLLENTRY_DEF * D_GETEXTCAPFROMNAMEAFUNC)                          
 typedef LONG (DLLENTRY_DEF * D_GETEXTCAPFROMNAMEWFUNC)                          (LPCWSTR);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETEXTIMAGEINFOFUNC)                      (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETEXTIMAGEINFODATAFUNC)                  (DTWAIN_SOURCE, LONG, LPDTWAIN_ARRAY);
+typedef DTWAIN_ARRAY (DLLENTRY_DEF * D_GETEXTIMAGEINFODATAEXFUNC)               (DTWAIN_SOURCE, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETEXTIMAGEINFOITEMFUNC)                  (DTWAIN_SOURCE, LONG, LPLONG, LPLONG, LPLONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETEXTIMAGEINFOITEMEXFUNC)                (DTWAIN_SOURCE, LONG, LPLONG, LPLONG, LPLONG, LPLONG);
 typedef LONG (DLLENTRY_DEF * D_GETEXTNAMEFROMCAPFUNC)                           (LONG, LPTSTR, LONG);
@@ -496,7 +500,9 @@ typedef LONG (DLLENTRY_DEF * D_GETEXTNAMEFROMCAPWFUNC)                          
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETFEEDERALIGNMENTFUNC)                   (DTWAIN_SOURCE, LPLONG);
 typedef LONG (DLLENTRY_DEF * D_GETFEEDERFUNCSFUNC)                              (DTWAIN_SOURCE);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETFEEDERORDERFUNC)                       (DTWAIN_SOURCE, LPLONG);
+typedef LONG (DLLENTRY_DEF * D_GETFEEDERWAITTIMEFUNC)                           (DTWAIN_SOURCE);
 typedef LONG (DLLENTRY_DEF * D_GETFILECOMPRESSIONTYPEFUNC)                      (DTWAIN_SOURCE);
+typedef LONG (DLLENTRY_DEF * D_GETFILESAVEPAGECOUNTFUNC)                        (DTWAIN_SOURCE);
 typedef LONG (DLLENTRY_DEF * D_GETFILETYPEEXTENSIONSFUNC)                       (LONG, LPTSTR, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETFILETYPEEXTENSIONSAFUNC)                      (LONG, LPSTR, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETFILETYPEEXTENSIONSWFUNC)                      (LONG, LPWSTR, LONG);
@@ -608,7 +614,6 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_GETROTATIONSTRINGWFUNC)                   
 typedef LONG (DLLENTRY_DEF * D_GETSAVEFILENAMEFUNC)                             (DTWAIN_SOURCE, LPTSTR, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETSAVEFILENAMEAFUNC)                            (DTWAIN_SOURCE, LPSTR, LONG);
 typedef LONG (DLLENTRY_DEF * D_GETSAVEFILENAMEWFUNC)                            (DTWAIN_SOURCE, LPWSTR, LONG);
-typedef LONG (DLLENTRY_DEF * D_GETSAVEDFILESCOUNTFUNC)                          (DTWAIN_SOURCE);
 typedef LONG (DLLENTRY_DEF * D_GETSESSIONDETAILSFUNC)                           (LPTSTR, LONG, LONG, BOOL);
 typedef LONG (DLLENTRY_DEF * D_GETSESSIONDETAILSAFUNC)                          (LPSTR, LONG, LONG, BOOL);
 typedef LONG (DLLENTRY_DEF * D_GETSESSIONDETAILSWFUNC)                          (LPWSTR, LONG, LONG, BOOL);
@@ -985,6 +990,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETERRORCALLBACKFUNC)                     
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETERRORCALLBACK64FUNC)                   (DTWAIN_ERROR_PROC64, DTWAIN_LONG64);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETFEEDERALIGNMENTFUNC)                   (DTWAIN_SOURCE, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETFEEDERORDERFUNC)                       (DTWAIN_SOURCE, LONG);
+typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETFEEDERWAITTIMEFUNC)                    (DTWAIN_SOURCE, LONG, LONG);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETFILEAUTOINCREMENTFUNC)                 (DTWAIN_SOURCE, LONG, DTWAIN_BOOL, DTWAIN_BOOL);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETFILECOMPRESSIONTYPEFUNC)               (DTWAIN_SOURCE, LONG, DTWAIN_BOOL);
 typedef DTWAIN_BOOL (DLLENTRY_DEF * D_SETFILESAVEPOSFUNC)                       (HWND, LPCTSTR, LONG, LONG, LONG);
@@ -1528,6 +1534,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_USEMULTIPLETHREADSFUNC)                   
     STATIC D_GETACQUIREAREA2STRINGFUNC                      DTWAIN_GetAcquireArea2String;
     STATIC D_GETACQUIREAREA2STRINGAFUNC                     DTWAIN_GetAcquireArea2StringA;
     STATIC D_GETACQUIREAREA2STRINGWFUNC                     DTWAIN_GetAcquireArea2StringW;
+    STATIC D_GETACQUIREAREAEXFUNC                           DTWAIN_GetAcquireAreaEx;
     STATIC D_GETACQUIREMETRICSFUNC                          DTWAIN_GetAcquireMetrics;
     STATIC D_GETACQUIRESTRIPBUFFERFUNC                      DTWAIN_GetAcquireStripBuffer;
     STATIC D_GETACQUIRESTRIPDATAFUNC                        DTWAIN_GetAcquireStripData;
@@ -1541,6 +1548,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_USEMULTIPLETHREADSFUNC)                   
     STATIC D_GETACTIVEDSMVERSIONINFOAFUNC                   DTWAIN_GetActiveDSMVersionInfoA;
     STATIC D_GETACTIVEDSMVERSIONINFOWFUNC                   DTWAIN_GetActiveDSMVersionInfoW;
     STATIC D_GETALARMVOLUMEFUNC                             DTWAIN_GetAlarmVolume;
+    STATIC D_GETALLSOURCEDIBSFUNC                           DTWAIN_GetAllSourceDibs;
     STATIC D_GETAPPINFOFUNC                                 DTWAIN_GetAppInfo;
     STATIC D_GETAPPINFOAFUNC                                DTWAIN_GetAppInfoA;
     STATIC D_GETAPPINFOWFUNC                                DTWAIN_GetAppInfoW;
@@ -1561,6 +1569,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_USEMULTIPLETHREADSFUNC)                   
     STATIC D_GETCAPARRAYTYPEFUNC                            DTWAIN_GetCapArrayType;
     STATIC D_GETCAPCONTAINERFUNC                            DTWAIN_GetCapContainer;
     STATIC D_GETCAPCONTAINEREXFUNC                          DTWAIN_GetCapContainerEx;
+    STATIC D_GETCAPCONTAINEREX2FUNC                         DTWAIN_GetCapContainerEx2;
     STATIC D_GETCAPDATATYPEFUNC                             DTWAIN_GetCapDataType;
     STATIC D_GETCAPFROMNAMEFUNC                             DTWAIN_GetCapFromName;
     STATIC D_GETCAPFROMNAMEAFUNC                            DTWAIN_GetCapFromNameA;
@@ -1617,6 +1626,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_USEMULTIPLETHREADSFUNC)                   
     STATIC D_GETEXTCAPFROMNAMEWFUNC                         DTWAIN_GetExtCapFromNameW;
     STATIC D_GETEXTIMAGEINFOFUNC                            DTWAIN_GetExtImageInfo;
     STATIC D_GETEXTIMAGEINFODATAFUNC                        DTWAIN_GetExtImageInfoData;
+    STATIC D_GETEXTIMAGEINFODATAEXFUNC                      DTWAIN_GetExtImageInfoDataEx;
     STATIC D_GETEXTIMAGEINFOITEMFUNC                        DTWAIN_GetExtImageInfoItem;
     STATIC D_GETEXTIMAGEINFOITEMEXFUNC                      DTWAIN_GetExtImageInfoItemEx;
     STATIC D_GETEXTNAMEFROMCAPFUNC                          DTWAIN_GetExtNameFromCap;
@@ -1625,7 +1635,9 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_USEMULTIPLETHREADSFUNC)                   
     STATIC D_GETFEEDERALIGNMENTFUNC                         DTWAIN_GetFeederAlignment;
     STATIC D_GETFEEDERFUNCSFUNC                             DTWAIN_GetFeederFuncs;
     STATIC D_GETFEEDERORDERFUNC                             DTWAIN_GetFeederOrder;
+    STATIC D_GETFEEDERWAITTIMEFUNC                          DTWAIN_GetFeederWaitTime;
     STATIC D_GETFILECOMPRESSIONTYPEFUNC                     DTWAIN_GetFileCompressionType;
+    STATIC D_GETFILESAVEPAGECOUNTFUNC                       DTWAIN_GetFileSavePageCount;
     STATIC D_GETFILETYPEEXTENSIONSFUNC                      DTWAIN_GetFileTypeExtensions;
     STATIC D_GETFILETYPEEXTENSIONSAFUNC                     DTWAIN_GetFileTypeExtensionsA;
     STATIC D_GETFILETYPEEXTENSIONSWFUNC                     DTWAIN_GetFileTypeExtensionsW;
@@ -1737,7 +1749,6 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_USEMULTIPLETHREADSFUNC)                   
     STATIC D_GETSAVEFILENAMEFUNC                            DTWAIN_GetSaveFileName;
     STATIC D_GETSAVEFILENAMEAFUNC                           DTWAIN_GetSaveFileNameA;
     STATIC D_GETSAVEFILENAMEWFUNC                           DTWAIN_GetSaveFileNameW;
-    STATIC D_GETSAVEDFILESCOUNTFUNC                         DTWAIN_GetSavedFilesCount;
     STATIC D_GETSESSIONDETAILSFUNC                          DTWAIN_GetSessionDetails;
     STATIC D_GETSESSIONDETAILSAFUNC                         DTWAIN_GetSessionDetailsA;
     STATIC D_GETSESSIONDETAILSWFUNC                         DTWAIN_GetSessionDetailsW;
@@ -2114,6 +2125,7 @@ typedef DTWAIN_BOOL (DLLENTRY_DEF * D_USEMULTIPLETHREADSFUNC)                   
     STATIC D_SETERRORCALLBACK64FUNC                         DTWAIN_SetErrorCallback64;
     STATIC D_SETFEEDERALIGNMENTFUNC                         DTWAIN_SetFeederAlignment;
     STATIC D_SETFEEDERORDERFUNC                             DTWAIN_SetFeederOrder;
+    STATIC D_SETFEEDERWAITTIMEFUNC                          DTWAIN_SetFeederWaitTime;
     STATIC D_SETFILEAUTOINCREMENTFUNC                       DTWAIN_SetFileAutoIncrement;
     STATIC D_SETFILECOMPRESSIONTYPEFUNC                     DTWAIN_SetFileCompressionType;
     STATIC D_SETFILESAVEPOSFUNC                             DTWAIN_SetFileSavePos;

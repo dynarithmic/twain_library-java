@@ -6205,3 +6205,16 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTw
     return CreateJStringFromCString(env, arg2);
     DO_DTWAIN_CATCH(env)
 }
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetSavedFilesCount
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetFileSavePageCount
+(JNIEnv* env, jobject, jlong src)
+{
+	DO_DTWAIN_TRY
+	return API_INSTANCE DTWAIN_GetFileSavePageCount(reinterpret_cast<DTWAIN_SOURCE>(src));
+	DO_DTWAIN_CATCH(env)
+}
