@@ -753,4 +753,11 @@ public class TwainSource
     {
         return this.m_OptionsApplyer;
     }
+    
+    public int getFileSavePageCount() throws DTwainJavaAPIException
+    {
+        if ( sourceHandle != 0 && twainSession != null && isOpened)
+            return twainSession.getAPIHandle().DTWAIN_GetFileSavePageCount(sourceHandle);
+        return -1;
+    }
 }
