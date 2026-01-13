@@ -513,6 +513,30 @@ public class TwainCallback
                     case INVALID_TWAINDSM2_BITMAP:
                         returner = theCallback.onInvalidTwainDSM2Bitmap(sourceHandle);
                         break;
+                    case FEEDERTIMEOUT:
+                        returner = theCallback.onFeederTimeOut(sourceHandle);
+                        break;
+                        
+                    case FEEDERNOTENABLED:
+                        returner = theCallback.onFeederNotEnabled(sourceHandle);
+                        break;
+                        
+                    case FEEDERNOTSUPPORTED:
+                        returner = theCallback.onFeederNotSupported(sourceHandle);
+                        break;
+                        
+                    case FEEDERTOFLATBED:
+                        returner = theCallback.onFeederToFlatbed(sourceHandle);
+                        break;
+                        
+                    case PREACQUIRESTART:
+                        returner = theCallback.onPreAcquireStart(sourceHandle);
+                        break;
+                        
+                    case FILECOMPRESSTYPEMISMATCH:
+                        returner = theCallback.onFileCompressTypeMismatch(sourceHandle);
+                        break;
+                        
                     default:
                         break;
                 }
@@ -961,6 +985,35 @@ public class TwainCallback
         return defaultImpl(sourceHandle);
     }
     
+    public int onFeederTimeOut(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onFeederNotEnabled(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+
+    public int onFeederNotSupported(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onFeederToFlatbed(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onPreAcquireStart(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onFileCompressTypeMismatch(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
     
     public int catchUnknown(int event, TwainSource sourceHandle)
     {

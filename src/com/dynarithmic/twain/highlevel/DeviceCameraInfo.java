@@ -116,7 +116,7 @@ public class DeviceCameraInfo
         return checkCameraInList(allCameras, name);
     }
 
-    boolean setCamera(String name)
+    boolean setCamera(String name) throws DTwainJavaAPIException
     {
         boolean ok = false;
         if ( m_Source != null)

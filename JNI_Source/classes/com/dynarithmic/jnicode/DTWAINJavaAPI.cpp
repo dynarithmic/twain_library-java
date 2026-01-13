@@ -2495,6 +2495,20 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAS
     DO_DTWAIN_CATCH(env)
 }
 
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetPDFAESEncryption
+ * Signature: (JIZ)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAESEncryption
+(JNIEnv* env, jobject, jlong arg1, jint arg2, jboolean arg3)
+{
+    DO_DTWAIN_TRY
+    return API_INSTANCE DTWAIN_SetPDFAESEncryption(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, static_cast<LONG>(arg3));
+    DO_DTWAIN_CATCH(env)
+}
+
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_SetPostScriptType
@@ -2521,6 +2535,19 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFJp
     DO_DTWAIN_CATCH(env)
 }
 
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJpegQuality
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJpegQuality
+(JNIEnv* env, jobject, jlong arg1, jint arg2)
+{
+    DO_DTWAIN_TRY
+    API_INSTANCE DTWAIN_SetJpegValues(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, 0);
+    return API_INSTANCE DTWAIN_SetJpegXRValues(reinterpret_cast<DTWAIN_SOURCE>(arg1), arg2, 0);
+    DO_DTWAIN_CATCH(env)
+}
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
@@ -3584,7 +3611,7 @@ static int GenericCapSetter(JNIEnv * env, jlong source, jint cap, jint setType, 
             auto vect = aHandler.JavaToNative(values);
             API_INSTANCE DTWAIN_ArrayResize(aTmp, static_cast<LONG>(vect.size()));
             for (size_t i = 0; i < vect.size(); ++i)
-                API_INSTANCE DTWAIN_ArrayFrameSetAt(aTmp, static_cast<LONG>(i), vect[i].left, vect[i].top, vect[i].right, vect[i].bottom);
+                API_INSTANCE DTWAIN_ArraySetAtFrame(aTmp, static_cast<LONG>(i), vect[i].left, vect[i].top, vect[i].right, vect[i].bottom);
             return API_INSTANCE DTWAIN_SetCapValuesEx2(DTWAIN_SOURCE(source), cap, setType, containerType, dataType, aTmp);
         }
     }
@@ -3684,7 +3711,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetC
             auto sz = API_INSTANCE DTWAIN_ArrayGetCount(aTmp);
             std::vector<FrameStruct> allValues(sz);
             for (LONG i = 0; i < sz; ++i)
-                API_INSTANCE DTWAIN_ArrayFrameGetAt(aTmp, i, &allValues[i].left, &allValues[i].top, &allValues[i].right, &allValues[i].bottom );
+                API_INSTANCE DTWAIN_ArrayGetAtFrame(aTmp, i, &allValues[i].left, &allValues[i].top, &allValues[i].right, &allValues[i].bottom );
             JavaArrayListHandler<ArrayFrameList> aHandler(env);
             aHandler.NativeToJava(retList, allValues);
             return JNI_TRUE;
@@ -6177,4 +6204,17 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetTw
     API_INSTANCE DTWAIN_GetTwainNameFromConstant(constantType, constantValue, arg2, 1023);
     return CreateJStringFromCString(env, arg2);
     DO_DTWAIN_CATCH(env)
+}
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetSavedFilesCount
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetFileSavePageCount
+(JNIEnv* env, jobject, jlong src)
+{
+	DO_DTWAIN_TRY
+	return API_INSTANCE DTWAIN_GetFileSavePageCount(reinterpret_cast<DTWAIN_SOURCE>(src));
+	DO_DTWAIN_CATCH(env)
 }

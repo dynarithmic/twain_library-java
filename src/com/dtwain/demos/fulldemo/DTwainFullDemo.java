@@ -178,6 +178,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         AcquireFile = new javax.swing.JMenu();
         AcquireFileBMP = new javax.swing.JMenuItem();
         AcquireFileJPEG = new javax.swing.JMenuItem();
+        AcquireFileJPEGXR = new javax.swing.JMenuItem();
         AcquireFileJP2 = new javax.swing.JMenuItem();
         AcquireFileGIF = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -227,7 +228,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         LogCalls = new javax.swing.JCheckBoxMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("DTWAIN Java Demo Program");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -243,6 +244,20 @@ public class DTwainFullDemo extends javax.swing.JFrame {
             }
         });
 
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                try
+                {
+                    ShutdownTwain(evt);
+                    dispose();
+                }
+                catch (DTwainJavaAPIException | InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
         jMenu1.setText("Source Selection Test");
 
         SelectSource.setText("Select Source...");
@@ -444,6 +459,14 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         });
         AcquireFile.add(AcquireFileJP2);
 
+        AcquireFileJPEGXR.setText("JPEG-XR");
+        AcquireFileJPEGXR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AcquireFileJPEGXRActionPerformed(evt);
+            }
+        });
+        AcquireFile.add(AcquireFileJPEGXR);
+        
         AcquireFileGIF.setText("GIF");
         AcquireFileGIF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1209,7 +1232,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
                 if ( info.getReturnCode() == ErrorCode.ERROR_NONE)
                     JOptionPane.showMessageDialog(null, "Image " + file + " has been created.");
                 else
-                    JOptionPane.showMessageDialog(null, "Image " + file + " was not screated.");
+                    JOptionPane.showMessageDialog(null, "Image " + file + " was not created.");
             }
             catch (DTwainJavaAPIException e)
             {
@@ -1234,6 +1257,10 @@ public class DTwainFullDemo extends javax.swing.JFrame {
                 AcquireFileHelper(DTwainConstants.FileType.JPEG);
     }//GEN-LAST:event_AcquireFileJPEGActionPerformed
 
+    private void AcquireFileJPEGXRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcquireFileJPEGActionPerformed
+        AcquireFileHelper(DTwainConstants.FileType.JPEGXR);
+    }//GEN-LAST:event_AcquireFileJPEGActionPerformed
+    
     private void AcquireFileGIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcquireFileGIFActionPerformed
                 AcquireFileHelper(DTwainConstants.FileType.GIF);
     }//GEN-LAST:event_AcquireFileGIFActionPerformed
@@ -1450,9 +1477,13 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         {
             DTwainSelectSourceCustomDialog dlg = new DTwainSelectSourceCustomDialog(this, true, mainTwainSession);
             dlg.setVisible(true);
-            long localTwainSource = dlg.getSelectedSource();
-            if ( localTwainSource != 0 )
-                setupNewSource(localTwainSource);
+            TwainSource selectedSource =  dlg.getSelectedSource();
+            if ( selectedSource != null )
+            {
+                CloseCurrentSource();
+                this.m_SourceWrapper = selectedSource;
+                setupNewSource(selectedSource.getSourceHandle());
+            }
         }
     }//GEN-LAST:event_SelectSourceCustomActionPerformed
 
@@ -1560,6 +1591,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
     private javax.swing.JMenuItem AcquireFileICOLARGE;
     private javax.swing.JMenuItem AcquireFileJP2;
     private javax.swing.JMenuItem AcquireFileJPEG;
+    private javax.swing.JMenuItem AcquireFileJPEGXR;
     private javax.swing.JMenuItem AcquireFilePCX;
     private javax.swing.JMenuItem AcquireFilePDF;
     private javax.swing.JMenuItem AcquireFilePNG;

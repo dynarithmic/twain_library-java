@@ -245,6 +245,7 @@ public class FileTransferOptions
             alldevicesupport_set.add(DTwainConstants.FileType.TEXTMULTI);
             alldevicesupport_set.add(DTwainConstants.FileType.BMP_RLE);
             alldevicesupport_set.add(DTwainConstants.FileType.TGA_RLE);
+            alldevicesupport_set.add(DTwainConstants.FileType.JPEGXR);
 
             sourcedevicesupport_set.add(DTwainConstants.FileType.BMP_SOURCE_MODE);
             sourcedevicesupport_set.add(DTwainConstants.FileType.TIFF_SOURCE_MODE);
@@ -297,6 +298,7 @@ public class FileTransferOptions
     private DTwainConstants.FileType fileType = DTwainConstants.FileType.BMP;
     private boolean multiPage = false;
     private boolean autocreateDirectory = false;
+    private int jpegQuality = 75;
     private FilenameIncrementOptions nameIncrementOptions = new FilenameIncrementOptions();
     private MultipageSaveOptions multipageSaveOptions = new MultipageSaveOptions();
     private FileTransferFlags fileTransferFlags = new FileTransferFlags();
@@ -355,6 +357,17 @@ public class FileTransferOptions
         return this.fileName;
     }
 
+    public int getJPEGQuality()
+    {
+        return this.jpegQuality;
+    }
+    
+    public FileTransferOptions setJPEGQuality(int quality)
+    {
+        this.jpegQuality = Math.max(1, Math.min(quality, 100));
+        return this;
+    }
+    
     public boolean canMultiPage()
     {
         return multiPage &&

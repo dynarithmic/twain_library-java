@@ -326,8 +326,11 @@ public class TwainSource
 
         // Set the multisave option
         MultipageSaveOptions multisave_info = ac.getFileTransferOptions().getMultipageSaveOptions();
-        handle.DTWAIN_SetMultipageScanMode(sourceHandle, multisave_info.getSaveMode().ordinal());
+        handle.DTWAIN_SetMultipageScanMode(sourceHandle, multisave_info.getSaveMode().value());
 
+        // Set the JPEG quality options
+        handle.DTWAIN_SetJpegQuality(sourceHandle, ac.getFileTransferOptions().getJPEGQuality());
+        
         // general options
         GeneralOptions gopts = ac.getGeneralOptions();
         handle.DTWAIN_SetMaxAcquisitions(sourceHandle, gopts.getMaxAcquisitions());
@@ -346,7 +349,7 @@ public class TwainSource
         handle.DTWAIN_SetPDFSubject(sourceHandle, po.getSubject());
         handle.DTWAIN_SetPDFKeywords(sourceHandle, po.getKeywords());
         handle.DTWAIN_SetPDFASCIICompression(sourceHandle, po.isASCII85Enabled());
-        handle.DTWAIN_SetPDFOrientation(sourceHandle, po.getPDFOrientation().getOrientation().ordinal());
+        handle.DTWAIN_SetPDFOrientation(sourceHandle, po.getPDFOrientation().getOrientation().value());
 
         PDFPaperSizeOptions pagesizeopts = po.getPaperSizeOptions();
         boolean custom_used = pagesizeopts.isCustomSizeEnabled();
@@ -359,7 +362,7 @@ public class TwainSource
         }
 
         handle.DTWAIN_SetPDFPageSize(sourceHandle,
-                                     po.getPaperSizeOptions().getPaperSize().ordinal(),
+                                     po.getPaperSizeOptions().getPaperSize().value(),
                                      (double)width, (double)height);
 
         PDFPageScaleOptions pageScale = po.getPDFPageScaleOptions();
@@ -371,7 +374,7 @@ public class TwainSource
             xscale = pageScale.getCustomScaleX();
             yscale = pageScale.getCustomScaleY();
         }
-        handle.DTWAIN_SetPDFPageScale(sourceHandle, pageScale.getScaling().ordinal(), xscale, yscale);
+        handle.DTWAIN_SetPDFPageScale(sourceHandle, pageScale.getScaling().value(), xscale, yscale);
 
         // Encryption
         PDFEncryption encrypt_opts = po.getPDFEncryption();
@@ -382,7 +385,17 @@ public class TwainSource
                     encrypt_opts.getOwnerPassword(),
                     encrypt_opts.getPermissionsAsInteger(),
                     encrypt_opts.isStrongEncryptionEnabled());
+            handle.DTWAIN_SetPDFAESEncryption(sourceHandle, 1, encrypt_opts.isAESEncryptionEnabled());
+            handle.DTWAIN_SetPDFAESEncryption(sourceHandle, 2, encrypt_opts.isAES256EncryptionEnabled());
         }
+        else
+        {
+            // Turn off encryption
+            handle.DTWAIN_SetPDFEncryption(sourceHandle, false,"","",0,false);
+        }
+        
+        // JPEG quality for PDF files
+        handle.DTWAIN_SetPDFJpegQuality(sourceHandle,  po.getJPEGQuality());
     }
 
     private boolean waitForFeeder(PaperHandlingInfo paperInfo) throws DTwainJavaAPIException
@@ -437,6 +450,7 @@ public class TwainSource
         PaperHandlingInfo paperInfo = new PaperHandlingInfo();
         paperInfo.getInfo(this);
         boolean isFeederOnly = paperInfo.isFeederOnly();
+        handle.DTWAIN_EnableFeeder(sourceHandle, true);
         if ( !isFeederOnly && !this.acquireCharacteristics.getPaperHandlingOptions().isFeederEnabled())
             handle.DTWAIN_EnableFeeder(sourceHandle, false);
         else
@@ -450,10 +464,11 @@ public class TwainSource
             if ( use_wait || use_feeder_or_flatbed )
             {
                 bFstatus = waitForFeeder(paperInfo);
-                if ( !bFstatus )
+                if ( !bFstatus && !use_feeder_or_flatbed)
                     return new AcquireReturnInfo(ErrorCode.ERROR_NONE, null);
             }
-            handle.DTWAIN_EnableFeeder(sourceHandle, false);
+            if (!bFstatus && use_feeder_or_flatbed)
+                handle.DTWAIN_EnableFeeder(sourceHandle, false);
             bFstatus = true;
         }
 
@@ -727,7 +742,7 @@ public class TwainSource
         throw new DTwainJavaAPIException("Invalid source or TWAIN session handle");
     }
     
-    public ExtendedImageInfo getExtendedImageInfo()
+    public ExtendedImageInfo getExtendedImageInfo() throws DTwainJavaAPIException
     {
         if ( sourceHandle != 0 && twainSession != null && isOpened)
             return twainSession.getAPIHandle().DTWAIN_GetExtendedImageInfo(sourceHandle);
@@ -737,5 +752,12 @@ public class TwainSource
     public OptionsApplyer getOptionsApplyer()
     {
         return this.m_OptionsApplyer;
+    }
+    
+    public int getFileSavePageCount() throws DTwainJavaAPIException
+    {
+        if ( sourceHandle != 0 && twainSession != null && isOpened)
+            return twainSession.getAPIHandle().DTWAIN_GetFileSavePageCount(sourceHandle);
+        return -1;
     }
 }

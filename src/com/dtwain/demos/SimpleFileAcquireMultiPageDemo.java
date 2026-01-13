@@ -56,6 +56,9 @@ public class SimpleFileAcquireMultiPageDemo
             // Start the acquisition
             AcquireReturnInfo retInfo = ts.acquire();
 
+            // Report the total number of pages that were saved
+            System.out.println("The number of pages saved is " + ts.getFileSavePageCount());
+
             // Note that the return code only indicates whether the acquisition processing
             // was started successfully.
             //
