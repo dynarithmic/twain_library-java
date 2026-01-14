@@ -265,16 +265,15 @@ The JNI layer (i.e. the **dtwainjnixx.dll** files) is built using **Microsoft Vi
 
 If you want to build the JNI layer yourself, make sure your C++ compiler setup is able to access the various header files provided by JNI, such as **jni.h**.  
 
-In addition, the following environment variables must be set before building the JNI DLLs:
+In addition, the following environment variable must be set before building the JNI DLLs:
 
-1) **JDK_INCLUDE_DIR**, which points to the location of the **jni.h** file that comes with the JDK.
-2) **DTWAIN_INCLUDE_DIR**, which points to the directory where the base DTWAIN library header files are located.  This is usually where your installation of DTWAIN has placed the <a href="https://github.com/dynarithmic/twain_library/tree/master/c_cpp_includes" target="_blank">c_cpp_include</a> directory.
+- **JDK_INCLUDE_DIR**, which points to the location of the **jni.h** file that comes with the Java JDK.
+
 
 
 So for example:  
 ```batch
 SET JDK_INCLUDE_DIR=c:\java\jdk1.8\include
-SET DTWAIN_INCLUDE_DIR=c:\dtwain\c_cpp_includes
 ```
 should be issued on the command-line before starting Visual Studio and building your project.
 
