@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.FileType;
+import com.dynarithmic.twain.DTwainConstants.PDFFileOptions.Scaling;
+import com.dynarithmic.twain.DTwainConstants.PaperSize;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
@@ -31,7 +33,7 @@ import com.dynarithmic.twain.highlevel.acquirecharacteristics.PDFOptions;
 public class PDFDemo
 {
     // Change this to the output directory that fits your environment
-    static public String outDir = "";
+    static public String outDir = "c:\\saved_images\\";
 
     // Acquire to a PDF file, with encryption settings turned on
     public void run() throws Exception
@@ -46,6 +48,7 @@ public class PDFDemo
         TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
+           
             // Set the file acquire options to a single page PDF.
             ts.getAcquireCharacteristics().
                getFileTransferOptions().
@@ -55,9 +58,12 @@ public class PDFDemo
             // Get the PDF options for this device
             PDFOptions pdfOptions = ts.getAcquireCharacteristics().getPDFOptions();
             // Set the encryption to have a password of "secret".
-            pdfOptions.getPDFEncryption().enable(true).setUserPassword("secret");
+            pdfOptions.getPDFEncryption().enable(true).setUserPassword("secret").enableAESEncryption(false).enableAES256Encryption(false);
             // Set the author, subject, and title
             pdfOptions.setAuthor("My Java App").setSubject("Testing").setTitle("Java Demo of DTWAIN");
+            
+            pdfOptions.getPaperSizeOptions().setPaperSize(PaperSize.A4);
+            pdfOptions.getPDFPageScaleOptions().setScaling(Scaling.FITPAGE);
 
             // Start the acquisition
             AcquireReturnInfo retInfo = ts.acquire();

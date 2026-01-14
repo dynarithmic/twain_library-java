@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -1406,7 +1406,27 @@ public class DTwainConstants
             return map.get(i);
         }
     }
+    public enum TextTransformOptions implements OrdinalEnum
+    {
+        SCALE_ROTATE_SKEW (0),
+        SCALE_SKEW_ROTATE (1),
+        SKEW_SCALE_ROTATE (2),
+        SKEW_ROTATE_SCALE (3),
+        ROTATE_SCALE_SKEW (4),
+        ROTATE_SKEW_SCALE (5);
 
+        private final int enumValue;
+        TextTransformOptions(int i)
+        {
+            enumValue = i;
+        }
+        public int value() { return enumValue; }
+        private static final Map<Integer, TextTransformOptions> map = OrdinalEnum.getValues(TextTransformOptions.class);
+        public static TextTransformOptions from(int i)
+        {
+            return map.get(i);
+        }
+    }
     public enum MultipageSaveMode implements OrdinalEnum
     {
         DEFAULT(0),

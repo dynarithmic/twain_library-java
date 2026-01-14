@@ -1,4 +1,4 @@
-/*
+/*  
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
     Copyright (c) 2002-2026 Dynarithmic Software.
 
@@ -22,61 +22,48 @@
 package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
 import com.dynarithmic.twain.highlevel.TwainSource.AcquireReturnInfo;
+import com.dynarithmic.twain.highlevel.capabilityinterface.CapabilityInterface;
 
-public class SimpleFileAcquireTIFFLZWDemo
+public class ShowUIOnlyDemo
 {
-    // Change this to the output directory that fits your environment
-    static public String outDir = "c:\\dtwain_javatest\\";
-     
     public void run() throws Exception
     {
         // Allows runtime choice of choosing which JNI DLL is loaded.
         ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
-        
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
-
-        // Select a TWAIN Source using the Select Source dialog
+        // Select a TWAIN Source using the enhanced Select Source dialog 
         TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
-            // Set the file acquire options. By default, the file will be in TIFF-LZW format
-            ts.getAcquireCharacteristics().
-               getFileTransferOptions().
-               setType(FileType.TIFFLZW).
-               setName(outDir + "testTIF.tif");
-
-            // Start the acquisition
-            AcquireReturnInfo retInfo = ts.acquire();
-            if ( retInfo.getReturnCode() == ErrorCode.ERROR_NONE )
-                System.out.println("Acquisition Successful");
+            // Test for the ShowUIOnly mode by querying the capabilities
+            CapabilityInterface ci = ts.getCapabilityInterface();
+            if ( !ci.isEnableDSUIOnlySupported() )
+                System.out.println("The source " + ts.getInfo().getProductName() + " does not support UI-Only mode");
             else
-                System.out.println("Acquisition Failed with error: " + retInfo.getReturnCode());
+            {
+                // Turn on UI-only mode
+                ts.getAcquireCharacteristics().getUserInterfaceOptions().showUIOnly(true);
+                
+                // Start the process of showing the UI
+                AcquireReturnInfo retInfo = ts.acquire();
+                
+                if ( retInfo.getReturnCode() == ErrorCode.ERROR_NONE )
+                    System.out.println("Acquisition process started and ended successfully");
+                else
+                    System.out.println("Acquisition process failed with error: " + retInfo.getReturnCode());
+            }
         }
-        else
-        {
-            // See why no acquisition was done
-            ErrorCode err = ts.getLastError();
-
-            // The user didn't make a selection
-            if (err == ErrorCode.ERROR_SOURCESELECTION_CANCELED)
-                System.out.println("User closed the TWAIN dialog without selecting a data source");
-            else
-            // User selected, but something went wrong in opening the data source
-                System.out.println("Source selection failed with error: " + err);
-        }
-
         // Close down the TWAIN Session
         twainSession.stop();
     }
 
     public static void main(String [] args)
     {
-        SimpleFileAcquireTIFFLZWDemo s = new SimpleFileAcquireTIFFLZWDemo();
+        ShowUIOnlyDemo s = new ShowUIOnlyDemo();
         try
         {
             s.run();
@@ -85,5 +72,4 @@ public class SimpleFileAcquireTIFFLZWDemo
             e.printStackTrace();
         }
     }
-
 }

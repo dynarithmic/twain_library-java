@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -31,15 +31,12 @@ public class SimpleFileAcquireBMPDemo
     // Change this to the output directory that fits your environment
     String outputDirectory = "";
 
-     
     public void run() throws Exception
     {
         // Allows runtime choice of choosing which JNI DLL is loaded.
         ConsoleJNISelector.setJNIVersion(getClass().getSimpleName());
-        
         // Start a TWAIN session
         TwainSession twainSession = new TwainSession();
-
         // Select a TWAIN Source using the enhanced Select Source dialog 
         TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
@@ -48,7 +45,7 @@ public class SimpleFileAcquireBMPDemo
             ts.getAcquireCharacteristics().
                getFileTransferOptions().
                setName(outputDirectory + "test_" + getClass().getName() + ".bmp");
-
+            
             // Start the acquisition
             AcquireReturnInfo retInfo = ts.acquire();
 

@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public class PDFAddTextToPageDemo
                         setYPosition(100).
                         setFontSize(14).
                         setScaling(100).
-                        setRGBColor(new RGBColor(255,0,0)).setPageDisplayOptions(TextPageDisplayOptions.CURRENTPAGE);
+                        setRGBColor(new RGBColor(255,0,0)).setRotationAngle(45.0);
         }
 
         @Override
@@ -63,6 +63,10 @@ public class PDFAddTextToPageDemo
             // Write the PDF info
             try
             {
+                // If you have more than one textElement, your application 
+                // may want to save all of the textElements in a List or similar
+                // container, and iterate through the list, calling
+                // writePDFTextElement() for each of the text elements in the list.
                 sourceHandle.writePDFTextElement(textElement);
             }
             catch (DTwainJavaAPIException e)
