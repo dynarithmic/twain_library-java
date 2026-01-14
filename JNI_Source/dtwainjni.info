@@ -148,7 +148,7 @@ GetRows                                 getRowsInBuffer                    ()I
 GetXOff                                 getxOffsetInImage                  ()I
 GetYOff                                 getyOffsetInImage                  ()I
 GetBytesWritten                         getBytesWritten                    ()I
-GetBytesPerRow                          getBytesPerRow                     ()I	
+GetBytesPerRow                          getBytesPerRow                     ()I
 GetPreferredSize                        getPreferredSize                   ()I
 IsAppAllocatesBuffer                    isAppAllocatesBuffer               ()Z
 SetBufferHandle                         setBufferHandle                    (J)V
@@ -163,11 +163,11 @@ SetYOff                                 setyOffsetInImage                  (I)V
 SetBytesWritten                         setBytesWritten                    (I)V
 SetBytesPerRow                          setBytesPerRow                     (I)V
 
-BufferedTileInfo                        com/dynarithmic/twain/highlevel/BufferedTileInfo           3 
+BufferedTileInfo                        com/dynarithmic/twain/highlevel/BufferedTileInfo           3
 DefaultConstructor                      <>                                 ()V
 SetInfo                                 setInfo                            (Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;)V
-SetTileData                             setTileData                        ([B)V 
-  
+SetTileData                             setTileData                        ([B)V
+
 DTwainVersionInfo                       com/dynarithmic/twain/DTwainVersionInfo                     10
 DefaultConstructor                      <>                                 ()V
 Constructor                             <>                                 (IIIILjava/lang/String;)V
@@ -176,7 +176,7 @@ SetMinorVersion                         setMinorVersion                    (I)V
 SetExePath                              setExecutionPath                   (Ljava/lang/String;)V
 SetLongName                             setLongVersionName                 (Ljava/lang/String;)V
 SetShortName                            setShortVersionName                (Ljava/lang/String;)V
-SetVersionCopyright                     setVersionCopyright                (Ljava/lang/String;)V   
+SetVersionCopyright                     setVersionCopyright                (Ljava/lang/String;)V
 SetPatchVersion                         setPatchVersion                    (I)V
 SetVersionType                          setVersionType                     (I)V
 
@@ -242,8 +242,8 @@ TW_MEMREF                               com/dynarithmic/twain/lowlevel/TW_MEMREF
 DefaultConstructor                      <>                                 ()V
 GetHandle                               getHandle                          ()J
 GetValue                                getValue                           ()J
-SetHandle                               setHandle                          (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF; 
-SetValue                                setValue                           (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF; 
+SetHandle                               setHandle                          (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;
+SetValue                                setValue                           (J)Lcom/dynarithmic/twain/lowlevel/TW_MEMREF;
 
 TW_FILTER                               com/dynarithmic/twain/lowlevel/TW_FILTER                    11
 DefaultConstructor                      <>                                 ()V
@@ -727,20 +727,26 @@ GetR                                    getR                               ()I
 GetG                                    getG                               ()I
 GetB                                    getB                               ()I
 
-PDFTextElement				com/dynarithmic/twain/highlevel/PDFTextElement		    13
+PDFTextElement				com/dynarithmic/twain/highlevel/PDFTextElement		    18
 DefaultConstructor                      <>                                 ()V
 GetFontName                             getFontName                        ()Ljava/lang/String;
 GetText                                 getText                            ()Ljava/lang/String;
-GetXPos                                 getXPosition                       ()I 
-GetYPos                                 getYPosition                       ()I 
-GetFontSize                             getFontSize                        ()D 
-GetScaling                              getScaling                         ()D 
-GetCharSpacing                          getCharSpacing                     ()D 
-GetWordSpacing                          getWordSpacing                     ()D 
-GetStrokeWidth                          getStrokeWidth                     ()I 
+GetXPos                                 getXPosition                       ()I
+GetYPos                                 getYPosition                       ()I
+GetFontSize                             getFontSize                        ()D
+GetScaling                              getScaling                         ()D
+GetCharSpacing                          getCharSpacing                     ()D
+GetWordSpacing                          getWordSpacing                     ()D
+GetStrokeWidth                          getStrokeWidth                     ()D
 GetRGBColor                             getRGBColor                        ()Lcom/dynarithmic/twain/highlevel/RGBColor;
 GetRenderMode                           getRenderModeAsInt                 ()I
-GetDisplayOptions                       getPageDisplayOptionsAsInt         ()I
+GetRotationAngle                        getRotationAngle                   ()D
+GetSkewAngleX                           getSkewAngleX                      ()D
+GetSkewAngleY                           getSkewAngleY                      ()D
+GetScalingX                             getScalingX                        ()D
+GetScalingY                             getScalingY                        ()D
+GetTextTransform                        getTextTransformAsInt              ()I
+
 ;
 ; ==================================================
 ; ExtendedImageInfo handling signatures
@@ -876,7 +882,7 @@ SetIAFieldD                            setIAFieldValueD                    (Ljav
 SetIAFieldE                            setIAFieldValueE                    (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
 SetIALevel                             setIALevel                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
 SetPrinter                             setPrinter                          (I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-AddBarcodeText                         addBarcodeText                      (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;  
+AddBarcodeText                         addBarcodeText                      (Ljava/lang/String;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
 
 ExtendedImageInfo_ImageSegmentationInfo com/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo  4
 Constructor                             <>                                 (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;)V
@@ -898,12 +904,12 @@ SetFormsRecognitionInfo                setFormsRecognitionInfo             (Lcom
 SetPageSourceInfo                      setPageSourceInfo                   (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$PageSourceInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
 SetImageSegmentationInfo               setImageSegmentationInfo            (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ImageSegmentationInfo;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
 SetExtendedImageInfo20                 setExtendedImageInfo20              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo20;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
-SetExtendedImageInfo21                 setExtendedImageInfo21              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+SetExtendedImageInfo21                 setExtendedImageInfo21              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo21;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
 SetExtendedImageInfo22                 setExtendedImageInfo22              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo22;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
-SetExtendedImageInfo23                 setExtendedImageInfo23              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
-SetExtendedImageInfo24                 setExtendedImageInfo24              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
-SetExtendedImageInfo25                 setExtendedImageInfo25              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
-SetSupportedExtendedImageInfo          setSupportedExtendedImageInfo       ([I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo; 
+SetExtendedImageInfo23                 setExtendedImageInfo23              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetExtendedImageInfo24                 setExtendedImageInfo24              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetExtendedImageInfo25                 setExtendedImageInfo25              (Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
+SetSupportedExtendedImageInfo          setSupportedExtendedImageInfo       ([I)Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo;
 GetBarcodeInfo                         getBarcodeInfo                      ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$BarcodeInfo;
 GetShadedAreaDetectionInfo             getShadedAreaDetectionInfo          ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ShadedAreaDetectionInfo;
 GetSpeckleRemovalInfo                  getSpeckleRemovalInfo               ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$SpeckleRemovalInfo;
@@ -921,4 +927,4 @@ GetExtendedImageInfo22                 getExtendedImageInfo22              ()Lco
 GetExtendedImageInfo23                 getExtendedImageInfo23              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
 GetExtendedImageInfo24                 getExtendedImageInfo24              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
 GetExtendedImageInfo25                 getExtendedImageInfo25              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-%699200873
+%4193682246
