@@ -888,7 +888,10 @@ public class DTwainConstants
         USEEXCLUDENAMES (128),
         USENAMEMAPPING (256),
         USEDEFAULTTITLE (512),
-        TOPMOSTWINDOW (1024);
+        TOPMOSTWINDOW (1024),
+        HIGHLIGHTFIRST (8192),
+        SAVELASTSCREENPOS (16384),
+        CENTER_CURRENT_MONITOR (32768);
 
         private final int enumValue;
         TwainDialogOptions(int i)

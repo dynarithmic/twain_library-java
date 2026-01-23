@@ -1043,7 +1043,8 @@ public class DTwainFullDemo extends javax.swing.JFrame {
         {
             try
             {
-                m_SourceWrapper = mainTwainSession.selectSource(new TwainSourceDialog().enableEnhancedDialog(true).center(true).sortNames(true).topmostWindow(true));
+                m_SourceWrapper = mainTwainSession.selectSource(new TwainSourceDialog().enableEnhancedDialog(true).center(true).
+                        centerCurrentMonitor(true).sortNames(true).topmostWindow(true));
                 setupNewSource(m_SourceWrapper.getSourceHandle());
             }
             catch (Exception e)

@@ -34,6 +34,7 @@ public class EnhancedSourceSelector
         return session.selectSource(
                 new TwainSourceDialog().enableEnhancedDialog(true).
                                         center(true).
+                                        centerCurrentMonitor(true).
                                         sortNames(true).
                                         topmostWindow(true).
                                         setTitle("Select Source"));                

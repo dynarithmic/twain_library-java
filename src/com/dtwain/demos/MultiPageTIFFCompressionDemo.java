@@ -79,7 +79,7 @@ public class MultiPageTIFFCompressionDemo
         // TwainCallback
 
         // Select a TWAIN Source using the Select Source dialog
-        TwainSource ts = twainSession.selectSource();
+        TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
         if ( ts.isOpened() )
         {
             twainSession.registerCallback(ts, new TIFFCallback());
