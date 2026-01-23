@@ -3330,7 +3330,13 @@ class JavaPDFTextElement : public JavaObjectCaller
     static constexpr const char *GetStrokeWidth     =  "GetStrokeWidth";
     static constexpr const char *GetRGBColor        =  "GetRGBColor";
     static constexpr const char *GetRenderMode      =  "GetRenderMode";
-    static constexpr const char *GetDisplayOptions  =  "GetDisplayOptions";
+    static constexpr const char *GetRotationAngle   =  "GetRotationAngle"; 
+    static constexpr const char *GetSkewAngleX      =  "GetSkewAngleX";    
+    static constexpr const char *GetSkewAngleY      =  "GetSkewAngleY";    
+    static constexpr const char *GetScalingX        =  "GetScalingX";      
+    static constexpr const char *GetScalingY        =  "GetScalingY";      
+    static constexpr const char *GetTextTransform   =  "GetTextTransform"; 
+
 #ifdef UNICODE
     using PDFStringType = std::wstring;
 #else
@@ -3348,8 +3354,13 @@ public:
     double getScaling();
     double getCharSpacing();
     double getWordSpacing();
-    int getStrokeWidth();
-    int getDisplayOptions();
+    double getStrokeWidth();
+	double getRotationAngle();
+	double getSkewAngleX();
+	double getSkewAngleY();
+	double getScalingX();
+	double getScalingY();
+    int    getTextTransform();
 };
 using ArrayList_TWBOOL = ArrayLowLevelTwainList<bool, JavaDTwainLowLevel_TW_BOOL>;
 using ArrayList_TWINT8 = ArrayLowLevelTwainList<TW_INT8, JavaDTwainLowLevel_TW_INT8>;

@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ public class TwainSourceDialog
     private String sourceName = "";
     private boolean bCenter = false;
     private boolean bCenterScreen = false;
+    private boolean bCenterCurrentMonitor = false;
     private boolean bSortNames = false;
     private boolean bHorizScroll = false;
     private boolean bTopmostWindow = false;
@@ -55,6 +56,7 @@ public class TwainSourceDialog
 
     public TwainSourceDialog  center(boolean bSet) { bCenter = bSet; return this; }
     public TwainSourceDialog  centerScreen(boolean bSet) { bCenterScreen = bSet; return this; }
+    public TwainSourceDialog  centerCurrentMonitor(boolean bSet) { bCenterCurrentMonitor = bSet; return this; }
     public TwainSourceDialog  sortNames(boolean bSet) { bSortNames = bSet; return this; }
     public TwainSourceDialog  topmostWindow(boolean bSet ) { bTopmostWindow = bSet; return this; }
     public TwainSourceDialog  horizontalScroll(boolean bSet) { bHorizScroll = bSet; return this; }
@@ -101,6 +103,8 @@ public class TwainSourceDialog
             value += DTwainConstants.TwainDialogOptions.CENTER.value();
         if ( bCenterScreen )
             value += DTwainConstants.TwainDialogOptions.CENTER_SCREEN.value();
+        if ( bCenterCurrentMonitor )
+            value += DTwainConstants.TwainDialogOptions.CENTER_CURRENT_MONITOR.value();
         if ( bSortNames )
             value += DTwainConstants.TwainDialogOptions.SORTNAMES.value();
         if ( bTopmostWindow )
@@ -126,6 +130,10 @@ public class TwainSourceDialog
         return bCenterScreen;
     }
 
+    public boolean isCenterCurrentMonitor()
+    {
+        return bCenterCurrentMonitor;
+    }
     public boolean isSortNames()
     {
         return bSortNames;

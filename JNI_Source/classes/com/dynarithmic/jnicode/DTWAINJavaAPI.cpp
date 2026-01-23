@@ -1324,7 +1324,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Clea
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_ClearPDFText(reinterpret_cast<DTWAIN_SOURCE>(src))?JNI_TRUE:JNI_FALSE;
+    return API_INSTANCE DTWAIN_ClearPDFTextElements(reinterpret_cast<DTWAIN_SOURCE>(src))?JNI_TRUE:JNI_FALSE;
     DO_DTWAIN_CATCH(env)
 }
 
@@ -6026,9 +6026,14 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AddPDFTe
     auto charSpacing = pdfElement.getCharSpacing();
     auto wordSpacing = pdfElement.getWordSpacing();
     auto strokeWidth = pdfElement.getStrokeWidth();
-    auto displayFlags = pdfElement.getDisplayOptions();
+    auto rotationAngle = pdfElement.getRotationAngle();
+    auto scalingX = pdfElement.getScalingX();
+	auto scalingY = pdfElement.getScalingY();
+    auto skewAngleX = pdfElement.getSkewAngleX();
+    auto skewAngleY = pdfElement.getSkewAngleY();
+    auto transformFlag = pdfElement.getTextTransform();
     auto text = pdfElement.getText();
-    API_INSTANCE DTWAIN_AddPDFText(reinterpret_cast<DTWAIN_SOURCE>(source),
+    API_INSTANCE DTWAIN_AddPDFTextEx(reinterpret_cast<DTWAIN_SOURCE>(source),
                                     text.c_str(),
                                     xpos,
                                     ypos,
@@ -6040,7 +6045,8 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AddPDFTe
                                     charSpacing,
                                     wordSpacing,
                                     strokeWidth,
-                                    displayFlags);
+                                    rotationAngle,
+                                    skewAngleX, skewAngleY, scalingX, scalingY, transformFlag);
     return JNI_TRUE;
     DO_DTWAIN_CATCH(env)
 }

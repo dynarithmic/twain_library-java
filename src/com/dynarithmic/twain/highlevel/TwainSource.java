@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -446,6 +446,20 @@ public class TwainSource
         isValidSource();
         boolean bFstatus = true;
         DTwainJavaAPI handle = twainSession.getAPIHandle();
+        
+        // UI-only mode
+        if ( this.acquireCharacteristics.getUserInterfaceOptions().isShowUIOnly())
+        {
+            CapabilityInterface ci = getCapabilityInterface();
+            boolean isSupported = ci.isEnableDSUIOnlySupported();
+            if ( !isSupported )
+            {
+                return new AcquireReturnInfo(ErrorCode.ERROR_UIONLY_NOT_SUPPORTED, null);
+            }
+            handle.DTWAIN_ShowUIOnly(getSourceHandle());
+            return new AcquireReturnInfo(ErrorCode.ERROR_NONE, null);
+        }
+        
         prepareAcquisitions();
         PaperHandlingInfo paperInfo = new PaperHandlingInfo();
         paperInfo.getInfo(this);
@@ -761,3 +775,4 @@ public class TwainSource
         return -1;
     }
 }
+
