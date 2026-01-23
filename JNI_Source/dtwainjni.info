@@ -1,5 +1,5 @@
 ;    This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-;    Copyright (c) 2002-2024 Dynarithmic Software.
+;    Copyright (c) 2002-2026 Dynarithmic Software.
 ;
 ;    Licensed under the Apache License, Version 2.0 (the "License");
 ;    you may not use this file except in compliance with the License.
@@ -927,4 +927,4 @@ GetExtendedImageInfo22                 getExtendedImageInfo22              ()Lco
 GetExtendedImageInfo23                 getExtendedImageInfo23              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
 GetExtendedImageInfo24                 getExtendedImageInfo24              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
 GetExtendedImageInfo25                 getExtendedImageInfo25              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-%4193682246
+%2412836243
