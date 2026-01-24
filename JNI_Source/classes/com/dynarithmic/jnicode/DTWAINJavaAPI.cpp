@@ -6224,3 +6224,35 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetFileS
 	return API_INSTANCE DTWAIN_GetFileSavePageCount(reinterpret_cast<DTWAIN_SOURCE>(src));
 	DO_DTWAIN_CATCH(env)
 }
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetSaveFileName
+ * Signature: (JLjava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetSaveFileName
+(JNIEnv* env, jobject, jlong source, jstring fileName)
+{
+	DO_DTWAIN_TRY
+	GetStringCharsHandler str(env, fileName);
+	int retVal = API_INSTANCE DTWAIN_SetSaveFileName(reinterpret_cast<DTWAIN_SOURCE>(source), 
+                                                     reinterpret_cast<LPCTSTR>(str.GetStringChars()));
+	return retVal ? JNI_TRUE : JNI_FALSE;
+	DO_DTWAIN_CATCH(env)
+}
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetSaveFileName
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSaveFileName
+(JNIEnv* env, jobject, jlong source)
+{
+	DO_DTWAIN_TRY
+	auto numChars = API_INSTANCE DTWAIN_GetSaveFileName(reinterpret_cast<DTWAIN_SOURCE>(source), nullptr, 1024);
+    std::vector<TCHAR> vChars(numChars + 1);
+    if ( numChars > 0 )
+		API_INSTANCE DTWAIN_GetSaveFileName(reinterpret_cast<DTWAIN_SOURCE>(source), vChars.data(), 
+                                            static_cast<LONG>(vChars.size()));
+	return CreateJStringFromCString(env, vChars.data());
+	DO_DTWAIN_CATCH(env)
+}

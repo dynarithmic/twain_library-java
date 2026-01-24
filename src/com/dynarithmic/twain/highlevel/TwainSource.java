@@ -774,5 +774,20 @@ public class TwainSource
             return twainSession.getAPIHandle().DTWAIN_GetFileSavePageCount(sourceHandle);
         return -1;
     }
+    
+    public int setSaveFileName(String filename) throws DTwainJavaAPIException
+    {
+        if ( sourceHandle != 0 && twainSession != null && isOpened)
+           return twainSession.getAPIHandle().DTWAIN_SetSaveFileName(sourceHandle, filename);
+        return -1;
+    }
+    
+    public String getSaveFileName() throws DTwainJavaAPIException
+    {
+        if ( sourceHandle != 0 && twainSession != null && isOpened)
+           return twainSession.getAPIHandle().DTWAIN_GetSaveFileName(sourceHandle);
+        return "";
+    }
+    
 }
 
