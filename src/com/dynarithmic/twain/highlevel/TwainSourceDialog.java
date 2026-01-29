@@ -134,6 +134,7 @@ public class TwainSourceDialog
     {
         return bCenterCurrentMonitor;
     }
+    
     public boolean isSortNames()
     {
         return bSortNames;

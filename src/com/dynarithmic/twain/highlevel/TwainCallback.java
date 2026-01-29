@@ -87,6 +87,8 @@ public class TwainCallback
         s_mapData.put(NotificationCode.TRANSFERTILEDONE, "onTransferTileDone()");
         s_mapData.put(NotificationCode.CLOSEDIBFAILED, "OnClosedDIBFailed()");
         s_mapData.put(NotificationCode.INVALID_TWAINDSM2_BITMAP, "OnInvalidTwainDSM2Bitmap()");
+        s_mapData.put(NotificationCode.FILENAMECHANGING, "OnFileNameChanging");
+        s_mapData.put(NotificationCode.FILENAMECHANGED, "OnFileNameChanged");
     }
 
     public TwainCallback() 
@@ -396,7 +398,7 @@ public class TwainCallback
                         break;
 
                     case FILENAMECHANGING:
-                        returner = theCallback.onFileNameChangint(sourceHandle);
+                        returner = theCallback.onFileNameChanging(sourceHandle);
                         break;
 
                     case FILENAMECHANGED:
@@ -820,7 +822,7 @@ public class TwainCallback
         return defaultImpl(sourceHandle);
     }
 
-    public int onFileNameChangint(TwainSource sourceHandle)
+    public int onFileNameChanging(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }

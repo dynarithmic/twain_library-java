@@ -466,6 +466,9 @@
     D_GETCONDITIONCODESTRINGFUNC                  DYNDTWAIN_API::DTWAIN_GetConditionCodeString = nullptr;
     D_GETCONDITIONCODESTRINGAFUNC                 DYNDTWAIN_API::DTWAIN_GetConditionCodeStringA = nullptr;
     D_GETCONDITIONCODESTRINGWFUNC                 DYNDTWAIN_API::DTWAIN_GetConditionCodeStringW = nullptr;
+    D_GETCONSTANTFROMTWAINNAMEFUNC                DYNDTWAIN_API::DTWAIN_GetConstantFromTwainName = nullptr;
+    D_GETCONSTANTFROMTWAINNAMEAFUNC               DYNDTWAIN_API::DTWAIN_GetConstantFromTwainNameA = nullptr;
+    D_GETCONSTANTFROMTWAINNAMEWFUNC               DYNDTWAIN_API::DTWAIN_GetConstantFromTwainNameW = nullptr;
     D_GETCONTRASTFUNC                             DYNDTWAIN_API::DTWAIN_GetContrast = nullptr;
     D_GETCONTRASTSTRINGFUNC                       DYNDTWAIN_API::DTWAIN_GetContrastString = nullptr;
     D_GETCONTRASTSTRINGAFUNC                      DYNDTWAIN_API::DTWAIN_GetContrastStringA = nullptr;
@@ -684,9 +687,6 @@
     D_GETTWAINCOUNTRYVALUEAFUNC                   DYNDTWAIN_API::DTWAIN_GetTwainCountryValueA = nullptr;
     D_GETTWAINCOUNTRYVALUEWFUNC                   DYNDTWAIN_API::DTWAIN_GetTwainCountryValueW = nullptr;
     D_GETTWAINHWNDFUNC                            DYNDTWAIN_API::DTWAIN_GetTwainHwnd = nullptr;
-    D_GETTWAINIDFROMNAMEFUNC                      DYNDTWAIN_API::DTWAIN_GetTwainIDFromName = nullptr;
-    D_GETTWAINIDFROMNAMEAFUNC                     DYNDTWAIN_API::DTWAIN_GetTwainIDFromNameA = nullptr;
-    D_GETTWAINIDFROMNAMEWFUNC                     DYNDTWAIN_API::DTWAIN_GetTwainIDFromNameW = nullptr;
     D_GETTWAINLANGUAGENAMEFUNC                    DYNDTWAIN_API::DTWAIN_GetTwainLanguageName = nullptr;
     D_GETTWAINLANGUAGENAMEAFUNC                   DYNDTWAIN_API::DTWAIN_GetTwainLanguageNameA = nullptr;
     D_GETTWAINLANGUAGENAMEWFUNC                   DYNDTWAIN_API::DTWAIN_GetTwainLanguageNameW = nullptr;
@@ -1660,6 +1660,9 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetConditionCodeString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetConditionCodeStringA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetConditionCodeStringW, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetConstantFromTwainName, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetConstantFromTwainNameA, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetConstantFromTwainNameW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetContrast, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetContrastString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetContrastStringA, hModule);
@@ -1878,9 +1881,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetTwainCountryValueA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainCountryValueW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainHwnd, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_GetTwainIDFromName, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_GetTwainIDFromNameA, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_GetTwainIDFromNameW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainLanguageName, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainLanguageNameA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainLanguageNameW, hModule);

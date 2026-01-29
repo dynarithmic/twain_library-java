@@ -1409,6 +1409,7 @@ public class DTwainConstants
             return map.get(i);
         }
     }
+    
     public enum TextTransformOptions implements OrdinalEnum
     {
         SCALE_ROTATE_SKEW (0),
@@ -1419,10 +1420,12 @@ public class DTwainConstants
         ROTATE_SKEW_SCALE (5);
 
         private final int enumValue;
+
         TextTransformOptions(int i)
         {
             enumValue = i;
         }
+
         public int value() { return enumValue; }
         private static final Map<Integer, TextTransformOptions> map = OrdinalEnum.getValues(TextTransformOptions.class);
         public static TextTransformOptions from(int i)
@@ -1430,6 +1433,7 @@ public class DTwainConstants
             return map.get(i);
         }
     }
+    
     public enum MultipageSaveMode implements OrdinalEnum
     {
         DEFAULT(0),

@@ -7,9 +7,24 @@ Version 1.9.4
 
 - Added com.dynarithmic.dtwain.demos.ShowUIOnlyDemo.java demo program.
 
+- Added TwainSource functions getSaveFileName() and setSaveFileName() to retrieve
+  the name of the image file that will be saved, and also changing the name of the
+  image file that will be saved.  These functions should be utilized while the device is 
+  acquiring images.  See the TwainCallbck handlers for onFileNameChanging() and 
+  onFileNameChanged(), as this is where getSaveFileName() and setSaveFileName() will have
+  any effect.
+
+- Added TwainCallback handlers for onFileNameChanging() and onFileNameChanged() to allow the
+  retrieval and setting of the file name that will be saved (see above for getSaveFileName()
+  and setSaveFileName()).
+
+- Added centerCurrentMonitor() option to the com.dynarithmic.twain.highlevel.TwainSourceDialog
+  class.  This allows the "Select Source" TWAIN dialog to be centered on the current monitor where
+  the main application window is located.  
+
 - TwainSource.writePDFTextElement() will now only work when the current page is being acquired.  
   As a result, the DTwainConstants.TextPageDisplayOptions enumeration has been removed.  For
-  an example, see the com.dynarithmic.dtwain.demos.PDFAddTextToPageDemo.java.
+  an example, see the com.dynarithmic.dtwain.demos.PDFAddTextToPageDemo.java program.
 
 - com.dynarithmic.twain.highlevel.PDFTextElement now allows text rotation, x/y scaling, skewing, plus
   transformation order for these operations.
