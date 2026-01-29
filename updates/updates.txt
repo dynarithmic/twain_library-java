@@ -2,6 +2,14 @@ DTWAIN-Java Version changes
 
 Version 1.9.4
 
+- DTWAIN library (DLL's and text resource files) version 5.8.0 is required for this version.
+
+- With the introduction of DTWAIN 5.8.0, the TWAIN Sources that have had issues such as 
+  acquiring images, non-responsive UI, etc. has been addressed.  See the issue link:
+  https://github.com/dynarithmic/twain_library/issues/188
+
+- Updated dtwainjni.info file.  You must use this version of the info file for version 1.9.4 (or above).
+
 - Allow TwainSource.acquire() to start a "show UI-Only" dialog if user-interface option 
   has showUIOnly() as true.
 
@@ -28,12 +36,6 @@ Version 1.9.4
 
 - com.dynarithmic.twain.highlevel.PDFTextElement now allows text rotation, x/y scaling, skewing, plus
   transformation order for these operations.
-
-- Updated dtwainjni.info file.  You must use this version of the info file for version 1.9.4 (or above).
-
-- With the introduction of DTWAIN 5.8.0, the TWAIN Sources that have had issues such as 
-  acquiring images, non-responsive UI, etc. has been addressed.  See the issue link:
-  https://github.com/dynarithmic/twain_library/issues/188
 
 
 Version 1.9.3
