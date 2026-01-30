@@ -3,7 +3,7 @@ This repositiory contains the new version of the Java Native Interface (JNI) bri
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
-1. <a href="https://github.com/dynarithmic/twain_library/tree/master#how-do-i-get-set-up-using-dtwain" target="_blank">Version 5.8.0 or higher of the DTWAIN library</a>.  
+1. <a href="https://github.com/dynarithmic/twain_library/tree/master#how-do-i-get-set-up-using-dtwain" target="_blank">Version 5.8.0 of the DTWAIN library</a>.  (For this release of the Java interface, you should be using [this release version](https://github.com/dynarithmic/twain_library/tree/v5.8.0) of the DTWAIN library).
 
 Choose either the [full_logging or partial_logging](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#how-do-i-get-set-up-using-dtwain) version of the DTWAIN library.
 
@@ -265,15 +265,16 @@ The JNI layer (i.e. the **dtwainjnixx.dll** files) is built using **Microsoft Vi
 
 If you want to build the JNI layer yourself, make sure your C++ compiler setup is able to access the various header files provided by JNI, such as **jni.h**.  
 
-In addition, the following environment variable must be set before building the JNI DLLs:
+In addition, the following environment variables must be set before building the JNI DLLs:
 
-- **JDK_INCLUDE_DIR**, which points to the location of the **jni.h** file that comes with the Java JDK.
-
+1) **JDK_INCLUDE_DIR**, which points to the location of the **jni.h** file that comes with the JDK.
+2) **DTWAIN_INCLUDE_DIR**, which points to the directory where the base DTWAIN library header files are located.  This is usually where your installation of DTWAIN has placed the <a href="https://github.com/dynarithmic/twain_library/tree/master/c_cpp_includes" target="_blank">c_cpp_include</a> directory.
 
 
 So for example:  
 ```batch
 SET JDK_INCLUDE_DIR=c:\java\jdk1.8\include
+SET DTWAIN_INCLUDE_DIR=c:\dtwain\c_cpp_includes
 ```
 should be issued on the command-line before starting Visual Studio and building your project.
 
