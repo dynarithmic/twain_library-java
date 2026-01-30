@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -635,6 +635,9 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetSessionDetails(int indentSize, boolean refresh) throws DTwainJavaAPIException;
     public native String DTWAIN_GetSourceDetails(String sourceNames, int indentSize, boolean refresh) throws DTwainJavaAPIException;
     public native int DTWAIN_GetFileSavePageCount(long Source) throws DTwainJavaAPIException;
+    public native int DTWAIN_SetSaveFileName(long Source, String fileName) throws  DTwainJavaAPIException;
+    public native String DTWAIN_GetSaveFileName(long Source) throws  DTwainJavaAPIException;
+    
     static
     {
         s_DLLMap = new TreeMap<>();

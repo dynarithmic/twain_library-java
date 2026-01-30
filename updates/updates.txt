@@ -1,5 +1,43 @@
 DTWAIN-Java Version changes
 
+Version 1.9.4
+
+- DTWAIN library (DLL's and text resource files) version 5.8.0 is required for this version.
+
+- With the introduction of DTWAIN 5.8.0, the TWAIN Sources that have had issues such as 
+  acquiring images, non-responsive UI, etc. has been addressed.  See the issue link:
+  https://github.com/dynarithmic/twain_library/issues/188
+
+- Updated dtwainjni.info file.  You must use this version of the info file for version 1.9.4 (or above).
+
+- Allow TwainSource.acquire() to start a "show UI-Only" dialog if user-interface option 
+  has showUIOnly() as true.
+
+- Added com.dynarithmic.dtwain.demos.ShowUIOnlyDemo.java demo program.
+
+- Added TwainSource functions getSaveFileName() and setSaveFileName() to retrieve
+  the name of the image file that will be saved, and also changing the name of the
+  image file that will be saved.  These functions should be utilized while the device is 
+  acquiring images.  See the TwainCallbck handlers for onFileNameChanging() and 
+  onFileNameChanged(), as this is where getSaveFileName() and setSaveFileName() will have
+  any effect.
+
+- Added TwainCallback handlers for onFileNameChanging() and onFileNameChanged() to allow the
+  retrieval and setting of the file name that will be saved (see above for getSaveFileName()
+  and setSaveFileName()).
+
+- Added centerCurrentMonitor() option to the com.dynarithmic.twain.highlevel.TwainSourceDialog
+  class.  This allows the "Select Source" TWAIN dialog to be centered on the current monitor where
+  the main application window is located.  
+
+- TwainSource.writePDFTextElement() will now only work when the current page is being acquired.  
+  As a result, the DTwainConstants.TextPageDisplayOptions enumeration has been removed.  For
+  an example, see the com.dynarithmic.dtwain.demos.PDFAddTextToPageDemo.java program.
+
+- com.dynarithmic.twain.highlevel.PDFTextElement now allows text rotation, x/y scaling, skewing, plus
+  transformation order for these operations.
+
+
 Version 1.9.3
 
 - Add getFileSavePageCount() function to the TwainSource class.

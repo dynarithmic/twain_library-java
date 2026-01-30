@@ -72,9 +72,6 @@
     <ClInclude Include="UTFCharsHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dtwainx2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ExtendedImageInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,6 +84,54 @@
     <ClInclude Include="dtwainjni_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dtwainx2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\capconst.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwain.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwain_filetypes.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwain_library_selector.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwain_standard_defs.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwain_version.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwainc.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwaindefs.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwainx.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwpdft.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwstrfn.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwtype.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\twain.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\winconst.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
+    <ClInclude Include="c_cpp_includes\dtwainx2.h">
+      <Filter>Header Files\c_cpp_includes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -97,6 +142,9 @@
     </Filter>
     <Filter Include="Resource File">
       <UniqueIdentifier>{662fc194-cd52-4c45-aff1-696541346015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\c_cpp_includes">
+      <UniqueIdentifier>{c3959ab0-783a-4751-8007-fb9210a83336}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

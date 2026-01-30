@@ -5324,7 +5324,8 @@ int JavaRGBColor::getB()
 JavaPDFTextElement::JavaPDFTextElement(JNIEnv *env) :
 JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "PDFTextElement",
         {GetFontName, GetText, GetXPos, GetYPos, GetFontSize, GetScaling, GetCharSpacing, GetWordSpacing,
-        GetStrokeWidth, GetRGBColor, GetRenderMode, GetDisplayOptions})
+        GetStrokeWidth, GetRGBColor, GetRenderMode, GetRotationAngle, GetSkewAngleX, GetSkewAngleY, 
+        GetScalingX, GetScalingY, GetTextTransform})
 {
     RegisterMemberFunctions(*this, getObjectName());
 }
@@ -5386,12 +5387,38 @@ double JavaPDFTextElement::getWordSpacing()
     return callDoubleMethod(getFunctionName(GetWordSpacing));
 }
 
-int JavaPDFTextElement::getStrokeWidth()
+double JavaPDFTextElement::getStrokeWidth()
 {
-    return callIntMethod(getFunctionName(GetStrokeWidth));
+    return callDoubleMethod(getFunctionName(GetStrokeWidth));
 }
 
-int JavaPDFTextElement::getDisplayOptions()
+double JavaPDFTextElement::getRotationAngle()
 {
-    return callIntMethod(getFunctionName(GetDisplayOptions));
+	return callDoubleMethod(getFunctionName(GetRotationAngle));
 }
+
+double JavaPDFTextElement::getSkewAngleX()
+{
+	return callDoubleMethod(getFunctionName(GetSkewAngleX));
+}
+
+double JavaPDFTextElement::getSkewAngleY()
+{
+	return callDoubleMethod(getFunctionName(GetSkewAngleY));
+}
+
+double JavaPDFTextElement::getScalingX()
+{
+	return callDoubleMethod(getFunctionName(GetScalingX));
+}
+
+double JavaPDFTextElement::getScalingY()
+{
+	return callDoubleMethod(getFunctionName(GetScalingY));
+}
+
+int JavaPDFTextElement::getTextTransform()
+{
+	return callIntMethod(getFunctionName(GetTextTransform));
+}
+

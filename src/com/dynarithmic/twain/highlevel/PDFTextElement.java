@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2025 Dynarithmic Software.
+    Copyright (c) 2002-2026 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ package com.dynarithmic.twain.highlevel;
 
 import com.dynarithmic.twain.DTwainConstants.TextPageDisplayOptions;
 import com.dynarithmic.twain.DTwainConstants.TextRenderMode;
+import com.dynarithmic.twain.DTwainConstants.TextTransformOptions;
 
 public class PDFTextElement
 {
@@ -34,10 +35,16 @@ public class PDFTextElement
     double scaling;
     double charSpacing;
     double wordSpacing;
-    int strokeWidth;
+    double strokeWidth;
+    double rotationAngle;
+    double skewAngleX;
+    double skewAngleY;
+    double scalingX;
+    double scalingY;
+    
     RGBColor RGBColor = new RGBColor();
     TextRenderMode renderMode = TextRenderMode.FILL;
-    TextPageDisplayOptions pageDisplayOptions = TextPageDisplayOptions.ALLPAGES;
+    TextTransformOptions textTransformOptions = TextTransformOptions.SCALE_ROTATE_SKEW;
 
     public PDFTextElement()
     {
@@ -48,8 +55,11 @@ public class PDFTextElement
         fontName = "Helvetica";
         charSpacing = 0.0;
         wordSpacing = 0.0;
-        strokeWidth = 2;
+        strokeWidth = 2.0;
         text = "";
+        rotationAngle = 0.0;
+        skewAngleX = skewAngleY = 0.0;
+        scalingX = scalingY = 1.0;
     }
 
     public String getText()
@@ -134,7 +144,7 @@ public class PDFTextElement
         this.wordSpacing = wordSpacing;
         return this;
     }
-    public int getStrokeWidth()
+    public double getStrokeWidth()
     {
         return strokeWidth;
     }
@@ -167,19 +177,67 @@ public class PDFTextElement
         this.renderMode = renderMode;
         return this;
     }
-    public TextPageDisplayOptions getPageDisplayOptions()
-    {
-        return pageDisplayOptions;
+
+    public double getRotationAngle() {
+        return rotationAngle;
     }
 
-    private int getPageDisplayOptionsAsInt()
-    {
-        return pageDisplayOptions.value();
+    public PDFTextElement setRotationAngle(double rotationAngle) {
+        this.rotationAngle = rotationAngle;
+        return this;
     }
 
-    public PDFTextElement setPageDisplayOptions(TextPageDisplayOptions pageDisplayOptions)
-    {
-        this.pageDisplayOptions = pageDisplayOptions;
+    public double getSkewAngleX() {
+        return skewAngleX;
+    }
+
+    public PDFTextElement setSkewAngleX(double skewAngleX) {
+        this.skewAngleX = skewAngleX;
+        return this;
+    }
+
+    public double getSkewAngleY() {
+        return skewAngleY;
+    }
+
+    public PDFTextElement setSkewAngleY(double skewAngleY) {
+        this.skewAngleY = skewAngleY;
+        return this;
+    }
+
+    public double getScalingX() {
+        return scalingX;
+    }
+
+    public PDFTextElement setScalingX(double scalingX) {
+        this.scalingX = scalingX;
+        return this;
+    }
+
+    public double getScalingY() {
+        return scalingY;
+    }
+
+    public PDFTextElement setScalingY(double scalingY) {
+        this.scalingY = scalingY;
+        return this;
+    }
+
+    public TextTransformOptions getTextTransform() {
+        return textTransformOptions;
+    }
+
+    private int getTextTransformAsInt() {
+        return textTransformOptions.value();
+    }
+    
+    public PDFTextElement setTextTransform(TextTransformOptions textTransform) {
+        this.textTransformOptions = textTransform;
+        return this;
+    }
+
+    public PDFTextElement setStrokeWidth(double strokeWidth) {
+        this.strokeWidth = strokeWidth;
         return this;
     }
 }
