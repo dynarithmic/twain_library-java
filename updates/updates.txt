@@ -18,7 +18,7 @@ Version 1.9.4
 - Added TwainSource functions getSaveFileName() and setSaveFileName() to retrieve
   the name of the image file that will be saved, and also changing the name of the
   image file that will be saved.  These functions should be utilized while the device is 
-  acquiring images.  See the TwainCallbck handlers for onFileNameChanging() and 
+  acquiring images.  See the TwainCallback handlers for onFileNameChanging() and 
   onFileNameChanged(), as this is where getSaveFileName() and setSaveFileName() will have
   any effect.
 
