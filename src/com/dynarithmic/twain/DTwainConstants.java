@@ -396,6 +396,8 @@ public class DTwainConstants
         BIGTIFFJPEG         (11015),
         BIGTIFFJPEGMULTI    (11016),
         JPEGXR              (12000),
+        SVG                 (13000),
+        SVGZ                (13001),
                 
         BMP_SOURCE_MODE(2),
         TIFF_SOURCE_MODE(0),
