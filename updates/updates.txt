@@ -1,5 +1,13 @@
 DTWAIN-Java Version changes
 
+Version 1.9.5
+
+- Add SVG and SVGZ file types for TwainSource.acquire()
+
+- Update JNI DLL's to be compatible with DTWAIN 5.8.1.  
+
+
+
 Version 1.9.4
 
 - Allow TwainSource.acquire() to start a "show UI-Only" dialog if user-interface option 
@@ -102,7 +110,7 @@ Version 1.7.1
 
 Version 1.7 (JNI code changes only)
 
-Update JNI DLL's to be compatible with DTWAIN 5.6.2.  No java manifest files were updated.
+- Update JNI DLL's to be compatible with DTWAIN 5.6.2.  No java manifest files were updated.
 
 
 Version 1.6
