@@ -59,7 +59,16 @@ typename JavaTraits::array_type CallFnReturnArray2(JNIEnv* env, apiFunc fn, Para
         throw "DTwain Module not loaded";
     DTWAIN_ARRAY arr = fn(std::forward<Params>(params)...);
     DTWAINArray_RAII raii(arr);
-    return CreateJArrayFromDTWAINArray<JavaIntArrayTraits>(env, arr, arr != nullptr);
+	if constexpr (std::is_same_v<JavaTraits, JavaStringTraits>)
+	{
+		if (arr)
+			return CreateJStringArrayFromDTWAINArray(env, arr);
+		return CreateJStringArrayFromDTWAINArray(env, nullptr);
+	}
+    else
+    {
+        return CreateJArrayFromDTWAINArray<JavaIntArrayTraits>(env, arr, arr != nullptr);
+    }
 }
 
 #endif
