@@ -1,5 +1,12 @@
 DTWAIN-Java Version changes
 
+Version 1.9.5
+
+- Add SVG and SVGZ file types to TwainSource.acquire() when acquiring to image files.
+
+- Update JNI DLL's to be compatible with DTWAIN 5.8.1
+
+
 Version 1.9.4
 
 - DTWAIN library (DLL's and text resource files) version 5.8.0 is required for this version.
