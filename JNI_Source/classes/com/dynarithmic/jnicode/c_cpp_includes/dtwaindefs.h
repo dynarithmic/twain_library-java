@@ -540,6 +540,9 @@
 /* Sent when getting Source details using DTWAIN_GetSourceDetails() */
 #define DTWAIN_TN_SOURCEDETAILS             1304
 
+/* Sent to determine if feeder should continue feeding pages */
+#define DTWAIN_TN_QUERYACQUIREPAGES             1305
+
 /* PDF OCR clean text flags */
 #define DTWAIN_PDFOCR_CLEANTEXT1            1
 #define DTWAIN_PDFOCR_CLEANTEXT2            2
