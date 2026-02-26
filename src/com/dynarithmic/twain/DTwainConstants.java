@@ -599,7 +599,8 @@ public class DTwainConstants
         FILECOMPRESSTYPEMISMATCH(1302),
         
         TRANSFERTILEREADY (1300),
-        TRANSFERTILEDONE (1301);
+        TRANSFERTILEDONE (1301),
+        QUERYACQUIREPAGES (3005);
 
         private final int enumValue;
         NotificationCode(int i)

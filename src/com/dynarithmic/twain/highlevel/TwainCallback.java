@@ -89,6 +89,7 @@ public class TwainCallback
         s_mapData.put(NotificationCode.INVALID_TWAINDSM2_BITMAP, "OnInvalidTwainDSM2Bitmap()");
         s_mapData.put(NotificationCode.FILENAMECHANGING, "OnFileNameChanging");
         s_mapData.put(NotificationCode.FILENAMECHANGED, "OnFileNameChanged");
+        s_mapData.put(NotificationCode.QUERYACQUIREPAGES, "OnQueryAcquirePages");
     }
 
     public TwainCallback() 
@@ -537,6 +538,10 @@ public class TwainCallback
                         
                     case FILECOMPRESSTYPEMISMATCH:
                         returner = theCallback.onFileCompressTypeMismatch(sourceHandle);
+                        break;
+                        
+                    case QUERYACQUIREPAGES:
+                        returner = theCallback.onQueryAcquirePages(sourceHandle);
                         break;
                         
                     default:
@@ -1013,6 +1018,11 @@ public class TwainCallback
     }
     
     public int onFileCompressTypeMismatch(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onQueryAcquirePages(TwainSource sourceHandle)
     {
         return defaultImpl(sourceHandle);
     }
