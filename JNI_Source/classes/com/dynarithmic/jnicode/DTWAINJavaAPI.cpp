@@ -1639,7 +1639,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsPa
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_IsPatchCapsSupported(reinterpret_cast<DTWAIN_SOURCE>(src))?JNI_TRUE:JNI_FALSE;
+    return API_INSTANCE DTWAIN_IsPatchcodeCapsSupported(reinterpret_cast<DTWAIN_SOURCE>(src))?JNI_TRUE:JNI_FALSE;
     DO_DTWAIN_CATCH(env)
 }
 
@@ -1652,7 +1652,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsPa
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_IsPatchDetectEnabled(reinterpret_cast<DTWAIN_SOURCE>(src))?JNI_TRUE:JNI_FALSE;
+    return API_INSTANCE DTWAIN_IsPatchcodeDetectionEnabled(reinterpret_cast<DTWAIN_SOURCE>(src))?JNI_TRUE:JNI_FALSE;
     DO_DTWAIN_CATCH(env)
 }
 
@@ -1967,7 +1967,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Enu
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchMaxRetries, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchcodeMaxRetries, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -1982,7 +1982,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Enu
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchMaxPriorities, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchcodeMaxPriorities, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -1997,7 +1997,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Enu
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchSearchModes, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchcodeSearchModes, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -2012,7 +2012,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Enu
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchTimeOutValues, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchcodeTimeOutValues, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -2027,7 +2027,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Get
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_GetPatchPriorities, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_GetPatchcodePriorities, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -2042,7 +2042,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Enu
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchPriorities, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumPatchcodePriorities, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
