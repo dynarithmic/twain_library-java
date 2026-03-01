@@ -85,11 +85,11 @@ public class TwainCallback
         s_mapData.put(NotificationCode.BLANKPAGEDISCARDED2, "onBlankPageDiscardedEvent2()");
         s_mapData.put(NotificationCode.TRANSFERTILEREADY, "onTransferTileReady()");
         s_mapData.put(NotificationCode.TRANSFERTILEDONE, "onTransferTileDone()");
-        s_mapData.put(NotificationCode.CLOSEDIBFAILED, "OnClosedDIBFailed()");
-        s_mapData.put(NotificationCode.INVALID_TWAINDSM2_BITMAP, "OnInvalidTwainDSM2Bitmap()");
-        s_mapData.put(NotificationCode.FILENAMECHANGING, "OnFileNameChanging");
-        s_mapData.put(NotificationCode.FILENAMECHANGED, "OnFileNameChanged");
-        s_mapData.put(NotificationCode.QUERYACQUIREPAGES, "OnQueryAcquirePages");
+        s_mapData.put(NotificationCode.CLOSEDIBFAILED, "onClosedDIBFailed()");
+        s_mapData.put(NotificationCode.INVALID_TWAINDSM2_BITMAP, "onInvalidTwainDSM2Bitmap()");
+        s_mapData.put(NotificationCode.FILENAMECHANGING, "onFileNameChanging");
+        s_mapData.put(NotificationCode.FILENAMECHANGED, "onFileNameChanged");
+        s_mapData.put(NotificationCode.QUERYACQUIREPAGES, "onQueryAcquirePages");
     }
 
     public TwainCallback() 
