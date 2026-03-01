@@ -129,6 +129,8 @@ public class TwainLogger
         if ( m_interface != null )
         {
             int verbosity = verbose_settings[logVerbosity.ordinal()] + LoggingOptions.USE_CALLBACK.value();
+            if (!logTwainMsg)
+                verbosity = verbosity & ~LoggingOptions.SHOW_ISTWAINMSG.value();
             int total_verbosity = (int)verbosity;
             m_interface.DTWAIN_SetTwainLog(total_verbosity, "");
             m_interface.DTWAIN_EnableMsgNotify(1);

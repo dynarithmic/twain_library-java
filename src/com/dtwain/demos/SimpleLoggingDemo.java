@@ -50,12 +50,12 @@ public class SimpleLoggingDemo
                 addLogger(new TwainFileLogger("newlog.log")).  // Log to a file names newlog.log
                 addLogger(new TwainConsoleLogger());          // Log to the system console
 
+               
         // Now start the session, which will also start the logger
         twainSession.start();
-        
+
         // Select a TWAIN Source using the Select Source dialog
         TwainSource ts = EnhancedSourceSelector.selectSource(twainSession);
-        twainSession.stopLogging();
         if ( ts.isOpened() )
         {
             // Set the file acquire options. By default, the file will be in BMP format
