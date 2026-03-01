@@ -4,6 +4,18 @@ Version 1.9.5
 
 - Add SVG and SVGZ file types to TwainSource.acquire() when acquiring to image files.
 
+- Added TwainCallback handler for onQueryAcquirePages() to allow the option of whether
+  to continue or stop acquiring pages.  Returning a value of 0 from this handler 
+  will stop the acquisition of pages. A return value of 1 will continue the acquisition
+  of pages.
+
+  Please note that returning 0 does not guarantee that the physical device (if using a 
+  document feeder) will stop feeding pages.  Instead, the subsequent pages being fed 
+  will not be processed by DTWAIN (for example, no bitmaps created, no further pages added 
+  to multipage image files, etc.), and instead will return the acquisition process back to either
+  showing the user-interface (if the user-interface was shown), or back to the caller of
+  the acquire() function if no user-interface was shown.
+
 - Update JNI DLL's to be compatible with DTWAIN 5.8.1
 
 
