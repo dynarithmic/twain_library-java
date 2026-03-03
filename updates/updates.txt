@@ -1,5 +1,11 @@
 DTWAIN-Java Version changes
 
+Version 1.9.5 Update 1
+
+- Change Java constant for onQueryAcquirePages.
+
+
+
 Version 1.9.5
 
 - Add SVG and SVGZ file types to TwainSource.acquire() when acquiring to image files.
