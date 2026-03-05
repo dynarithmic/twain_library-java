@@ -3557,15 +3557,50 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCa
 
 static int GenericCapSetter(JNIEnv * env, jlong source, jint cap, jint setType, jint containerType, jint dataType, jobject values)
 {
-    DTWAIN_ARRAY aTmp = API_INSTANCE DTWAIN_ArrayCreateFromCap((DTWAIN_SOURCE)source, cap, 0);
+    DTWAIN_ARRAY aTmp = {};
+
+    /* Parse the input, depending on the data type */
+    int arrayType = DTWAIN_ARRAYLONG;
+    switch (dataType)
+    {
+        case TWTY_STR32:
+        case TWTY_STR64:
+        case TWTY_STR128:
+        case TWTY_STR255:
+        case TWTY_STR1024:
+            arrayType = DTWAIN_ARRAYANSISTRING;
+        break;
+
+        case TWTY_FIX32:
+            arrayType = DTWAIN_ARRAYFLOAT;
+        break;
+
+        case TWTY_FRAME:
+            arrayType = DTWAIN_ARRAYFRAME;
+        break;
+    }
+
+    if (dataType == DTWAIN_DEFAULT)
+    {
+        aTmp = API_INSTANCE DTWAIN_ArrayCreateFromCap((DTWAIN_SOURCE)source, cap, 0);
+        arrayType = API_INSTANCE DTWAIN_ArrayGetType(aTmp);
+    }
+    else
+    {
+        if (arrayType == DTWAIN_ARRAYFRAME)
+            aTmp = API_INSTANCE DTWAIN_FrameCreate(0, 0, 0, 0);
+        else
+            aTmp = API_INSTANCE DTWAIN_ArrayCreate(arrayType, 0);
+    }
+
+//    DTWAIN_ARRAY aTmp = API_INSTANCE DTWAIN_ArrayCreateFromCap((DTWAIN_SOURCE)source, cap, 0);
     if (aTmp)
     {
         DTWAINArray_RAII raii(aTmp);
-        LONG arrayType = API_INSTANCE DTWAIN_ArrayGetType(aTmp);
         if (arrayType == DTWAIN_ARRAYLONG)
         {
             // if this is a boolean, type is Boolean list
-            if (API_INSTANCE DTWAIN_GetCapDataType((DTWAIN_SOURCE)source, cap) == TWTY_BOOL)
+            if (dataType == TWTY_BOOL || API_INSTANCE DTWAIN_GetCapDataType((DTWAIN_SOURCE)source, cap) == TWTY_BOOL)
             {
                 JavaArrayListHandler<ArrayBooleanList> aHandler(env);
                 auto vect = aHandler.JavaToNative(values);
@@ -4111,7 +4146,8 @@ static jobject getFullImageBMPData(HANDLE hDib, JavaAcquirerInfo& jacqInfo, JNIE
     HandleRAII raii(hDib);
     LPBYTE pDibData = raii.getData();
     jobject imgObject = jacqInfo.CreateJavaImageDataObject();
-
+    if (!hDib)
+        return imgObject;
     // attach file header if this is a DIB
     if ( isBMP )
     {
