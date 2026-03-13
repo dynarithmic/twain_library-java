@@ -600,7 +600,9 @@ public class DTwainConstants
         
         TRANSFERTILEREADY (1300),
         TRANSFERTILEDONE (1301),
-        QUERYACQUIREPAGES (1305);
+        QUERYACQUIREPAGES (1305),
+        ACQUIREPAGESSTOPPING(1306),
+        ACQUIREPAGESSTOPPED(1307);
 
         private final int enumValue;
         NotificationCode(int i)

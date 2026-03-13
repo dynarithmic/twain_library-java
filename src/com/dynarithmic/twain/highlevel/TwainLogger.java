@@ -30,6 +30,7 @@ public class TwainLogger
 {
     private boolean activated;
     private boolean logTwainMsg;
+    private boolean logMiscellaneous;
     private int  m_logFlags = LoggingOptions.USE_CALLBACK.value();
     private DTwainJavaAPI m_interface = null;
     private int [] verbose_settings = new int [7];
@@ -131,6 +132,8 @@ public class TwainLogger
             int verbosity = verbose_settings[logVerbosity.ordinal()] + LoggingOptions.USE_CALLBACK.value();
             if (!logTwainMsg)
                 verbosity = verbosity & ~LoggingOptions.SHOW_ISTWAINMSG.value();
+            if (logMiscellaneous)
+                verbosity = verbosity | LoggingOptions.SHOW_MISCELLANEOUS.value();
             int total_verbosity = (int)verbosity;
             m_interface.DTWAIN_SetTwainLog(total_verbosity, "");
             m_interface.DTWAIN_EnableMsgNotify(1);
@@ -157,6 +160,12 @@ public class TwainLogger
     public TwainLogger setLogTwainMsg(boolean bSet)
     {
         logTwainMsg = bSet;
+        return this;
+    }
+    
+    public TwainLogger setLogMiscellaneous(boolean bSet)
+    {
+        this.logMiscellaneous = bSet;
         return this;
     }
 
