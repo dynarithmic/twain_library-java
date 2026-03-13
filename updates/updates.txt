@@ -1,5 +1,20 @@
 DTWAIN-Java Version changes
 
+Version 1.9.6
+
+- Added TwainCallback handler for onAcquirePagesStopping() and onAcquirePagesStopped().
+  These handlers are called if the onQueryAcquirePages() handler returns 0.
+
+- Fixed issue with setting custom capabilities using the capabilityInterface.setCapValues()
+  function.
+
+- Addressed possible issues with DTWAIN-Java having sporadic failures if acquiring images
+  in a thread that is not the main Java thread.
+
+- Updated JNI DLL's to be compatible with DTWAIN 5.8.2.
+
+
+
 Version 1.9.5 Update 1
 
 - Change Java constant for onQueryAcquirePages.
