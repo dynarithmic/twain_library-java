@@ -907,6 +907,17 @@ public:
     void addData(jobject acquisition);
     void setStatus(int32_t status);
 };
+/////////////////////////////////////////////////////////////////////////////
+class JavaTwainAcquisitionArrayEx : public JavaObjectCaller
+{
+	static constexpr const char* AddData = "AddData";
+	static constexpr const char* SetStatus = "SetStatus";
+public:
+	JavaTwainAcquisitionArrayEx(JNIEnv* env);
+	void addData(jobject acquisition);
+	void setStatus(int32_t status);
+};
+
 //////////////////////////////////////////////////////////////////////////////
 class JavaTwainAcquisitionData : public JavaObjectCaller
 {
@@ -916,7 +927,16 @@ public:
     JavaTwainAcquisitionData(JNIEnv* env);
     void addImageData(jobject ImageObject);
 };
+///////////////////////////////////////////////////////////////////
+class JavaTwainAcquisitionDataEx : public JavaObjectCaller
+{
+	static constexpr const char* AddImageData = "AddImageData";
 
+public:
+	JavaTwainAcquisitionDataEx(JNIEnv* env);
+	void addImageData(jobject ImageObject);
+};
+//////////////////////////////////////////////////////////////////////////////
 class JavaTwainImageData : public JavaObjectCaller
 {
     static constexpr const char *SetImageData = "SetImageData";
@@ -926,6 +946,15 @@ public:
     JavaTwainImageData(JNIEnv* env);
     void setImageData(jbyteArray imageData);
     void setDibHandle(HANDLE hDib);
+};
+
+class JavaTwainImageDataEx : public JavaObjectCaller
+{
+	static constexpr const char* SetImageData = "SetImageData";
+
+public:
+	JavaTwainImageDataEx(JNIEnv* env);
+	void setImageData(HANDLE hDib);
 };
 
 class JavaAcquirerInfo
@@ -978,6 +1007,51 @@ class JavaAcquirerInfo
             m_jAcquisitionArray.setObject(jAcquisitionArray);
             m_jAcquisitionArray.callVoidMethod("setStatus", status);
         }
+};
+
+class JavaAcquirerInfoEx
+{
+private:
+	JavaTwainAcquisitionArrayEx m_jAcquisitionArray;
+	JavaTwainAcquisitionDataEx m_jAcquisitionData;
+	JavaTwainImageDataEx m_jImageData;
+
+public:
+	JavaAcquirerInfoEx(JNIEnv* pEnv) : m_jAcquisitionArray(pEnv), m_jAcquisitionData(pEnv), m_jImageData(pEnv)
+	{}
+
+	jobject CreateJavaImageDataObject()
+	{
+		return m_jImageData.defaultConstructObject();
+	}
+
+	jobject CreateJavaAcquisitionDataObject()
+	{
+		return m_jAcquisitionData.defaultConstructObject();
+	}
+
+	jobject CreateJavaAcquisitionArrayObject()
+	{
+		return m_jAcquisitionArray.defaultConstructObject();
+	}
+
+	void addAcquisitionToArray(jobject jAcquisitionArrayObject, jobject jAcquisitionDataObject)
+	{
+		m_jAcquisitionArray.setObject(jAcquisitionArrayObject);
+		m_jAcquisitionArray.addData(jAcquisitionDataObject);
+	}
+
+	void addImageDataToAcquisition(jobject jAcquisitionDataObject, jobject jImageDataObject)
+	{
+		m_jAcquisitionData.setObject(jAcquisitionDataObject);
+		m_jAcquisitionData.addImageData(jImageDataObject);
+	}
+
+	void setStatus(jobject jAcquisitionArray, LONG status)
+	{
+		m_jAcquisitionArray.setObject(jAcquisitionArray);
+		m_jAcquisitionArray.callVoidMethod("setStatus", status);
+	}
 };
 
 

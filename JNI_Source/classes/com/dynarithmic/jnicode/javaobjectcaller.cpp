@@ -3218,7 +3218,19 @@ void JavaTwainAcquisitionArray::addData(jobject acquisition)
 {
     callVoidMethod(getFunctionName(AddData), acquisition);
 }
+////////////////////////////////////////////////////////////////////////////////
+JavaTwainAcquisitionArrayEx::JavaTwainAcquisitionArrayEx(JNIEnv* env) :
+	JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainAcquisitionArrayEx",
+		{ AddData, SetStatus })
+{
+	RegisterMemberFunctions(*this, getObjectName());
+	defaultConstructObject();
+}
 
+void JavaTwainAcquisitionArrayEx::addData(jobject acquisition)
+{
+	callVoidMethod(getFunctionName(AddData), acquisition);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 JavaTwainAcquisitionData::JavaTwainAcquisitionData(JNIEnv* env) :
     JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainAcquisitionData",
@@ -3231,6 +3243,19 @@ JavaTwainAcquisitionData::JavaTwainAcquisitionData(JNIEnv* env) :
 void JavaTwainAcquisitionData::addImageData(jobject ImageObject)
 {
     callVoidMethod(getFunctionName(AddImageData), ImageObject);
+}
+///////////////////////////////////////////////////////////////
+JavaTwainAcquisitionDataEx::JavaTwainAcquisitionDataEx(JNIEnv* env) :
+	JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainAcquisitionDataEx",
+		{ AddImageData })
+{
+	RegisterMemberFunctions(*this, getObjectName());
+	defaultConstructObject();
+}
+
+void JavaTwainAcquisitionDataEx::addImageData(jobject ImageObject)
+{
+	callVoidMethod(getFunctionName(AddImageData), ImageObject);
 }
 ///////////////////////////////////////////////////////////////
 JavaExtendedImageInfo::JavaExtendedImageInfo(JNIEnv* env) :
@@ -4140,6 +4165,25 @@ void JavaTwainImageData::setImageData(jbyteArray imageData)
 void JavaTwainImageData::setDibHandle(HANDLE handle)
 {
     callVoidMethod(getFunctionName(SetDibHandle), handle);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+JavaTwainImageDataEx::JavaTwainImageDataEx(JNIEnv* env) :
+	JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "TwainImageDataEx",
+		{ SetImageData })
+{
+	RegisterMemberFunctions(*this, getObjectName());
+	defaultConstructObject();
+}
+
+void JavaTwainImageDataEx::setImageData(HANDLE hDib)
+{
+	void* ptr = GlobalLock(hDib);
+	if (!ptr)
+		return;
+	SIZE_T size = GlobalSize(hDib);
+	jobject buffer = getEnvironment()->NewDirectByteBuffer(ptr, (jlong)size);
+	callVoidMethod(getFunctionName(SetImageData), buffer);
 }
 
 /////////////////////////////////////////////////////////////////////////////////
