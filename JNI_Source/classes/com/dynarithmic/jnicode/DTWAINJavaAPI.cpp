@@ -1790,7 +1790,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Enu
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumTwainPrintersArray, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumTwainPrinters, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
