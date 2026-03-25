@@ -1977,6 +1977,22 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Acqui
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_AcquireNativeEx
+ * Signature: (JIIZZ)Lcom/dynarithmic/twain/highlevel/TwainAcquisitionArrayEx;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AcquireNativeEx
+  (JNIEnv *, jobject, jlong, jint, jint, jboolean, jboolean);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_AcquireBufferedEx
+ * Signature: (JIIZZ)Lcom/dynarithmic/twain/highlevel/TwainAcquisitionArrayEx;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AcquireBufferedEx
+  (JNIEnv *, jobject, jlong, jint, jint, jboolean, jboolean);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_AcquireFile
  * Signature: (JLjava/lang/String;IIIIZZ)I
  */
@@ -2229,6 +2245,14 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AcquireF
  * Signature: (J)Lcom/dynarithmic/twain/highlevel/TwainImageData;
  */
 JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCurrentAcquiredImage
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetCurrentAcquiredImageEx
+ * Signature: (J)Lcom/dynarithmic/twain/highlevel/TwainImageDataEx;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCurrentAcquiredImageEx
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -2750,6 +2774,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetFileS
  */
 JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetSaveFileName
   (JNIEnv *, jobject, jlong, jstring);
+
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_GetSaveFileName
@@ -2757,6 +2782,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetSaveF
  */
 JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSaveFileName
   (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

@@ -90,6 +90,8 @@ public class TwainCallback
         s_mapData.put(NotificationCode.FILENAMECHANGING, "onFileNameChanging");
         s_mapData.put(NotificationCode.FILENAMECHANGED, "onFileNameChanged");
         s_mapData.put(NotificationCode.QUERYACQUIREPAGES, "onQueryAcquirePages");
+        s_mapData.put(NotificationCode.ACQUIREPAGESSTOPPING, "onAcquirePagesStopping");
+        s_mapData.put(NotificationCode.ACQUIREPAGESSTOPPED, "onAcquirePagesStopped");
     }
 
     public TwainCallback() 
@@ -542,6 +544,14 @@ public class TwainCallback
                         
                     case QUERYACQUIREPAGES:
                         returner = theCallback.onQueryAcquirePages(sourceHandle);
+                        break;
+
+                    case ACQUIREPAGESSTOPPING:
+                        returner = theCallback.onAcquirePagesStopping(sourceHandle);
+                        break;
+                        
+                    case ACQUIREPAGESSTOPPED:
+                        returner = theCallback.onAcquirePagesStopped(sourceHandle);
                         break;
                         
                     default:
@@ -1026,7 +1036,17 @@ public class TwainCallback
     {
         return defaultImpl(sourceHandle);
     }
+
+    public int onAcquirePagesStopping(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
     
+    public int onAcquirePagesStopped(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+
     public int catchUnknown(int event, TwainSource sourceHandle)
     {
         return defaultImpl(event, sourceHandle);

@@ -22,7 +22,6 @@
 package com.dtwain.demos;
 
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
-import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.highlevel.TwainCallback;
 import com.dynarithmic.twain.highlevel.TwainSession;
 import com.dynarithmic.twain.highlevel.TwainSource;
@@ -34,24 +33,15 @@ public class TwainCallbackDemo
     static public String outDir = "";
     public class DemoTwainCallback extends TwainCallback
     {
-        int pageCount = 1;
         private void printInfo(TwainSource sourceHandle, String message)
         {
             System.out.println(message + sourceHandle.getInfo().getProductName());
-        }
-
-        @Override
-        public int onQueryAcquirePages(TwainSource sourceHandle)
-        {
-            printInfo(sourceHandle, " Query acquire done ");
-            return 1;
         }
         
         @Override
         public int onTransferDone(TwainSource sourceHandle)
         {
             printInfo(sourceHandle, " Transfer done ");
-            ++pageCount;
             return 1;
         }
 
@@ -97,6 +87,7 @@ public class TwainCallbackDemo
             return 1;
         }
     }
+
      
     public void run() throws Exception
     {
@@ -113,10 +104,10 @@ public class TwainCallbackDemo
             // TwainCallback
             twainSession.registerCallback(ts, new DemoTwainCallback());
             
-            // Set the file acquire options. By default, the file will be in TIFF-LZW format
+            // Set the file acquire options. By default, the file will be in BMP format
             ts.getAcquireCharacteristics().
                getFileTransferOptions().
-                   setName(outDir + "testcallback.tif").setType(FileType.TIFFLZWMULTI);
+               setName(outDir + "test3.bmp");
 
             ts.getAcquireCharacteristics().getPaperHandlingOptions().enableFeeder(true);
 

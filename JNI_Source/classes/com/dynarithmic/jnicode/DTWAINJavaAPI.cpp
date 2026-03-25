@@ -461,6 +461,9 @@ JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SysInit
           const JavaCallbackPtr pCallback = g_pDTwainAPICallback;
           if ( pCallback )
               API_INSTANCE DTWAIN_SetCallback(JavaCallback::DTWAINCallback, reinterpret_cast<JavaCallback::callback_type>(pCallback.get()));
+
+          // JVM does not like checking for GetMessage() during acquisition, so turn this off
+          API_INSTANCE DTWAIN_EnableGetMessageLoopDetection(FALSE);
       }
       return retValue;
       DO_DTWAIN_CATCH(env)
@@ -1787,7 +1790,7 @@ JNIEXPORT jintArray JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Enu
     DO_DTWAIN_TRY
     DTWAIN_ARRAY arr = nullptr;
     DTWAINArrayPtr_RAII raii(&arr);
-    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumTwainPrintersArray, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
+    return CallFnReturnArray<JavaIntArrayTraits>(env, &arr, API_INSTANCE DTWAIN_EnumTwainPrinters, reinterpret_cast<DTWAIN_SOURCE>(src), &arr);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -3557,15 +3560,50 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCa
 
 static int GenericCapSetter(JNIEnv * env, jlong source, jint cap, jint setType, jint containerType, jint dataType, jobject values)
 {
-    DTWAIN_ARRAY aTmp = API_INSTANCE DTWAIN_ArrayCreateFromCap((DTWAIN_SOURCE)source, cap, 0);
+    DTWAIN_ARRAY aTmp = {};
+
+    /* Parse the input, depending on the data type */
+    int arrayType = DTWAIN_ARRAYLONG;
+    switch (dataType)
+    {
+        case TWTY_STR32:
+        case TWTY_STR64:
+        case TWTY_STR128:
+        case TWTY_STR255:
+        case TWTY_STR1024:
+            arrayType = DTWAIN_ARRAYANSISTRING;
+        break;
+
+        case TWTY_FIX32:
+            arrayType = DTWAIN_ARRAYFLOAT;
+        break;
+
+        case TWTY_FRAME:
+            arrayType = DTWAIN_ARRAYFRAME;
+        break;
+    }
+
+    if (dataType == DTWAIN_DEFAULT)
+    {
+        aTmp = API_INSTANCE DTWAIN_ArrayCreateFromCap((DTWAIN_SOURCE)source, cap, 0);
+        arrayType = API_INSTANCE DTWAIN_ArrayGetType(aTmp);
+    }
+    else
+    {
+        if (arrayType == DTWAIN_ARRAYFRAME)
+            aTmp = API_INSTANCE DTWAIN_FrameCreate(0, 0, 0, 0);
+        else
+            aTmp = API_INSTANCE DTWAIN_ArrayCreate(arrayType, 0);
+    }
+
+//    DTWAIN_ARRAY aTmp = API_INSTANCE DTWAIN_ArrayCreateFromCap((DTWAIN_SOURCE)source, cap, 0);
     if (aTmp)
     {
         DTWAINArray_RAII raii(aTmp);
-        LONG arrayType = API_INSTANCE DTWAIN_ArrayGetType(aTmp);
         if (arrayType == DTWAIN_ARRAYLONG)
         {
             // if this is a boolean, type is Boolean list
-            if (API_INSTANCE DTWAIN_GetCapDataType((DTWAIN_SOURCE)source, cap) == TWTY_BOOL)
+            if (dataType == TWTY_BOOL || API_INSTANCE DTWAIN_GetCapDataType((DTWAIN_SOURCE)source, cap) == TWTY_BOOL)
             {
                 JavaArrayListHandler<ArrayBooleanList> aHandler(env);
                 auto vect = aHandler.JavaToNative(values);
@@ -4111,7 +4149,8 @@ static jobject getFullImageBMPData(HANDLE hDib, JavaAcquirerInfo& jacqInfo, JNIE
     HandleRAII raii(hDib);
     LPBYTE pDibData = raii.getData();
     jobject imgObject = jacqInfo.CreateJavaImageDataObject();
-
+    if (!hDib)
+        return imgObject;
     // attach file header if this is a DIB
     if ( isBMP )
     {
@@ -4185,6 +4224,47 @@ jobject AcquireHandler(DTWAIN_AcquireFn fn, JNIEnv *env, jlong src, jint pixelTy
     return arrayObject;
 }
 
+jobject AcquireHandlerEx(DTWAIN_AcquireFn fn, JNIEnv* env, jlong src, jint pixelType,
+	                     jint maxPages, jboolean showUI, jboolean closeSource, bool isBMP)
+{
+	DO_DTWAIN_CHECK_MODULE_LOAD
+	DTWAIN_ARRAY acq;
+	LONG nStatus;
+	std::pair<DTWAINJNIGlobals::CurrentAcquireTypeMap::iterator, bool> ret;
+	ret = g_JNIGlobals.g_CurrentAcquireMap.insert(std::make_pair(reinterpret_cast<DTWAIN_SOURCE>(src), isBMP));
+	if (!ret.second)
+		ret.first->second = isBMP;
+	acq = fn(reinterpret_cast<DTWAIN_SOURCE>(src), pixelType, maxPages, showUI, closeSource, &nStatus);
+
+	JavaAcquirerInfoEx jacqInfo(env);
+	jobject arrayObject = jacqInfo.CreateJavaAcquisitionArrayObject();
+	if (acq)
+	{
+		LONG nAcquisitions = API_INSTANCE DTWAIN_GetNumAcquisitions(acq);
+		for (LONG i = 0; i < nAcquisitions; ++i)
+		{
+			jobject acquisitionObject = jacqInfo.CreateJavaAcquisitionDataObject();
+			LONG nDibs = API_INSTANCE DTWAIN_GetNumAcquiredImages(acq, i);
+			for (LONG j = 0; j < nDibs; ++j)
+			{
+				HANDLE hDib = API_INSTANCE DTWAIN_GetAcquiredImage(acq, i, j);
+				if (hDib)
+				{
+					JavaTwainImageDataEx imageDataEx(env);
+					imageDataEx.setImageData(hDib);
+					jacqInfo.addImageDataToAcquisition(acquisitionObject, imageDataEx.getObject());
+				}
+			}
+			jacqInfo.addAcquisitionToArray(arrayObject, acquisitionObject);
+		}
+		jacqInfo.setStatus(arrayObject, nStatus);
+		API_INSTANCE DTWAIN_DestroyAcquisitionArray(acq, TRUE);
+	}
+	else
+		g_JNIGlobals.g_CurrentAcquireMap.erase(reinterpret_cast<DTWAIN_SOURCE>(src));
+	return arrayObject;
+}
+
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_AcquireNative
@@ -4196,6 +4276,19 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Acqui
     DO_DTWAIN_TRY
     return AcquireHandler(API_INSTANCE DTWAIN_AcquireNative, env, src, pixelType, maxPages, showUI, closeSource, true);
     DO_DTWAIN_CATCH(env)
+}
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_AcquireNativeEx
+ * Signature: (JIIZZ)Lcom/dynarithmic/twain/highlevel/TwainAcquisitionArrayEx;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AcquireNativeEx
+(JNIEnv* env, jobject, jlong src, jint pixelType, jint maxPages, jboolean showUI, jboolean closeSource)
+{
+	DO_DTWAIN_TRY
+	return AcquireHandlerEx(API_INSTANCE DTWAIN_AcquireNative, env, src, pixelType, maxPages, showUI, closeSource, true);
+	DO_DTWAIN_CATCH(env)
 }
 
 /*
@@ -4214,6 +4307,21 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Acqui
     DO_DTWAIN_CATCH(env)
 }
 
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_AcquireBufferedEx
+ * Signature: (JIIZZ)Lcom/dynarithmic/twain/highlevel/TwainAcquisitionArrayEx;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AcquireBufferedEx
+(JNIEnv* env, jobject, jlong src, jint pixelType, jint maxPages, jboolean showUI, jboolean closeSource)
+{
+	DO_DTWAIN_TRY
+	LONG cmpType;
+	API_INSTANCE DTWAIN_GetCompressionType(reinterpret_cast<DTWAIN_SOURCE>(src), &cmpType, TRUE);
+	bool isBMPType = (cmpType == TWCP_NONE);
+	return AcquireHandlerEx(API_INSTANCE DTWAIN_AcquireBuffered, env, src, pixelType, maxPages, showUI, closeSource, isBMPType);
+	DO_DTWAIN_CATCH(env)
+}
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
@@ -4779,6 +4887,23 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCu
     DO_DTWAIN_CATCH(env)
 }
 
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_GetCurrentAcquiredImageEx
+ * Signature: (J)Lcom/dynarithmic/twain/highlevel/TwainImageDataEx;
+ */
+JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCurrentAcquiredImageEx
+(JNIEnv* env, jobject, jlong src)
+{
+	DO_DTWAIN_TRY
+	DO_DTWAIN_CHECK_MODULE_LOAD
+	HANDLE hDib = API_INSTANCE DTWAIN_GetCurrentAcquiredImage(reinterpret_cast<DTWAIN_SOURCE>(src));
+    JavaTwainImageDataEx imageDataEx(env);
+    imageDataEx.setImageData(hDib);
+    return imageDataEx.getObject();
+	DO_DTWAIN_CATCH(env)
+}
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
  * Method:    DTWAIN_GetCurrentAcquiredRawImage

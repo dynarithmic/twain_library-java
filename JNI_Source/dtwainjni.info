@@ -180,7 +180,6 @@ SetVersionCopyright                     setVersionCopyright                (Ljav
 SetPatchVersion                         setPatchVersion                    (I)V
 SetVersionType                          setVersionType                     (I)V
 
-
 TwainOCRInfo                            com/dynarithmic/twain/highlevel/TwainOCRInfo                      2
 DefaultConstructor                      <>                                 ()V
 Constructor                             <>                                 (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
@@ -190,14 +189,27 @@ DefaultConstructor                      <>                                 ()V
 AddData                                 addAcquisitionData                 (Lcom/dynarithmic/twain/highlevel/TwainAcquisitionData;)V
 SetStatus                               setStatus                          (I)V
 
+TwainAcquisitionArrayEx                 com/dynarithmic/twain/highlevel/TwainAcquisitionArrayEx              3
+DefaultConstructor                      <>                                 ()V
+AddData                                 addAcquisitionData                 (Lcom/dynarithmic/twain/highlevel/TwainAcquisitionDataEx;)V
+SetStatus                               setStatus                          (I)V
+
 TwainAcquisitionData                    com/dynarithmic/twain/highlevel/TwainAcquisitionData                 2
 DefaultConstructor                      <>                                 ()V
 AddImageData                            addImageData                       (Lcom/dynarithmic/twain/highlevel/TwainImageData;)V
+
+TwainAcquisitionDataEx                  com/dynarithmic/twain/highlevel/TwainAcquisitionDataEx               2
+DefaultConstructor                      <>                                 ()V
+AddImageData                            addImageData                       (Lcom/dynarithmic/twain/highlevel/TwainImageDataEx;)V
 
 TwainImageData                          com/dynarithmic/twain/highlevel/TwainImageData                       3
 DefaultConstructor                      <>                                 ()V
 SetImageData                            setImageData                       ([B)V
 SetDibHandle                            setDibHandle                       (J)V
+
+TwainImageDataEx                        com/dynarithmic/twain/highlevel/TwainImageDataEx                     2
+DefaultConstructor                      <>                                 ()V
+SetImageData                            setImageData                       (Ljava/nio/ByteBuffer;)V
 
 TwainImageInfo                          com/dynarithmic/twain/highlevel/TwainImageInfo              3
 DefaultConstructor                      <>                                 ()V
@@ -927,4 +939,4 @@ GetExtendedImageInfo22                 getExtendedImageInfo22              ()Lco
 GetExtendedImageInfo23                 getExtendedImageInfo23              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
 GetExtendedImageInfo24                 getExtendedImageInfo24              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
 GetExtendedImageInfo25                 getExtendedImageInfo25              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-%2412836243
+%1135216122

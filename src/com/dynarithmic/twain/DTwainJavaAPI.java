@@ -33,6 +33,7 @@ import com.dynarithmic.twain.highlevel.TwainImageInfo;
 import com.dynarithmic.twain.highlevel.TwainOCRInfo;
 import com.dynarithmic.twain.highlevel.TwainAcquireArea;
 import com.dynarithmic.twain.highlevel.TwainAcquisitionArray;
+import com.dynarithmic.twain.highlevel.TwainAcquisitionArrayEx;
 import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.BufferedStripInfo;
 import com.dynarithmic.twain.highlevel.BufferedTileInfo;
@@ -41,6 +42,7 @@ import com.dynarithmic.twain.highlevel.JNITwainAcquireOptions;
 import com.dynarithmic.twain.highlevel.PDFTextElement;
 import com.dynarithmic.twain.highlevel.TwainFrameDouble;
 import com.dynarithmic.twain.highlevel.TwainImageData;
+import com.dynarithmic.twain.highlevel.TwainImageDataEx;
 import com.dynarithmic.twain.highlevel.TwainSourceInfo;
 import com.dynarithmic.twain.highlevel.TwainStartupOptions;
 import com.dynarithmic.twain.lowlevel.TW_IDENTITY;
@@ -529,6 +531,8 @@ public class DTwainJavaAPI
     // acquisitions
     public native TwainAcquisitionArray DTWAIN_AcquireNative(long Source, int pixelType, int maxPages, boolean showUI, boolean closeSource) throws DTwainJavaAPIException;
     public native TwainAcquisitionArray DTWAIN_AcquireBuffered(long Source, int pixelType, int maxPages, boolean showUI, boolean closeSource) throws DTwainJavaAPIException;
+    public native TwainAcquisitionArrayEx DTWAIN_AcquireNativeEx(long Source, int pixelType, int maxPages, boolean showUI, boolean closeSource) throws DTwainJavaAPIException;
+    public native TwainAcquisitionArrayEx DTWAIN_AcquireBufferedEx(long Source, int pixelType, int maxPages, boolean showUI, boolean closeSource) throws DTwainJavaAPIException;
     public native int DTWAIN_AcquireFile(long Source, String filename, int fileType, int fileFlags, int pixelType, int maxPages, boolean showUI, boolean closeSource) throws DTwainJavaAPIException;
 
     // custom ds data
@@ -566,6 +570,7 @@ public class DTwainJavaAPI
     public native String DTWAIN_GetErrorString(int errorNum) throws DTwainJavaAPIException;
     public native int DTWAIN_AcquireFileEx(long Source, String[] filenames, int fileType, int fileFlags, int pixelType, int maxPages, boolean showUI, boolean closeSource) throws DTwainJavaAPIException;
     public native TwainImageData DTWAIN_GetCurrentAcquiredImage(long Source) throws DTwainJavaAPIException;
+    public native TwainImageDataEx DTWAIN_GetCurrentAcquiredImageEx(long Source) throws DTwainJavaAPIException;
     public native long DTWAIN_GetCurrentAcquiredRawImage(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_SetBlankPageDetection(long Source, double threshold, int autodetect, int detectOptions, boolean bSet) throws DTwainJavaAPIException;
     public native int DTWAIN_SetAcquireArea2(long Source, TwainAcquireArea area, int flags) throws DTwainJavaAPIException;

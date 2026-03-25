@@ -17,8 +17,8 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     DYNARITHMIC SOFTWARE. DYNARITHMIC SOFTWARE DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS.
-
  */
+
 package com.dynarithmic.twain.highlevel;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import com.dynarithmic.twain.exceptions.DTwainRuntimeException;
 
 /**
  *
- * <p>The TwainAcquisitionData class describes pages and page image data acquired
+ * <p>The TwainAcquisitionDataEx class describes pages and page image data acquired
  * from TWAIN device during one acquisition session. An acquisition session is
  * defined when a set of &quot;pages&quot;&nbsp; is acquired from the TWAIN device.&nbsp; </p>
  * <p>The programmer does not directly create instances of TwainAcquisitionData.&nbsp;
@@ -48,14 +48,14 @@ import com.dynarithmic.twain.exceptions.DTwainRuntimeException;
  * </ul>
  * <p>In the above scenario, there are two acquisition sessions, one that consists
  * of 10 pages,&nbsp; and another that consists of 20 pages.&nbsp; If the images
- * are stored in memory, a vector of TwainAcquisitionData describes the
+ * are stored in memory, a vector of TwainAcquisitionDataEx describes the
  * acquisitions attempted, and the pages and image data represented by each
  * acquisition.<br>
  * &nbsp;</p>
  */
-public class TwainAcquisitionData
+public class TwainAcquisitionDataEx
 {
-    List<TwainImageData> imagePages;
+    List<TwainImageDataEx> imagePages;
 
     /**
      * @param allpages
@@ -63,22 +63,22 @@ public class TwainAcquisitionData
      * for this acquisition.  This method need not be called by the DTWAIN Java program,
      * as this will be filled in automatically by the JNI native code.
      */
-    public TwainAcquisitionData(List<TwainImageData> allpages)
+    public TwainAcquisitionDataEx(List<TwainImageDataEx> allpages)
     {
         imagePages = allpages;
     }
 
-    public TwainAcquisitionData()
+    public TwainAcquisitionDataEx()
     {
         imagePages = new ArrayList<>();
     }
 
-    public void setAcquisitionData(List<TwainImageData> allPages)
+    public void setAcquisitionData(List<TwainImageDataEx> allPages)
     {
         imagePages = allPages;
     }
 
-    public void addImageData(TwainImageData theData)
+    public void addImageData(TwainImageDataEx theData)
     {
         imagePages.add(theData);
     }
@@ -104,20 +104,14 @@ public class TwainAcquisitionData
             return new byte[0];
         if ( nWhichPage < 0 || nWhichPage >= imagePages.size() )
             return new byte[0];
-        TwainImageData theData = imagePages.get(nWhichPage);
-        try {
-            return theData.getImageData();
-        }
-        catch (DTwainRuntimeException e)
-        {
-            throw new DTwainRuntimeException(e.getError());
-        }
+        TwainImageDataEx theData = imagePages.get(nWhichPage);
+        return theData.getImageDataAsPixels();
     }
 
-    public TwainImageData getImageDataObject(int nWhichPage)
+    public TwainImageDataEx getImageDataObject(int nWhichPage)
     {
         if ( imagePages.isEmpty() )
-            return new TwainImageData(); //null;
+            return new TwainImageDataEx(); //null;
         if ( nWhichPage < 0 || nWhichPage >= imagePages.size() )
             return null;
         return imagePages.get(nWhichPage);
