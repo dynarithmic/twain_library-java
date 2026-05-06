@@ -464,7 +464,7 @@ bool ExtendedImageInformation::FillImageSegmentationInfo()
     if (nCount > 0)
     {
         TW_STR255 szData = {};
-        API_INSTANCE DTWAIN_ArrayGetAtANSIString(m_theSource, 0, szData);
+        API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szData);
         m_imageSementationInfo.m_sICCProfile = szData;
     }
 
@@ -500,7 +500,7 @@ bool ExtendedImageInformation::FillEndorsedTextInfo()
     if (nCount > 0)
     {
         TW_STR255 szEndorsedInfo = {};
-        API_INSTANCE DTWAIN_ArrayGetAtANSIString(m_theSource, 0, szEndorsedInfo);
+        API_INSTANCE DTWAIN_ArrayGetAtANSIString(aValues, 0, szEndorsedInfo);
         m_endorsedTextInfo.m_sEndorsedText = szEndorsedInfo;
     }
     return true;
