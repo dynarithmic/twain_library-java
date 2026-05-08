@@ -1,5 +1,11 @@
 DTWAIN-Java Version changes
 
+
+Version 1.9.7
+
+- Updated JNI DLL's to be compatible with DTWAIN 5.9.0.
+
+
 Version 1.9.6
 
 - Added TwainCallback handler for onAcquirePagesStopping() and onAcquirePagesStopped().

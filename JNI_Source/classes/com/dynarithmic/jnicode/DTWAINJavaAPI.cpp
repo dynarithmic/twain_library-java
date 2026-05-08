@@ -2934,7 +2934,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetPrint
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    LONG val;
+    DWORD val;
     BOOL bRet = API_INSTANCE DTWAIN_GetPrinterStartNumber(reinterpret_cast<DTWAIN_SOURCE>(src), &val);
     if (bRet)
         return val;
@@ -3070,7 +3070,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetMaxBu
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    LONG val;
+    DWORD val;
     BOOL bRet = API_INSTANCE DTWAIN_GetMaxBuffers(reinterpret_cast<DTWAIN_SOURCE>(src), &val);
     if (bRet)
         return val;
