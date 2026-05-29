@@ -5,7 +5,7 @@ Note that there is very little documentation to the new Java/JNI bridge.  If you
 
 1. [Version 5.9.1 of the DTWAIN library](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#anchor-dtwain-setup).  (For this release of the Java interface, you should be using [this release version](https://github.com/dynarithmic/twain_library/releases/tag/v5.9.1) of the DTWAIN library).
 
-Choose either the [no_vcruntime or require_vcruntime](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#how-do-i-get-set-up-using-dtwain) version of the DTWAIN library.
+Choose either the [no_vcruntime or require_vcruntime](https://github.com/dynarithmic/twain_library/tree/master?tab=readme-ov-file#how-do-i-setup-dtwain-library-setup-building-the-application-and-running-the-application-1) version of the DTWAIN library.
 
 From the DTWAIN library, you will need one or more of the dynamic link libraries (dtwain32.dll, dtwain32u.dll, dtwain64.dll, or dtwain64u.dll) available, plus the <a href="https://github.com/dynarithmic/twain_library/tree/master/text_resources" target="_blank">text resources</a> should reside in the same folder as the dtwain DLL.  <br><br><b>When updating to the latest version of the Java interface or DTWAIN's dynamic link libraries, you **must** always use the latest version of the text resource files.</b><br>
 
