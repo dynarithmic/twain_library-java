@@ -1,6 +1,12 @@
 DTWAIN-Java Version changes
 
 
+Version 1.9.7 Update 1
+
+- Updated JNI DLL's to be compatible with DTWAIN 5.9.1.  This version requires usage of
+  DTWAIN DLL's version 5.9.1.
+
+
 Version 1.9.7
 
 - Updated JNI DLL's to be compatible with DTWAIN 5.9.0.
