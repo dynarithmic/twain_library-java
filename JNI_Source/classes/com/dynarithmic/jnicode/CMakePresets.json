@@ -1,0 +1,511 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "vs2019-x32-crt-ansi",
+      "displayName": "vs2019 x32 crt ansi",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2019-x32-crt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2019-x32-crt-unicode",
+      "displayName": "vs2019 x32 crt unicode",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2019-x32-crt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2019-x32-nocrt-ansi",
+      "displayName": "vs2019 x32 nocrt ansi",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2019-x32-nocrt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2019-x32-nocrt-unicode",
+      "displayName": "vs2019 x32 nocrt unicode",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2019-x32-nocrt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2019-x64-crt-ansi",
+      "displayName": "vs2019 x64 crt ansi",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2019-x64-crt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2019-x64-crt-unicode",
+      "displayName": "vs2019 x64 crt unicode",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2019-x64-crt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2019-x64-nocrt-ansi",
+      "displayName": "vs2019 x64 nocrt ansi",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2019-x64-nocrt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2019-x64-nocrt-unicode",
+      "displayName": "vs2019 x64 nocrt unicode",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2019-x64-nocrt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2022-x32-crt-ansi",
+      "displayName": "vs2022 x32 crt ansi",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2022-x32-crt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2022-x32-crt-unicode",
+      "displayName": "vs2022 x32 crt unicode",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2022-x32-crt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2022-x32-nocrt-ansi",
+      "displayName": "vs2022 x32 nocrt ansi",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2022-x32-nocrt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2022-x32-nocrt-unicode",
+      "displayName": "vs2022 x32 nocrt unicode",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2022-x32-nocrt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2022-x64-crt-ansi",
+      "displayName": "vs2022 x64 crt ansi",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2022-x64-crt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2022-x64-crt-unicode",
+      "displayName": "vs2022 x64 crt unicode",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2022-x64-crt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2022-x64-nocrt-ansi",
+      "displayName": "vs2022 x64 nocrt ansi",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2022-x64-nocrt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2022-x64-nocrt-unicode",
+      "displayName": "vs2022 x64 nocrt unicode",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2022-x64-nocrt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2026-x32-crt-ansi",
+      "displayName": "vs2026 x32 crt ansi",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2026-x32-crt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2026-x32-crt-unicode",
+      "displayName": "vs2026 x32 crt unicode",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2026-x32-crt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2026-x32-nocrt-ansi",
+      "displayName": "vs2026 x32 nocrt ansi",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2026-x32-nocrt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2026-x32-nocrt-unicode",
+      "displayName": "vs2026 x32 nocrt unicode",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build-vs2026-x32-nocrt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2026-x64-crt-ansi",
+      "displayName": "vs2026 x64 crt ansi",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2026-x64-crt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2026-x64-crt-unicode",
+      "displayName": "vs2026 x64 crt unicode",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2026-x64-crt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "ON"
+      }
+    },
+    {
+      "name": "vs2026-x64-nocrt-ansi",
+      "displayName": "vs2026 x64 nocrt ansi",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2026-x64-nocrt-ansi",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "OFF",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    },
+    {
+      "name": "vs2026-x64-nocrt-unicode",
+      "displayName": "vs2026 x64 nocrt unicode",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-vs2026-x64-nocrt-unicode",
+      "cacheVariables": {
+        "DTWAINJNI_BUILD_UNICODE": "ON",
+        "DTWAINJNI_USE_DYNAMIC_CRT": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "vs2019-x32-crt-ansi-release",
+      "configurePreset": "vs2019-x32-crt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x32-crt-ansi-debug",
+      "configurePreset": "vs2019-x32-crt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2019-x32-crt-unicode-release",
+      "configurePreset": "vs2019-x32-crt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x32-crt-unicode-debug",
+      "configurePreset": "vs2019-x32-crt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2019-x32-nocrt-ansi-release",
+      "configurePreset": "vs2019-x32-nocrt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x32-nocrt-ansi-debug",
+      "configurePreset": "vs2019-x32-nocrt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2019-x32-nocrt-unicode-release",
+      "configurePreset": "vs2019-x32-nocrt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x32-nocrt-unicode-debug",
+      "configurePreset": "vs2019-x32-nocrt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2019-x64-crt-ansi-release",
+      "configurePreset": "vs2019-x64-crt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x64-crt-ansi-debug",
+      "configurePreset": "vs2019-x64-crt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2019-x64-crt-unicode-release",
+      "configurePreset": "vs2019-x64-crt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x64-crt-unicode-debug",
+      "configurePreset": "vs2019-x64-crt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2019-x64-nocrt-ansi-release",
+      "configurePreset": "vs2019-x64-nocrt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x64-nocrt-ansi-debug",
+      "configurePreset": "vs2019-x64-nocrt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2019-x64-nocrt-unicode-release",
+      "configurePreset": "vs2019-x64-nocrt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2019-x64-nocrt-unicode-debug",
+      "configurePreset": "vs2019-x64-nocrt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x32-crt-ansi-release",
+      "configurePreset": "vs2022-x32-crt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x32-crt-ansi-debug",
+      "configurePreset": "vs2022-x32-crt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x32-crt-unicode-release",
+      "configurePreset": "vs2022-x32-crt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x32-crt-unicode-debug",
+      "configurePreset": "vs2022-x32-crt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x32-nocrt-ansi-release",
+      "configurePreset": "vs2022-x32-nocrt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x32-nocrt-ansi-debug",
+      "configurePreset": "vs2022-x32-nocrt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x32-nocrt-unicode-release",
+      "configurePreset": "vs2022-x32-nocrt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x32-nocrt-unicode-debug",
+      "configurePreset": "vs2022-x32-nocrt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x64-crt-ansi-release",
+      "configurePreset": "vs2022-x64-crt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x64-crt-ansi-debug",
+      "configurePreset": "vs2022-x64-crt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x64-crt-unicode-release",
+      "configurePreset": "vs2022-x64-crt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x64-crt-unicode-debug",
+      "configurePreset": "vs2022-x64-crt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x64-nocrt-ansi-release",
+      "configurePreset": "vs2022-x64-nocrt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x64-nocrt-ansi-debug",
+      "configurePreset": "vs2022-x64-nocrt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2022-x64-nocrt-unicode-release",
+      "configurePreset": "vs2022-x64-nocrt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2022-x64-nocrt-unicode-debug",
+      "configurePreset": "vs2022-x64-nocrt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x32-crt-ansi-release",
+      "configurePreset": "vs2026-x32-crt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x32-crt-ansi-debug",
+      "configurePreset": "vs2026-x32-crt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x32-crt-unicode-release",
+      "configurePreset": "vs2026-x32-crt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x32-crt-unicode-debug",
+      "configurePreset": "vs2026-x32-crt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x32-nocrt-ansi-release",
+      "configurePreset": "vs2026-x32-nocrt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x32-nocrt-ansi-debug",
+      "configurePreset": "vs2026-x32-nocrt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x32-nocrt-unicode-release",
+      "configurePreset": "vs2026-x32-nocrt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x32-nocrt-unicode-debug",
+      "configurePreset": "vs2026-x32-nocrt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x64-crt-ansi-release",
+      "configurePreset": "vs2026-x64-crt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x64-crt-ansi-debug",
+      "configurePreset": "vs2026-x64-crt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x64-crt-unicode-release",
+      "configurePreset": "vs2026-x64-crt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x64-crt-unicode-debug",
+      "configurePreset": "vs2026-x64-crt-unicode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x64-nocrt-ansi-release",
+      "configurePreset": "vs2026-x64-nocrt-ansi",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x64-nocrt-ansi-debug",
+      "configurePreset": "vs2026-x64-nocrt-ansi",
+      "configuration": "Debug"
+    },
+    {
+      "name": "vs2026-x64-nocrt-unicode-release",
+      "configurePreset": "vs2026-x64-nocrt-unicode",
+      "configuration": "MinSizeRel"
+    },
+    {
+      "name": "vs2026-x64-nocrt-unicode-debug",
+      "configurePreset": "vs2026-x64-nocrt-unicode",
+      "configuration": "Debug"
+    }
+  ]
+}
