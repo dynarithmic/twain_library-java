@@ -6,6 +6,11 @@ Version 1.9.7 Update 1
 - Updated JNI DLL's to be compatible with DTWAIN 5.9.1.  This version requires usage of
   DTWAIN DLL's version 5.9.1.
 
+- Add com.dynarithmic.twain.highlevel.TwainSession.getJNIBuildInfo() function to return 
+  the full build version information of the currently loaded JNI DLL.
+
+- Updated dtwainjni.info file.  
+
 
 Version 1.9.7
 

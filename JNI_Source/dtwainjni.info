@@ -168,7 +168,7 @@ DefaultConstructor                      <>                                 ()V
 SetInfo                                 setInfo                            (Lcom/dynarithmic/twain/lowlevel/TW_IMAGEMEMXFER;)V
 SetTileData                             setTileData                        ([B)V
 
-DTwainVersionInfo                       com/dynarithmic/twain/DTwainVersionInfo                     10
+DTwainVersionInfo                       com/dynarithmic/twain/DTwainVersionInfo                     11
 DefaultConstructor                      <>                                 ()V
 Constructor                             <>                                 (IIIILjava/lang/String;)V
 SetMajorVersion                         setMajorVersion                    (I)V
@@ -179,6 +179,8 @@ SetShortName                            setShortVersionName                (Ljav
 SetVersionCopyright                     setVersionCopyright                (Ljava/lang/String;)V
 SetPatchVersion                         setPatchVersion                    (I)V
 SetVersionType                          setVersionType                     (I)V
+SetJNIBuildInfo                         setJNIBuildInfo                    (Ljava/lang/String;)V
+
 
 TwainOCRInfo                            com/dynarithmic/twain/highlevel/TwainOCRInfo                      2
 DefaultConstructor                      <>                                 ()V
@@ -939,4 +941,4 @@ GetExtendedImageInfo22                 getExtendedImageInfo22              ()Lco
 GetExtendedImageInfo23                 getExtendedImageInfo23              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo23;
 GetExtendedImageInfo24                 getExtendedImageInfo24              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo24;
 GetExtendedImageInfo25                 getExtendedImageInfo25              ()Lcom/dynarithmic/twain/highlevel/ExtendedImageInfo$ExtendedImageInfo25;
-%1135216122
+%4115437396

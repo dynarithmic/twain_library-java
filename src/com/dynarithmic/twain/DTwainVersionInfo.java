@@ -33,6 +33,7 @@ public class DTwainVersionInfo
     private String longVersionName;
     private String shortVersionName;
     private String versionCopyright;
+    private String jniBuildInfo;
 
     public String toString() { return longVersionName; }
 
@@ -43,6 +44,7 @@ public class DTwainVersionInfo
         setPatchVersion(-1);
         setVersionType(0);
         executionPath = "";
+        jniBuildInfo = "";
     }
 
     public DTwainVersionInfo(int majorV, int minorV, int patchV, int versionV, String exePath)
@@ -156,5 +158,15 @@ public class DTwainVersionInfo
     public void setShortVersionName(String shortVersionName)
     {
         this.shortVersionName = shortVersionName;
+    }
+    
+    private void setJNIBuildInfo(String jniString)
+    {
+        this.jniBuildInfo = jniString;
+    }
+    
+    public String getJNIBuildInfo()
+    {
+        return this.jniBuildInfo;
     }
 }
