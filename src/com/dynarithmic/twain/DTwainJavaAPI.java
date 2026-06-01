@@ -38,7 +38,6 @@ import com.dynarithmic.twain.highlevel.TwainAppInfo;
 import com.dynarithmic.twain.highlevel.BufferedStripInfo;
 import com.dynarithmic.twain.highlevel.BufferedTileInfo;
 import com.dynarithmic.twain.highlevel.ExtendedImageInfo;
-import com.dynarithmic.twain.highlevel.JNITwainAcquireOptions;
 import com.dynarithmic.twain.highlevel.PDFTextElement;
 import com.dynarithmic.twain.highlevel.TwainFrameDouble;
 import com.dynarithmic.twain.highlevel.TwainImageData;
@@ -235,24 +234,6 @@ public class DTwainJavaAPI
     }
 
     public long getLibraryHandle() { return m_LibraryHandle; }
-
-    public TwainAcquisitionArray DTWAIN_AcquireImages(long Source, JNITwainAcquireOptions options) throws DTwainJavaAPIException
-    {
-        int pixelType = options.getPixelType().value();
-        int sourceOpenAfterAcquire = options.getSourceStateAfterAcquire().ordinal();
-        AcquireType acqType = options.getAcquireType();
-        switch (acqType)
-        {
-            case NATIVE:
-                return DTWAIN_AcquireNative(Source, pixelType, options.getMaxAcquisitions(),
-                                            options.isShowUI(), sourceOpenAfterAcquire==1?true:false);
-            case BUFFERED:
-                return DTWAIN_AcquireBuffered(Source, pixelType, options.getMaxAcquisitions(),
-                          options.isShowUI(), sourceOpenAfterAcquire==1);
-            default:
-                throw new DTwainJavaAPIException("DTWAIN_AcquireImages only can be used to acquire to image files.  Use DTWAIN_AcquireFile to acquire to image files.");
-        }
-    }
 
     // dynamically load/unload DTWAIN DLL
     public native int DTWAIN_LoadLibrary(String s, String resPath) throws DTwainJavaAPIException, StreamCorruptedException;
