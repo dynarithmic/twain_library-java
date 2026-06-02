@@ -2155,7 +2155,16 @@ JNIEXPORT jobject JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetVe
         vInfo.setLongName(vChars.data());
         vInfo.setShortName(vChars2.data());
         vInfo.setVersionCopyright(vChars3.data());
+        std::ostringstream strm;
+        strm << DTWAINJNI_VERINFO_FILEDESCRIPTION << " " << DTWAINJNI_VERINFO_FILEVERSION << " " << DTWAINJNI_VERINFO_PRODUCTVERSION;
+        std::string sOut = strm.str();
+        #ifdef UNICODE
+            vInfo.setJNIBuildInfo(stringjniutils::string_to_wide_string(sOut).c_str());
+        #else
+            vInfo.setJNIBuildInfo(sOut.c_str());
+        #endif
     }
+
     return vInfo.getObject();
     DO_DTWAIN_CATCH(env)
 }

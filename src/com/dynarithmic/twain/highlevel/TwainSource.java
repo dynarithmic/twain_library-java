@@ -486,6 +486,8 @@ public class TwainSource
             bFstatus = true;
         }
 
+        boolean isDuplexOn = this.acquireCharacteristics.getPaperHandlingOptions().isDuplexEnabled();
+        handle.DTWAIN_EnableDuplex(sourceHandle, isDuplexOn);
         if ( bFstatus )
         {
             AcquireType transtype = acquireCharacteristics.getGeneralOptions().getAcquireType();

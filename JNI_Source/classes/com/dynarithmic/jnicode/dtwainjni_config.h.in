@@ -1,6 +1,6 @@
 /*
     This file is part of the Dynarithmic TWAIN Library (DTWAIN).
-    Copyright (c) 2002-2026 Dynarithmic Software.
+    Copyright (c) 2002-2025 Dynarithmic Software.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,16 +17,11 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     DYNARITHMIC SOFTWARE. DYNARITHMIC SOFTWARE DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS.
-
  */
-package com.dynarithmic.twain.highlevel;
+#ifndef DTWAINJNI_CONFIG_H
+#define DTWAINJNI_CONFIG_H
 
-import com.dynarithmic.twain.DTwainConstants.AcquireType;
+#define CONFIG_CHECKCRC   @DTWAINJNI_CONFIG_CHECKCRC_VALUE@
+#define CONFIG_REFRESHCRC @DTWAINJNI_CONFIG_REFRESHCRC_VALUE@
 
-public class JNITwainAcquireNativeOptions extends JNITwainAcquireOptions
-{
-    public JNITwainAcquireNativeOptions()
-    {
-        super.setAcquireType(AcquireType.NATIVE);
-    }
-}
+#endif

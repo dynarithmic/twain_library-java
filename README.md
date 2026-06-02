@@ -3,15 +3,15 @@ This repositiory contains the new version of the Java Native Interface (JNI) bri
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
-1. [Version 5.9.0 of the DTWAIN library](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#anchor-dtwain-setup).  (For this release of the Java interface, you should be using [this release version](https://github.com/dynarithmic/twain_library/releases/tag/v5.9.0) of the DTWAIN library).
+1. [Version 5.9.1 of the DTWAIN library](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#anchor-dtwain-setup).  (For this release of the Java interface, you should be using [this release version](https://github.com/dynarithmic/twain_library/releases/tag/v5.9.1) of the DTWAIN library).
 
-Choose either the [full_logging or partial_logging](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#how-do-i-get-set-up-using-dtwain) version of the DTWAIN library.
+Choose either the [no_vcruntime or require_vcruntime](https://github.com/dynarithmic/twain_library/tree/master?tab=readme-ov-file#how-do-i-setup-dtwain-library-setup-building-the-application-and-running-the-application-1) version of the DTWAIN library.
 
 From the DTWAIN library, you will need one or more of the dynamic link libraries (dtwain32.dll, dtwain32u.dll, dtwain64.dll, or dtwain64u.dll) available, plus the <a href="https://github.com/dynarithmic/twain_library/tree/master/text_resources" target="_blank">text resources</a> should reside in the same folder as the dtwain DLL.  <br><br><b>When updating to the latest version of the Java interface or DTWAIN's dynamic link libraries, you **must** always use the latest version of the text resource files.</b><br>
 
 2. The JNI dynamic link libraries (DLL's) found in the [32-bit (DTWAINJNI-Binaries-x32.zip)](https://github.com/dynarithmic/twain_library-java/releases/latest/download/DTWAINJNI-Binaries-x32.zip) and [64-bit (DTWAINJNI-Binaries-x64.zip)](https://github.com/dynarithmic/twain_library-java/releases/latest/download/DTWAINJNI-Binaries-x64.zip) zip files.  
 
-5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.9.6 jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
+5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.9.7 jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
 1. The <a href="https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source" target="_blank">dtwainjni.info</a> file must be accessible by the DLL's mentioned in the previous step.  The **dtwainjni.info** file basically is a bridge between the Java function and class signatures and the C++ translation of those function and class signatures to C++.  Without this file, usage of any of the Java functions that communicate to the JNI layer will throw a Java exception.  The **dtwainjni.info** file must be placed in the same directory as the JNI DLL that will be loaded at runtime.
 
 Make sure you always use the latest version of **dtwainjni.info**.  Since this file can undergo changes between different versions of this library, it is important that you are running the **dtwainjni.info** that matches the version of the Java interface to DTWAIN.
@@ -260,48 +260,91 @@ There is very little documentation, so the way to learn to use the library at th
 However the code present in the demos and in the library itself is almost full-featured.  Selecting a TWAIN source, getting, setting, querying the capability information, acquiring to files, image buffers, callbacks, logging, etc.  are all supported.  
 
 ----
-## Rebuilding the JNI layer
+----
 
-The JNI layer (i.e. the **dtwainjnixx.dll** files) is built using **Microsoft Visual Studio 2019**.  The minimum Visual Studio platform used is **Visual Studio 2019**.  The Visual Studio solution file is called **DTWAINJNI_Solution.sln**, and is located <a href="https://github.com/dynarithmic/twain_library-java/tree/master/JNI_Source/classes/com/dynarithmic/jnicode" target="_blank">here</a>.
+# Building the JNI layer source code
 
-If you want to build the JNI layer yourself, make sure your C++ compiler setup is able to access the various header files provided by JNI, such as **jni.h**.  
+Most users will not need to build the JNI layer source code. Prebuilt binaries are provided with each release and can be used directly from Java applications.
 
-In addition, the following environment variables must be set before building the JNI DLLs:
+The JNI source code is available for developers who wish to customize or rebuild the JNI DLLs.
 
-1) **JDK_INCLUDE_DIR**, which points to the location of the **jni.h** file that comes with the JDK.
-2) **DTWAIN_INCLUDE_DIR**, which points to the directory where the base DTWAIN library header files are located.  This is usually where your installation of DTWAIN has placed the <a href="https://github.com/dynarithmic/twain_library/tree/master/c_cpp_includes" target="_blank">c_cpp_include</a> directory.
+## Prerequisites
 
+The following software must be installed:
 
-So for example:  
-```batch
-SET JDK_INCLUDE_DIR=c:\java\jdk1.8\include
-SET DTWAIN_INCLUDE_DIR=c:\dtwain\c_cpp_includes
+* Microsoft Visual Studio 2019, 2022, or 2026 with C/C++ development tools
+* CMake 3.25 or later
+* A Java Development Kit (JDK) containing the JNI headers (`jni.h`)
+
+The JDK installation should be available through the standard `JAVA_HOME` environment variable.
+
+## Building Using Batch Files
+
+The repository contains a set of batch files for common build configurations.
+
+Examples:
+
+```text
+build_vs2022-x64-crt-unicode.bat
+build_vs2022-x64-nocrt-unicode.bat
+build_vs2026-x32-crt-ansi.bat
 ```
-should be issued on the command-line before starting Visual Studio and building your project.
 
+Each batch file automatically:
 
-#### <u>Turning on/off dtwainjni.info corruption checking:</u>
+1. Configures the project using the appropriate CMake preset.
+2. Builds the MinSizeRel configuration.
+3. Builds the Debug configuration.
 
-By default, the Java native call to the JNI function **DTWAIN_LoadLibrary** will always check for the **dtwainjni.info** file being changed or corrupted.
-The only way to turn this checking off is to edit [dtwainjni_config.h](https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source/classes/com/dynarithmic/jnicode/dtwainjni_config.h) and set the **CONFIG_CHECKCRC**  macro to 0:
+## Building Using CMake
 
-`#define CONFIG_CHECKCRC 0`
+Advanced users may invoke CMake directly.
 
-Once this is set, the JNI DLL's must be rebuilt and then utilized by the Java application.
+Example:
 
-If you edit the **dtwainjni.info** file, you may need to reset the CRC value.  To do this, you must set the `CONFIG_REFRESHCRC` macro to 1:
+```text
+cmake --preset vs2022-x64-crt-unicode
+cmake --build --preset vs2022-x64-crt-unicode-release
+cmake --build --preset vs2022-x64-crt-unicode-debug
+```
 
-`#define CONFIG_REFRESHCRC 1`
+The available presets support:
 
-After rebuilding the JNI DLL's, you must run your Java application to allow the **dtwainjni.info** file to be rebuilt.  An exception will be thrown to Java, indicating that the current dtwainjni.info file is invalid, and a new file, **dtwainjni_new.info**, was created (it should be created in the same directory where **dtwainjni.info** resides).  You would then rename the **dtwainjni_new.info** to **dtwainjni.info** so that the Java application no longer throws an exception.
+* Visual Studio 2019, 2022, and 2026
+* 32-bit and 64-bit builds
+* ANSI and Unicode builds
+* CRT and No-CRT runtime options
 
-Caution:  If you are using JNI DLL's that have the dtwainjni.info checks turned off, or you edit the **dtwainjni.info** file, there is a large risk that the Java code may not work correctly.  It is highly important that you know *exactly* what you are doing in terms of editing the dtwainjni.info file, as this file defines all the method signatures and functions to allow the JNI layer to communicate with Java.
+## Output Files
 
-Please note that if you have never built a JNI DLL, I highly recommend that you build a simple one first (Oracle has examples of using JNI) **before** you embark on attempting to build the DTWAIN JNI layer yourself.   There are a few things required (for example, the Oracle JNI header files) before a build can be successful
+The generated DLL names follow the traditional JNI DLL naming convention:
 
-Having said this, assistance in building the JNI DLL will be minimal, at best.  I suggest you **not** change the C++ code if you are not confident or not familiar with how to interface C++ to Java using JNI.
+```text
+dtwainjni32.dll
+dtwainjni32u.dll
+dtwainjni32d.dll
+dtwainjni32ud.dll
 
+dtwainjni64.dll
+dtwainjni64u.dll
+dtwainjni64d.dll
+dtwainjni64ud.dll
+```
 
+Corresponding import libraries (`.lib`) and debugging symbols (`.pdb`) are also generated.
+
+## Configuration Options
+
+The build system supports several optional configuration settings, including:
+
+* ANSI or Unicode builds
+* CRT or No-CRT runtime libraries
+* CRC validation of the dtwainjni.info data file
+* Regeneration of the dtwainjni.info data file if CRC is not valid
+
+These options may be modified through CMake presets or by editing the CMake configuration directly.
+
+----
 ----
 
 ### To do:

@@ -470,6 +470,11 @@ public class TwainSession
         return this.dtwainVersionInfo.getVersionCopyright();
     }
     
+    public String getJNIBuildInfo()
+    {
+        return this.dtwainVersionInfo.getJNIBuildInfo();
+    }
+    
     public static TwainSource getTwainSourceFromHandle(long sourceHandle)
     {
         if (handleToSourceMap.containsKey(sourceHandle))

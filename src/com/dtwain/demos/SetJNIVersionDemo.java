@@ -58,7 +58,7 @@ public class SetJNIVersionDemo
             // Verify these are the DLLs being used
             System.out.println("The DTWAIN DLL in use: " + twainSession.getDTwainPath());
             System.out.println("The JNI Version: " + DTwainGlobalOptions.getJNIVersionAsString());
-            
+            System.out.println("The JNI Name and Build in Use: " + twainSession.getJNIBuildInfo());    
             TwainSource source = EnhancedSourceSelector.selectSource(twainSession);
             if ( source.isOpened())
                 System.out.println("The name of the source is " + source.getInfo().getProductName());

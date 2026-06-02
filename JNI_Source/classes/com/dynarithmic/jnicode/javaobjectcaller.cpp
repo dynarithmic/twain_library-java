@@ -3064,7 +3064,7 @@ FrameStruct JavaFrameInfo::JavaToNative()
 JavaDTwainVersionInfo::JavaDTwainVersionInfo(JNIEnv* env) :
     JavaObjectCaller(env, JavaFunctionNameMapInstance::getFunctionMap(), "DTwainVersionInfo",
 {SetMajorVersion, SetMinorVersion, SetExePath,
- SetLongName, SetShortName, SetPatchVersion, SetVersionType})
+ SetLongName, SetShortName, SetPatchVersion, SetVersionType, SetJNIBuildInfo})
 {
     RegisterMemberFunctions(*this, getObjectName());
     defaultConstructObject();
@@ -3119,6 +3119,11 @@ void JavaDTwainVersionInfo::setShortName(LPCTSTR str)
 void JavaDTwainVersionInfo::setVersionCopyright(LPCTSTR str)
 {
     callVoidMethod(getFunctionName(SetVersionCopyright), CreateJStringFromCString(m_pJavaEnv, str));
+}
+
+void JavaDTwainVersionInfo::setJNIBuildInfo(LPCTSTR str)
+{
+    callVoidMethod(getFunctionName(SetJNIBuildInfo), CreateJStringFromCString(m_pJavaEnv, str));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
