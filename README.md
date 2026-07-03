@@ -1,7 +1,7 @@
 # Dynarithmic TWAIN Library Java interface
 This repositiory contains the new version of the Java Native Interface (JNI) bridge to the Dynarithmic TWAIN Library.  
 
-Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
+Note that there is very little documentation to the new Java/JNI bridge.  Here is what you will need to get started:
 
 1. [Version 5.9.2 of the DTWAIN library](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#anchor-dtwain-setup).  (For this release of the Java interface, you should be using [this release version](https://github.com/dynarithmic/twain_library/releases/tag/v5.9.2) of the DTWAIN library).
 
