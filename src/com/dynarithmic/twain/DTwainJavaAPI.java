@@ -21,6 +21,7 @@
  */
 package com.dynarithmic.twain;
 
+import java.io.FileNotFoundException;
 import java.io.StreamCorruptedException;
 import java.util.List;
 import java.util.TreeMap;
@@ -127,6 +128,10 @@ public class DTwainJavaAPI
         {
             System.out.println(e);    
         }
+        catch (FileNotFoundException e)
+        {
+            System.out.println(e);    
+        }
     }
 
     private boolean EndLoadLibrary() throws DTwainJavaAPIException
@@ -155,7 +160,14 @@ public class DTwainJavaAPI
     {
         if ( m_LibraryHandle != 0 )
             return true;
-        InitialLoadLibrary();
+        try 
+        {
+            InitialLoadLibrary();
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
         String resPath = startOpts.getResourcePath();
         if ( !resPath.isEmpty() )
             DTWAIN_SetResourcePath(resPath);
@@ -236,7 +248,7 @@ public class DTwainJavaAPI
     public long getLibraryHandle() { return m_LibraryHandle; }
 
     // dynamically load/unload DTWAIN DLL
-    public native int DTWAIN_LoadLibrary(String s, String resPath) throws DTwainJavaAPIException, StreamCorruptedException;
+    public native int DTWAIN_LoadLibrary(String s, String resPath) throws DTwainJavaAPIException, StreamCorruptedException, FileNotFoundException;
     public native int DTWAIN_FreeLibrary() throws DTwainJavaAPIException;
 
     // No argument functions
