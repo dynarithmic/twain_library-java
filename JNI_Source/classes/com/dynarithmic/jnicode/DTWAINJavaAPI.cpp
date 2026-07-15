@@ -31,6 +31,10 @@
 #include <windows.h>
 #include "CRCCheck.h"
 #include "dtwainjni_config.h"
+#include "get_dll_version.h"
+
+#define WIDEN2(x) L##x
+#define WIDEN(x)  WIDEN2(x)
 
 #ifdef USING_DTWAIN_LOADLIBRARY
     #include "dtwainx2.h"
@@ -364,6 +368,15 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
     if (!hDTwainModule)
     {
         JavaExceptionThrower::ThrowFileNotFoundError(env, "DTWAIN DLL does not exist or could not be opened");
+        return 0;
+    }
+    VersionNumbers vNumbers;
+    GetDLLVersionNumbers(hDTwainModule, vNumbers);
+    if (vNumbers.FileVersionA != DTWAIN_VERINFO_FILEVERSION)
+    {
+        std::ostringstream strm;
+        strm << "DTWAIN DLL Version Error.  Loaded version: " << vNumbers.FileVersionA << ".  Expected version: " << DTWAIN_VERINFO_FILEVERSION;
+        JavaExceptionThrower::ThrowFileNotFoundError(env, strm.str().c_str());
         return 0;
     }
     DYNDTWAIN_API::InitDTWAINInterface(hDTwainModule);

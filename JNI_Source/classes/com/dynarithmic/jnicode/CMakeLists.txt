@@ -98,6 +98,7 @@ set(HEADER_FILES ${PROJECT_SOURCE_DIR}/c_cpp_includes/
   ${PROJECT_SOURCE_DIR}/DTWAINRAII.h
   ${PROJECT_SOURCE_DIR}/ExtendedImageInfo.h
   ${PROJECT_SOURCE_DIR}/ExtendedImageInfo_Types.h
+  ${PROJECT_SOURCE_DIR}/get_dll_version.h
   ${PROJECT_SOURCE_DIR}/JavaAdapter.h
   ${PROJECT_SOURCE_DIR}/JavaArrayList.h
   ${PROJECT_SOURCE_DIR}/JavaArrayTraits.h
@@ -113,6 +114,7 @@ set(MAIN_SOURCES
   ${PROJECT_SOURCE_DIR}/dtwainjni.rc
   ${PROJECT_SOURCE_DIR}/DTWAINJNIGlobals.cpp
   ${PROJECT_SOURCE_DIR}/dtwimpl.cpp
+  ${PROJECT_SOURCE_DIR}/get_dll_version.cpp
   ${PROJECT_SOURCE_DIR}/ExtendedImageInfo.cpp
   ${PROJECT_SOURCE_DIR}/JavaAdapter.cpp
   ${PROJECT_SOURCE_DIR}/JavaArrayTraits.cpp
@@ -207,6 +209,8 @@ set_target_properties(dtwainjni PROPERTIES
     PDB_NAME_MINSIZEREL
         "dtwainjni${DTWAINJNI_BITNESS}${DTWAINJNI_CHAR_SUFFIX}"
 )
+
+target_link_libraries(dtwainjni PRIVATE Version)
 
 source_group("Header Files\\Generated" FILES
     "${DTWAINJNI_GENERATED_DIR}/dtwainjni_config.h"
