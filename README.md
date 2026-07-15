@@ -3,7 +3,7 @@ This repositiory contains the new version of the Java Native Interface (JNI) bri
 
 Note that there is very little documentation to the new Java/JNI bridge.  If you desire to use this early version of the Java/JNI code, here is what you will need to get started:
 
-1. [Version 5.9.2 of the DTWAIN library](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#anchor-dtwain-setup).  (For this release of the Java interface, you should be using [this release version](https://github.com/dynarithmic/twain_library/releases/tag/v5.9.2) of the DTWAIN library).
+1. [Version 5.9.3 of the DTWAIN library](https://github.com/dynarithmic/twain_library?tab=readme-ov-file#anchor-dtwain-setup).  (For this release of the Java interface, you should be using [this release version](https://github.com/dynarithmic/twain_library/releases/tag/v5.9.2) of the DTWAIN library).
 
 Choose either the [no_vcruntime or require_vcruntime](https://github.com/dynarithmic/twain_library/tree/master?tab=readme-ov-file#how-do-i-setup-dtwain-library-setup-building-the-application-and-running-the-application-1) version of the DTWAIN library.
 
@@ -11,7 +11,7 @@ From the DTWAIN library, you will need one or more of the dynamic link libraries
 
 2. The JNI dynamic link libraries (DLL's) found in the [32-bit (DTWAINJNI-Binaries-x32.zip)](https://github.com/dynarithmic/twain_library-java/releases/latest/download/DTWAINJNI-Binaries-x32.zip) and [64-bit (DTWAINJNI-Binaries-x64.zip)](https://github.com/dynarithmic/twain_library-java/releases/latest/download/DTWAINJNI-Binaries-x64.zip) zip files.  
 
-5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.9.7 jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
+5. <a href="https://github.com/dynarithmic/twain_library-java/tree/master/external_jars" target="_blank">The dtwain-java-1.9.8 jar file and miscellaneous third-party libraries</a> must be incorporated into your Java project.  (Note that you must be familiar with adding third-party libraries to your Java project/application within your development environment).
 1. The <a href="https://github.com/dynarithmic/twain_library-java/blob/master/JNI_Source" target="_blank">dtwainjni.info</a> file must be accessible by the DLL's mentioned in the previous step.  The **dtwainjni.info** file basically is a bridge between the Java function and class signatures and the C++ translation of those function and class signatures to C++.  Without this file, usage of any of the Java functions that communicate to the JNI layer will throw a Java exception.  The **dtwainjni.info** file must be placed in the same directory as the JNI DLL that will be loaded at runtime.
 
 Make sure you always use the latest version of **dtwainjni.info**.  Since this file can undergo changes between different versions of this library, it is important that you are running the **dtwainjni.info** that matches the version of the Java interface to DTWAIN.
@@ -343,6 +343,14 @@ The build system supports several optional configuration settings, including:
 * Regeneration of the dtwainjni.info data file if CRC is not valid
 
 These options may be modified through CMake presets or by editing the CMake configuration directly.
+
+## Optional
+#### DTWAIN Library rebuild
+The `dtwain32u.dll`, `dtwain32ud.dll`, `dtwain64u.dll`, and `dtwain64ud.dll` files that are included in the Java library interface are satisfactory without having to rebuild those components.  However if desired (usually for in-depth debugging purposes), these DLL's can also be rebuilt.  The instructions [here](https://github.com/dynarithmic/twain_library_source#rebuild-source) detail rebuilding of the DTWAIN library.
+
+Note that the JNI source code found in the [master repository](https://github.com/dynarithmic/twain_library-java) is compatible with the DTWAIN library created with the DTWAIN source code found in the  [main](https://github.com/dynarithmic/twain_library_source) branch of the source repository.  
+
+For the [JNI development](https://github.com/dynarithmic/twain_library-java/tree/development) branch, you should always choose the DTWAIN source code in the DTWAIN source code [development branch](https://github.com/dynarithmic/twain_library_source/tree/development) if rebuilding the DTWAIN DLL's.
 
 ----
 ----
