@@ -346,7 +346,7 @@ These options may be modified through CMake presets or by editing the CMake conf
 
 ## Optional
 #### DTWAIN Library rebuild
-The `dtwain32u.dll`, `dtwain32ud.dll`, `dtwain64u.dll`, and `dtwain64ud.dll` files that are included in the Java library interface are satisfactory without having to rebuild those components.  However if desired (usually for in-depth debugging purposes), these DLL's can also be rebuilt.  The instructions [here](https://github.com/dynarithmic/twain_library_source#rebuild-source) detail rebuilding of the DTWAIN library.
+The DTWAIN library DLL files (e.g. `dtwain32u.dll`, `dtwain32.dll`, `dtwain64u.dll`, etc.) that are included in the Java library interface are satisfactory without having to rebuild those components.  However if desired (usually for in-depth debugging purposes), these DLL's can also be rebuilt.  The instructions [here](https://github.com/dynarithmic/twain_library_source#rebuild-source) detail rebuilding of the DTWAIN library.
 
 Note that the JNI source code found in the [master repository](https://github.com/dynarithmic/twain_library-java) is compatible with the DTWAIN library created with the DTWAIN source code found in the  [main](https://github.com/dynarithmic/twain_library_source) branch of the source repository.  
 
