@@ -1713,5 +1713,7 @@ DTWAIN DLL are not displayed */
 #define DTWAIN_CHECKDLLVERLESSEQ 3
 #define DTWAIN_CHECKDLLVERGREATEREQ 4
 
+/* DTWAIN Copyright string resource constant */
+#define DTWAIN_RESOURCE_COPYRIGHT  9700
 #endif
 

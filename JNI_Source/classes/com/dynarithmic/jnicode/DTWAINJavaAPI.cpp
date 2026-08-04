@@ -374,9 +374,11 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
     GetDLLVersionNumbers(hDTwainModule, vNumbers);
     if (vNumbers.FileVersionA != DTWAIN_VERINFO_FILEVERSION)
     {
+        char szModuleName[32767];
+        GetModuleFileNameA(hDTwainModule, szModuleName, 32766);
         std::ostringstream strm;
-        strm << "DTWAIN DLL Version Error.  Loaded version: " << vNumbers.FileVersionA << ".  Expected version: " << DTWAIN_VERINFO_FILEVERSION;
-        JavaExceptionThrower::ThrowFileNotFoundError(env, strm.str().c_str());
+        strm << "DTWAIN DLL name: " << szModuleName << "\nDTWAIN DLL Version Error.\nLoaded DTWAIN DLL version: " << vNumbers.FileVersionA << ".\nExpected DTWAIN DLL version: " << DTWAIN_VERINFO_FILEVERSION;
+        JavaExceptionThrower::ThrowJavaException(env, strm.str().c_str());
         return 0;
     }
     DYNDTWAIN_API::InitDTWAINInterface(hDTwainModule);
@@ -2922,7 +2924,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetDevic
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    LONG val;
+    DWORD val;
     const BOOL bRet = API_INSTANCE DTWAIN_GetDeviceEvent(reinterpret_cast<DTWAIN_SOURCE>(src), &val);
     if (bRet)
         return val;
@@ -2939,7 +2941,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetCompr
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    LONG val;
+    DWORD val;
     BOOL bRet = API_INSTANCE DTWAIN_GetCompressionSize(reinterpret_cast<DTWAIN_SOURCE>(src), &val);
     if (bRet)
         return val;

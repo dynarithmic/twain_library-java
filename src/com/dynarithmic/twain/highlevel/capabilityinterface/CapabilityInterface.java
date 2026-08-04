@@ -597,16 +597,12 @@ public class CapabilityInterface
         this.extendedCapMap.clear();
         this.extendedImageCapsMap.clear();
         apiHandle = this.twainSource.getTwainSession().getAPIHandle();
-        List<Integer> allCaps = this.getSupportedCaps(get());
-        for (Integer cap : allCaps)
+        int [] supportedCaps = apiHandle.DTWAIN_EnumSupportedCaps(this.twainSource.getSourceHandle());
+        for (int cap : supportedCaps)
         {
             String capName = apiHandle.DTWAIN_GetNameFromCap(cap);
-            int theOpts = apiHandle.DTWAIN_GetCapOperations(twainSource.getSourceHandle(), cap);
             int theType = apiHandle.DTWAIN_GetCapDataType(twainSource.getSourceHandle(),  cap);
-            if ( theOpts != 0 )
-                this.capMap.put(cap,  new TwainCapInfo(capName, theOpts, theType));
-            else
-                this.capMap.put(cap, new TwainCapInfo(capName, -1, theType));
+            this.capMap.put(cap, new TwainCapInfo(capName, -1, theType));
             this.capCacheSet.add(cap);
         }
         this.initializeCachedSet();
@@ -620,14 +616,9 @@ public class CapabilityInterface
 
         // Get the extended caps
         List<Integer> extCaps = this.getExtendedCaps(get());
-        Set<Integer> result = allCaps.stream()
-                  .distinct()
-                  .filter(extCaps::contains)
-                  .collect(Collectors.toSet());
-        for ( Integer val : result )
+        for ( Integer val : extCaps )
         {
-            if ( this.capMap.containsKey(val))
-                this.extendedCapMap.put(val, new TwainCapInfo(this.capMap.get(val)));
+            this.extendedCapMap.put(val, new TwainCapInfo(this.capMap.get(val)));
         }
         return this.capMap.size() > 0;
     }
@@ -682,7 +673,7 @@ public class CapabilityInterface
         return -1;
     }
 
-    public List<Integer> getCapOperations(int capValue)
+    public List<Integer> getCapOperations(int capValue) throws DTwainJavaAPIException
     {
         int [] allops =
         {
@@ -700,10 +691,10 @@ public class CapabilityInterface
         List<Integer> ret = new ArrayList<>();
         if (this.capMap.containsKey(capValue))
         {
-            TwainCapInfo capInfo = this.capMap.get(capValue);
+            int supportedOps = apiHandle.DTWAIN_GetCapOperations(twainSource.getSourceHandle(), capValue);
             for( int op : allops)
             {
-                if ((capInfo.supportedOps & op) > 0)
+                if ((supportedOps & op) > 0)
                     ret.add(op);
             }
         }

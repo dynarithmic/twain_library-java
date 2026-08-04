@@ -20,6 +20,7 @@
 
  */
 package com.dtwain.demos;
+
 import com.dynarithmic.twain.DTwainConstants.ErrorCode;
 import com.dynarithmic.twain.DTwainConstants.SessionStartupMode;
 import com.dynarithmic.twain.highlevel.TwainConsoleLogger;
@@ -47,8 +48,10 @@ public class SimpleLoggingDemo
         // Set up logging to a file and to the console
         TwainLogger logging = TwainSession.getLogger();
         logging.setVerbosity(TwainLogger.LoggerVerbosity.MAXIMUM).
-                addLogger(new TwainFileLogger("newlog.log")).  // Log to a file names newlog.log
-                addLogger(new TwainConsoleLogger());          // Log to the system console
+                // Log to a file named twainlog.log (change path to fit your environment)
+                addLogger(new TwainFileLogger("c:\\dtwain_javatest\\twainlog.log")).
+                // Log to the system console
+                addLogger(new TwainConsoleLogger());          
 
                
         // Now start the session, which will also start the logger
