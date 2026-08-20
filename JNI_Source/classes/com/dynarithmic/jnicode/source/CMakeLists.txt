@@ -83,47 +83,47 @@ set(HEADER_FILES ${PROJECT_SOURCE_DIR}/c_cpp_includes/
   ${PROJECT_SOURCE_DIR}/c_cpp_includes/dtwtype.h
   ${PROJECT_SOURCE_DIR}/c_cpp_includes/twain.h
   ${PROJECT_SOURCE_DIR}/c_cpp_includes/winconst.h
-  ${PROJECT_SOURCE_DIR}/CRCCheck.h
-  ${PROJECT_SOURCE_DIR}/DSMCaller.h
-  ${PROJECT_SOURCE_DIR}/DTWAINFunctionCaller.h
-  ${PROJECT_SOURCE_DIR}/DTwainJavaAPI.h
+  ${PROJECT_SOURCE_DIR}/h/CRCCheck.h
+  ${PROJECT_SOURCE_DIR}/h/DSMCaller.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINFunctionCaller.h
+  ${PROJECT_SOURCE_DIR}/h/DTwainJavaAPI.h
   ${DTWAINJNI_GENERATED_DIR}/dtwainjni_config.h
-  ${PROJECT_SOURCE_DIR}/DTWAINJNI_VerInfo.h
-  ${PROJECT_SOURCE_DIR}/DTWAINJNI_Version.h
-  ${PROJECT_SOURCE_DIR}/DTWAINJNIGlobalNames.h
-  ${PROJECT_SOURCE_DIR}/DTWAINJNI_VerInfo.h
-  ${PROJECT_SOURCE_DIR}/DTWAINJNI_Version.h
-  ${PROJECT_SOURCE_DIR}/DTWAINJNIGlobalNames.h
-  ${PROJECT_SOURCE_DIR}/DTWAINJNIGlobals.h
-  ${PROJECT_SOURCE_DIR}/DTWAINRAII.h
-  ${PROJECT_SOURCE_DIR}/ExtendedImageInfo.h
-  ${PROJECT_SOURCE_DIR}/ExtendedImageInfo_Types.h
-  ${PROJECT_SOURCE_DIR}/get_dll_version.h
-  ${PROJECT_SOURCE_DIR}/JavaAdapter.h
-  ${PROJECT_SOURCE_DIR}/JavaArrayList.h
-  ${PROJECT_SOURCE_DIR}/JavaArrayTraits.h
-  ${PROJECT_SOURCE_DIR}/javaobjectcaller.h
-  ${PROJECT_SOURCE_DIR}/resource.h
-  ${PROJECT_SOURCE_DIR}/StringDefs.h
-  ${PROJECT_SOURCE_DIR}/UTFCharsHandler.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINJNI_VerInfo.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINJNI_Version.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINJNIGlobalNames.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINJNI_VerInfo.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINJNI_Version.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINJNIGlobalNames.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINJNIGlobals.h
+  ${PROJECT_SOURCE_DIR}/h/DTWAINRAII.h
+  ${PROJECT_SOURCE_DIR}/h/ExtendedImageInfo.h
+  ${PROJECT_SOURCE_DIR}/h/ExtendedImageInfo_Types.h
+  ${PROJECT_SOURCE_DIR}/h/get_dll_version.h
+  ${PROJECT_SOURCE_DIR}/h/JavaAdapter.h
+  ${PROJECT_SOURCE_DIR}/h/JavaArrayList.h
+  ${PROJECT_SOURCE_DIR}/h/JavaArrayTraits.h
+  ${PROJECT_SOURCE_DIR}/h/javaobjectcaller.h
+  ${PROJECT_SOURCE_DIR}/h/resource.h
+  ${PROJECT_SOURCE_DIR}/h/StringDefs.h
+  ${PROJECT_SOURCE_DIR}/h/UTFCharsHandler.h
 )
 
 set(MAIN_SOURCES
-  ${PROJECT_SOURCE_DIR}/CRCCheck.cpp
-  ${PROJECT_SOURCE_DIR}/DTWAINJavaAPI.cpp
-  ${PROJECT_SOURCE_DIR}/dtwainjni.rc
-  ${PROJECT_SOURCE_DIR}/DTWAINJNIGlobals.cpp
-  ${PROJECT_SOURCE_DIR}/dtwimpl.cpp
-  ${PROJECT_SOURCE_DIR}/get_dll_version.cpp
-  ${PROJECT_SOURCE_DIR}/ExtendedImageInfo.cpp
-  ${PROJECT_SOURCE_DIR}/JavaAdapter.cpp
-  ${PROJECT_SOURCE_DIR}/JavaArrayTraits.cpp
-  ${PROJECT_SOURCE_DIR}/javaobjectcaller.cpp
-  ${PROJECT_SOURCE_DIR}/dtwimpl.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/CRCCheck.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/DTWAINJavaAPI.cpp
+  ${PROJECT_SOURCE_DIR}/rc/dtwainjni.rc
+  ${PROJECT_SOURCE_DIR}/cpp/DTWAINJNIGlobals.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/dtwimpl.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/get_dll_version.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/ExtendedImageInfo.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/JavaAdapter.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/JavaArrayTraits.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/javaobjectcaller.cpp
+  ${PROJECT_SOURCE_DIR}/cpp/dtwimpl.cpp
 )
 
 set(DTWAINJNI_RESOURCE_FILES
-    ${PROJECT_SOURCE_DIR}/dtwainjni.rc
+    ${PROJECT_SOURCE_DIR}/rc/dtwainjni.rc
 )
 
 add_library(dtwainjni SHARED
@@ -133,7 +133,7 @@ add_library(dtwainjni SHARED
 
 target_include_directories(dtwainjni PRIVATE
    "${DTWAINJNI_GENERATED_DIR}"
-    ${PROJECT_SOURCE_DIR}
+    ${PROJECT_SOURCE_DIR}/h
     ${PROJECT_SOURCE_DIR}/c_cpp_includes
     ${JNI_INCLUDE_DIRS}
 )

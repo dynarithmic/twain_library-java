@@ -296,6 +296,14 @@ Each batch file automatically:
 2. Builds the MinSizeRel configuration.
 3. Builds the Debug configuration.
 
+In addition, to build all the compiler variations (ANSI/Unicode, CRT/NoCRT), the following batch files can be used:
+
+```text
+build_all_2019.bat  (Builds all the JNI DLL's using Visual Studio 2019)
+build_all_2022.bat  (Builds all the JNI DLL's using Visual Studio 2022)
+build_all_2026.bat  (Builds all the JNI DLL's using Visual Studio 2026)
+```
+
 ## Building Using CMake
 
 Advanced users may invoke CMake directly.
