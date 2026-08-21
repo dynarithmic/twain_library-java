@@ -7,7 +7,7 @@ Note that there is very little documentation to the new Java/JNI bridge.  If you
 
 Choose either the [no_vcruntime or require_vcruntime](https://github.com/dynarithmic/twain_library/tree/master?tab=readme-ov-file#how-do-i-setup-dtwain-library-setup-building-the-application-and-running-the-application-1) version of the DTWAIN library.
 
-From the DTWAIN library, you will need one or more of the dynamic link libraries (dtwain32.dll, dtwain32u.dll, dtwain64.dll, or dtwain64u.dll) available, plus the <a href="https://github.com/dynarithmic/twain_library/tree/master/text_resources" target="_blank">text resources</a> should reside in the same folder as the dtwain DLL.  <br><br><b>When updating to the latest version of the Java interface or DTWAIN's dynamic link libraries, you **must** always use the latest version of the text resource files.</b><br>
+From the DTWAIN library, you will need one or more of the dynamic link libraries (`dtwain32.dll`, `dtwain32u.dll`, `dtwain64.dll`, or `dtwain64u.dll`) available, plus the <a href="https://github.com/dynarithmic/twain_library/tree/master/text_resources" target="_blank">text resources</a> should reside in the same folder as the dtwain DLL.  <br><br><b>When updating to the latest version of the Java interface or DTWAIN's dynamic link libraries, you **must** always use the latest version of the text resource files.</b><br>
 
 2. The JNI dynamic link libraries (DLL's) found in the [32-bit (DTWAINJNI-Binaries-x32.zip)](https://github.com/dynarithmic/twain_library-java/releases/latest/download/DTWAINJNI-Binaries-x32.zip) and [64-bit (DTWAINJNI-Binaries-x64.zip)](https://github.com/dynarithmic/twain_library-java/releases/latest/download/DTWAINJNI-Binaries-x64.zip) zip files.  
 
