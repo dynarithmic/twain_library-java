@@ -1,5 +1,17 @@
 DTWAIN-Java Version changes
 
+Version 1.9.8
+
+- Reduced time to open a TWAIN Source by removing the initial caching of all capability operations.
+
+- Updated com.dynarithmic.twain.highlevel.TwainSession class to throw an exception if 
+  incorrect version of the lower level DTWAIN library is being loaded on startup.
+
+- Updated JNI DLL's to be compatible with DTWAIN 5.9.3.  This version requires usage of
+  DTWAIN DLL's version 5.9.3 (see update above with respect to throwing an exception if
+  the incorrect version of the DTWAIN DLL's are being loaded).
+
+
 Version 1.9.7 Update 2
 
 - Updated JNI DLL's to be compatible with DTWAIN 5.9.2.  This version requires usage of

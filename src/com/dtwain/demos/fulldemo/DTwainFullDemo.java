@@ -1566,6 +1566,7 @@ public class DTwainFullDemo extends javax.swing.JFrame {
                 catch (Exception e)
                 {
                     e.printStackTrace();
+                    System.exit(ABORT);
                 }
                 fullDemo.setVisible(true);
                 try

@@ -192,8 +192,15 @@ public class TwainSession
         {
             twainSourceCache.clear();
             dtwainAPI = new DTwainJavaAPI(DTwainGlobalOptions.getJNIVersion());
-            dtwainAPI.DTWAIN_JavaSysInitialize(twainCharacteristics);
-            if ( dtwainAPI != null )
+            try
+            {
+                dtwainAPI.DTWAIN_JavaSysInitialize(twainCharacteristics);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            if (dtwainAPI != null )
                 twainSessionId = dtwainAPI.DTWAIN_GetTwainAppID();
             this.dtwainVersionInfo = dtwainAPI.DTWAIN_GetVersionInfo();
             if ( isLoggingEnabled() )

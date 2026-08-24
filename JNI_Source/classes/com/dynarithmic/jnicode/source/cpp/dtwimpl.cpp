@@ -229,6 +229,7 @@
     D_CALLCALLBACKFUNC                            DYNDTWAIN_API::DTWAIN_CallCallback = nullptr;
     D_CALLCALLBACK64FUNC                          DYNDTWAIN_API::DTWAIN_CallCallback64 = nullptr;
     D_CALLDSMPROCFUNC                             DYNDTWAIN_API::DTWAIN_CallDSMProc = nullptr;
+    D_CHECKDLLVERSIONFUNC                         DYNDTWAIN_API::DTWAIN_CheckDLLVersion = nullptr;
     D_CHECKHANDLESFUNC                            DYNDTWAIN_API::DTWAIN_CheckHandles = nullptr;
     D_CLEARBUFFERSFUNC                            DYNDTWAIN_API::DTWAIN_ClearBuffers = nullptr;
     D_CLEARERRORBUFFERFUNC                        DYNDTWAIN_API::DTWAIN_ClearErrorBuffer = nullptr;
@@ -598,6 +599,7 @@
     D_GETLOGGERCALLBACKFUNC                       DYNDTWAIN_API::DTWAIN_GetLoggerCallback = nullptr;
     D_GETLOGGERCALLBACKAFUNC                      DYNDTWAIN_API::DTWAIN_GetLoggerCallbackA = nullptr;
     D_GETLOGGERCALLBACKWFUNC                      DYNDTWAIN_API::DTWAIN_GetLoggerCallbackW = nullptr;
+    D_GETMAJORMINORVERSIONFUNC                    DYNDTWAIN_API::DTWAIN_GetMajorMinorVersion = nullptr;
     D_GETMANUALDUPLEXCOUNTFUNC                    DYNDTWAIN_API::DTWAIN_GetManualDuplexCount = nullptr;
     D_GETMAXACQUISITIONSFUNC                      DYNDTWAIN_API::DTWAIN_GetMaxAcquisitions = nullptr;
     D_GETMAXBUFFERSFUNC                           DYNDTWAIN_API::DTWAIN_GetMaxBuffers = nullptr;
@@ -748,6 +750,7 @@
     D_GETVERSIONCOPYRIGHTAFUNC                    DYNDTWAIN_API::DTWAIN_GetVersionCopyrightA = nullptr;
     D_GETVERSIONCOPYRIGHTWFUNC                    DYNDTWAIN_API::DTWAIN_GetVersionCopyrightW = nullptr;
     D_GETVERSIONEXFUNC                            DYNDTWAIN_API::DTWAIN_GetVersionEx = nullptr;
+    D_GETVERSIONEX2FUNC                           DYNDTWAIN_API::DTWAIN_GetVersionEx2 = nullptr;
     D_GETVERSIONINFOFUNC                          DYNDTWAIN_API::DTWAIN_GetVersionInfo = nullptr;
     D_GETVERSIONINFOAFUNC                         DYNDTWAIN_API::DTWAIN_GetVersionInfoA = nullptr;
     D_GETVERSIONINFOWFUNC                         DYNDTWAIN_API::DTWAIN_GetVersionInfoW = nullptr;
@@ -1086,6 +1089,7 @@
     D_SETLOGGERCALLBACKFUNC                       DYNDTWAIN_API::DTWAIN_SetLoggerCallback = nullptr;
     D_SETLOGGERCALLBACKAFUNC                      DYNDTWAIN_API::DTWAIN_SetLoggerCallbackA = nullptr;
     D_SETLOGGERCALLBACKWFUNC                      DYNDTWAIN_API::DTWAIN_SetLoggerCallbackW = nullptr;
+    D_SETMAJORMINORVERSIONFUNC                    DYNDTWAIN_API::DTWAIN_SetMajorMinorVersion = nullptr;
     D_SETMANUALDUPLEXMODEFUNC                     DYNDTWAIN_API::DTWAIN_SetManualDuplexMode = nullptr;
     D_SETMAXACQUISITIONSFUNC                      DYNDTWAIN_API::DTWAIN_SetMaxAcquisitions = nullptr;
     D_SETMAXBUFFERSFUNC                           DYNDTWAIN_API::DTWAIN_SetMaxBuffers = nullptr;
@@ -1482,6 +1486,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_CallCallback, hModule);
           LOADFUNCTIONIMPL(DTWAIN_CallCallback64, hModule);
           LOADFUNCTIONIMPL(DTWAIN_CallDSMProc, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_CheckDLLVersion, hModule);
           LOADFUNCTIONIMPL(DTWAIN_CheckHandles, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ClearBuffers, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ClearErrorBuffer, hModule);
@@ -1851,6 +1856,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetLoggerCallback, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetLoggerCallbackA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetLoggerCallbackW, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetMajorMinorVersion, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetManualDuplexCount, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetMaxAcquisitions, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetMaxBuffers, hModule);
@@ -2001,6 +2007,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetVersionCopyrightA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersionCopyrightW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersionEx, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetVersionEx2, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersionInfo, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersionInfoA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersionInfoW, hModule);
@@ -2339,6 +2346,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_SetLoggerCallback, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetLoggerCallbackA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetLoggerCallbackW, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_SetMajorMinorVersion, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetManualDuplexMode, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetMaxAcquisitions, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetMaxBuffers, hModule);
