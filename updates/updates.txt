@@ -5,6 +5,10 @@ Version 2.0.0
 - The twaininfo.txt, dtwain32.ini, and dtwain64.ini files are no longer required.  Existing versions
   of dtwain32.ini and dtwain64.ini will still be utilized during the running of the application.
 
+- Updated class TwainCallback with additional callback functions.
+
+- Added missing error codes to DTwainConstants.java
+
 - Updated JNI DLL's to be compatible with DTWAIN 5.10.0.  This version requires usage of
   DTWAIN DLL's version 5.10.0 (see update above with respect to throwing an exception if
   the incorrect version of the DTWAIN DLL's are being loaded).
