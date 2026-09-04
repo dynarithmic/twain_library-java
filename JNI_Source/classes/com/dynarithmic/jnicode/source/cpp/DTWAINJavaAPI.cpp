@@ -832,7 +832,6 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetQuery
 (JNIEnv *env, jobject, jint a1)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_SetQueryCapSupport(a1);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -845,7 +844,6 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetTwain
 (JNIEnv *env, jobject, jint a1)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_SetTwainTimeout(a1);
     DO_DTWAIN_CATCH(env)
 }
 
@@ -6181,21 +6179,30 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1AddPDFTe
     auto skewAngleY = pdfElement.getSkewAngleY();
     auto transformFlag = pdfElement.getTextTransform();
     auto text = pdfElement.getText();
-    API_INSTANCE DTWAIN_AddPDFTextEx(reinterpret_cast<DTWAIN_SOURCE>(source),
-                                    text.c_str(),
-                                    xpos,
-                                    ypos,
-                                    fontName.c_str(),
-                                    fontheight,
-                                    RGB(rgb.getR(), rgb.getG(), rgb.getB()),
-                                    opts,
-                                    scaling,
-                                    charSpacing,
-                                    wordSpacing,
-                                    strokeWidth,
-                                    rotationAngle,
-                                    skewAngleX, skewAngleY, scalingX, scalingY, transformFlag);
-    return JNI_TRUE;
+
+    // Create a PDF text element for usage when acquiring to a PDF file 
+    auto g_PDFTextElement = API_INSTANCE DTWAIN_CreatePDFTextElement();
+    if ( !g_PDFTextElement )
+        return JNI_FALSE;
+    API_INSTANCE DTWAIN_SetPDFTextElementString(g_PDFTextElement, fontName.c_str(), DTWAIN_PDFTEXTELEMENT_FONTNAME);
+    API_INSTANCE DTWAIN_SetPDFTextElementLong(g_PDFTextElement, API_INSTANCE DTWAIN_MakeRGB(rgb.getR(), rgb.getG(), rgb.getB()), 
+                                               0, DTWAIN_PDFTEXTELEMENT_COLOR);
+    API_INSTANCE DTWAIN_SetPDFTextElementLong(g_PDFTextElement, opts, 0, DTWAIN_PDFTEXTELEMENT_RENDERMODE);
+    API_INSTANCE DTWAIN_SetPDFTextElementLong(g_PDFTextElement, xpos, ypos, DTWAIN_PDFTEXTELEMENT_POSITION);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, fontheight, 0, DTWAIN_PDFTEXTELEMENT_FONTHEIGHT);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, scaling, 0, DTWAIN_PDFTEXTELEMENT_SCALING);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, charSpacing, 0, DTWAIN_PDFTEXTELEMENT_CHARSPACING);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, wordSpacing, 0, DTWAIN_PDFTEXTELEMENT_WORDSPACING);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, strokeWidth, 0, DTWAIN_PDFTEXTELEMENT_STROKEWIDTH);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, rotationAngle, 0, DTWAIN_PDFTEXTELEMENT_ROTATIONANGLE);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, scalingX, scalingY, DTWAIN_PDFTEXTELEMENT_SCALINGXY);
+    API_INSTANCE DTWAIN_SetPDFTextElementFloat(g_PDFTextElement, skewAngleX, skewAngleY, DTWAIN_PDFTEXTELEMENT_SKEWANGLES);
+    API_INSTANCE DTWAIN_SetPDFTextElementLong(g_PDFTextElement, transformFlag, ypos, DTWAIN_PDFTEXTELEMENT_TRANSFORMORDER);
+    API_INSTANCE DTWAIN_SetPDFTextElementLong(g_PDFTextElement, DTWAIN_PDFTEXT_COPYTEXTELEMENT, 0, DTWAIN_PDFTEXTELEMENT_DISPLAYFLAGS);
+    API_INSTANCE DTWAIN_SetPDFTextElementString(g_PDFTextElement, text.c_str(), DTWAIN_PDFTEXTELEMENT_TEXT);
+    auto added = API_INSTANCE DTWAIN_AddPDFTextElement(reinterpret_cast<DTWAIN_SOURCE>(source), g_PDFTextElement);
+    API_INSTANCE DTWAIN_DestroyPDFTextElement(g_PDFTextElement);
+    return added?JNI_TRUE:JNI_FALSE;
     DO_DTWAIN_CATCH(env)
 }
 
