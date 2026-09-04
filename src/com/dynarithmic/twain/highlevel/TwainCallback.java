@@ -92,6 +92,8 @@ public class TwainCallback
         s_mapData.put(NotificationCode.QUERYACQUIREPAGES, "onQueryAcquirePages");
         s_mapData.put(NotificationCode.ACQUIREPAGESSTOPPING, "onAcquirePagesStopping");
         s_mapData.put(NotificationCode.ACQUIREPAGESSTOPPED, "onAcquirePagesStopped");
+        s_mapData.put(NotificationCode.QUERYUPDATEDIBORIG, "onQueryUpdateDibOrig");
+        s_mapData.put(NotificationCode.QUERYUPDATEDIBRESAMPLED, "onQueryUpdateDibResampled");
     }
 
     public TwainCallback() 
@@ -554,6 +556,14 @@ public class TwainCallback
                         returner = theCallback.onAcquirePagesStopped(sourceHandle);
                         break;
                         
+                    case QUERYUPDATEDIBORIG:
+                        returner = theCallback.onQueryUpdateDibOrig(sourceHandle);
+                        break;
+                        
+                    case QUERYUPDATEDIBRESAMPLED:
+                        returner = theCallback.onQueryUpdateDibResampled(sourceHandle);
+                        break;
+       
                     default:
                         break;
                 }
@@ -1047,6 +1057,16 @@ public class TwainCallback
         return defaultImpl(sourceHandle);
     }
 
+    public int onQueryUpdateDibOrig(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
+    public int onQueryUpdateDibResampled(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
     public int catchUnknown(int event, TwainSource sourceHandle)
     {
         return defaultImpl(event, sourceHandle);
