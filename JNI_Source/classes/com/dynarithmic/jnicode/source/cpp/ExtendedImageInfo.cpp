@@ -40,7 +40,6 @@ ExtendedImageInformation::ExtendedImageInformation(DTWAIN_SOURCE theSource) : m_
     auto retValue = API_INSTANCE DTWAIN_InitExtImageInfo(m_theSource);
     if (retValue)
     {
-        API_INSTANCE DTWAIN_GetExtImageInfo(m_theSource);
         DTWAIN_ARRAY aValues = {};
         DTWAINArray_RAII raii(aValues);
         API_INSTANCE DTWAIN_EnumExtImageInfoTypes(m_theSource, &aValues);

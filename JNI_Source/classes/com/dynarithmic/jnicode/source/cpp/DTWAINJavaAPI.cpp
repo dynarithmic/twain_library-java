@@ -1518,7 +1518,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetExtIm
 (JNIEnv *env, jobject, jlong src)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_GetExtImageInfo(reinterpret_cast<DTWAIN_SOURCE>(src));
+    return JNI_FALSE;
     DO_DTWAIN_CATCH(env)
 }
 
