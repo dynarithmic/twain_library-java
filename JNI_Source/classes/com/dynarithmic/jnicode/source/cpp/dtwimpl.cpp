@@ -62,16 +62,9 @@
     D_ACQUIRENATIVEFUNC                           DYNDTWAIN_API::DTWAIN_AcquireNative = nullptr;
     D_ACQUIRENATIVEEXFUNC                         DYNDTWAIN_API::DTWAIN_AcquireNativeEx = nullptr;
     D_ACQUIRETOCLIPBOARDFUNC                      DYNDTWAIN_API::DTWAIN_AcquireToClipboard = nullptr;
-    D_ADDEXTIMAGEINFOQUERYFUNC                    DYNDTWAIN_API::DTWAIN_AddExtImageInfoQuery = nullptr;
-    D_ADDFILETOAPPENDFUNC                         DYNDTWAIN_API::DTWAIN_AddFileToAppend = nullptr;
-    D_ADDFILETOAPPENDAFUNC                        DYNDTWAIN_API::DTWAIN_AddFileToAppendA = nullptr;
-    D_ADDFILETOAPPENDWFUNC                        DYNDTWAIN_API::DTWAIN_AddFileToAppendW = nullptr;
     D_ADDPDFTEXTFUNC                              DYNDTWAIN_API::DTWAIN_AddPDFText = nullptr;
     D_ADDPDFTEXTAFUNC                             DYNDTWAIN_API::DTWAIN_AddPDFTextA = nullptr;
     D_ADDPDFTEXTELEMENTFUNC                       DYNDTWAIN_API::DTWAIN_AddPDFTextElement = nullptr;
-    D_ADDPDFTEXTEXFUNC                            DYNDTWAIN_API::DTWAIN_AddPDFTextEx = nullptr;
-    D_ADDPDFTEXTEXAFUNC                           DYNDTWAIN_API::DTWAIN_AddPDFTextExA = nullptr;
-    D_ADDPDFTEXTEXWFUNC                           DYNDTWAIN_API::DTWAIN_AddPDFTextExW = nullptr;
     D_ADDPDFTEXTSTRINGFUNC                        DYNDTWAIN_API::DTWAIN_AddPDFTextString = nullptr;
     D_ADDPDFTEXTSTRINGAFUNC                       DYNDTWAIN_API::DTWAIN_AddPDFTextStringA = nullptr;
     D_ADDPDFTEXTSTRINGWFUNC                       DYNDTWAIN_API::DTWAIN_AddPDFTextStringW = nullptr;
@@ -175,7 +168,6 @@
     D_ARRAYGETSOURCEATFUNC                        DYNDTWAIN_API::DTWAIN_ArrayGetSourceAt = nullptr;
     D_ARRAYGETSTRINGLENGTHFUNC                    DYNDTWAIN_API::DTWAIN_ArrayGetStringLength = nullptr;
     D_ARRAYGETTYPEFUNC                            DYNDTWAIN_API::DTWAIN_ArrayGetType = nullptr;
-    D_ARRAYINITFUNC                               DYNDTWAIN_API::DTWAIN_ArrayInit = nullptr;
     D_ARRAYINSERTATFUNC                           DYNDTWAIN_API::DTWAIN_ArrayInsertAt = nullptr;
     D_ARRAYINSERTATANSISTRINGFUNC                 DYNDTWAIN_API::DTWAIN_ArrayInsertAtANSIString = nullptr;
     D_ARRAYINSERTATANSISTRINGNFUNC                DYNDTWAIN_API::DTWAIN_ArrayInsertAtANSIStringN = nullptr;
@@ -449,6 +441,9 @@
     D_GETACTIVEDSMVERSIONINFOAFUNC                DYNDTWAIN_API::DTWAIN_GetActiveDSMVersionInfoA = nullptr;
     D_GETACTIVEDSMVERSIONINFOWFUNC                DYNDTWAIN_API::DTWAIN_GetActiveDSMVersionInfoW = nullptr;
     D_GETALARMVOLUMEFUNC                          DYNDTWAIN_API::DTWAIN_GetAlarmVolume = nullptr;
+    D_GETALLSESSIONINFOFUNC                       DYNDTWAIN_API::DTWAIN_GetAllSessionInfo = nullptr;
+    D_GETALLSESSIONINFOAFUNC                      DYNDTWAIN_API::DTWAIN_GetAllSessionInfoA = nullptr;
+    D_GETALLSESSIONINFOWFUNC                      DYNDTWAIN_API::DTWAIN_GetAllSessionInfoW = nullptr;
     D_GETALLSOURCEDIBSFUNC                        DYNDTWAIN_API::DTWAIN_GetAllSourceDibs = nullptr;
     D_GETALLSOURCEINFOFUNC                        DYNDTWAIN_API::DTWAIN_GetAllSourceInfo = nullptr;
     D_GETALLSOURCEINFOAFUNC                       DYNDTWAIN_API::DTWAIN_GetAllSourceInfoA = nullptr;
@@ -515,6 +510,9 @@
     D_GETCONTRASTSTRINGWFUNC                      DYNDTWAIN_API::DTWAIN_GetContrastStringW = nullptr;
     D_GETCOUNTRYFUNC                              DYNDTWAIN_API::DTWAIN_GetCountry = nullptr;
     D_GETCURRENTACQUIREDIMAGEFUNC                 DYNDTWAIN_API::DTWAIN_GetCurrentAcquiredImage = nullptr;
+    D_GETCURRENTCUSTOMRESOURCENAMEFUNC            DYNDTWAIN_API::DTWAIN_GetCurrentCustomResourceName = nullptr;
+    D_GETCURRENTCUSTOMRESOURCENAMEAFUNC           DYNDTWAIN_API::DTWAIN_GetCurrentCustomResourceNameA = nullptr;
+    D_GETCURRENTCUSTOMRESOURCENAMEWFUNC           DYNDTWAIN_API::DTWAIN_GetCurrentCustomResourceNameW = nullptr;
     D_GETCURRENTFILENAMEFUNC                      DYNDTWAIN_API::DTWAIN_GetCurrentFileName = nullptr;
     D_GETCURRENTFILENAMEAFUNC                     DYNDTWAIN_API::DTWAIN_GetCurrentFileNameA = nullptr;
     D_GETCURRENTFILENAMEWFUNC                     DYNDTWAIN_API::DTWAIN_GetCurrentFileNameW = nullptr;
@@ -551,7 +549,6 @@
     D_GETEXTCAPFROMNAMEFUNC                       DYNDTWAIN_API::DTWAIN_GetExtCapFromName = nullptr;
     D_GETEXTCAPFROMNAMEAFUNC                      DYNDTWAIN_API::DTWAIN_GetExtCapFromNameA = nullptr;
     D_GETEXTCAPFROMNAMEWFUNC                      DYNDTWAIN_API::DTWAIN_GetExtCapFromNameW = nullptr;
-    D_GETEXTIMAGEINFOFUNC                         DYNDTWAIN_API::DTWAIN_GetExtImageInfo = nullptr;
     D_GETEXTIMAGEINFODATAFUNC                     DYNDTWAIN_API::DTWAIN_GetExtImageInfoData = nullptr;
     D_GETEXTIMAGEINFODATAEXFUNC                   DYNDTWAIN_API::DTWAIN_GetExtImageInfoDataEx = nullptr;
     D_GETEXTIMAGEINFOITEMFUNC                     DYNDTWAIN_API::DTWAIN_GetExtImageInfoItem = nullptr;
@@ -582,12 +579,15 @@
     D_GETIMAGEINFOSTRINGFUNC                      DYNDTWAIN_API::DTWAIN_GetImageInfoString = nullptr;
     D_GETIMAGEINFOSTRINGAFUNC                     DYNDTWAIN_API::DTWAIN_GetImageInfoStringA = nullptr;
     D_GETIMAGEINFOSTRINGWFUNC                     DYNDTWAIN_API::DTWAIN_GetImageInfoStringW = nullptr;
+    D_GETIMAGELAYOUTINFOFUNC                      DYNDTWAIN_API::DTWAIN_GetImageLayoutInfo = nullptr;
     D_GETJOBCONTROLFUNC                           DYNDTWAIN_API::DTWAIN_GetJobControl = nullptr;
     D_GETJOBCONTROLEXFUNC                         DYNDTWAIN_API::DTWAIN_GetJobControlEx = nullptr;
     D_GETJPEGVALUESFUNC                           DYNDTWAIN_API::DTWAIN_GetJpegValues = nullptr;
     D_GETJPEGXRVALUESFUNC                         DYNDTWAIN_API::DTWAIN_GetJpegXRValues = nullptr;
     D_GETLANGUAGEFUNC                             DYNDTWAIN_API::DTWAIN_GetLanguage = nullptr;
+    D_GETLASTCAPENUMINDICESFUNC                   DYNDTWAIN_API::DTWAIN_GetLastCapEnumIndices = nullptr;
     D_GETLASTERRORFUNC                            DYNDTWAIN_API::DTWAIN_GetLastError = nullptr;
+    D_GETLASTTWAINERRORFUNC                       DYNDTWAIN_API::DTWAIN_GetLastTwainError = nullptr;
     D_GETLIBRARYPATHFUNC                          DYNDTWAIN_API::DTWAIN_GetLibraryPath = nullptr;
     D_GETLIBRARYPATHAFUNC                         DYNDTWAIN_API::DTWAIN_GetLibraryPathA = nullptr;
     D_GETLIBRARYPATHWFUNC                         DYNDTWAIN_API::DTWAIN_GetLibraryPathW = nullptr;
@@ -658,6 +658,7 @@
     D_GETPATCHCODEPRIORITIESFUNC                  DYNDTWAIN_API::DTWAIN_GetPatchcodePriorities = nullptr;
     D_GETPATCHCODESEARCHMODEFUNC                  DYNDTWAIN_API::DTWAIN_GetPatchcodeSearchMode = nullptr;
     D_GETPATCHCODETIMEOUTFUNC                     DYNDTWAIN_API::DTWAIN_GetPatchcodeTimeOut = nullptr;
+    D_GETPENDINGXFERCOUNTFUNC                     DYNDTWAIN_API::DTWAIN_GetPendingXferCount = nullptr;
     D_GETPIXELFLAVORFUNC                          DYNDTWAIN_API::DTWAIN_GetPixelFlavor = nullptr;
     D_GETPIXELTYPEFUNC                            DYNDTWAIN_API::DTWAIN_GetPixelType = nullptr;
     D_GETPRINTERFUNC                              DYNDTWAIN_API::DTWAIN_GetPrinter = nullptr;
@@ -688,6 +689,7 @@
     D_GETSAVEFILENAMEFUNC                         DYNDTWAIN_API::DTWAIN_GetSaveFileName = nullptr;
     D_GETSAVEFILENAMEAFUNC                        DYNDTWAIN_API::DTWAIN_GetSaveFileNameA = nullptr;
     D_GETSAVEFILENAMEWFUNC                        DYNDTWAIN_API::DTWAIN_GetSaveFileNameW = nullptr;
+    D_GETSAVEFILETYPEFUNC                         DYNDTWAIN_API::DTWAIN_GetSaveFileType = nullptr;
     D_GETSESSIONDETAILSFUNC                       DYNDTWAIN_API::DTWAIN_GetSessionDetails = nullptr;
     D_GETSESSIONDETAILSAFUNC                      DYNDTWAIN_API::DTWAIN_GetSessionDetailsA = nullptr;
     D_GETSESSIONDETAILSWFUNC                      DYNDTWAIN_API::DTWAIN_GetSessionDetailsW = nullptr;
@@ -719,7 +721,6 @@
     D_GETSOURCEVERSIONINFOAFUNC                   DYNDTWAIN_API::DTWAIN_GetSourceVersionInfoA = nullptr;
     D_GETSOURCEVERSIONINFOWFUNC                   DYNDTWAIN_API::DTWAIN_GetSourceVersionInfoW = nullptr;
     D_GETSOURCEVERSIONNUMBERFUNC                  DYNDTWAIN_API::DTWAIN_GetSourceVersionNumber = nullptr;
-    D_GETSTATICLIBVERSIONFUNC                     DYNDTWAIN_API::DTWAIN_GetStaticLibVersion = nullptr;
     D_GETTEMPFILEDIRECTORYFUNC                    DYNDTWAIN_API::DTWAIN_GetTempFileDirectory = nullptr;
     D_GETTEMPFILEDIRECTORYAFUNC                   DYNDTWAIN_API::DTWAIN_GetTempFileDirectoryA = nullptr;
     D_GETTEMPFILEDIRECTORYWFUNC                   DYNDTWAIN_API::DTWAIN_GetTempFileDirectoryW = nullptr;
@@ -744,7 +745,6 @@
     D_GETTWAINNAMEFROMCONSTANTEXAFUNC             DYNDTWAIN_API::DTWAIN_GetTwainNameFromConstantExA = nullptr;
     D_GETTWAINNAMEFROMCONSTANTEXWFUNC             DYNDTWAIN_API::DTWAIN_GetTwainNameFromConstantExW = nullptr;
     D_GETTWAINNAMEFROMCONSTANTWFUNC               DYNDTWAIN_API::DTWAIN_GetTwainNameFromConstantW = nullptr;
-    D_GETTWAINTIMEOUTFUNC                         DYNDTWAIN_API::DTWAIN_GetTwainTimeout = nullptr;
     D_GETVERSIONFUNC                              DYNDTWAIN_API::DTWAIN_GetVersion = nullptr;
     D_GETVERSIONCOPYRIGHTFUNC                     DYNDTWAIN_API::DTWAIN_GetVersionCopyright = nullptr;
     D_GETVERSIONCOPYRIGHTAFUNC                    DYNDTWAIN_API::DTWAIN_GetVersionCopyrightA = nullptr;
@@ -769,9 +769,6 @@
     D_GETYRESOLUTIONSTRINGAFUNC                   DYNDTWAIN_API::DTWAIN_GetYResolutionStringA = nullptr;
     D_GETYRESOLUTIONSTRINGWFUNC                   DYNDTWAIN_API::DTWAIN_GetYResolutionStringW = nullptr;
     D_INITEXTIMAGEINFOFUNC                        DYNDTWAIN_API::DTWAIN_InitExtImageInfo = nullptr;
-    D_INITIMAGEFILEAPPENDFUNC                     DYNDTWAIN_API::DTWAIN_InitImageFileAppend = nullptr;
-    D_INITIMAGEFILEAPPENDAFUNC                    DYNDTWAIN_API::DTWAIN_InitImageFileAppendA = nullptr;
-    D_INITIMAGEFILEAPPENDWFUNC                    DYNDTWAIN_API::DTWAIN_InitImageFileAppendW = nullptr;
     D_INITOCRINTERFACEFUNC                        DYNDTWAIN_API::DTWAIN_InitOCRInterface = nullptr;
     D_ISACQUIRINGFUNC                             DYNDTWAIN_API::DTWAIN_IsAcquiring = nullptr;
     D_ISAUDIOXFERSUPPORTEDFUNC                    DYNDTWAIN_API::DTWAIN_IsAudioXferSupported = nullptr;
@@ -1164,7 +1161,6 @@
     D_SETPRINTERSUFFIXSTRINGFUNC                  DYNDTWAIN_API::DTWAIN_SetPrinterSuffixString = nullptr;
     D_SETPRINTERSUFFIXSTRINGAFUNC                 DYNDTWAIN_API::DTWAIN_SetPrinterSuffixStringA = nullptr;
     D_SETPRINTERSUFFIXSTRINGWFUNC                 DYNDTWAIN_API::DTWAIN_SetPrinterSuffixStringW = nullptr;
-    D_SETQUERYCAPSUPPORTFUNC                      DYNDTWAIN_API::DTWAIN_SetQueryCapSupport = nullptr;
     D_SETRESOLUTIONFUNC                           DYNDTWAIN_API::DTWAIN_SetResolution = nullptr;
     D_SETRESOLUTIONSTRINGFUNC                     DYNDTWAIN_API::DTWAIN_SetResolutionString = nullptr;
     D_SETRESOLUTIONSTRINGAFUNC                    DYNDTWAIN_API::DTWAIN_SetResolutionStringA = nullptr;
@@ -1179,6 +1175,7 @@
     D_SETSAVEFILENAMEFUNC                         DYNDTWAIN_API::DTWAIN_SetSaveFileName = nullptr;
     D_SETSAVEFILENAMEAFUNC                        DYNDTWAIN_API::DTWAIN_SetSaveFileNameA = nullptr;
     D_SETSAVEFILENAMEWFUNC                        DYNDTWAIN_API::DTWAIN_SetSaveFileNameW = nullptr;
+    D_SETSAVEFILETYPEFUNC                         DYNDTWAIN_API::DTWAIN_SetSaveFileType = nullptr;
     D_SETSHADOWFUNC                               DYNDTWAIN_API::DTWAIN_SetShadow = nullptr;
     D_SETSHADOWSTRINGFUNC                         DYNDTWAIN_API::DTWAIN_SetShadowString = nullptr;
     D_SETSHADOWSTRINGAFUNC                        DYNDTWAIN_API::DTWAIN_SetShadowStringA = nullptr;
@@ -1202,7 +1199,6 @@
     D_SETTWAINLOGAFUNC                            DYNDTWAIN_API::DTWAIN_SetTwainLogA = nullptr;
     D_SETTWAINLOGWFUNC                            DYNDTWAIN_API::DTWAIN_SetTwainLogW = nullptr;
     D_SETTWAINMODEFUNC                            DYNDTWAIN_API::DTWAIN_SetTwainMode = nullptr;
-    D_SETTWAINTIMEOUTFUNC                         DYNDTWAIN_API::DTWAIN_SetTwainTimeout = nullptr;
     D_SETUPDATEDIBPROCFUNC                        DYNDTWAIN_API::DTWAIN_SetUpdateDibProc = nullptr;
     D_SETXRESOLUTIONFUNC                          DYNDTWAIN_API::DTWAIN_SetXResolution = nullptr;
     D_SETXRESOLUTIONSTRINGFUNC                    DYNDTWAIN_API::DTWAIN_SetXResolutionString = nullptr;
@@ -1221,19 +1217,6 @@
     D_STARTTWAINSESSIONWFUNC                      DYNDTWAIN_API::DTWAIN_StartTwainSessionW = nullptr;
     D_SYSDESTROYFUNC                              DYNDTWAIN_API::DTWAIN_SysDestroy = nullptr;
     D_SYSINITIALIZEFUNC                           DYNDTWAIN_API::DTWAIN_SysInitialize = nullptr;
-    D_SYSINITIALIZEEXFUNC                         DYNDTWAIN_API::DTWAIN_SysInitializeEx = nullptr;
-    D_SYSINITIALIZEEX2FUNC                        DYNDTWAIN_API::DTWAIN_SysInitializeEx2 = nullptr;
-    D_SYSINITIALIZEEX2AFUNC                       DYNDTWAIN_API::DTWAIN_SysInitializeEx2A = nullptr;
-    D_SYSINITIALIZEEX2WFUNC                       DYNDTWAIN_API::DTWAIN_SysInitializeEx2W = nullptr;
-    D_SYSINITIALIZEEXAFUNC                        DYNDTWAIN_API::DTWAIN_SysInitializeExA = nullptr;
-    D_SYSINITIALIZEEXWFUNC                        DYNDTWAIN_API::DTWAIN_SysInitializeExW = nullptr;
-    D_SYSINITIALIZELIBFUNC                        DYNDTWAIN_API::DTWAIN_SysInitializeLib = nullptr;
-    D_SYSINITIALIZELIBEXFUNC                      DYNDTWAIN_API::DTWAIN_SysInitializeLibEx = nullptr;
-    D_SYSINITIALIZELIBEX2FUNC                     DYNDTWAIN_API::DTWAIN_SysInitializeLibEx2 = nullptr;
-    D_SYSINITIALIZELIBEX2AFUNC                    DYNDTWAIN_API::DTWAIN_SysInitializeLibEx2A = nullptr;
-    D_SYSINITIALIZELIBEX2WFUNC                    DYNDTWAIN_API::DTWAIN_SysInitializeLibEx2W = nullptr;
-    D_SYSINITIALIZELIBEXAFUNC                     DYNDTWAIN_API::DTWAIN_SysInitializeLibExA = nullptr;
-    D_SYSINITIALIZELIBEXWFUNC                     DYNDTWAIN_API::DTWAIN_SysInitializeLibExW = nullptr;
     D_SYSINITIALIZENOBLOCKINGFUNC                 DYNDTWAIN_API::DTWAIN_SysInitializeNoBlocking = nullptr;
     D_SYSINITIALIZENOBLOCKINGEXFUNC               DYNDTWAIN_API::DTWAIN_SysInitializeNoBlockingEx = nullptr;
     D_TESTGETCAPFUNC                              DYNDTWAIN_API::DTWAIN_TestGetCap = nullptr;
@@ -1245,51 +1228,66 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Implementation
-#ifdef __cplusplus
+static void AbortIfError(const char *fName)
+{
+    #ifndef IGNORE_FUNC_ERRORS
+        #ifndef _DEBUG
+            fprintf(stderr, "Unknown Function Name in DTWAIN DLL: %s\n", fName); 
+            exit(-1);
+        #else
+            char szTotalBuf[256];
+            sprintf_s(szTotalBuf, 256, "Unknown Function Name in DTWAIN DLL: %s\n", fName);
+            fprintf(stderr, szTotalBuf); 
+            OutputDebugStringA(szTotalBuf); 
+            assert(0);
+        #endif
+    #endif
+}
+
+static void AssertAPI(int condition, const char *msg)
+{
+#ifndef IGNORE_FUNC_ERRORS
+    if (!condition)
+    {
+        #ifdef _DEBUG
+            char szTotalBuf[256];
+            sprintf_s(szTotalBuf, 256, msg);
+            fprintf(stderr, szTotalBuf); 
+            OutputDebugStringA(szTotalBuf); 
+            assert(0);
+        #else
+            fprintf(stderr, msg); 
+            exit(-1);
+        #endif
+    }
+#endif
+}
+
 template <typename Fn>
 int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
 {
-    DTWAINAPI_ASSERT(apifn = reinterpret_cast<Fn>(::GetProcAddress(hModule, fnName)));
+    apifn = reinterpret_cast<Fn>(::GetProcAddress(hModule, fnName));
+    if (!apifn)
+    {
+        AbortIfError(fnName);
+    }
     return 1;
 }
+
 #define LOADFUNCTIONIMPL(fn, module) do { if (!LoadFunction(fn, module, #fn)) return 0;} while(false);
-#else
-#define LOADFUNCTIONIMPL(fn, module) do { \
-        DTWAINAPI_ASSERT(DTWAIN_INSTANCE fn = GetProcAddress(module, #fn)); } while(0);
-#endif
-#ifdef __cplusplus
-    #define DTWAIN_INSTANCE DYNDTWAIN_API::
-    int DYNDTWAIN_API::InitDTWAINInterface(HMODULE hModule)
-    {
-        return InitDTWAINInterface(nullptr, hModule);
-    }
 
-    int DYNDTWAIN_API::InitDTWAINInterface(DYNDTWAIN_API*, HMODULE hModule)
-    {
-#else
-    #define DTWAIN_INSTANCE pApi->
-    int InitDTWAINInterface(DYNDTWAIN_API* pApi, HMODULE hModule)
-    {
-#endif
-#ifndef __cplusplus
-        memset(pApi, 0, sizeof(DYNDTWAIN_API));
-#endif
-    /* hModule must be the return value of LoadLibraryA(LibraryVersion);
-       where LibraryVersion is one of the following, depending on the DTWAIN DLL that is being used:
+#define DTWAIN_INSTANCE DYNDTWAIN_API::
+int DYNDTWAIN_API::InitDTWAINInterface(HMODULE hModule)
+{
+    return InitDTWAINInterface(nullptr, hModule);
+}
 
-       "dtwain32"
-       "dtwain32d"
-       "dtwain32u"
-       "dtwain32ud"
-       "dtwain64"
-       "dtwain64d"
-       "dtwain64u"
-       "dtwain64ud"
-       */
+int DYNDTWAIN_API::InitDTWAINInterface(DYNDTWAIN_API*, HMODULE hModule)
+{
     if ( hModule )
     {
-          LOADFUNCTIONIMPL(DTWAIN_GetVersion, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_GetVersionEx, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetVersion, hModule)
+          LOADFUNCTIONIMPL(DTWAIN_GetVersionEx, hModule)
           if ( DTWAIN_INSTANCE DTWAIN_GetVersionEx )
           {
               LONG Major, Minor, VerType, Patch;
@@ -1297,12 +1295,12 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
               if (Major >= DTWAIN_MAJOR_VERSION)
               {
                   if (Minor >= DTWAIN_MINOR_VERSION)
-                      DTWAINAPI_ASSERT(Patch >= DTWAIN_PATCHLEVEL_VERSION)
+                      AssertAPI(Patch >= DTWAIN_PATCHLEVEL_VERSION, "Invalid DTWAIN DLL version");
                   else
-                      DTWAINAPI_ASSERT(Minor >= DTWAIN_MINOR_VERSION)
+                      AssertAPI(Minor >= DTWAIN_MINOR_VERSION, "Invalid DTWAIN DLL version");
               }
               else
-                  DTWAINAPI_ASSERT(Major >= DTWAIN_MAJOR_VERSION);
+                  AssertAPI(Major >= DTWAIN_MAJOR_VERSION, "Invalid DTWAIN DLL version");
           }
 
           LOADFUNCTIONIMPL(DTWAIN_AcquireAudioFile, hModule);
@@ -1319,16 +1317,9 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_AcquireNative, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AcquireNativeEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AcquireToClipboard, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_AddExtImageInfoQuery, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_AddFileToAppend, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_AddFileToAppendA, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_AddFileToAppendW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AddPDFText, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AddPDFTextA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AddPDFTextElement, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_AddPDFTextEx, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_AddPDFTextExA, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_AddPDFTextExW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AddPDFTextString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AddPDFTextStringA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_AddPDFTextStringW, hModule);
@@ -1432,7 +1423,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetSourceAt, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetStringLength, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayGetType, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_ArrayInit, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAt, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtANSIString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_ArrayInsertAtANSIStringN, hModule);
@@ -1706,6 +1696,9 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetActiveDSMVersionInfoA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetActiveDSMVersionInfoW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetAlarmVolume, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetAllSessionInfo, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetAllSessionInfoA, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetAllSessionInfoW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetAllSourceDibs, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetAllSourceInfo, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetAllSourceInfoA, hModule);
@@ -1772,6 +1765,9 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetContrastStringW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetCountry, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetCurrentAcquiredImage, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetCurrentCustomResourceName, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetCurrentCustomResourceNameA, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetCurrentCustomResourceNameW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetCurrentFileName, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetCurrentFileNameA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetCurrentFileNameW, hModule);
@@ -1808,7 +1804,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetExtCapFromName, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtCapFromNameA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtCapFromNameW, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfo, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfoData, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfoDataEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetExtImageInfoItem, hModule);
@@ -1839,12 +1834,15 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetImageInfoString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetImageInfoStringA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetImageInfoStringW, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetImageLayoutInfo, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetJobControl, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetJobControlEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetJpegValues, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetJpegXRValues, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetLanguage, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetLastCapEnumIndices, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetLastError, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetLastTwainError, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetLibraryPath, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetLibraryPathA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetLibraryPathW, hModule);
@@ -1915,6 +1913,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetPatchcodePriorities, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetPatchcodeSearchMode, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetPatchcodeTimeOut, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetPendingXferCount, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetPixelFlavor, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetPixelType, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetPrinter, hModule);
@@ -1945,6 +1944,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetSaveFileName, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetSaveFileNameA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetSaveFileNameW, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_GetSaveFileType, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetSessionDetails, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetSessionDetailsA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetSessionDetailsW, hModule);
@@ -1976,7 +1976,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetSourceVersionInfoA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetSourceVersionInfoW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetSourceVersionNumber, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_GetStaticLibVersion, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTempFileDirectory, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTempFileDirectoryA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTempFileDirectoryW, hModule);
@@ -2001,7 +2000,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetTwainNameFromConstantExA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainNameFromConstantExW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetTwainNameFromConstantW, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_GetTwainTimeout, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersion, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersionCopyright, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetVersionCopyrightA, hModule);
@@ -2026,9 +2024,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_GetYResolutionStringA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_GetYResolutionStringW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_InitExtImageInfo, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_InitImageFileAppend, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_InitImageFileAppendA, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_InitImageFileAppendW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_InitOCRInterface, hModule);
           LOADFUNCTIONIMPL(DTWAIN_IsAcquiring, hModule);
           LOADFUNCTIONIMPL(DTWAIN_IsAudioXferSupported, hModule);
@@ -2421,7 +2416,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_SetPrinterSuffixString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetPrinterSuffixStringA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetPrinterSuffixStringW, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SetQueryCapSupport, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetResolution, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetResolutionString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetResolutionStringA, hModule);
@@ -2436,6 +2430,7 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_SetSaveFileName, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetSaveFileNameA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetSaveFileNameW, hModule);
+          LOADFUNCTIONIMPL(DTWAIN_SetSaveFileType, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetShadow, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetShadowString, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetShadowStringA, hModule);
@@ -2459,7 +2454,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_SetTwainLogA, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetTwainLogW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetTwainMode, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SetTwainTimeout, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetUpdateDibProc, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetXResolution, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SetXResolutionString, hModule);
@@ -2478,19 +2472,6 @@ int LoadFunction(Fn& apifn, HMODULE hModule, const char *fnName)
           LOADFUNCTIONIMPL(DTWAIN_StartTwainSessionW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SysDestroy, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SysInitialize, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeEx, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeEx2, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeEx2A, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeEx2W, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeExA, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeExW, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeLib, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeLibEx, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeLibEx2, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeLibEx2A, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeLibEx2W, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeLibExA, hModule);
-          LOADFUNCTIONIMPL(DTWAIN_SysInitializeLibExW, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SysInitializeNoBlocking, hModule);
           LOADFUNCTIONIMPL(DTWAIN_SysInitializeNoBlockingEx, hModule);
           LOADFUNCTIONIMPL(DTWAIN_TestGetCap, hModule);

@@ -602,7 +602,9 @@ public class DTwainConstants
         TRANSFERTILEDONE (1301),
         QUERYACQUIREPAGES (1305),
         ACQUIREPAGESSTOPPING(1306),
-        ACQUIREPAGESSTOPPED(1307);
+        ACQUIREPAGESSTOPPED(1307),
+        QUERYUPDATEDIBORIG (1308),
+        QUERYUPDATEDIBRESAMPLED (1309);
 
         private final int enumValue;
         NotificationCode(int i)
@@ -732,6 +734,11 @@ public class DTwainConstants
         ERROR_RANGE_OUTOFBOUNDS      (-1085),
         ERROR_RANGE_STEPISZERO       (-1086),
         ERROR_BLANKNAMEDETECTED   (-1087),
+        ERROR_FEEDER_NOPAPERSENSOR   (-1088),
+        ERROR_DTWAINDLL_LOADERROR (-1089),
+        ERROR_DTWAINDLL_VERSION   (-1090),
+        ERROR_ACTIVE_TWAINSESSION (-1091),
+        ERROR_DSMVERSION_NOTSUPPORTED (-1092),
         
         TWAIN_ERROR_LOW_MEMORY (-1100),
         TWAIN_ERROR_FALSE_ALARM (-1101),
@@ -866,7 +873,11 @@ public class DTwainConstants
         ERROR_SOURCE_COULD_NOT_CLOSE  (-2501),
         ERROR_IMAGEINFO_INVALID       (-2502),
         ERROR_WRITEDATA_TOFILE        (-2503),
-        ERROR_OPERATION_NOTSUPPORTED  (-2504);
+        ERROR_OPERATION_NOTSUPPORTED  (-2504),
+        ERROR_INVALID_PDFTEXTELEMENT  (-2505),
+        ERROR_SETCAP_FAILED           (-2506),
+        ERROR_CAP_INVALIDSTATE        (-2507),
+        ERROR_GETCAP_FAILED           (-2508);
 
         private final int enumValue;
         ErrorCode(int i)
