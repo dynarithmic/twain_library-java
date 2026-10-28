@@ -479,6 +479,9 @@ JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SysInit
 
           // JVM does not like checking for GetMessage() during acquisition, so turn this off
           API_INSTANCE DTWAIN_EnableGetMessageLoopDetection(FALSE);
+
+          // Set the number of JPEG-XL threads to 0, due to Java and the VC++ runtime issues
+          API_INSTANCE DTWAIN_SetJpegXLThreadCount(0);
       }
       return retValue;
       DO_DTWAIN_CATCH(env)
@@ -6413,3 +6416,48 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSa
 	return CreateJStringFromCString(env, vChars.data());
 	DO_DTWAIN_CATCH(env)
 }
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJXLLibraryPath
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJXLLibraryPath
+(JNIEnv * env, jobject, jstring filePath)
+{
+    DO_DTWAIN_TRY
+    GetStringCharsHandler str(env, filePath);
+    int retVal = API_INSTANCE DTWAIN_SetJXLLibraryPath(reinterpret_cast<LPCTSTR>(str.GetStringChars()));
+    return retVal ? JNI_TRUE : JNI_FALSE;
+    DO_DTWAIN_CATCH(env)
+}
+
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJpegXLThreadCount
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJpegXLThreadCount
+  (JNIEnv *env , jobject, jlong threadCount)
+{
+    DO_DTWAIN_TRY
+    int retVal = API_INSTANCE DTWAIN_SetJpegXLThreadCount(threadCount);
+    return retVal ? JNI_TRUE : JNI_FALSE;
+    DO_DTWAIN_CATCH(env)
+}
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_IsFileTypeSupported
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsFileTypeSupported
+  (JNIEnv *env, jobject, jint fileType)
+{
+    DO_DTWAIN_TRY
+    int retVal = API_INSTANCE DTWAIN_IsFileTypeSupported(fileType);
+    return retVal ? JNI_TRUE : JNI_FALSE;
+    DO_DTWAIN_CATCH(env)
+}
+

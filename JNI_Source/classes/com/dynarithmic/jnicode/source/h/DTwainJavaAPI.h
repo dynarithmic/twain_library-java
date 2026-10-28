@@ -2783,6 +2783,30 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetSaveF
 JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSaveFileName
   (JNIEnv *, jobject, jlong);
 
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJXLLibraryPath
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJXLLibraryPath
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_SetJpegXLThreadCount
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJpegXLThreadCount
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_dynarithmic_twain_DTwainJavaAPI
+ * Method:    DTWAIN_IsFileTypeSupported
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1IsFileTypeSupported
+  (JNIEnv *, jobject, jint);
+
 #ifdef __cplusplus
 }
 #endif

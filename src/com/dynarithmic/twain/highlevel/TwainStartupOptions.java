@@ -30,6 +30,7 @@ public class TwainStartupOptions
     private String sDSMSearchOrder;
     private String sDSMUserDir;
     private String sTemporaryDir;
+    private String sJXLLibraryPath;
     private boolean bAutoStartSession;
     private DSMType iDSM;
     private String sResourceLanguage = "english";
@@ -42,6 +43,7 @@ public class TwainStartupOptions
         sDSMSearchOrder = DEFAULT_SEARCH;
         sDSMUserDir = "";
         sTemporaryDir = "";
+        sJXLLibraryPath = "";
         bAutoStartSession = true;
         iDSM = DTwainConstants.DSMType.LEGACY;
     }
@@ -58,11 +60,23 @@ public class TwainStartupOptions
         return this;
     }
 
+    public TwainStartupOptions setJXLLibraryPath(String dir)
+    {
+        sJXLLibraryPath = dir;
+        return this;
+    }
+    
+
     public String getTemporaryDirectory()
     {
         return sTemporaryDir;
     }
 
+    public String getJXLLibraryPath()
+    {
+        return sJXLLibraryPath;
+    }
+    
     public boolean isAutoStartSession()
     {
         return bAutoStartSession;

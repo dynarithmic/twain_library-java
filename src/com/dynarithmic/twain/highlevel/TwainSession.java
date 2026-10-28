@@ -36,8 +36,11 @@ import com.dynarithmic.twain.DTwainConstants.DSMType;
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.DTwainConstants.JNIVersion;
 import com.dynarithmic.twain.DTwainConstants.SessionStartupMode;
+import com.dynarithmic.twain.DTwainConstants;
 import com.dynarithmic.twain.DTwainGlobalOptions;
+import com.dynarithmic.twain.exceptions.DTwainInitException;
 import com.dynarithmic.twain.exceptions.DTwainJavaAPIException;
+import com.dynarithmic.twain.highlevel.acquirecharacteristics.FileTransferOptions;
 import com.dynarithmic.twain.DTwainJavaAPI;
 import com.dynarithmic.twain.DTwainVersionInfo;
 import com.dynarithmic.twain.lowlevel.TW_IDENTITY;
@@ -250,6 +253,9 @@ public class TwainSession
                     tempInfo.addExtension(s);
                 multipageFileTypeInfoMap.put(i,  tempInfo);
             }
+            
+            this.setTemporaryDirectory(this.twainCharacteristics.getTemporaryDirectory());
+            this.setJXLLibraryPath(this.twainCharacteristics.getJXLLibraryPath());
         }
     }
 
@@ -578,7 +584,29 @@ public class TwainSession
             this.twainCharacteristics.setTemporaryDirectory(sDir);
         return this;
     }
+
+    public TwainSession setJXLLibraryPath(String sDir) throws DTwainJavaAPIException
+    {
+        if ( dtwainAPI != null )
+        {
+            int val = dtwainAPI.DTWAIN_SetJXLLibraryPath(sDir);
+            if ( val != 0 )
+                this.twainCharacteristics.setJXLLibraryPath(sDir);
+        }
+        else
+            this.twainCharacteristics.setJXLLibraryPath(sDir);
+        return this;
+    }
     
+    boolean isFileTypeSupported(DTwainConstants.FileType ft) throws DTwainJavaAPIException
+    {
+        if ( dtwainAPI != null )
+        {
+            return dtwainAPI.DTWAIN_IsFileTypeSupported(ft.value());
+        }
+        throw new DTwainInitException("DTWAIN API not initialized");
+    }
+
     public String getSessionDetails(int indentValue, boolean bRefresh) throws DTwainJavaAPIException
     {
         if ( dtwainAPI != null)

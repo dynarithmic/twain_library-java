@@ -1,5 +1,20 @@
 DTWAIN-Java Version changes
 
+Version 2.1.0
+
+- Add the JPEG-XL file format to TwainSource.acquire() when acquiring to image files.
+  JPEG-XL is supported by utilizing the libjxl components (contained in jpegxl_binaries.zip).  
+
+- Add setJXLLibraryPath() to dynarithmic.twain.highlevel.TwainStartupOptions.java.  This
+  function allows setting the path to the libjxl components.
+
+- Add isFileTypeSupported() to dynarithmic.twain.highlevel.TwainSession.  
+
+- Add missing SVG and SVGZ file constants in FileTransferOptions.java.
+
+- Updated JNI DLL's to be compatible with DTWAIN 5.10.1.
+
+
 Version 2.0.0
 
 - The twaininfo.txt, dtwain32.ini, and dtwain64.ini files are no longer required.  Existing versions

@@ -200,6 +200,8 @@ public class FileTransferOptions
             alldevicesupport_set.add(DTwainConstants.FileType.POSTSCRIPT2);
             alldevicesupport_set.add(DTwainConstants.FileType.POSTSCRIPT3);
             alldevicesupport_set.add(DTwainConstants.FileType.PSD);
+            alldevicesupport_set.add(DTwainConstants.FileType.SVG);
+            alldevicesupport_set.add(DTwainConstants.FileType.SVGZ);
             alldevicesupport_set.add(DTwainConstants.FileType.TGA);
             alldevicesupport_set.add(DTwainConstants.FileType.TEXT);
             alldevicesupport_set.add(DTwainConstants.FileType.TIFFDEFLATE);
@@ -246,6 +248,7 @@ public class FileTransferOptions
             alldevicesupport_set.add(DTwainConstants.FileType.BMP_RLE);
             alldevicesupport_set.add(DTwainConstants.FileType.TGA_RLE);
             alldevicesupport_set.add(DTwainConstants.FileType.JPEGXR);
+            alldevicesupport_set.add(DTwainConstants.FileType.JPEGXL);
 
             sourcedevicesupport_set.add(DTwainConstants.FileType.BMP_SOURCE_MODE);
             sourcedevicesupport_set.add(DTwainConstants.FileType.TIFF_SOURCE_MODE);

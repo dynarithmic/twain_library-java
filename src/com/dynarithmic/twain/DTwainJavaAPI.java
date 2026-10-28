@@ -635,6 +635,9 @@ public class DTwainJavaAPI
     public native int DTWAIN_GetFileSavePageCount(long Source) throws DTwainJavaAPIException;
     public native int DTWAIN_SetSaveFileName(long Source, String fileName) throws  DTwainJavaAPIException;
     public native String DTWAIN_GetSaveFileName(long Source) throws  DTwainJavaAPIException;
+    public native int DTWAIN_SetJXLLibraryPath(String sPath) throws DTwainJavaAPIException;
+    public native boolean DTWAIN_SetJpegXLThreadCount(long numThreads) throws DTwainJavaAPIException;
+    public native boolean DTWAIN_IsFileTypeSupported(int fileType) throws DTwainJavaAPIException;
     
     static
     {

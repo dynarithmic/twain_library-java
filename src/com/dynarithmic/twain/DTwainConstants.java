@@ -398,6 +398,7 @@ public class DTwainConstants
         JPEGXR              (12000),
         SVG                 (13000),
         SVGZ                (13001),
+        JPEGXL              (14000),
                 
         BMP_SOURCE_MODE(2),
         TIFF_SOURCE_MODE(0),
