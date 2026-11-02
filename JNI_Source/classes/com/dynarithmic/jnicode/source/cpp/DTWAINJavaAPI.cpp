@@ -6427,7 +6427,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJXLLi
 {
     DO_DTWAIN_TRY
     GetStringCharsHandler str(env, filePath);
-    int retVal = API_INSTANCE DTWAIN_SetJXLLibraryPath(reinterpret_cast<LPCTSTR>(str.GetStringChars()));
+    int retVal = API_INSTANCE DTWAIN_SetComponentPath(DTWAIN_COMPONENT_JPEGXL, reinterpret_cast<LPCTSTR>(str.GetStringChars()));
     return retVal ? JNI_TRUE : JNI_FALSE;
     DO_DTWAIN_CATCH(env)
 }
