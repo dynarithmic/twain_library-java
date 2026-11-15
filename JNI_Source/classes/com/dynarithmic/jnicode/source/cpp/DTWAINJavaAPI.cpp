@@ -482,6 +482,9 @@ JNIEXPORT jlong JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SysInit
 
           // Set the number of JPEG-XL threads to 0, due to Java and the VC++ runtime issues
           API_INSTANCE DTWAIN_SetJpegXLThreadCount(0);
+
+          // Initialize the OCR interface
+          API_INSTANCE DTWAIN_InitOCRInterface();
       }
       return retValue;
       DO_DTWAIN_CATCH(env)

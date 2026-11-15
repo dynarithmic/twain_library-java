@@ -6,7 +6,13 @@ Version 2.1.0
   JPEG-XL is supported by utilizing the libjxl components (contained in jpegxl_binaries.zip).  
 
 - Add setJXLLibraryPath() to dynarithmic.twain.highlevel.TwainStartupOptions.java.  This
-  function allows setting the path to the libjxl components.
+  function allows setting the path to the libjxl components.  
+
+  Since both 32-bit and 64-bit libjxl components have the same file names, and the application can 
+  use both 32-bit and 64-bit JVM's, ensure that your application sets the correct libjxl path depending on 
+  which bit-ness version of the libjxl components will be utilized.  Refer to the SetJNIVersionDemo.java 
+  as an example of determining whether 32-bit or 64-bit JVM's  are being used.  In addition, the 
+  DTwainGlobalOptions.is64BitArchitecture() function can determine at runtime the bit-ness of the JVM being used.
 
 - Add isFileTypeSupported() to dynarithmic.twain.highlevel.TwainSession.  
 
