@@ -2,8 +2,8 @@ DTWAIN-Java Version changes
 
 Version 2.1.0
 
-- Add the JPEG-XL file format to TwainSource.acquire() when acquiring to image files.
-  JPEG-XL is supported by utilizing the libjxl components (contained in jpegxl_binaries.zip).  
+- Add the JPEG-XL file format, DTwainConstants.FileType.JPEGXL, to TwainSource.acquire() when acquiring to image files.
+  JPEG-XL is supported by utilizing the libjxl components (contained in jpegxl_binaries.zip in the DTWAIN Library distribution).  
 
 - Add setJXLLibraryPath() to dynarithmic.twain.highlevel.TwainStartupOptions.java.  This
   function allows setting the path to the libjxl components.  
