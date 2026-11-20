@@ -555,6 +555,9 @@
 #define DTWAIN_TN_QUERYUPDATEDIBRESAMPLED       1309
 #define DTWAIN_TN_PENDINGXFERSRETRIEVED         1310
 
+/* Sent when buffered transferred strip is misaligned */
+#define DTWAIN_TN_STRIPALIGNMENTFAILURE         1311
+
 /* PDF OCR clean text flags */
 #define DTWAIN_PDFOCR_CLEANTEXT1            1
 #define DTWAIN_PDFOCR_CLEANTEXT2            2
