@@ -22,6 +22,12 @@
 #include <algorithm>
 #include "twain.h"
 
+DTWAINJNIGlobals& GetJNIGlobals()
+{
+    static DTWAINJNIGlobals globals;
+    return globals;
+}
+
 DTWAINJNIGlobals::DTWAINJNIGlobals() : g_DTWAINModule(nullptr)
     {}
 

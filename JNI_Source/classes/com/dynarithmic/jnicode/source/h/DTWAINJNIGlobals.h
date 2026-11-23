@@ -73,4 +73,6 @@ struct DTWAINJNIGlobals
         std::string GetResourceFileName() const { return g_ResourceFileName; }
         void SetResourceFileName(std::string sName) { g_ResourceFileName = sName; }
 };
+
+DTWAINJNIGlobals& GetJNIGlobals();
 #endif

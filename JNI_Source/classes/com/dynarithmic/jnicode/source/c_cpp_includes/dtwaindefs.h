@@ -1086,7 +1086,8 @@
 #define DTWAIN_ERR_OCR_INVALIDBITDEPTH     (-2106)
 #define DTWAIN_ERR_OCR_RECOGNITIONERROR    (-2107)
 #define DTWAIN_ERR_OCR_SHUTDOWNFAILURE     (-2108)
-#define DTWAIN_ERR_OCR_LAST                (-2109)
+#define DTWAIN_ERR_OCR_INITFAILURE         (-2109)
+#define DTWAIN_ERR_OCR_LAST                (-2110)
 
 /* Extra TWAIN Source errors */
 #define DTWAIN_ERR_SOURCE_COULD_NOT_OPEN   (-2500)
