@@ -605,7 +605,9 @@ public class DTwainConstants
         ACQUIREPAGESSTOPPING(1306),
         ACQUIREPAGESSTOPPED(1307),
         QUERYUPDATEDIBORIG (1308),
-        QUERYUPDATEDIBRESAMPLED (1309);
+        QUERYUPDATEDIBRESAMPLED (1309),
+    	PENDINGXFERSRETRIEVED (1310),
+    	STRIPALIGNMENTFAILURE (1311);
 
         private final int enumValue;
         NotificationCode(int i)
@@ -740,6 +742,10 @@ public class DTwainConstants
         ERROR_DTWAINDLL_VERSION   (-1090),
         ERROR_ACTIVE_TWAINSESSION (-1091),
         ERROR_DSMVERSION_NOTSUPPORTED (-1092),
+        ERROR_TWENUMERATOR_NOTUSED (-1093),
+        ERROR_JPEGXL_NOTAVAILABLE (-1094),
+        ERROR_JXL_ALREADYLOADED (-1095),
+        ERROR_INVALID_PATH      (-1096),
         
         TWAIN_ERROR_LOW_MEMORY (-1100),
         TWAIN_ERROR_FALSE_ALARM (-1101),
@@ -869,7 +875,9 @@ public class DTwainConstants
         ERROR_OCR_INVALIDPIXELTYPE (-2105),
         ERROR_OCR_INVALIDBITDEPTH (-2106),
         ERROR_OCR_RECOGNITIONERROR (-2107),
-        ERROR_OCR_LAST (-2108),
+        ERROR_OCR_SHUTDOWNFAILURE (-2108),
+        ERROR_OCR_INITFAILURE (-2109),
+        ERROR_OCR_LAST (-2110),
         ERROR_SOURCE_COULD_NOT_OPEN   (-2500),
         ERROR_SOURCE_COULD_NOT_CLOSE  (-2501),
         ERROR_IMAGEINFO_INVALID       (-2502),
@@ -1475,6 +1483,27 @@ public class DTwainConstants
         }
     }
 
+    public enum ComponentPath implements OrdinalEnum
+    {
+        COMPONENT_JPEGXL (1),
+        COMPONENT_RESOURCES (2),
+        COMPONENT_TRANSYMOCR (3);
+
+        private final int enumValue;
+
+        ComponentPath(int i)
+        {
+            enumValue = i;
+        }
+
+        public int value() { return enumValue; }
+        private static final Map<Integer, ComponentPath> map = OrdinalEnum.getValues(ComponentPath.class);
+        public static ComponentPath from(int i)
+        {
+            return map.get(i);
+        }
+    }
+    
 
     public static final int DTWAIN_AREASET = CapabilityOption.SET.value();
     public static final int DTWAIN_AREARESET = CapabilityOption.RESET.value();
