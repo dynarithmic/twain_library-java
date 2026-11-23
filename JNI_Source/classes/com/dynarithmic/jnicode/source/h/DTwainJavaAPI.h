@@ -2785,11 +2785,11 @@ JNIEXPORT jstring JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1GetSa
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI
- * Method:    DTWAIN_SetJXLLibraryPath
- * Signature: (Ljava/lang/String;)I
+ * Method:    DTWAIN_SetComponentPath
+ * Signature: (ILjava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetJXLLibraryPath
-  (JNIEnv *, jobject, jstring);
+JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetComponentPath
+  (JNIEnv *, jobject, jint, jstring);
 
 /*
  * Class:     com_dynarithmic_twain_DTwainJavaAPI

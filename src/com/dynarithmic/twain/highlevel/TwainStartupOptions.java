@@ -21,6 +21,9 @@
  */
 package com.dynarithmic.twain.highlevel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.dynarithmic.twain.DTwainConstants;
 import com.dynarithmic.twain.DTwainConstants.DSMType;
 
@@ -35,6 +38,7 @@ public class TwainStartupOptions
     private DSMType iDSM;
     private String sResourceLanguage = "english";
     private TwainAppInfo appInfo = new TwainAppInfo();
+    private Map<Integer, String> componentMap = new HashMap<>();
     public static final String DEFAULT_SEARCH = "CWSOU";
 
     public TwainStartupOptions()
@@ -60,9 +64,9 @@ public class TwainStartupOptions
         return this;
     }
 
-    public TwainStartupOptions setJXLLibraryPath(String dir)
+    public TwainStartupOptions setComponentPath(int component, String dir)
     {
-        sJXLLibraryPath = dir;
+        componentMap.put(component, dir);
         return this;
     }
     
@@ -72,9 +76,11 @@ public class TwainStartupOptions
         return sTemporaryDir;
     }
 
-    public String getJXLLibraryPath()
+    public String getComponentPath(int component)
     {
-        return sJXLLibraryPath;
+        if ( componentMap.containsKey(component))
+            return componentMap.get(component);
+        return "";
     }
     
     public boolean isAutoStartSession()

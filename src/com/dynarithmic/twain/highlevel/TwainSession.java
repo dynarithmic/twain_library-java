@@ -32,6 +32,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 import java.util.UUID;
 
+import com.dynarithmic.twain.DTwainConstants.ComponentPath;
 import com.dynarithmic.twain.DTwainConstants.DSMType;
 import com.dynarithmic.twain.DTwainConstants.FileType;
 import com.dynarithmic.twain.DTwainConstants.JNIVersion;
@@ -255,7 +256,6 @@ public class TwainSession
             }
             
             this.setTemporaryDirectory(this.twainCharacteristics.getTemporaryDirectory());
-            this.setJXLLibraryPath(this.twainCharacteristics.getJXLLibraryPath());
         }
     }
 
@@ -585,20 +585,20 @@ public class TwainSession
         return this;
     }
 
-    public TwainSession setJXLLibraryPath(String sDir) throws DTwainJavaAPIException
+    public TwainSession setComponentPath(ComponentPath cPath, String sDir) throws DTwainJavaAPIException
     {
         if ( dtwainAPI != null )
         {
-            int val = dtwainAPI.DTWAIN_SetJXLLibraryPath(sDir);
+            int val = dtwainAPI.DTWAIN_SetComponentPath(cPath.value(), sDir);
             if ( val != 0 )
-                this.twainCharacteristics.setJXLLibraryPath(sDir);
+                this.twainCharacteristics.setComponentPath(cPath.value(), sDir);
         }
         else
-            this.twainCharacteristics.setJXLLibraryPath(sDir);
+            this.twainCharacteristics.setComponentPath(cPath.value(), sDir);
         return this;
     }
     
-    boolean isFileTypeSupported(DTwainConstants.FileType ft) throws DTwainJavaAPIException
+    public boolean isFileTypeSupported(DTwainConstants.FileType ft) throws DTwainJavaAPIException
     {
         if ( dtwainAPI != null )
         {
