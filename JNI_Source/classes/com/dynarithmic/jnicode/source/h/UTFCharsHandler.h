@@ -64,8 +64,16 @@ struct ANSICharTraits
         return utf8String;
     }
 
+    static jstring SafeNewStringUTF(JNIEnv* env, const char* str)
+    {
+        return env->NewStringUTF(str ? str : "");
+    }
+
     static jstring GetNewJString(JNIEnv *pEnv, const CharType* str)
     { 
+        if (!str)
+            return SafeNewStringUTF(pEnv, str);
+
         // Need to check if any characters should be UTF-8, since we need a UTF-8 encoded string.
         // ASCII characters are UTF-8.  If any of the characters fall outside the ASCII range,
         // then the character needs to be converted to UTF-8 before NewStringUTF() can be used.
@@ -96,10 +104,12 @@ struct UnicodeCharTraits
         return reinterpret_cast<const NativeType*>(ptr);
     }
 
-    static jstring GetNewJString(JNIEnv *pEnv, const CharType* str)
+    static jstring GetNewJString(JNIEnv* pEnv, const CharType* str)
     {
-        const std::basic_string<jchar> strT(str);
-        return pEnv->NewString(str, static_cast<jsize>(strT.size()));
+        static constexpr jchar emptyString[] = { 0 };
+        const jchar* strToUse = str ? str : emptyString;
+        const jsize len = str ? static_cast<jsize>(std::char_traits<CharType>::length(str)) : 0;
+        return pEnv->NewString(strToUse, len);
     }
 };
 
@@ -139,8 +149,18 @@ struct GetStringCharsHandlerImpl
             CharTraits::ReleaseJavaChars(m_pEnv, m_jString, m_ptr);
     }
 
-    const typename CharTraits::CharType *GetStringChars()
+    const typename CharTraits::CharType* GetStringChars()
     {
+        using CharType = typename CharTraits::CharType;
+
+        static constexpr CharType emptyString[] = { 0 };
+
+        if (m_jString == nullptr)
+        {
+            m_ptr = nullptr;
+            return emptyString;
+        }
+
         m_ptr = CharTraits::GetStringChars(m_pEnv, m_jString);
         return m_ptr;
     }
