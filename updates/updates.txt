@@ -21,7 +21,12 @@ Version 2.1.0
 
 - Add missing SVG and SVGZ file constants in FileTransferOptions.java.
 
-- Updated JNI DLL's to be compatible with DTWAIN 5.10.1.
+- Extra checks on the JNI layer when null String objects are passed to a Java native function.  If a null String object is
+  passed to a JNI function, the JNI function will now treat the null String as "empty" (a String with no characters), similar
+  to passing "" instead of null to the JNI function
+
+- Updated JNI DLL's to be compatible with DTWAIN 5.10.1.  See the updates.txt related to the DTWAIN library 5.10.1 for changes
+  in DTWAIN (most changes will affect the JNI layer).
 
 
 Version 2.0.0
