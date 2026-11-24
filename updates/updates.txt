@@ -5,7 +5,7 @@ Version 2.1.0
 - Add the JPEG-XL file format, DTwainConstants.FileType.JPEGXL, to TwainSource.acquire() when acquiring to image files.
   JPEG-XL is supported by utilizing the libjxl components (contained in jpegxl_binaries.zip in the DTWAIN Library distribution).  
 
-- Add setJXLLibraryPath() to dynarithmic.twain.highlevel.TwainStartupOptions.java.  This
+- Add setComponentPath() to dynarithmic.twain.highlevel.TwainSession.  This
   function allows setting the path to the libjxl components.  
 
   Since both 32-bit and 64-bit libjxl components have the same file names, and the application can 
@@ -15,6 +15,9 @@ Version 2.1.0
   DTwainGlobalOptions.is64BitArchitecture() function can determine at runtime the bit-ness of the JVM being used.
 
 - Add isFileTypeSupported() to dynarithmic.twain.highlevel.TwainSession.  
+
+- Add SimpleFileAcquireJPEGXLDemo.java to com.dtwain.demos.  This demo program shows acquiring to JPEG-XL files, as well
+  as setting the path to the libjxl components.
 
 - Add missing SVG and SVGZ file constants in FileTransferOptions.java.
 
