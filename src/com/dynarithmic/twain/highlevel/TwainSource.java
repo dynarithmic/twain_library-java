@@ -490,6 +490,11 @@ public class TwainSource
         handle.DTWAIN_EnableDuplex(sourceHandle, isDuplexOn);
         if ( bFstatus )
         {
+            TwainAcquireArea tAcquire = new TwainAcquireArea(acquireCharacteristics.getPagesSupportOptions().getFrame());
+            if (tAcquire.isFrameValid())
+            {
+                handle.DTWAIN_SetAcquireArea(sourceHandle,DTwainConstants.DTWAIN_AREASET,tAcquire);
+            }
             AcquireType transtype = acquireCharacteristics.getGeneralOptions().getAcquireType();
             if ( transtype == AcquireType.NATIVEFILE ||
                  transtype == AcquireType.BUFFEREDFILE ||
