@@ -60,7 +60,7 @@ public class SelectSourceDemo
     }
 
     // Select a TWAIN Source using a centered dialog, with names sorted and custom title
-    public void selectSourceDemo2(String title) throws Exception
+    public void selectSourceDemo2(String title, String results) throws Exception
     {
         TwainSourceDialog selectorOptions = new TwainSourceDialog();
         selectorOptions.enableEnhancedDialog(true).
@@ -68,7 +68,7 @@ public class SelectSourceDemo
                         sortNames(true).
                         setTitle(title);
         TwainSource ts = twainSession.selectSource(selectorOptions);
-        showResults(ts, " (TWAIN Customized Select Source dialog used) ");
+        showResults(ts, results); 
     }
 
     // Select the default TWAIN Source.  The default is usually the last source opened, or
@@ -84,7 +84,7 @@ public class SelectSourceDemo
     {
         boolean ok = twainSession.setLanguageResource("French");
         if ( ok )
-            selectSourceDemo2("French Dialog");
+            selectSourceDemo2("French Dialog", " (TWAIN French dialog used) ");
         twainSession.setLanguageResource("English");
     }
 
@@ -98,7 +98,7 @@ public class SelectSourceDemo
     public void run(String [] args) throws Exception
     {
         selectSourceDemo1();
-        selectSourceDemo2("Custom Title");
+        selectSourceDemo2("Custom Title", " (TWAIN Customized Select Source dialog used) ");
         selectSourceDemo3();
         selectSourceDemo4();
         if ( args.length > 0)
