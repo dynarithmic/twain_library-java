@@ -377,7 +377,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1LoadLibr
         GetModuleFileNameA(hDTwainModule, szModuleName, 32766);
         std::ostringstream strm;
         strm << "DTWAIN DLL name: " << szModuleName << "\nDTWAIN DLL Version Error.\nLoaded DTWAIN DLL version: " << vNumbers.FileVersionA << ".\nExpected DTWAIN DLL version: " << DTWAIN_VERINFO_FILEVERSION;
-        JavaExceptionThrower::ThrowJavaException(env, strm.str().c_str());
+        JavaExceptionThrower::ThrowJavaException(env, strm.str());
         return 0;
     }
     DYNDTWAIN_API::InitDTWAINInterface(hDTwainModule);
@@ -837,6 +837,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetQuery
 (JNIEnv *env, jobject, jint a1)
 {
     DO_DTWAIN_TRY
+    return JNI_TRUE;
     DO_DTWAIN_CATCH(env)
 }
 
@@ -4609,7 +4610,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1Star
   (JNIEnv *env, jobject, jlong dllHandle)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_StartThread((DTWAIN_HANDLE)dllHandle)?JNI_TRUE:JNI_FALSE;;
+    return API_INSTANCE DTWAIN_StartThread(reinterpret_cast<DTWAIN_HANDLE>(dllHandle))?JNI_TRUE:JNI_FALSE;;
     DO_DTWAIN_CATCH(env)
 }
 
@@ -4622,7 +4623,7 @@ JNIEXPORT jboolean JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1EndT
   (JNIEnv *env, jobject, jlong dllHandle)
 {
     DO_DTWAIN_TRY
-    return API_INSTANCE DTWAIN_EndThread(reinterpret_cast<DTWAIN_HANDLE>(dllHandle))?JNI_TRUE:JNI_FALSE;;
+    return API_INSTANCE DTWAIN_EndThread(reinterpret_cast<DTWAIN_HANDLE>(dllHandle))?JNI_TRUE:JNI_FALSE;
     DO_DTWAIN_CATCH(env)
 }
 
@@ -4688,7 +4689,7 @@ JNIEXPORT jint JNICALL Java_com_dynarithmic_twain_DTwainJavaAPI_DTWAIN_1SetPDFAu
 {
     DO_DTWAIN_TRY
     return API_INSTANCE DTWAIN_SetPDFAuthor(reinterpret_cast<DTWAIN_SOURCE>(src),
-        GetStringCharsHandler(env, pdfStr).GetWindowsStringChars());    
+        GetStringCharsHandler(env, pdfStr).GetWindowsStringChars());
     DO_DTWAIN_CATCH(env)
 }
 

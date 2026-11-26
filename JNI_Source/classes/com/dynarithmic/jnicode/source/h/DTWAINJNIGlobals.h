@@ -71,7 +71,7 @@ struct DTWAINJNIGlobals
                                                   const JavaFunctionInfoCategoryMap& fnList,
                                                   int whichAction = DEFINE_METHODS);
         std::string GetResourceFileName() const { return g_ResourceFileName; }
-        void SetResourceFileName(std::string sName) { g_ResourceFileName = sName; }
+        void SetResourceFileName(const std::string& sName) { g_ResourceFileName = sName; }
 };
 
 DTWAINJNIGlobals& GetJNIGlobals();

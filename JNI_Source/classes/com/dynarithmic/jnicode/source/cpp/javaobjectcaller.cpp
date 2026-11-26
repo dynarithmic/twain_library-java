@@ -22,8 +22,6 @@
 #include "DTWAINJNIGlobals.h"
 #include "DTWAINRAII.h"
 
-extern DTWAINJNIGlobals g_JNIGlobals;
-
 std::string JavaObjectCaller::getJavaClassName(JNIEnv *pEnv, jobject jobj)
 {
     std::string retStr;
