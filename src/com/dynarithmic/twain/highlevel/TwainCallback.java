@@ -95,7 +95,7 @@ public class TwainCallback
         s_mapData.put(NotificationCode.QUERYUPDATEDIBORIG, "onQueryUpdateDibOrig");
         s_mapData.put(NotificationCode.QUERYUPDATEDIBRESAMPLED, "onQueryUpdateDibResampled");
         s_mapData.put(NotificationCode.PENDINGXFERSRETRIEVED, "onPendingXferRetrieved");
-   		s_mapData.put(NotificationCode.STRIPALIGNMENTFAILURE, "onStripAlignmentFailure");
+        s_mapData.put(NotificationCode.STRIPALIGNMENTFAILURE, "onStripAlignmentFailure");
     }
 
     public TwainCallback() 
@@ -567,13 +567,13 @@ public class TwainCallback
                         break;
 
                     case PENDINGXFERSRETRIEVED:
-                    	returner = theCallback.onPendingXferRetrieved(sourceHandle);
-                    	break;
-                    	
+                        returner = theCallback.onPendingXferRetrieved(sourceHandle);
+                        break;
+                        
                     case STRIPALIGNMENTFAILURE:
-                    	returner = theCallback.onStripAlignmentFailure(sourceHandle);
-                    	break;
-                        	
+                        returner = theCallback.onStripAlignmentFailure(sourceHandle);
+                        break;
+                            
                     default:
                         break;
                 }
@@ -1077,16 +1077,16 @@ public class TwainCallback
         return defaultImpl(sourceHandle);
     }
 
-	public int onPendingXferRetrieved(TwainSource sourceHandle)
-	{
-		return defaultImpl(sourceHandle);
-	}
+    public int onPendingXferRetrieved(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
 
-	public int onStripAlignmentFailure(TwainSource sourceHandle)
-	{
-		return defaultImpl(sourceHandle);
-	}
-	
+    public int onStripAlignmentFailure(TwainSource sourceHandle)
+    {
+        return defaultImpl(sourceHandle);
+    }
+    
     public int catchUnknown(int event, TwainSource sourceHandle)
     {
         return defaultImpl(event, sourceHandle);
